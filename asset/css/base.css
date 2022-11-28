@@ -1,0 +1,121 @@
+:root {
+    --default: #FFFFFF;
+    --default-bland: #cdcdcd;
+    /* --primary-dark: rgb(192, 255, 3); */
+    --primary-dark: rgb(255 112 3);
+    /* --primary-dark-bland: rgb(173, 231, 0); */
+    --primary-dark-bland: rgb(189, 84, 4);
+    --background-dark: #111111;
+    --background-bland-dark: #222222;
+    --box-shadow-dark: #0000008e;
+}
+
+* {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    height: 5000px;
+    font-family: Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-size: 10px;
+}
+
+img {
+    display: block;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    background: transparent;
+    border: 0;
+}
+
+/****************************************/
+
+.backgound {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(../img/bg2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: rotate(360deg);
+}
+
+.contain {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hide {
+    display: none;
+}
+
+.opacity {
+    opacity: 0;
+}
+
+.btn {
+    display: block;
+    text-decoration: none;
+    outline: transparent;
+    border: none;
+    color: #FFFFFF;
+    background-color: #111111;
+    cursor: pointer;
+    font-size: 1.6rem;
+    width: 160px;
+    height: 34px;
+    padding: 4px 8px;
+    transition: ease .2s;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.btn-dark {
+    display: block;
+    text-decoration: none;
+    outline: transparent;
+    border: none;
+    color: var(--background-bland-dark);
+    background-color: var(--primary-dark);
+    cursor: pointer;
+    font-size: 1.6rem;
+    width: 160px;
+    height: 34px;
+    padding: 4px 8px;
+    transition: ease .2s;
+}
+
+.btn-dark:hover {
+    background-color: var(--primary-dark-bland);
+}
+
+.arrow-up-dark {
+    position: absolute;
+    right: 15%;
+    z-index: 1;
+    top: -18px;
+    border: 10px solid;
+    color: transparent;
+    border-color: transparent transparent var(--background-dark) transparent;
+}

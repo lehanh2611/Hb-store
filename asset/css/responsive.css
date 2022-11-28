@@ -1,0 +1,113 @@
+/***** Mobile min *****/
+@media (max-width: 375px) {}
+
+/***** Mobile *****/
+@media (max-width: 599px) {
+    .hide-m {
+        display: none;
+    }
+
+    .opacity-m {
+        opacity: 0;
+    }
+
+    /* Header */
+    .header__user-box {
+        display: none;
+    }
+
+    .header__user-avt {
+        width: 40px;
+        height: 40px;
+        font-size: 2.5rem;
+    }
+
+    .header__logo {
+        display: none;
+    }
+
+    .header__theme-icon {
+        display: none;
+    }
+}
+
+/****************************************/
+
+/***** Mobile and Tablet *****/
+@media (max-width: 959px) {
+    .hide-mt {
+        display: none;
+    }
+
+    .opacity-mt {
+        opacity: 0;
+    }
+
+}
+
+/****************************************/
+
+/***** Tablet *****/
+@media (min-width: 600px) and (max-width: 959px) {
+    .hide-t {
+        display: none;
+    }
+
+    .opacity-t {
+        opacity: 0;
+    }
+
+    /* Header */
+    .header__user-notification-icon {
+        margin-right: 5vw;
+    }
+
+}
+
+/****************************************/
+
+/***** Tablet and PC *****/
+@media (min-width: 600px) {
+    .hide-tp {
+        display: none;
+    }
+
+    .opacity-tp {
+        opacity: 0;
+    }
+
+    /* header */
+    .header__user-notification-icon {
+        margin-right: 2vw;
+    }
+
+    .header__input-contain {
+        margin-left: 1.2vw;
+        margin-right: -1.2vw;
+    }
+
+    .header__user-contain {
+        padding: 0 2px;
+    }
+
+}
+
+/****************************************/
+
+/***** PC *****/
+@media (min-width: 960px) {
+    .hide-p {
+        display: none;
+    }
+
+    .opacity-p {
+        opacity: 0;
+    }
+
+    /* header */
+    .header__logo {
+        margin-right: 0.3vw;
+    }
+}
+
+/**************************************** Other ****************************************/
