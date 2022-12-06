@@ -29,6 +29,35 @@
     .header__theme-icon {
         display: none;
     }
+
+    .menu-logReg {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-radius: unset;
+    }
+
+    @keyframes menu-logReg {
+        0% {
+            opacity: 1;
+        }
+    
+        25% {
+            top: 68px;
+        }
+    
+        100% {
+            opacity: 0;
+            top: 268px;
+        }
+    
+    }
+
+    .arrow-up-dark {
+        display: none;
+    }
 }
 
 /****************************************/
@@ -43,6 +72,9 @@
         opacity: 0;
     }
 
+    /* Header */
+
+    
 }
 
 /****************************************/

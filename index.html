@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="./asset/css/base.css">
     <link rel="stylesheet" href="./asset/css/main.css">
     <link rel="stylesheet" href="./asset/css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -20,11 +27,9 @@
             <div class="l-3 m-35 c-3 header__logo-box">
                 <i class="header__icon fa-solid fa-chart-simple-horizontal hide-tp"></i>
                 <img class="header__logo" src="./asset/img/logo.png" alt="">
-                <i class="header__icon fa-solid fa-house" style="margin: 0 10px"></i>
-                <div class="header__theme-box">
-                    <i class="header__icon header__theme-icon fa-solid fa-moon"></i>
-                    <!-- <i class="header__icon header__theme-icon fa-solid fa-sun-bright"></i> -->
-                </div>
+                <i class="header__icon fa-solid fa-house btn-gohead" style="margin: 0 10px"></i>
+                <p class="header__recharge">Nạp tiền
+                </p>
             </div>
             <div class="l-6 m-5 c-6 header__input-contain">
                 <i class="header__input-cursor"></i>
@@ -60,50 +65,174 @@
                         <p class="header__user-title hide-mt">Đăng nhập/Đăng ký</p>
                         <span style="display: flex; justify-content: flex-end;;">
                             <p class="header__user-name">Tài Khoản </p>
-                            <i class="header__user-angle-icon fa-solid fa-angle-down hide-mt"></i>
+                            <!-- <i class="header__user-angle-icon fa-solid fa-angle-up hide-mt"></i> -->
                         </span>
                     </div>
                     <i class="header__icon header__user-avt fa-solid fa-user"></i>
-                    <div class="menu-login">
+
+                    <div class="menu-logReg menu-logReg--login hide opacity">
                         <i class="arrow-up-dark"></i>
-                        <p class="menu-login__title">Đăng ký / Đăng nhập nhanh bằng</p>
-                        <div class="menu-login-social">
-                            <button class="btn menu-login__social-btn">
-                                <i class="menu-login__social-icon gg"></i>
+                        <p class="menu-logReg__title">Đăng ký / Đăng nhập nhanh bằng</p>
+                        <div class="menu-logReg-social">
+                            <button class="btn menu-logReg__social-btn">
+                                <i class="menu-logReg__social-icon gg"></i>
                                 Google
                             </button>
-                            <button class="btn menu-login__social-btn">
-                                <i class="menu-login__social-icon fb"></i>
+                            <button class="btn menu-logReg__social-btn">
+                                <i class="menu-logReg__social-icon fb"></i>
                                 Facebook
                             </button>
-                            <p class="menu-login__text">Hoặc</p>
+                            <p class="menu-logReg__text">Hoặc</p>
                         </div>
-                        <div class="menu-login__account menu-login__username">
-                            <i class="menu-login__icon fa-solid fa-user"></i>
-                            <input type="text" placeholder="Tên tài khoản*">
+                        <div class="menu-logReg__account menu-logReg__username">
+                            <i class="menu-logReg__icon fa-solid fa-user"></i>
+                            <input class="menu-logReg__input-username login"
+                             type="text" placeholder="Tên tài khoản*" >
                         </div>
-                        <div class="menu-login__account menu-login__password">
-                            <i class="menu-login__icon fa-solid fa-lock"></i>
-                            <i class="menu-login__icon fa-solid fa-eye hide-pw"></i>
-                            <input class="menu-login__input-password" type="password" placeholder="Mật khẩu*">
+                        <div class="menu-logReg__account menu-logReg__password">
+                            <i class="menu-logReg__icon fa-solid fa-lock"></i>
+                            <i class="menu-logReg__icon fa-solid fa-eye menu-logReg__hidePWBtn"></i>
+                            <input class="menu-logReg__input-password login" type="password" placeholder="Mật khẩu*">
                         </div>
-                        <!-- <div class="menu-login__account menu-login__password">
-                            <i class="fa-sharp fa-solid fa-shield-check"></i>
-                            <i class="menu-login__icon fa-solid fa-eye hide-pw"></i>
-                            <input class="menu-login__input-password" type="password" placeholder="Nhập lại mật khẩu*">
-                        </div> -->
-                        <div class="menu-login__bottom">
-                            <input id="menu-login__checkbox" type="checkbox" class="menu-login__memorize">
-                            <label for="menu-login__checkbox" class="menu-login__memorize-text">Ghi nhớ tài khoản
+                        <div class="menu-logReg__bottom">
+                            <input id="menu-logReg__checkbox" type="checkbox" class="menu-logReg__memorize">
+                            <label for="menu-logReg__checkbox" class="menu-logReg__memorize-text">Ghi nhớ tài khoản
                                 này</label>
-                            <p class="menu-login__recovery">Quên mật khẩu</p>
-                            <button class="btn-dark menu-login__login-btn">Đăng nhập</button>
-                            <div class="menu-login__box-btn-register" style="display:flex; justify-content: center">
-                                <p class="menu-login__register-text">Bạn chưa có tài khoản?</p>
-                                <button class="btn menu-login__register-btn">Đăng ký ngay</button>
+                            <p class="menu-logReg__text2">Quên mật khẩu</p>
+                            <button class="btn-dark menu-logReg__btn">Đăng nhập</button>
+                            <div class="menu-logReg__bottom-wrap-btn">
+                                <label for="menu-logReg__register-small-btn">
+                                    <p class="menu-logReg__text3">Bạn chưa có tài khoản?</p>
+                                </label>
+                                <button class="btn menu-logReg__small-btn openRegister"
+                                id="menu-logReg__register-small-btn">Đăng ký ngay</button>
+                            </div>
+                        </div>
+                        <div class="window-warning hide">
+                            <i class="window-warning__close-icon fa-regular fa-xmark"></i>
+                            <h4 class="window-warning__title">Đăng ký chưa hoàn tất!</h4>
+                            <p class="window-warning__content">Tiến trình hiện tại sẽ bị mất sau khi rời đi, bạn chắc
+                                chắn muốn hủy bỏ?</p>
+                            <div class="window-warning__btnbox">
+                                <button class="btn window-warning_btn confirm">Xác nhận</button>
+                                <button class="btn window-warning_btn cancel">Hủy bỏ</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="menu-logReg menu-logReg--register hide opacity">
+                        <i class="arrow-up-dark"></i>
+                        <p class="menu-logReg__title">Đăng ký bằng tên tài khoản</p>
+
+                        <div class="menu-logReg__account menu-logReg__username register">
+                            <i class="menu-logReg__icon fa-solid fa-user"></i>
+                            <input class="menu-logReg__input-username register" type="text" placeholder="Tên tài khoản*">
+                            <!-- <p class="register-error-message erorr-user"></p> -->
+                        </div>
+                        <div class="menu-logReg__account menu-logReg__email">
+                            <i class="menu-logReg__icon fa-solid fa-envelope"></i>
+                            <input class="menu-logReg__input-email register" type="email" placeholder="Địa chỉ email*">
+                        </div>
+                        <div class="menu-logReg__account menu-logReg__password">
+                            <i class="menu-logReg__icon fa-solid fa-lock"></i>
+                            <i class="menu-logReg__icon fa-solid fa-eye menu-logReg__hidePWBtn"></i>
+                            <input class="menu-logReg__input-password register" type="password" placeholder="Tạo mật khẩu*">
+                        </div>
+                        <div class="menu-logReg__account menu-logReg__password-confirm">
+                            <i class="fa-sharp fa-solid fa-shield-check"></i>
+                            <i class="menu-logReg__icon fa-solid fa-eye menu-logReg__hidePWBtn"></i>
+                            <input class="menu-logReg__input-password confirm" type="password" placeholder="Nhập lại mật khẩu*">
+                        </div>
+                        <div class="menu-logReg__bottom">
+                            <input id="menu-logReg__checkbox" type="checkbox" class="menu-logReg__memorize">
+                            <label for="menu-logReg__checkbox" class="menu-logReg__memorize-text">Ghi nhớ tài khoản
+                                này</label>
+                            <p class="menu-logReg__text2">Trợ giúp</p>
+                            <button class="btn-dark menu-logReg__btn register-btn">Đăng ký</button>
+                            <div class="menu-logReg__bottom-wrap-btn">
+                                <label for="menu-logReg__login-small-btn">
+                                    <p class="menu-logReg__text3">Bạn đã có tài khoản?</p>
+                                </label>
+                                <button class="btn menu-logReg__small-btn openLogin"
+                                id="menu-logReg__login-small-btn">Đăng nhập ngay</button>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="content-top grid wide">
+            <div class="l-3 m-3 content-top__top-recharge">
+                <h2 class="top-recharge__title">Top nạp thẻ
+                    <img src="./asset/icon/top-recharge.png" class="top-recharge__title-icon">
+                </h2>
+                <ul class="top-recharge__list">
+                    <li class="top-recharge__item">
+                        <img src="./asset/icon/oder-gold.png" class="top-recharge__order-icon">
+                        <p class="top-recharge__username">Admin</p>
+                        <p class="top-recharge__money">999.999.999đ</p>
+                    </li>
+                    <li class="top-recharge__item">
+                        <img src="./asset/icon/oder-silver.png" class="top-recharge__order-icon">
+                        <p class="top-recharge__username">Hạnh bá</p>
+                        <p class="top-recharge__money">99.999.999đ</p>
+                    </li>
+                    <li class="top-recharge__item">
+                        <img src="./asset/icon/oder-copper.png" class="top-recharge__order-icon">
+                        <p class="top-recharge__username">Chúa hề teyvat</p>
+                        <p class="top-recharge__money">9.999.999đ</p>
+                    </li>
+                    <li class="top-recharge__item">
+                        <i class="top-recharge__order-icon">4</i>
+                        <p class="top-recharge__username">Não cá vàng</p>
+                        <p class="top-recharge__money">9.000.000đ</p>
+                    </li>
+                    <li class="top-recharge__item">
+                        <i class="top-recharge__order-icon">5</i>
+                        <p class="top-recharge__username">Em của ngày hôm qua</p>
+                        <p class="top-recharge__money">8.000.000đ</p>
+                    </li>
+                    <li class="top-recharge__item">
+                        <i class="top-recharge__order-icon">6</i>
+                        <p class="top-recharge__username">1hit về trời</p>
+                        <p class="top-recharge__money">6.000.000đ</p>
+                    </li>
+                    <li class="top-recharge__item">
+                        <i class="top-recharge__order-icon">7</i>
+                        <p class="top-recharge__username">Playerzz</p>
+                        <p class="top-recharge__money">2.000.000đ</p>
+                    </li>
+                    <li class="top-recharge__item">
+                        <i class="top-recharge__order-icon">8</i>
+                        <p class="top-recharge__username">Hải quay xe</p>
+                        <p class="top-recharge__money">1.000.000đ</p>
+                    </li>
+                    <li class="top-recharge__item">
+                        <i class="top-recharge__order-icon">9</i>
+                        <p class="top-recharge__username">Bing chilling</p>
+                        <p class="top-recharge__money">100.000đ</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="l-9 m-9 content-top__intro hide-m">
+                <iframe src="https://www.youtube.com/embed/s80iqk6UIIA"></iframe>
+                <div class="content-top__intro-box">
+                    <span class="content-top__intro-content">
+                        <p class="content-top__intro-content-sub">Lưu ý:</p>
+                        Tất cả các tài khoản được mở bán trên shop là: những tài khoản
+                        chưa cài đặt tên tài khoản (username), chưa chọn nhân vật chính (main) và
+                        có nguồn gốc tại Việt nam.
+                    </span>
+                    <span class="content-top__intro-content">
+                        <p class="content-top__intro-content-sub">Hỗ trợ:</p>
+                        Nếu quý khách gặp sự cố, thắc mắc hoặc có ý kiến muốn đóng góp vui lòng liên hệ với chúng tôi
+                        <a class="content-top__intro-link" href="#">bấm vào đây</a>,
+                        Hb-store sẵn sàng lắng nghe và liên tục cải thiện hệ thống, để quý khách hàng có được sự trải
+                        nghiệm
+                        mua hàng an tâm và thoải mái nhất khi sử dụng dịch vụ của chúng tôi.
+                    </span>
                 </div>
             </div>
         </div>
@@ -115,6 +244,11 @@
     <div class="backgound"></div>
 </modal>
 
-<script type="module" src="./asset/javascript/main.js"></script>
+<script type="module" src="./asset/javascript/main.js">
+</script>
+
+<script>
+   
+</script>
 
 </html>

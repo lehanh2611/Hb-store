@@ -42,6 +42,19 @@ function header() {
         });
 
     };
+
+    //Go head
+    goHead();
+    function goHead() {
+        let headBtn = document.querySelector('.header__logo-box .btn-gohead');
+        headBtn.onclick = () => {
+            window.scroll({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
+    };
+
     // MenuSearch
     let menuSearch = document.querySelector('.header__menu-search'),
         keySearchs = document.querySelectorAll('.header__menu-search-key'),
@@ -99,50 +112,360 @@ function header() {
         }, 0)
     };
 
-    // Login menu
-    LoginMenu()
-    function LoginMenu() {
-        let menuLogin = document.querySelector('.menu-login'),
-            title = document.querySelector('.menu-login__title'),
-            socialLogin = document.querySelector('.menu-login-social'),
-            checkBox = document.querySelector('#menu-login__checkbox'),
-            memorizeText = document.querySelector('.menu-login__memorize-text'),
-            recovery = document.querySelector('.menu-login__recovery'),
-            loginBtn = document.querySelector('.menu-login__login-btn'),
-            register = document.querySelector('.menu-login__register-btn'),
-            registerText = document.querySelector('.menu-login__register-text'),
-            iconHidePw = document.querySelector('.menu-login__password .hide-pw'),
-            inputPw = document.querySelector('.menu-login__input-password');
+    //  Login/register menu
+    LogRegMenu()
+    function LogRegMenu() {
+        let loginMenuMainBtn = document.querySelector('.header__user-contain'),
+            openLoginBtn = document.querySelector('.menu-logReg--register .openLogin'),
+            openRegisterBtn = document.querySelector('.menu-logReg--login .openRegister'),
+            notifictionBtn = document.querySelector('.header__user-notification-icon'),
+            registerMenu = document.querySelector('.menu-logReg--register'),
+            loginMenu = document.querySelector('.menu-logReg--login'),
+            hidePassWordBtns = document.querySelectorAll('.menu-logReg__hidePWBtn'),
+            inputPassWords = document.querySelectorAll('.menu-logReg__input-password');
 
+        // Show/Hide pass word
+        for (let hidePassWordBtn of hidePassWordBtns) {
+            hidePassWordBtn.addEventListener('click', showHidePassWord);
+        }
 
-        iconHidePw.addEventListener('click', hidePassWord);
-        function hidePassWord() {
-            iconHidePw.classList.toggle('fa-eye-slash')
-            if (inputPw.type === 'password') {
-                inputPw.type = 'text'
-            }
-            else {
-                inputPw.type = 'password'
+        function showHidePassWord() {
+            let btnTop = (this.getBoundingClientRect()).top;
+            let btnBottom = (this.getBoundingClientRect()).bottom;
+            for (let inputPassWord of inputPassWords) {
+                let inputTop = (inputPassWord.getBoundingClientRect()).top
+                let inputBotom = (inputPassWord.getBoundingClientRect()).bottom;;
+                if (btnTop <= inputTop && btnBottom >= inputBotom) {
+                    this.classList.toggle('fa-eye-slash');
+                    if (inputPassWord.type === 'password') {
+                        inputPassWord.type = 'text';
+                    }
+                    else {
+                        inputPassWord.type = 'password';
+                    };
+                };
             };
-
         };
 
-        register.addEventListener('click', openRegister);
-        function openRegister() {
-            menuLogin.style.animation = 'menu-login ease 1s';
-            socialLogin.style.display = 'none';
-            checkBox.style.display = 'none';
-            memorizeText.style.display = 'none';
-            recovery.style.display = 'none';
-            title.innerText = 'Đăng ký bằng tên người dùng';
-            loginBtn.innerText = 'Đăng ký';
-            registerText.innerText ='Bạn đã có tài khoản?';
-            register.innerText = 'Đăng nhập ngay';
+        // Open/close
+        loginMenuMainBtn.addEventListener('mouseleave', () => {
+            // let registerInputs = document.querySelectorAll('.menu-logReg--register input')
+            // for (let item of registerInputs) {
+            //     if (item.value !== '' && item.value !== 'on') {
+            //     }
+            //     else {
+            //         return
+            //     }
+            // }
+            loginMenu.classList.add('hide', 'opacity');
+            registerMenu.classList.add('hide', 'opacity');
+            loginMenu.style.animation = '';
+            registerMenu.style.animation = '';
+        })
 
+        loginMenuMainBtn.addEventListener('mouseenter', openLoginNoDelay)
+        function openLoginNoDelay() {
+            removeMessageErorr()
+            loginMenu.classList.remove('hide');
             setTimeout(() => {
-                menuLogin.style.animation = '';
-            }, 2000);
+                loginMenu.classList.remove('opacity');
+            }, 30);
+        }
+
+        openLoginBtn.addEventListener('click', openLogin);
+        function openLogin() {
+            removeMessageErorr()
+            registerMenu.style.animation = 'menu-logReg ease .6s forwards';
+            loginMenu.style.animation = '';
+            setTimeout(() => {
+                loginMenu.classList.remove('opacity');
+            }, 520);
+            setTimeout(() => {
+                registerMenu.classList.add('hide', 'opacity');
+                loginMenu.classList.remove('hide');
+            }, 500);
+        };
+
+        openRegisterBtn.addEventListener('click', openRegister);
+        function openRegister() {
+            removeMessageErorr()
+            loginMenu.style.animation = 'menu-logReg ease .6s forwards';
+            registerMenu.style.animation = '';
+            setTimeout(() => {
+                registerMenu.classList.remove('opacity');
+            }, 520);
+            setTimeout(() => {
+                loginMenu.classList.add('hide', 'opacity');
+                registerMenu.classList.remove('hide');
+            }, 500);
+        };
+
+        //Check input value
+        let usernames = document.querySelectorAll('.menu-logReg__input-username'),
+            passWords = document.querySelectorAll('.menu-logReg__input-password'),
+            passWordConfirm = document.querySelectorAll('.menu-logReg__input-password.confirm'),
+            emails = document.querySelectorAll('.menu-logReg__input-email'),
+            parentElement,
+            oldParentElement,
+            box,
+            createFollowers = [
+                {
+                    type: 'Tên tài khoản',
+                    value: usernames
+                },
+                {
+                    type: 'Mật khẩu',
+                    value: passWords
+                },
+                {
+                    type: 'Mật khẩu xác nhận',
+                    value: passWordConfirm
+                },
+                {
+                    type: 'Email',
+                    value: emails
+                }
+            ];
+
+        //Check input
+        createFollowers.forEach((elements) => {
+            elements.value.forEach((element) => {
+                element.oninput = (e) => { sendMessage(e.target, elements.type) }
+            });
+        });
+        function sendMessage(element, style) {
+            let value = element.value,
+                usernameFormat = new RegExp("^[a-zA-Z0-9 ]+$"),
+                emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                messageExceedLength = 'có độ dài tối đa là 30 ký tự!',
+                messageFormatErorr = 'phải là các ký tự a-Z và 0-9!</p>',
+                messageEmailErorr = 'sai định dạng!</p>',
+                messageEmtpy = 'không được để trống!</p>',
+                messageTooShort = 'quá ngắn!</p>',
+                messagePasswordConfirmErorr = 'không khớp!</p>',
+                MessageMain = '<p class="register-error-message erorr-user">',
+                passWordRegister =
+                    document.querySelector('.menu-logReg__input-password.register');
+
+
+            //Check password confirm
+            if (style === 'Mật khẩu xác nhận' && passWordRegister.value !== '') {
+                if (value !== passWordRegister.value) {
+                    createElement().innerHTML =
+                        `${MessageMain} ${style} ${messagePasswordConfirmErorr}`
+                }
+                else {
+                    if (value === '') {
+                        createElement().innerHTML =
+                            `${MessageMain} ${style} ${messageEmtpy}`
+                    }
+                    else {
+                        createElement().remove();
+                    };
+                };
+            }
+            else {
+                // there are space
+                if (/ /.test(value)) {
+                    element.value = element.value.slice(0, (element.value.length - 1));
+                    value = element.value;
+                }
+                else {
+                    if (value.length < 5) {
+                        createElement().innerHTML =
+                            `${MessageMain} ${style} ${messageTooShort}`;
+                    }
+                    else {
+                        //exceed length
+                        if (value.length >= 30) {
+                            element.value = element.value.slice(0, 29);
+                            value = element.value;
+                            createElement().innerHTML =
+                                `${MessageMain} ${style} ${messageExceedLength}`;
+                        }
+                        else {
+                            //Erorr style
+                            if (!usernameFormat.test(value) && value !== ''
+                                && style !== 'Email') {
+                                createElement().innerHTML =
+                                    `${MessageMain} ${style} ${messageFormatErorr}`;
+                            }
+                            else {
+                                //Emtpy style
+                                if (value === '') {
+                                    createElement().innerHTML =
+                                        `${MessageMain} ${style} ${messageEmtpy}`;
+                                }
+                                else {
+                                    //Wrong email format 
+                                    if (!emailFormat.test(value) && style === 'Email') {
+                                        createElement().innerHTML =
+                                            `${MessageMain} ${style} ${messageEmailErorr}`;
+                                    }
+                                    //Right style
+                                    else {
+                                        createElement().remove();
+                                    };
+                                };
+                            };
+                        };
+                    };
+                };
+            };
+            //Create message
+            function createElement() {
+                parentElement = element.closest('.menu-logReg__account');
+                if (parentElement.querySelector('.messageErorr') === null) {
+                    return create()
+                }
+                else {
+                    if (oldParentElement !== parentElement) {
+                        parentElement.querySelector('.messageErorr').remove()
+                        return create()
+                    }
+                    else {
+                        oldParentElement = parentElement
+                        return box
+                    };
+                };
+                function create() {
+                    box = document.createElement('p');
+                    box.className = 'messageErorr';
+                    parentElement.appendChild(box);
+                    oldParentElement = parentElement;
+                    return box
+                };
+            };
+        };
+
+        //Remove message
+        function removeMessageErorr() {
+            let boxs = document.querySelectorAll('.messageErorr');
+            boxs.forEach((element) => {
+                element.remove()
+            })
+        }
+
+        //Account storage//
+        let acccounts = [
+            {
+                'Username': 'admin',
+                'Password': 'admin'
+            }
+        ];
+
+        //Register account//
+        let register = document.querySelector('.menu-logReg__btn.register-btn'),
+            login = document.querySelector('.menu-logReg__btn')
+
+        login.addEventListener('click', registerLogin)
+        register.addEventListener('click', registerLogin);
+
+        function registerLogin() {
+            let temporaryAccount = {},
+                checkAgain = new Promise((resolve, reject) => {
+                    createFollowers.forEach((elements) => {
+                        elements.value.forEach((element) => {
+                            if (element.getBoundingClientRect().top > 0) {
+                                sendMessage(element, elements.type);
+                            }
+                        });
+                    });
+                    console.log(document.querySelector('.messageErorr'))
+                    if (document.querySelector('.messageErorr') === null) {
+                        resolve()
+                    }
+                    else {
+                        reject()
+                    }
+                })
+
+            //classify
+            console.log(loginMenu.getBoundingClientRect())
+            if (loginMenu.getBoundingClientRect().top <= 0) {
+                console.log('register')
+            }
+            else {
+                console.log('login')
+            }
+
+            checkAgain
+                .then(() => {
+                    //Input of Register
+                    let inputRegister = [
+                        {
+                            type: 'Username',
+                            element: document.querySelector('.menu-logReg__input-username.register')
+                        },
+                        {
+                            type: 'Password',
+                            element: document.querySelector('.menu-logReg__input-password.register')
+                        },
+                        {
+                            type: 'Email',
+                            element: document.querySelector('.menu-logReg__input-email.register')
+                        }
+                    ];
+                    //Get value
+                    inputRegister.forEach((elements) => {
+                        temporaryAccount[elements.type] = elements.element.value
+                    });
+                    //Check existence
+                    let existenceResult = acccounts.every((acccount) => {
+                        return acccount['Username'] !== temporaryAccount.Username
+                    })
+                    if (existenceResult) {
+                        //Register successful
+                        console.log('đăng ký thành công')
+                        acccounts.push(temporaryAccount)
+                        console.log(acccounts)
+                        console.log(temporaryAccount)
+                    }
+                    else {
+                        //Register fail
+                        console.log('tài khoản đã tồn tại')
+                    }
+                })
+                .catch(() => {
+                    console.log('có lỗi xảy ra, vui lòng thử lại sau')
+                })
+        };
+    };
+}
+
+
+/***** Content *****/
+content();
+function content() {
+
+    /*** Content top ***/
+    //Animation title top recharge//
+    // animationTitile();
+    function animationTitile() {
+        let title = document.querySelector('.top-recharge__title'),
+            string = (title.innerText.replace(/ /g, '')),
+            titleDetached = "";
+        for (let item of string) {
+            let accmulate = `<p class="top-recharge__title">${item}</p>`;
+            titleDetached += accmulate;
+        };
+        title.innerHTML = titleDetached;
+        let titles = document.querySelectorAll('.top-recharge__title')
+        recursive(300, titles, titleDance)
+        function titleDance(element) {
+            element.style.color = 'blue'
+        }
+
+    };
+
+    //Animation user top recharge//
+    animationUser();
+    function animationUser() {
+        let users = document.querySelectorAll('.top-recharge__item'),
+            TimeDelay = 0;
+        for (let user of users) {
+            user.style.animationDelay = TimeDelay + 's';
+            TimeDelay += 0.15;
         };
     };
 };
-
