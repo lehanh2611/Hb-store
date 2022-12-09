@@ -1,7 +1,7 @@
 /* Header */
 #header {
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     width: 100%;
     background-color: #111111b2;
     background: var(--color-dark);
@@ -283,7 +283,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-right: 4px;
+    height: 100%;
+    padding: 8px 4px 8px
 }
 
 .header__user-cart-icon {
@@ -292,7 +293,6 @@
 
 .header__user-title {
     text-align: right;
-    margin-bottom: 8px;
     font-size: 1.2rem;
 }
 
@@ -318,29 +318,128 @@
 }
 
 .header__user-avt {
-    text-align: center;
+    display: block;
     line-height: 50px;
     width: 50px;
     height: 50px;
-    background-color: #000;
     border-radius: 50%;
 }
 
-.menu-logReg {
-    position: absolute;
-    top: 125%;
-    right: 0%;
-    width: 399px;
-    /* height:460px; */
-    padding: 20px;
-    padding-bottom: 30px;
-    border-radius: 18px;
-    color: var(--default);
+.menu-logReg-modal {
+    position: fixed;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    opacity: 1;
+    transition: ease .2s;
+}
+
+.menu-logReg__sub {
+    position: relative;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 300px 399px;
+    grid-template-rows: auto 80px;
+    height: 599px;
+    border-radius: 10px;
     background-color: var(--color-dark);
     box-shadow: 0 0 9px var(--box-shadow-dark);
+}
+
+.menu-logReg__sub-sticker {
+    position: absolute;
+    top: 0;
+    right: 26px;
+    width: 100px;
+    height: 84px;
+    transform: scalex(-1);
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-image: url(../icon/stiker.png);
+    transition: linear .2s;
+}
+
+.menu-logReg__sub-box {
+    position: relative;
+    grid-row: 1 / span 2;
+    width: 299px;
+    border-radius: 10px 0 0 10px;
+    overflow: hidden;
+}
+
+.menu-logReg__wrap {
+    position: relative;
+    z-index: 2;
+    background-color: var(--color-dark);
+}
+
+.menu-logReg__sub-title {
+    position: absolute;
+    top: 0;
+    font-size: 3.6rem;
+    padding: 20px 50px 20px 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-shadow: 4px 3px 2px rgba(53, 153, 199, 0.792);
+}
+
+.menu-logReg__sub-content {
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    font-size: 1.26rem;
+    line-height: 1.3;
+    color: var(--default);
+    /* text-shadow: 0 0 1px rgb(255, 255, 255); */
+    text-align: justify;
+}
+
+.menu-logReg__sub-img {
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background-image: url(../img/menuLogReg-sub.png);
+    background-size: 360%;
+    background-position: 54% 64%;
+    background-repeat: no-repeat;
+}
+
+.menu-logReg__sub-policy {
+    font-size: 1.36rem;
+    line-height: 1.6;
+    padding: 0 20px;
+    text-align: justify;
+}
+
+.menu-logReg__sub-policy a {
+    text-decoration: underline;
+    font-size: 1.3rem;
+}
+
+.menu-logReg {
+    z-index: 2;
+    grid-row: 1 / 2;
+    width: 399px;
+    padding: 20px;
+    padding-bottom: 10px;
+    color: var(--default);
+    border-radius: 0 10px 10px;
     /* animation: menu-logReg ease 1s forwards; */
+    opacity: 1;
     transition: ease .4s;
     cursor: initial;
+}
+
+.menu-logReg--register.animation,
+.menu-logReg--login.animation {
+    animation: menu-logReg ease .6s forwards;
 }
 
 .menu-logReg::after {
@@ -371,11 +470,13 @@
 }
 
 .menu-logReg__title {
-    font-size: 2rem;
+    font-size: 2.2rem;
     text-align: center;
     margin-top: 2px;
     margin-bottom: 30px;
     width: 100%;
+    text-transform: uppercase;
+    font-weight: 500;
 }
 
 .menu-logReg-social {
@@ -446,6 +547,7 @@
 .menu-logReg__account {
     position: relative;
     width: 100%;
+    /* margin: 6px 0; */
 }
 
 .menu-logReg__account i {
@@ -453,11 +555,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 6px;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    font-size: 1.8rem;
+    top: 4px;
+    left: -6px;
+    width: 45px;
+    height: 45px;
+    font-size: 2rem;
+}
+
+.menu-logReg__hidePWBtn {
+    opacity: 0.2;
 }
 
 .menu-logReg__account i:nth-child(2) {
@@ -468,9 +574,9 @@
 
 .menu-logReg__account input {
     width: 100%;
-    height: 40px;
-    font-size: 1.8rem;
-    margin: 6px 0;
+    height: 45px;
+    font-size: 2rem;
+    margin: 4px 0;
     padding-left: 40px;
     border-radius: 4px;
     background-color: var(--color-bland-dark);
@@ -488,7 +594,7 @@
 }
 
 .menu-logReg__bottom {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .menu-logReg__bottom p {
@@ -496,14 +602,18 @@
 }
 
 .menu-logReg__bottom-wrap-btn {
-    display:flex; 
-    justify-content: center; 
+    display: flex;
+    justify-content: center;
     margin: 0;
+    margin-top: 20px;
 }
 
 .menu-logReg__memorize {
+    position: relative;
+    zoom: 1.4;
+    cursor: pointer;
+    bottom: -2px;
     transform: translateY(1px);
-    margin-right: 5px;
     filter: invert(100%) hue-rotate(184deg) brightness(1.1);
 }
 
@@ -524,7 +634,7 @@
     font-size: 1.8rem;
     font-weight: 600;
     margin: 16px auto;
-    border-radius: 26px;
+    border-radius: 2px;
 }
 
 .menu-logReg__box-btn-register {
@@ -555,7 +665,6 @@
     background-color: transparent;
     border-radius: 10px;
     background-color: transparent;
-    box-shadow: 0 0 6px var(--box-shadow-dark);
 }
 
 .content-top__top-recharge {
