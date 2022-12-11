@@ -1,60 +1,37 @@
 //.....import.....//
-import { acccounts, recursive } from "./base.js";
-// import { acccounts } from "./base.js";
-import { homeApi } from "./base.js";
-import { GETelement } from "./base.js";
-import { POSTelement } from "./base.js";
-import { PUTelement } from "./base.js";
-import { DELETEelement } from "./base.js";
+import {
+    /***** Function *****/
+    recursive,
+    homeApi,
+    GETelement,
+    POSTelement,
+    PUTelement,
+    DELETEelement,
+
+    /***** Constant *****/
+    $,
+    $$,
+
+    /***** Variable *****/
+    bodyModalLoading,
+    notificationWindowBody,
+
+    /***** Feature *****/
+    modalLoading,
+    notificationWindow,
+
+} from "./end_point.js"
+
 //***** Global *****/
 
 //Variable//
-let userActiveID = '';
-//Listen button Notification window
-let notificationWindowBtn = document.querySelector('.notification__btn');
+let userActiveID = ''
 
-//Close button Notification Window
-let closeNotificationWindowBtn = document.querySelector('.notification__close');
 //Function//
-//Notification window
-let notificationWindow = document.querySelector('.notification');
-function openNotificationWindow(status, title, content, contentBtn) {
-    let titleElement = document.querySelector('.notification__title'),
-        contentElement = document.querySelector('.notification__content'),
-        contentBtnElement = document.querySelector('.notification__btn');
 
-    switch (status) {
-        case 'success': {
-            notificationWindow.classList.add('success');
-        }
-            break
-
-        case 'fail': {
-            notificationWindow.classList.add('fail');
-        }
-            break
-    };
-    notificationWindow.classList.add('on');
-    titleElement.innerHTML = title;
-    contentElement.innerHTML = content;
-    contentBtnElement.innerHTML = contentBtn;
-};
-//Notification window - message erorr
-function notificationWindowErorr() {
-    openNotificationWindow(
-        'fail',
-        'Có lỗi sảy ra',
-        'Vui lòng thử lại sau!',
-        'Đóng');
-}
-//Close Notification Window
-closeNotificationWindowBtn.addEventListener('click', closeNotificationWindow)
-function closeNotificationWindow() {
-    notificationWindow.classList.remove('on', 'success', 'fail');
-};
 
 //PlateBlur
-let PlateBlur = document.querySelector('.plateBlur');
+let PlateBlur = $('.plateBlur');
 function offPlateBlur() {
     PlateBlur.classList.add('opacity');
     setTimeout(() => {
@@ -67,37 +44,15 @@ function onPlateBlur() {
         PlateBlur.classList.remove('opacity');
     }, 30);
 };
-
-//Loading
-let modalLoading = document.querySelector('.loading')
-loading()
-function loading() {
-    let title = document.querySelector('.loading__title'),
-        content = title.innerHTML,
-        i = 0;
-    setInterval(() => {
-        if (i < 3) {
-            title.innerHTML += '.';
-            i++;
-        }
-        else {
-            setTimeout(() => {
-                title.innerHTML = content;
-                i = 0;
-            }, 500);
-        }
-    }, 1000);
-}
-
 /***** Header *****/
 header();
 function header() {
-    let input = document.querySelector('.header__input')
+    let input = $('.header__input')
     changeSize();
     function changeSize() {
-        let logo = document.querySelector('.header__logo'),
-            leftHeader = document.querySelector('.header__logo-box'),
-            rightHeader = document.querySelector('.header__navigation')
+        let logo = $('.header__logo'),
+            leftHeader = $('.header__logo-box'),
+            rightHeader = $('.header__navigation')
 
         setInterval(() => {
             if (window.innerWidth < 840) {
@@ -115,7 +70,7 @@ function header() {
 
     headerInput();
     function headerInput() {
-        let cursor = document.querySelector('.header__input-cursor')
+        let cursor = $('.header__input-cursor')
 
         setInterval(() => { cursor.classList.toggle('flicker') }, 600);
         input.addEventListener('input', (e) => {
@@ -135,7 +90,7 @@ function header() {
     //Go head
     goHead();
     function goHead() {
-        let headBtn = document.querySelector('.header__logo-box .btn-gohead');
+        let headBtn = $('.header__logo-box .btn-gohead');
         headBtn.onclick = () => {
             window.scroll({
                 top: 0,
@@ -145,8 +100,8 @@ function header() {
     };
 
     // MenuSearch
-    let menuSearch = document.querySelector('.header__menu-search'),
-        keySearchs = document.querySelectorAll('.header__menu-search-key'),
+    let menuSearch = $('.header__menu-search'),
+        keySearchs = $$('.header__menu-search-key'),
         keyLength = keySearchs.length - 1,
         arrayKey = [],
         marginKey = 0,
@@ -204,14 +159,13 @@ function header() {
     //  Login/register menu
     LogRegMenu()
     function LogRegMenu() {
-        let modalLogRegBtn = document.querySelector('.header__user-contain'),
-            openLoginBtn = document.querySelector('.menu-logReg--register .openLogin'),
-            openRegisterBtn = document.querySelector('.menu-logReg--login .openRegister'),
-            notifictionBtn = document.querySelector('.header__user-notification-icon'),
-            registerMenu = document.querySelector('.menu-logReg--register'),
-            loginMenu = document.querySelector('.menu-logReg--login'),
-            hidePassWordBtns = document.querySelectorAll('.menu-logReg__hidePWBtn'),
-            inputPassWords = document.querySelectorAll('.menu-logReg__input-password');
+        let modalLogRegBtn = $('.header__user-contain'),
+            openLoginBtn = $('.menu-logReg--register .openLogin'),
+            openRegisterBtn = $('.menu-logReg--login .openRegister'),
+            registerMenu = $('.menu-logReg--register'),
+            loginMenu = $('.menu-logReg--login'),
+            hidePassWordBtns = $$('.menu-logReg__hidePWBtn'),
+            inputPassWords = $$('.menu-logReg__input-password');
 
         // Show/Hide pass word
         for (let hidePassWordBtn of hidePassWordBtns) {
@@ -245,21 +199,8 @@ function header() {
         }
 
         //Stop propagation
-        let modalLogReg = document.querySelector('.menu-logReg-modal')
+        let modalLogReg = $('.menu-logReg-modal')
         modalLogReg.onclick = (e) => { e.stopPropagation() }
-
-        //Wait For execution
-        function OpenModalLoading() {
-            document.querySelector('.loading .loading__box')
-                .style.transform = 'translateY(55px)'
-            modalLoading.style.display = 'flex';
-        };
-        //Done execution
-        function CloseModalLoading() {
-            modalLoading.style.display = 'none';
-        };
-
-
 
         // Open modal login/register
         modalLogRegBtn.addEventListener('click', openmodalLogReg)
@@ -272,14 +213,14 @@ function header() {
                 modalLogReg.classList.remove('opacity');
             }, 30);
             //Add modal loading
-            let LogRegWrap = document.querySelector('.menu-logReg__wrap')
-            LogRegWrap.appendChild(modalLoading)
+            let LogRegWrap = $('.menu-logReg__wrap')
+            LogRegWrap.appendChild(bodyModalLoading)
             //Add notification window
-            LogRegWrap.appendChild(notificationWindow);
+            LogRegWrap.appendChild(notificationWindowBody);
         };
 
         //Animation sticker
-        let sticker = document.querySelector('.menu-logReg__sub-sticker')
+        let sticker = $('.menu-logReg__sub-sticker')
         let iUp = 0,
             iDown = 0,
             spaceUp = -4,
@@ -313,7 +254,7 @@ function header() {
         // Close modal login/register
         function closemodalLogReg() {
             offPlateBlur()
-            closeNotificationWindow()
+            notificationWindow()
             modalLogReg.classList.add('hide');
             setTimeout(() => {
                 modalLogReg.classList.add('opacity');
@@ -321,7 +262,7 @@ function header() {
         };
 
         // Close modal login/register
-        let close = document.querySelectorAll('.menu-logReg .close-btn');
+        let close = $$('.menu-logReg__close-btn');
         for (let btn of close) {
             btn.onclick = () => { closemodalLogReg() }
         }
@@ -349,10 +290,10 @@ function header() {
         };
 
         //Check input value
-        let usernames = document.querySelectorAll('.menu-logReg__input-username'),
-            passWords = document.querySelectorAll('.menu-logReg__input-password'),
-            passWordConfirm = document.querySelectorAll('.menu-logReg__input-password.confirm'),
-            emails = document.querySelectorAll('.menu-logReg__input-email'),
+        let usernames = $$('.menu-logReg__input-username'),
+            passWords = $$('.menu-logReg__input-password'),
+            passWordConfirm = $$('.menu-logReg__input-password.confirm'),
+            emails = $$('.menu-logReg__input-email'),
             parentElement,
             oldParentElement,
             box,
@@ -385,28 +326,29 @@ function header() {
             let value = element.value,
                 usernameFormat = new RegExp("^[a-zA-Z0-9 ]+$"),
                 emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-                messageExceedLength = 'có độ dài tối đa là 30 ký tự',
+                messageExceedLength = 'quá dài, vui lòng nhập lại',
                 messageFormatErorr = 'phải là các ký tự a-Z và 0-9</p>',
-                messageEmailErorr = 'sai định dạng</p>',
+                messageEmailErorr = 'chưa đúng</p>',
                 messageEmtpy = 'không được để trống</p>',
                 messageImportPlease = 'Vui lòng nhập',
                 messageTooShort = 'quá ngắn</p>',
                 messagePasswordConfirmErorr = 'không khớp</p>',
                 MessageMain = '<p class="register-error-message erorr-user">',
                 passWordRegister =
-                    document.querySelector('.menu-logReg__input-password.register');
+                    $('.menu-logReg__input-password.register');
 
-
+            //Create Content
+            function createContent(message) {
+                return `${MessageMain} ${style} ${message}`
+            }
             //Check password confirm
             if (style === 'Mật khẩu xác nhận' && passWordRegister.value !== '') {
                 if (value !== passWordRegister.value) {
-                    createElement().innerHTML =
-                        `${MessageMain} ${style} ${messagePasswordConfirmErorr}`
+                    createElement().innerHTML = createContent(messagePasswordConfirmErorr)
                 }
                 else {
                     if (value === '') {
-                        createElement().innerHTML =
-                            `${MessageMain} ${style} ${messageEmtpy}`
+                        createElement().innerHTML = createContent(messageEmtpy)
                     }
                     else {
                         createElement().remove();
@@ -414,6 +356,8 @@ function header() {
                 };
             }
             else {
+                //Erorr style
+
                 // there are space
                 if (/ /.test(value)) {
                     element.value = element.value.slice(0, (element.value.length - 1));
@@ -425,8 +369,7 @@ function header() {
                         //Ramdom message
                         let randomNumber = Number.parseInt(Math.random() * 10)
                         if (randomNumber <= 5) {
-                            createElement().innerHTML =
-                                `${MessageMain} ${style} ${messageEmtpy}`;
+                            createElement().innerHTML = createContent(messageEmtpy)
                         }
                         else {
                             createElement().innerHTML =
@@ -435,30 +378,24 @@ function header() {
 
                     }
                     else {
-                        if (value.length < 5) {
-                            createElement().innerHTML =
-                                `${MessageMain} ${style} ${messageTooShort}`;
+                        if (!usernameFormat.test(value) && style === 'Tên tài khoản') {
+                            createElement().innerHTML = createContent(messageFormatErorr)
                         }
                         else {
-                            //exceed length
-                            if (value.length >= 30) {
-                                element.value = element.value.slice(0, 29);
-                                value = element.value;
-                                createElement().innerHTML =
-                                    `${MessageMain} ${style} ${messageExceedLength}`;
+                            if (value.length < 5) {
+                                createElement().innerHTML = createContent(messageTooShort)
                             }
                             else {
-                                //Erorr style
-                                if (!usernameFormat.test(value) && value !== ''
-                                    && style !== 'Email' && style !== 'Mật khẩu') {
-                                    createElement().innerHTML =
-                                        `${MessageMain} ${style} ${messageFormatErorr}`;
+                                //exceed length
+                                if (value.length >= 30) {
+                                    element.value = element.value.slice(0, 29);
+                                    value = element.value;
+                                    createElement().innerHTML = createContent(messageExceedLength)
                                 }
                                 else {
                                     //Wrong email format 
                                     if (!emailFormat.test(value) && style === 'Email') {
-                                        createElement().innerHTML =
-                                            `${MessageMain} ${style} ${messageEmailErorr}`;
+                                        createElement().innerHTML = createContent(messageEmailErorr)
                                     }
                                     //Right style
                                     else {
@@ -470,12 +407,6 @@ function header() {
                     };
                 };
             };
-
-            //Text format
-
-            for (let element of document.querySelectorAll('.messageErorr')) {
-                // element.style.textTransform = ''
-            }
             //Create message
             function createElement() {
                 parentElement = element.closest('.menu-logReg__account');
@@ -504,29 +435,26 @@ function header() {
 
         //Remove message
         function removeMessageErorr() {
-            let boxs = document.querySelectorAll('.messageErorr');
+            let boxs = $$('.messageErorr');
             boxs.forEach((element) => {
                 element.remove()
             })
         };
 
 
-        //New account//
-        let newAccount = {
-            'Username': '',
-            'Password': '',
-            'Money': 0,
-            'Email': '',
-        }
+
         //Register / Login account//
-        let register = document.querySelector('.menu-logReg__btn.register-btn'),
-            login = document.querySelector('.menu-logReg__btn');
+        let register = $('.menu-logReg__btn.register-btn'),
+            login = $('.menu-logReg__btn');
         login.addEventListener('click', registerLogin)
         register.addEventListener('click', registerLogin);
 
         //Keyboard event//
         document.onkeydown = (e) => {
-            if (modalLogReg.getBoundingClientRect().width !== 0) {
+            if (modalLogReg.getBoundingClientRect().width !== 0
+                && bodyModalLoading.getBoundingClientRect().width === 0
+                && notificationWindowBody.getBoundingClientRect().width === 0
+            ) {
                 switch (e.which) {
                     case 27: closemodalLogReg();
                         break;
@@ -544,54 +472,61 @@ function header() {
             });
             return temporaryAccount
         };
-
-        //Check value input
+        // Register login
         function registerLogin() {
-            OpenModalLoading()
-            //Get list account
-            let getAccounts = new Promise((resolve) => {
-                GETelement(homeApi, (element) => {
-                    console.log(element)
-                    resolve(element)
-                })
-            })
-            getAccounts.then((acccounts) => {
-                //Check value
-                let checkAgain = new Promise((resolve, reject) => {
-                    createFollowers.forEach((elements) => {
-                        elements.value.forEach((element) => {
-                            if (element.getBoundingClientRect().top > 0) {
-                                sendMessage(element, elements.type);
-                            }
-                        });
+            //Check value
+            let checkAgain = new Promise((resolve, reject) => {
+                createFollowers.forEach((elements) => {
+                    elements.value.forEach((element) => {
+                        if (element.getBoundingClientRect().top > 0) {
+                            sendMessage(element, elements.type);
+                        }
                     });
-                    if (document.querySelector('.messageErorr') === null) {
-                        //Wait For execution
-                        resolve()
-                    }
-                    else {
-                        reject()
-                    }
                 });
-                //classify
-                if (loginMenu.getBoundingClientRect().top <= 0) {
-                    //Register
-                    checkAgain
-                        .then(() => {
+                if ($('.messageErorr') === null) {
+                    //Wait For execution
+                    modalLoading()
+                    resolve()
+                }
+                else {
+                    reject()
+                }
+            });
+            //Get list account
+            checkAgain
+                .then(() => {
+                    let getAccounts = new Promise((resolve) => {
+                        GETelement(homeApi, (element) => {
+                            resolve(element)
+                        })
+                    })
+                    getAccounts.then((acccounts) => {
+                        //classify
+                        if (loginMenu.getBoundingClientRect().top <= 0) {
+                            //Register
+                            //New account//
+                            let newAccount = {
+                                'UserID': acccounts.length,
+                                'Username': '',
+                                'Password': '',
+                                'Money': 0,
+                                'Email': '',
+                            };
+                            checkAgain
                             let register = new Promise((resolve, reject) => {
                                 //Input of Register
                                 let inputRegisters = [
                                     {
                                         type: 'Username',
-                                        element: document.querySelector('.menu-logReg__input-username.register')
+                                        element: $('.menu-logReg__input-username.register')
                                     },
                                     {
                                         type: 'Password',
-                                        element: document.querySelector('.menu-logReg__input-password.register')
+                                        element: $('.menu-logReg__input-password.register')
                                     },
                                     {
                                         type: 'Email',
-                                        element: document.querySelector('.menu-logReg__input-email.register')
+                                        element: $('.menu-logReg__input-email.register')
                                     }
                                 ];
 
@@ -605,10 +540,12 @@ function header() {
                                     let createAccount = Object.assign(newAccount, inputResult);
                                     POSTelement(homeApi, createAccount, (value) => {
                                         if (value.Username === createAccount.Username) {
-                                            resolve(createAccount.UserID)
+                                            resolve({
+                                                UserID: createAccount.UserID,
+                                                Acccounts: acccounts,
+                                            })
                                         }
                                     })
-                                    // acccounts.push(createAccount)
                                 }
                                 //Register fail
                                 else {
@@ -616,52 +553,47 @@ function header() {
                                 };
                             });
                             register
-                                .then((UserID) => {
-                                    openNotificationWindow(
-                                        'success',
+                                .then((arr) => {
+                                    notificationWindow(
+                                        true,
                                         'Đăng ký hoàn tất',
                                         'Nhấn để đăng nhập nhanh!',
-                                        'Đồng ý');
-                                    let accepted = new Promise((resolve, reject) => {
-                                        notificationWindowBtn.onclick = () => { resolve() };
-                                        closeNotificationWindowBtn.onclick = () => { reject() }
-                                    })
-                                    accepted
-                                        .then(() => {
-                                            closemodalLogReg()
-                                            userLogin(UserID)
-                                        })
-                                        .catch(() => {
-
-                                        })
+                                        (isSuccess) => {
+                                            if (isSuccess) {
+                                                GETelement(homeApi, (acccounts) => {
+                                                    closemodalLogReg()
+                                                    userLogin(arr.UserID, acccounts)
+                                                })
+                                            }
+                                            else {
+                                                notificationWindow()
+                                            }
+                                        });
                                 })
                                 .catch(() => {
-                                    openNotificationWindow(
-                                        'fail',
+                                    notificationWindow(
+                                        false,
                                         'Đăng ký thất bại',
                                         'Tài khoản đã tồn tại!',
-                                        'Thử lại')
+                                        () => {
+                                            notificationWindow()
+                                        })
                                 })
                                 .finally(() => {
-                                    CloseModalLoading()
+                                    modalLoading(false)
                                 })
-                        })
-                        .catch(() => {
-                            // notificationWindowErorr()
-                        })
-                }
-                else {
-                    //Login
-                    checkAgain
-                        .then(() => {
+                        }
+                        else {
+                            //Login
+                            checkAgain
                             let inputLogins = [
                                 {
                                     type: 'Username',
-                                    element: document.querySelector('.menu-logReg__input-username.login')
+                                    element: $('.menu-logReg__input-username.login')
                                 },
                                 {
                                     type: 'Password',
-                                    element: document.querySelector('.menu-logReg__input-password.login')
+                                    element: $('.menu-logReg__input-password.login')
                                 },
                             ],
                                 inputResult = getValueInput(inputLogins),
@@ -690,43 +622,44 @@ function header() {
                                 });
                             checkAccount
                                 .then((value) => {
-                                    // openNotificationWindow(
-                                    //     'success',
+                                    // notificationWindow(
+                                    //     true,
                                     //     'Đăng nhập thành công',
-                                    //     'Đang di chuyển đến trang chủ',
-                                    //     'Đồng ý');
+                                    //     'Đang di chuyển đến trang chủ');
                                     userLogin(value.UserID, value.Acccounts)
                                     closemodalLogReg()
 
                                 })
-                                .catch((acccounts) => {
-                                    console.log('catch')
-                                    openNotificationWindow(
-                                        'fail',
+                                .catch(() => {
+                                    notificationWindow(
+                                        false,
                                         'Đăng nhập thất bại',
                                         'Tài khoản hoặc mật khẩu không chính xác',
-                                        'Thử lại')
+                                        () => {
+                                            notificationWindow()
+                                        })
                                 })
                                 .finally(() => {
-                                    CloseModalLoading()
+                                    modalLoading(false)
                                 })
-                        })
-                        .catch(() => {
-                            // notificationWindowErorr()
-                        })
-                };
-            })
+                        };
+                    })
+
+                })
+                .catch(() => {
+                })
         };
         //Login user//
-        let NotificationWelcome = document.querySelector('.notification-welcome'),
-            userBox = document.querySelector('.header__user-box')
+        let NotificationWelcome = $('.notification-welcome'),
+            userBox = $('.header__user-box')
         function userLogin(UserID, acccounts) {
-            let usernameBox = document.querySelector('.header__user-name'),
-                userAvt = document.querySelector('.header__user-avt'),
-                welcomeName = document.querySelector('.notification-welcome__user-name'),
-                welcomeAvt = document.querySelector('.notification-welcome__user-avt'),
-                moneyBox = document.querySelector('.header__user-title');
+            let usernameBox = $('.header__user-name'),
+                userAvt = $('.header__user-avt'),
+                welcomeName = $('.notification-welcome__user-name'),
+                welcomeAvt = $('.notification-welcome__user-avt'),
+                moneyBox = $('.header__user-title');
             userActiveID = UserID;
+            UserID = Number(UserID);
             Object.assign(userBox.style, {
                 'flex-direction': ' column-reverse',
             });
@@ -767,7 +700,7 @@ function content() {
     //Animation title top recharge//
     // animationTitile();
     function animationTitile() {
-        let title = document.querySelector('.top-recharge__title'),
+        let title = $('.top-recharge__title'),
             string = (title.innerText.replace(/ /g, '')),
             titleDetached = "";
         for (let item of string) {
@@ -775,7 +708,7 @@ function content() {
             titleDetached += accmulate;
         };
         title.innerHTML = titleDetached;
-        let titles = document.querySelectorAll('.top-recharge__title')
+        let titles = $$('.top-recharge__title')
         recursive(300, titles, titleDance)
         function titleDance(element) {
             element.style.color = 'blue'
@@ -786,7 +719,7 @@ function content() {
     //Animation user top recharge//
     animationUser();
     function animationUser() {
-        let users = document.querySelectorAll('.top-recharge__item'),
+        let users = $$('.top-recharge__item'),
             TimeDelay = 0;
         for (let user of users) {
             user.style.animationDelay = TimeDelay + 's';
