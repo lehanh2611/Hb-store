@@ -15,20 +15,24 @@ import {
     /***** Variable *****/
     bodyModalLoading,
     notificationWindowBody,
+    userActiveID,
 
     /***** Feature *****/
     modalLoading,
     notificationWindow,
+    userLogin,
+    loginSuccess,
+    remember,
+
 
 } from "./end_point.js"
-
 //***** Global *****/
-
-//Variable//
-let userActiveID = ''
-
-//Function//
-
+const app = {
+    start: function() {
+        remember.start()
+    }
+}
+app.start()
 
 //PlateBlur
 let PlateBlur = $('.plateBlur');
@@ -484,7 +488,6 @@ function header() {
                     });
                 });
                 if ($('.messageErorr') === null) {
-                    //Wait For execution
                     modalLoading()
                     resolve()
                 }
@@ -492,9 +495,16 @@ function header() {
                     reject()
                 }
             });
-            //Get list account
             checkAgain
                 .then(() => {
+                    // check value remember checkbox
+                    let checked
+                    $$('.menu-logReg__memorize').forEach((element) => {
+                        if (element.checked === true) {
+                            checked = true
+                        }
+                    })
+                    //Get list account
                     let getAccounts = new Promise((resolve) => {
                         GETelement(homeApi, (element) => {
                             resolve(element)
@@ -540,6 +550,9 @@ function header() {
                                     let createAccount = Object.assign(newAccount, inputResult);
                                     POSTelement(homeApi, createAccount, (value) => {
                                         if (value.Username === createAccount.Username) {
+                                            // remember temporary account
+                                            sessionStorage.setItem('remember', value.UserID)
+                                            if (checked) { remember.addCode(createAccount.UserID) }
                                             resolve({
                                                 UserID: createAccount.UserID,
                                                 Acccounts: acccounts,
@@ -553,16 +566,16 @@ function header() {
                                 };
                             });
                             register
-                                .then((arr) => {
+                                .then(() => {
                                     notificationWindow(
                                         true,
                                         'Đăng ký hoàn tất',
                                         'Nhấn để đăng nhập nhanh!',
                                         (isSuccess) => {
                                             if (isSuccess) {
-                                                GETelement(homeApi, (acccounts) => {
+                                                GETelement(homeApi, () => {
                                                     closemodalLogReg()
-                                                    userLogin(arr.UserID, acccounts)
+                                                    loginSuccess(value.UserID, value.Acccounts)
                                                 })
                                             }
                                             else {
@@ -622,13 +635,12 @@ function header() {
                                 });
                             checkAccount
                                 .then((value) => {
-                                    // notificationWindow(
-                                    //     true,
-                                    //     'Đăng nhập thành công',
-                                    //     'Đang di chuyển đến trang chủ');
-                                    userLogin(value.UserID, value.Acccounts)
-                                    closemodalLogReg()
+                                    // remember temporary account
+                                    sessionStorage.setItem('remember', value.UserID)
 
+                                    if (checked) { remember.addCode(value.UserID) }
+                                    loginSuccess(value.UserID, value.Acccounts)
+                                    closemodalLogReg()
                                 })
                                 .catch(() => {
                                     notificationWindow(
@@ -648,46 +660,6 @@ function header() {
                 })
                 .catch(() => {
                 })
-        };
-        //Login user//
-        let NotificationWelcome = $('.notification-welcome'),
-            userBox = $('.header__user-box')
-        function userLogin(UserID, acccounts) {
-            let usernameBox = $('.header__user-name'),
-                userAvt = $('.header__user-avt'),
-                welcomeName = $('.notification-welcome__user-name'),
-                welcomeAvt = $('.notification-welcome__user-avt'),
-                moneyBox = $('.header__user-title');
-            userActiveID = UserID;
-            UserID = Number(UserID);
-            Object.assign(userBox.style, {
-                'flex-direction': ' column-reverse',
-            });
-            if (acccounts[UserID].Nickname !== undefined) {
-                let nickName = acccounts[UserID].Nickname;
-                usernameBox.innerHTML = nickName;
-                welcomeName.innerHTML = nickName;
-            }
-            else {
-                let username = acccounts[UserID].Username
-                usernameBox.innerHTML = username;
-                welcomeName.innerHTML = username;
-            };
-            if (acccounts[UserID].Avatar !== undefined) {
-                let avatar = acccounts[UserID].Avatar;
-                userAvt.src = avatar;
-                welcomeAvt.src = avatar;
-            }
-            else {
-                let defaultAvt = './asset/img/user-avt/user-default.png';
-                userAvt.src = defaultAvt;
-                welcomeAvt.src = defaultAvt;
-            };
-            let moneyFormat = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
-                .format(acccounts[UserID].Money);
-            moneyBox.innerHTML = `Số dư : ${moneyFormat}`;
-            NotificationWelcome.classList.remove('on')
-            setTimeout(() => { NotificationWelcome.classList.add('on') }, 30)
         };
     };
 };

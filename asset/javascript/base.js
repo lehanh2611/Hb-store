@@ -16,7 +16,6 @@ export function recursive(timeOut, list, e, value1, value2, value3, value4,) {
         i++
     };
 };
-
 //Account storage//
 export let acccounts = [
     [{
@@ -34,6 +33,9 @@ export let acccounts = [
         "Password": "admin",
         "Money": 888888888,
         "Email": "hbstore@gmail.com",
+        "device": {
+
+        }
     }],
 ];
 
