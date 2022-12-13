@@ -678,7 +678,7 @@ function header() {
 };
 
 /***** Content *****/
-content();
+content()
 function content() {
 
     /*** Content top ***/
