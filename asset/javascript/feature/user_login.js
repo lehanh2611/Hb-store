@@ -1,12 +1,21 @@
 /***** Import *****/
-import { $, $$ } from "../end_point.js"
-export let userActiveID
+import {
+    $,
+    $$,
+    modalLogReg,
+    homeApi,
+    plateBlurBody,
+    PUTelement
+}
+    from "../end_point.js"
+export let userActiveID = null,
+    userAvt = $('.header__user-avt')
 //Login user//
+let contentDefault = $('.header__user-box').outerHTML
 export function userLogin(UserID, acccounts) {
     let NotificationWelcome = $('.notification-welcome'),
         userBox = $('.header__user-box'),
         usernameBox = $('.header__user-name'),
-        userAvt = $('.header__user-avt'),
         welcomeName = $('.notification-welcome__user-name'),
         welcomeAvt = $('.notification-welcome__user-avt'),
         moneyBox = $('.header__user-title');
@@ -45,5 +54,28 @@ export function userLogin(UserID, acccounts) {
 
 //Login succsessful
 export function loginSuccess(UserID, acccounts) {
+    // menuUser.classList.add('active')
+    // modalLogReg.classList.add('hide', 'opacity')
     userLogin(UserID, acccounts)
 }
+
+//Logout 
+export const logout = {
+    start: function () {
+        const logoutBtn = $('.header__user-menu .logout')
+        logoutBtn.onclick = (e) => {
+            //Reset value
+            e.stopPropagation()
+            $('.header__user-box').outerHTML = contentDefault
+            userAvt.src = "./asset/img/user-avt/default.png"
+            sessionStorage.clear()
+            plateBlurBody.click()
+            
+            //Delete remember
+            PUTelement(`${homeApi}/${userActiveID}`, {Devices: []})
+            userActiveID = null
+        }
+    }
+}
+
+logout.start()

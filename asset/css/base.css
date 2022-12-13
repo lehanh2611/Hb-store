@@ -70,7 +70,7 @@ button {
     right: 0;
     bottom: 0;
     background-color: var(--background-modal);
-    transition: opacity ease 1s;
+    transition: opacity ease .8s;
     backdrop-filter: blur(2px);
     opacity: 0;
     opacity: 1;

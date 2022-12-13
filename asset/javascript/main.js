@@ -11,6 +11,9 @@ import {
     /***** Constant *****/
     $,
     $$,
+    modalLogReg,
+    menuUser,
+    plateBlurBody,
 
     /***** Variable *****/
     bodyModalLoading,
@@ -19,8 +22,10 @@ import {
 
     /***** Feature *****/
     modalLoading,
+    plateBlur,
     notificationWindow,
     userLogin,
+    logout,
     loginSuccess,
     remember,
 
@@ -28,26 +33,14 @@ import {
 } from "./end_point.js"
 //***** Global *****/
 const app = {
-    start: function() {
+    start: function () {
         remember.start()
     }
 }
 app.start()
 
-//PlateBlur
-let PlateBlur = $('.plateBlur');
-function offPlateBlur() {
-    PlateBlur.classList.add('opacity');
-    setTimeout(() => {
-        PlateBlur.classList.add('hide');
-    }, 500);
-};
-function onPlateBlur() {
-    PlateBlur.classList.remove('hide');
-    setTimeout(() => {
-        PlateBlur.classList.remove('opacity');
-    }, 30);
-};
+
+
 /***** Header *****/
 header();
 function header() {
@@ -202,15 +195,35 @@ function header() {
             registerMenu.classList.add('hide', 'opacity');
         }
 
-        //Stop propagation
-        let modalLogReg = $('.menu-logReg-modal')
+        //Stop propagation 
         modalLogReg.onclick = (e) => { e.stopPropagation() }
 
-        // Open modal login/register
-        modalLogRegBtn.addEventListener('click', openmodalLogReg)
+        // Open modal login/register and on/off menu user
+        modalLogRegBtn.onclick = () => {
+            if (userActiveID === null) {
+                openmodalLogReg()
+            }
+            else {
+                menuUser.classList.toggle('hide')
+                setTimeout(() => {
+                    menuUser.classList.toggle('opacity')
+                    if (menuUser.classList.value.indexOf('hide') !== -1) {
+                        plateBlur(false)
+                    }
+                    else {
+                        plateBlur()
+                    }
+                }, 0);
+                plateBlurBody.onclick = () => {
+                    plateBlur(false)
+                    menuUser.classList.add('opacity', 'hide')
+                }
+            }
+
+        }
         function openmodalLogReg() {
             setTimeout(() => {
-                onPlateBlur()
+                plateBlur()
             }, 300);
             modalLogReg.classList.remove('hide');
             setTimeout(() => {
@@ -257,7 +270,7 @@ function header() {
 
         // Close modal login/register
         function closemodalLogReg() {
-            offPlateBlur()
+            plateBlur(false)
             notificationWindow()
             modalLogReg.classList.add('hide');
             setTimeout(() => {
@@ -553,10 +566,7 @@ function header() {
                                             // remember temporary account
                                             sessionStorage.setItem('remember', value.UserID)
                                             if (checked) { remember.addCode(createAccount.UserID) }
-                                            resolve({
-                                                UserID: createAccount.UserID,
-                                                Acccounts: acccounts,
-                                            })
+                                            resolve(createAccount.UserID)
                                         }
                                     })
                                 }
@@ -566,21 +576,24 @@ function header() {
                                 };
                             });
                             register
-                                .then(() => {
+                                .then((userId) => {
                                     notificationWindow(
                                         true,
                                         'Đăng ký hoàn tất',
                                         'Nhấn để đăng nhập nhanh!',
                                         (isSuccess) => {
                                             if (isSuccess) {
-                                                GETelement(homeApi, () => {
+                                                GETelement(homeApi, (accounts) => {
                                                     closemodalLogReg()
-                                                    loginSuccess(value.UserID, value.Acccounts)
+                                                    loginSuccess(userId, accounts)
                                                 })
                                             }
                                             else {
                                                 notificationWindow()
                                             }
+                                            //Reset input value
+                                            // $$('.menu-logReg-modal input').forEach(
+                                            //     (element) => element.value = '')
                                         });
                                 })
                                 .catch(() => {
