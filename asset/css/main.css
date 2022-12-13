@@ -34,18 +34,6 @@
     height: 100%;
 }
 
-.header__recharge::after {
-    position: absolute;
-    content: '';
-    height: 3px;
-    border-radius: 1px;
-    bottom: 4px;
-    right: 0;
-    width: 0;
-    background-color: var(--primary-dark);
-    transition: width ease-out .2s;
-}
-
 .header__recharge:hover {
     scale: 1.1;
     width: 100%;
