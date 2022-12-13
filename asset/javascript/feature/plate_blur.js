@@ -15,5 +15,5 @@ export function plateBlur(value = true,) {
         setTimeout(() => {
             plateBlurBody.classList.remove('opacity');
         }, 30);
-    }
+    };
 };
