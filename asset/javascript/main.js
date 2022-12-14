@@ -14,11 +14,13 @@ import {
     modalLogReg,
     menuUser,
     plateBlurBody,
+    rechargeList,
 
     /***** Variable *****/
     bodyModalLoading,
     notificationWindowBody,
     userActiveID,
+    defaultAvt,
 
     /***** Feature *****/
     modalLoading,
@@ -523,13 +525,13 @@ function header() {
                             resolve(element)
                         })
                     })
-                    getAccounts.then((acccounts) => {
+                    getAccounts.then((accounts) => {
                         //classify
                         if (loginMenu.getBoundingClientRect().top <= 0) {
                             //Register
                             //New account//
                             let newAccount = {
-                                'UserID': acccounts.length,
+                                'UserID': accounts.length,
                                 'Username': '',
                                 'Password': '',
                                 'Money': 0,
@@ -555,8 +557,8 @@ function header() {
 
                                 //Check existence
                                 let inputResult = getValueInput(inputRegisters),
-                                    existenceResult = acccounts.every((acccount) => {
-                                        return acccount['Username'] !== inputResult.Username
+                                    existenceResult = accounts.every((account) => {
+                                        return account['Username'] !== inputResult.Username
                                     })
                                 //Register successful
                                 if (existenceResult) {
@@ -625,9 +627,9 @@ function header() {
                                 inputResult = getValueInput(inputLogins),
                                 checkAccount = new Promise((resolve, reject) => {
                                     let getUser,
-                                        username = acccounts.find((acccount) => {
-                                            if (acccount.Username === inputResult.Username) {
-                                                getUser = acccount.UserID;
+                                        username = accounts.find((account) => {
+                                            if (account.Username === inputResult.Username) {
+                                                getUser = account.UserID;
                                                 return true
                                             }
                                         });
@@ -635,7 +637,7 @@ function header() {
                                         if (username.Password === inputResult.Password) {
                                             resolve({
                                                 UserID: getUser,
-                                                Acccounts: acccounts
+                                                Accounts: accounts
                                             });
                                         }
                                         else {
@@ -652,7 +654,7 @@ function header() {
                                     sessionStorage.setItem('remember', value.UserID)
 
                                     if (checked) { remember.addCode(value.UserID) }
-                                    loginSuccess(value.UserID, value.Acccounts)
+                                    loginSuccess(value.UserID, value.Accounts)
                                     closemodalLogReg()
                                 })
                                 .catch(() => {
@@ -701,14 +703,117 @@ function content() {
 
     };
 
+    //Render top recharge
+    const renderTopRecharge = {
+        balance: function () {
+            let getBalance = new Promise((resolve) => {
+                GETelement(homeApi, (value) => {
+                    let money = value.map(element => element.Money)
+                    resolve([money, value])
+                })
+            })
+            getBalance
+                .then((value) => {
+                    this.rankings(value[0], value[1])
+                })
+
+        },
+        rankings: function (money, accounts) {
+            let balanceList = (money.sort((a, b) => b - a)).slice(0, 9),
+                name,
+                avt,
+                i = 0,
+                oldMoney,
+                output = balanceList.reduce((accmulate, money) => {
+                    if (oldMoney !== money) {
+                        accounts.forEach((account) => {
+                            if (account.Money === money && i < 9) {
+                                let moneyFormat = new Intl.NumberFormat('vi-VN', 
+                                { style: 'currency', currency: 'VND' })
+                                .format(account.Money)
+
+                                i++
+                                if (account?.Nickname !== undefined) {
+                                    name = account.Nickname
+                                }
+                                else {
+                                    name = account.Username
+                                }
+                                if (account?.Avatar !== undefined) {
+                                    avt = account.Avatar
+
+                                }
+                                else {
+                                    avt = defaultAvt
+                                }
+                                accmulate += `<li class="top-recharge__item">
+                                <img src="${avt}" class="top-recharge__order-icon">
+                                <p class="top-recharge__username">${name}</p>
+                                <p class="top-recharge__money">${moneyFormat}</p>
+                            </li>`
+                            }
+                        })
+                        return accmulate
+                    }
+                    oldMoney = money
+                }, '')
+            this.render(output)
+        },
+        render: function (value) {
+            rechargeList.innerHTML = value
+            rechargeList.classList.add('active')
+            animationUser.start()
+        },
+        start: function () {
+            this.balance()
+        }
+    }
+    renderTopRecharge.start()
+
     //Animation user top recharge//
-    animationUser();
-    function animationUser() {
-        let users = $$('.top-recharge__item'),
-            TimeDelay = 0;
-        for (let user of users) {
-            user.style.animationDelay = TimeDelay + 's';
-            TimeDelay += 0.15;
-        };
-    };
-};
+
+    const animationUser = {
+        userMoneys: $$('.top-recharge__money'),
+        TimeDelay: 0,
+
+        //Animation on min width 960px
+        animationPc: function () {
+            for (let userBox of $$('.top-recharge__item')) {
+                userBox.style.animationDelay = this.TimeDelay + 's';
+                this.TimeDelay += 0.15;
+            };
+        },
+
+        //Animation on max width 959px
+        animationMobile: function () {
+            const userBoxs = $$('.top-recharge__item')
+            recursive(100, userBoxs, (element, index) => {
+                element.classList.add('animate')
+                if (index === 8) {
+                    setTimeout(() => {
+                        recursive(0, userBoxs, (element) => {
+                            this.slide()
+                            element.classList.remove('animate')
+                        })
+                    }, 6800);
+                }
+            })
+        },
+
+        slide: function () {
+            rechargeList.classList.add('slide')
+            setTimeout(() => {
+                rechargeList.classList.remove('slide')
+                this.animationMobile()
+            }, 30000)
+        },
+
+        start: function () {
+            this.animationMobile()
+            // this.animationPc()
+        }
+    }
+    animationUser.start()
+
+
+}

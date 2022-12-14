@@ -5,14 +5,15 @@ import {
     modalLogReg,
     homeApi,
     plateBlurBody,
-    PUTelement
+    PUTelement,
+    defaultAvt
 }
     from "../end_point.js"
 export let userActiveID = null,
     userAvt = $('.header__user-avt')
 //Login user//
 let contentDefault = $('.header__user-box').outerHTML
-export function userLogin(UserID, acccounts) {
+export function userLogin(UserID, accounts) {
     let NotificationWelcome = $('.notification-welcome'),
         userBox = $('.header__user-box'),
         usernameBox = $('.header__user-name'),
@@ -25,38 +26,37 @@ export function userLogin(UserID, acccounts) {
     Object.assign(userBox.style, {
         'flex-direction': ' column-reverse',
     });
-    if (acccounts[UserID].Nickname !== undefined) {
-        let nickName = acccounts[UserID].Nickname;
+    if (accounts[UserID]?.Nickname !== undefined) {
+        let nickName = accounts[UserID].Nickname;
         usernameBox.innerHTML = nickName;
         welcomeName.innerHTML = nickName;
     }
     else {
-        let username = acccounts[UserID].Username
+        let username = accounts[UserID].Username
         usernameBox.innerHTML = username;
         welcomeName.innerHTML = username;
     };
-    if (acccounts[UserID].Avatar !== undefined) {
-        let avatar = acccounts[UserID].Avatar;
+    if (accounts[UserID]?.Avatar !== undefined) {
+        let avatar = accounts[UserID].Avatar;
         userAvt.src = avatar;
         welcomeAvt.src = avatar;
     }
     else {
-        let defaultAvt = './asset/img/user-avt/user-default.png';
         userAvt.src = defaultAvt;
         welcomeAvt.src = defaultAvt;
     };
     let moneyFormat = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
-        .format(acccounts[UserID].Money);
+        .format(accounts[UserID].Money);
     moneyBox.innerHTML = `Số dư : ${moneyFormat}`;
     NotificationWelcome.classList.remove('on')
     setTimeout(() => { NotificationWelcome.classList.add('on') }, 30)
 };
 
 //Login succsessful
-export function loginSuccess(UserID, acccounts) {
+export function loginSuccess(UserID, accounts) {
     // menuUser.classList.add('active')
     // modalLogReg.classList.add('hide', 'opacity')
-    userLogin(UserID, acccounts)
+    userLogin(UserID, accounts)
 }
 
 //Logout 

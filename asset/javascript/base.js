@@ -18,25 +18,29 @@ export function recursive(timeOut, list, e, value1, value2, value3, value4,) {
 };
 //Account storage//
 export let acccounts = [
-    [{
-        "UserID": 0,
-        "Username": "admin",
-        "Password": "admin",
-        "Money": 999999999,
-        "Email": "hbstore@gmail.com",
-        "Nickname": "Lê Hạnh",
-        "Avatar": "./asset/img/user-avt/user-id0.jpg"
-    }],
-    [{
-        "UserID": 1,
-        "Username": "Hanhba",
-        "Password": "admin",
-        "Money": 888888888,
-        "Email": "hbstore@gmail.com",
-        "device": {
-
+    [
+        {
+            "UserID": "0",
+            "Username": "admin",
+            "Password": "admin",
+            "Money": 999999999,
+            "Email": "hbstore@gmail.com",
+            "Nickname": "Lê Hạnh",
+            "Avatar": "./asset/img/user-avt/user-id0.jpg",
+            "Devices": [
+                "Windows NT 10.0 - 448958789",
+                "Windows NT 10.0 - 909220118"
+            ]
+        },
+        {
+            "UserID": "1",
+            "Username": "Hanhba",
+            "Password": "admin",
+            "Money": 888888888,
+            "Email": "hbstore@gmail.com",
+            "Devices": []
         }
-    }],
+    ]
 ];
 
 export let homeApi = "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts";
@@ -54,8 +58,8 @@ export function POSTelement(url, value, callback) {
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(value)
     })
-    .then((element) => { return element.json() })
-    .then(callback)
+        .then((element) => { return element.json() })
+        .then(callback)
 };
 //Put element/api
 export function PUTelement(url, value, callback) {
@@ -64,17 +68,17 @@ export function PUTelement(url, value, callback) {
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(value)
     })
-    .then((element) => { return element.json() })
-    .then(callback)
+        .then((element) => { return element.json() })
+        .then(callback)
 };
 //Delete element/api
-export function DELETEelement(url,callback) {
+export function DELETEelement(url, callback) {
     console.log(url)
     fetch(url, {
         method: "DELETE",
         headers: { 'Content-type': 'application/json' },
     })
-    .then((element) => { return element.json() })
-    .then(callback)
+        .then((element) => { return element.json() })
+        .then(callback)
 };
 
