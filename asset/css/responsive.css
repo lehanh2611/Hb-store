@@ -172,7 +172,7 @@
         margin-right: 10px;
         font-weight: 500;
         padding: 0;
-        color: var(--primary-dark);
+        color:rgb(232 230 62);
         grid-row: 2 / span 2 ;
     }
 
@@ -189,7 +189,7 @@
         10% {
             transform: translateX(0vw)
         }
-        90% {
+        92% {
             transform: translateX(0vw)
         }
         100% {
