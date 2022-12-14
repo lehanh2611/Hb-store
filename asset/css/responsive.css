@@ -129,7 +129,6 @@
         animation: top-recharge__list linear 30s infinite;
     }
 
-
     @keyframes top-recharge__list {
         0% {
             transform: translateX(100vw);
@@ -159,7 +158,6 @@
         grid-column: 2 / span 2;
     }
 
-
     .top-recharge__username {
         margin: 0 6px;
         display: none;
@@ -181,22 +179,19 @@
     .top-recharge__item.animate {
         /* display: grid; */
         transform: translateX(100vw);
-        animation: top-recharge__item-animate-in ease-in-out 6s;
+        animation: top-recharge__item-animate ease-in-out 6s;
     }
 
-    @keyframes top-recharge__item-animate-in {
+    @keyframes top-recharge__item-animate {
         0% {
             transform: translateX(100vw)
         }
-
         10% {
             transform: translateX(0vw)
         }
-
         90% {
             transform: translateX(0vw)
         }
-
         100% {
             transform: translateX(-100vw)
         }

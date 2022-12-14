@@ -700,7 +700,6 @@ function content() {
         function titleDance(element) {
             element.style.color = 'blue'
         }
-
     };
 
     //Render top recharge
@@ -716,7 +715,6 @@ function content() {
                 .then((value) => {
                     this.rankings(value[0], value[1])
                 })
-
         },
         rankings: function (money, accounts) {
             let balanceList = (money.sort((a, b) => b - a)).slice(0, 9),
