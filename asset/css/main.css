@@ -834,10 +834,10 @@
     font-size: 1.6rem;
     padding: 6px 0;
     margin-right: 5px;
-    /* margin-left: 10px; */
     border-radius: 4px;
     opacity: 0.9;
-    color: rgb(243, 255, 24);
+    font-weight: 500;
+    color: rgb(232 230 62);
 }
 
 .content-top__intro {

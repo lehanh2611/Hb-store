@@ -171,16 +171,15 @@
     .top-recharge__username {
         margin: 0 6px;
         grid-row: 1 / 2;
-        margin-left: 2px;
+        margin-left: 0;
+        overflow:unset;
     }
 
     .top-recharge__money {
         border-color: transparent;
         margin-left: 0;
         margin-right: 10px;
-        font-weight: 500;
         padding: 0;
-        color: rgb(232 230 62);
         grid-row: 2 / span 2;
     }
 
@@ -195,7 +194,7 @@
     }
 
     .top-recharge__title-icon {
-        margin: 0;
+        margin-left: -12px;
     }
 
     .content-top__intro {

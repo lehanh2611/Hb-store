@@ -803,7 +803,13 @@ function content() {
         }
 
         //Start
-        window.innerWidth >= 960 ? animateMobilePc.start() : animateMobile.start()
+        window.onresize = () => {
+            console.log('rs')
+            start ()
+        }
+        function start () {
+            window.innerWidth >= 960 ? animateMobilePc.start() : animateMobile.start()
+        }
         rechargeList.classList.add('active')
     }
 }
