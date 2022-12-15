@@ -775,6 +775,8 @@ function content() {
         const animateMobilePc = {
             start: function () {
                 let timeDelay = 0
+                rechargeList.style.marginLeft = 0
+                rechargeList.classList.remove('animate')
                 for (let userBox of $$('.top-recharge__item')) {
                     userBox.style.animationDelay = timeDelay + 's';
                     timeDelay += 0.15;
@@ -786,30 +788,20 @@ function content() {
         const animateMobile = {
             start: function () {
                 const space = $('.top-recharge__title-box').clientWidth
-                const animateStyle = [
-                    { transform: ` translateX(${window.innerWidth - space}px)` },
-                    { transform: ` translateX(${-100}%)` }
-                ]
                 rechargeList.addEventListener('animationend', () => {
-                    rechargeList.animate(animateStyle, { duration: 30000, iterations: Infinity })
+                    rechargeList.classList.add('animate')
                 })
-
-
                 //Position
                 rechargeList.style.marginLeft = space + 'px'
-
-
             }
         }
 
         //Start
-        window.onresize = () => {
-            console.log('rs')
-            start ()
-        }
-        function start () {
+        rechargeList.classList.add('active')
+        window.addEventListener('resize', start)
+        function start() {
             window.innerWidth >= 960 ? animateMobilePc.start() : animateMobile.start()
         }
-        rechargeList.classList.add('active')
+        start()
     }
 }
