@@ -2,7 +2,7 @@
 @media (max-width: 375px) {}
 
 /***** Mobile *****/
-@media (max-width: 599px) {
+@media (max-width: 599.99px) {
     .hide-m {
         display: none;
     }
@@ -65,12 +65,16 @@
         min-width: unset !important;
         margin-left: 6px;
     }
+
+    .content-top__intro {
+        height: 480px !important;
+    }
 }
 
 /****************************************/
 
 /***** Mobile and Tablet *****/
-@media (max-width: 959px) {
+@media (max-width: 959.99px) {
     .hide-mt {
         display: none;
     }
@@ -214,7 +218,7 @@
 /****************************************/
 
 /***** Tablet *****/
-@media (min-width: 600px) and (max-width: 959px) {
+@media (min-width: 600px) and (max-width: 959.99px) {
     .hide-t {
         display: none;
     }
