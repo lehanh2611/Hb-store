@@ -1,10 +1,10 @@
 :root {
-    --default: #f5f5f5;
+    --default: #f9f9f9;
     --default-bland: #cdcdcd;
     --primary-dark: rgb(4, 134, 221);
     --primary-dark-bland: rgb(0, 102, 170);
     --color-dark: #111111;
-    --color-bland-dark: #222222;
+    --color-dark-bland: #222222;
     --box-shadow-dark: #0000008e;
     --gray: #b5bece;
     --light-red: #f97068;
@@ -50,23 +50,22 @@ button {
 /* Scroll bars */
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
   }
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background-color:#555;
+    background: var(--default-bland);
   }
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: var(--color-dark); 
-    border-radius: 2px;
+    background: var(--color-dark-bland); 
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-bland-dark); 
+    background: #333; 
   }
 
 /* Background */

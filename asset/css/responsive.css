@@ -21,7 +21,15 @@
     }
 
     .header__logo {
+        display: none;
+        width: 45px;
+        height: 45px;
         margin-top: -3px;
+    }
+
+    .header__input-box {
+        margin-right: 20px;
+        margin-left: 10px;
     }
 
     .header__feature-box {
@@ -37,8 +45,7 @@
         font-size: 2rem;
     }
 
-    .header__logo-box .header__feature-box,
-    .header__account-box .header__feature-box:first-child {
+    .header__logo-box .header__feature-box{
         display: block;
     }
 
@@ -54,29 +61,14 @@
         display: none;
     }
 
-    .menu-logReg {
-        position: fixed;
-        top: 68px;
-        left: 0;
-        right: 0;
-        width: 100%;
-        border-radius: unset;
+
+    .menu-logReg__sub {
+        grid-template-columns: 368px;
+        height: 520px;
     }
 
-    @keyframes menu-logReg {
-        0% {
-            opacity: 1;
-        }
-
-        25% {
-            top: 68px;
-        }
-
-        100% {
-            opacity: 0;
-            top: 268px;
-        }
-
+    .menu-logReg {
+        width: unset;
     }
 
     /* Content */
@@ -104,17 +96,16 @@
     }
 
     /* header */
-    .header__logo {
-        width: 56px;
-        height: 56px;
-    }
-
     .header__icon {
         font-size: 2.8rem;
     }
 
     .header-search-icon {
         font-size: 2.2rem;
+    }
+
+    .menu-logReg__sub-box {
+        display: none;
     }
 
     /* Content */
@@ -258,7 +249,23 @@
     }
 
     /* Header */
-    .header__user-notification-icon {}
+    .header__logo {
+        width: 56px;
+        height: 56px;
+    }
+
+    .menu-logReg__sub {
+        grid-template-columns: 500px;
+        height: 599px;
+    }
+
+    .menu-logReg {
+        width: auto;
+    }
+
+    .menu-logReg__account {
+        margin: 6px 0;
+    }
 
 }
 

@@ -19,9 +19,79 @@
 }
 
 .header__logo-box {
+    position: relative;
     display: flex;
     align-items: center;
     color: var(--default-bland);
+}
+
+.header__menu-bar {
+    position: fixed;
+    top: 68px;
+    left: 0;
+    bottom: 0;
+    background-color: var(--color-dark);
+    width: 299px;
+    padding: 10px;
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: ease-in-out .2s;
+}
+
+.header__menu-bar.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.header__menu-bar-list {
+    list-style: none;
+}
+
+.header__menu-bar-list .header__menu-bar-item-title:first-child {
+    font-weight: 400;
+}
+
+.header__menu-bar .header__logo {
+    display: block;
+    width: 80px;
+    height: unset;
+}
+
+.header__menu-bar-tpye-account-list {
+    border-top: 1px solid #333;
+}
+
+.header__menu-bar-tpye-account-title {
+    font-size: 2.5rem;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-weight: 400;
+}
+
+.header__menu-bar-item {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 10px 20px;
+    color: var(--default-bland);
+}
+
+.header__menu-bar-item:hover {
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: var(--primary-dark-bland);
+    color: var(--default);
+}
+
+.header__menu-bar-item-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: inherit;
+}
+
+.header__menu-bar-icon {
+    font-size: 1.8rem;
+    margin-right: 10px;
 }
 
 .header__feature-box {
@@ -39,10 +109,14 @@
     text-align: center;
     font-size: 1.2rem;
     margin-top: 5px;
-    -webkit-user-select: none;  /* Chrome all / Safari all */
-    -moz-user-select: none;     /* Firefox all */
-    -ms-user-select: none;      /* IE 10+ */
-    user-select: none;          /* Likely future */    
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Likely future */
 }
 
 .header__feature-title:active {
@@ -87,7 +161,7 @@
     align-items: center;
     justify-content: center;
     flex: 1;
-    max-width: 999px;
+    max-width: 888px;
 }
 
 .header__input {
@@ -96,7 +170,7 @@
     font-size: 2rem;
     padding: 0 10px;
     border-radius: 28px;
-    background-color: var(--color-bland-dark);
+    background-color: var(--color-dark-bland);
     caret-color: transparent;
     outline: none;
     border: 2px solid;
@@ -262,35 +336,23 @@
     cursor: pointer;
 }
 
-/* .header__user-contain::after {
-    position: absolute;
-    content: '';
-    height: 3px;
-    border-radius: 1px;
-    bottom: -4px;
-    right: 0;
-    width: 0;
-    background-color: var(--primary-dark);
-    transition: width ease-out .2s
-}
-
-.header__user-contain:hover:after {
-    width: 100%;
-} */
-
 .header__user-menu {
     position: absolute;
-    /* display: none; */
+    display: none;
     overflow: hidden;
     top: 120%;
     right: 0;
-    width: 199px;
-    height: 268px;
-    padding: 16px 20px;
+    opacity: 0;
+    padding: 16px 10px;
     border-radius: 9px;
     transition: ease .8s;
     box-shadow: 0 0 5px var(--box-shadow-dark);
     background-color: var(--color-dark);
+}
+
+.header__user-menu.active {
+    display: block;
+    opacity: 1;
 }
 
 .header__user-menu.active {
@@ -303,18 +365,30 @@
 
 .header__user-menu-item {
     font-size: 2.5rem;
-    padding: 6px 0;
-    color: var(--default-bland);
+    padding: 6px 12px;
+    color:var(--default-bland);
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.header__user-menu-item:last-child:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid #333;
 }
 
 .header__user-menu-item:hover {
     cursor: pointer;
-    color: var(--default);
+    color:var(--default);
+    background-color: var(--primary-dark-bland);
 }
 
 .header__user-menu-item:last-child {
+    position: relative;
     margin-top: 10px;
-    border-top: 1px solid var(--default-bland);
 }
 
 .header__user-box {
@@ -332,7 +406,7 @@
 
 .header__user-title {
     text-align: right;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 500;
     color: yellow;
 }
@@ -626,7 +700,7 @@
     padding-left: 40px;
     /* padding-right: 40px; */
     border-radius: 4px;
-    background-color: var(--color-bland-dark);
+    background-color: var(--color-dark-bland);
     /* outline: 1px solid var(--primary-dark) !important; */
 }
 
@@ -725,7 +799,7 @@
     border-radius: 0 4px 4px 0;
     background-image: linear-gradient(180deg,
             var(--color-dark),
-            var(--color-bland-dark));
+            var(--color-dark-bland));
 }
 
 .top-recharge__title-box {

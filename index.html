@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -28,14 +28,51 @@
             <div class="header__logo-box">
                 <img class="header__logo hide-mt" src="./asset/img/logo.png">
                 <img class="header__logo hide-p" src="./asset/img/logo-mobile.png">
-                <div class="header__feature-box goHomeBtn">
-                    <i class="header__icon fa-solid fa-house btn-gohead hide-m" style="margin: 0 10px"></i>
-                    <i class="header__icon fa-solid fa-bars hide-tp"></i>
+                <div class="header__feature-box">
+                    <i class="header__icon fa-solid fa-house btn-gohead hide-m goHomeBtn" style="margin: 0 10px"></i>
+                    <i class="header__icon fa-solid fa-bars hide-tp menuBarBtn"></i>
                     <p class="header__feature-title">Trang chủ</p>
                 </div>
                 <div class="header__feature-box hide-m">
                     <i class="header__icon fa-solid fa-money-check-dollar"></i>
                     <p class="header__feature-title">Nạp tiền</p>
+                </div>
+                <div class="header__menu-bar hide-tp">
+                    <img class="header__logo" src="./asset/img/logo.png">
+                    <ul class="header__menu-bar-list">
+                        <li class="header__menu-bar-item">
+                            <h3 class="header__menu-bar-item-title">Trang chủ</h3>
+                        </li>
+                        <li class="header__menu-bar-item">
+                            <h3 class="header__menu-bar-item-title">Nạp tiền</h3>
+                        </li>
+                        <li class="header__menu-bar-item">
+                            <h3 class="header__menu-bar-item-title">Liên hệ</h3>
+                        </li>
+                        <ul class="header__menu-bar-tpye-account-list">
+                            <h3 class="header__menu-bar-tpye-account-title">Tài khoản</h3>
+                            <li class="header__menu-bar-item">
+                                <i class="header__menu-bar-icon fa-solid fa-fire"></i>
+                                <h3 class="header__menu-bar-item-title">Đề xuất</h3>
+                            </li>
+                            <li class="header__menu-bar-item">
+                                <i class="header__menu-bar-icon fa-solid fa-diamond"></i>
+                                <h3 class="header__menu-bar-item-title">Lục quý</h3>
+                            </li>
+                            <li class="header__menu-bar-item">
+                                <i class="header__menu-bar-icon fa-solid fa-diamond"></i>
+                                <h3 class="header__menu-bar-item-title">Ngũ quý</h3>
+                            </li>
+                            <li class="header__menu-bar-item">
+                                <i class="header__menu-bar-icon fa-solid fa-diamond"></i>
+                                <h3 class="header__menu-bar-item-title">Server Asia</h3>
+                            </li>
+                            <li class="header__menu-bar-item">
+                                <i class="header__menu-bar-icon fa-solid fa-diamond"></i>
+                                <h3 class="header__menu-bar-item-title">Server America</h3>
+                            </li>
+                        </ul>
+                    </ul>
                 </div>
             </div>
             <div class="header__input-box">
@@ -75,12 +112,12 @@
                     <p class="header__feature-title">Liên hệ</p>
                 </div>
                 <div class="header__user-contain">
-                    <div class="header__user-menu hide opacity">
+                    <div class="header__user-menu">
                         <ul class="header__user-menu-list">
-                            <li class="header__user-menu-item">Hồ sơ</li>
-                            <li class="header__user-menu-item">Lịch sử mua</li>
+                            <li class="header__user-menu-item">Tài khoản</li>
+                            <li class="header__user-menu-item hide-tp">Thông báo</li>
                             <li class="header__user-menu-item">Ví tiền</li>
-                            <li class="header__user-menu-item">Hỗ trợ</li>
+                            <li class="header__user-menu-item">Lịch sử mua</li>
                             <li class="header__user-menu-item logout">Đăng xuất</li>
                         </ul>
                     </div>

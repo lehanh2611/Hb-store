@@ -69,7 +69,7 @@ function header() {
 
     //Go head
     let goHeadBtn = $('.header__logo-box .goHomeBtn');
-    
+
     goHeadBtn.addEventListener('click', goHead)
     function goHead() {
         goHeadBtn.removeEventListener('click', goHead)
@@ -77,9 +77,34 @@ function header() {
             top: 0,
             behavior: 'smooth'
         });
-        setTimeout(() => 
-        {goHeadBtn.addEventListener('click', goHead)},1000)
+        setTimeout(() => { goHeadBtn.addEventListener('click', goHead) }, 1000)
     };
+
+    //Menu bar
+    const menuBarBtn = $('.header__feature-box .menuBarBtn')
+    const menuBarBody = $('.header__menu-bar')
+
+    menuBarBtn.addEventListener('click', menuBar)
+
+    function menuBar() {
+        menuBarBtn.removeEventListener('click', menuBar)
+        menuBarBody.classList.toggle('active')
+
+        if (menuBarBody.classList.value.indexOf('active') === -1) {
+            plateBlur(false)
+        }
+        else {
+            plateBlur()
+        }
+
+        plateBlurBody.addEventListener('click', () => {
+            menuBarBody.classList.remove('active')
+            plateBlur(false)
+        })
+        setTimeout(() => {
+            menuBarBtn.addEventListener('click', menuBar)
+        }, 399);
+    }
 
     // MenuSearch
     let menuSearch = $('.header__menu-search'),
@@ -189,19 +214,18 @@ function header() {
                 openmodalLogReg()
             }
             else {
-                menuUser.classList.toggle('hide')
-                setTimeout(() => {
-                    menuUser.classList.toggle('opacity')
-                    if (menuUser.classList.value.indexOf('hide') !== -1) {
-                        plateBlur(false)
-                    }
-                    else {
-                        plateBlur()
-                    }
-                }, 0);
+                menuUser.classList.toggle('active')
+
+                if (menuUser.classList.value.indexOf('active') !== -1) {
+                    plateBlur()
+                }
+                else {
+                    plateBlur(false)
+                }
+
                 plateBlurBody.onclick = () => {
                     plateBlur(false)
-                    menuUser.classList.add('opacity', 'hide')
+                    menuUser.classList.remove('active')
                 }
             }
 
