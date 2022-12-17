@@ -47,25 +47,6 @@ app.start()
 header();
 function header() {
     let input = $('.header__input')
-    changeSize();
-    function changeSize() {
-        let logo = $('.header__logo'),
-            leftHeader = $('.header__logo-box'),
-            rightHeader = $('.header__navigation')
-
-        setInterval(() => {
-            if (window.innerWidth < 840) {
-                logo.setAttribute('src', './asset/img/logo-mobile.png');
-                leftHeader.classList.add('m-3');
-                rightHeader.classList.add('m-4');
-            }
-            else {
-                logo.setAttribute('src', './asset/img/logo.png');
-                leftHeader.classList.remove('m-3');
-                rightHeader.classList.remove('m-4');
-            }
-        }, 200);
-    };
 
     headerInput();
     function headerInput() {
@@ -87,15 +68,17 @@ function header() {
     };
 
     //Go head
-    goHead();
+    let goHeadBtn = $('.header__logo-box .goHomeBtn');
+    
+    goHeadBtn.addEventListener('click', goHead)
     function goHead() {
-        let headBtn = $('.header__logo-box .btn-gohead');
-        headBtn.onclick = () => {
-            window.scroll({
-                top: 0,
-                behavior: 'smooth'
-            });
-        };
+        goHeadBtn.removeEventListener('click', goHead)
+        window.scroll({
+            top: 0,
+            behavior: 'smooth'
+        });
+        setTimeout(() => 
+        {goHeadBtn.addEventListener('click', goHead)},1000)
     };
 
     // MenuSearch

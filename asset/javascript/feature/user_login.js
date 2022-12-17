@@ -47,7 +47,7 @@ export function userLogin(UserID, accounts) {
     };
     let moneyFormat = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
         .format(accounts[UserID].Money);
-    moneyBox.innerHTML = `Số dư : ${moneyFormat}`;
+    moneyBox.innerHTML = moneyFormat;
     NotificationWelcome.classList.remove('on')
     setTimeout(() => { NotificationWelcome.classList.add('on') }, 30)
 };

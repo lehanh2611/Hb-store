@@ -24,14 +24,21 @@
 
 <body>
     <div id="header">
-        <div class="header__contain grid wide">
-            <div class="l-3 m-35 c-3 header__logo-box">
-                <i class="header__icon fa-solid fa-chart-simple-horizontal hide-tp"></i>
-                <img class="header__logo" src="./asset/img/logo.png" alt="">
-                <i class="header__icon fa-solid fa-house btn-gohead" style="margin: 0 10px"></i>
-                <div class="header__recharge">Nạp tiền</div>
+        <div class="header__contain contain">
+            <div class="header__logo-box">
+                <img class="header__logo hide-mt" src="./asset/img/logo.png">
+                <img class="header__logo hide-p" src="./asset/img/logo-mobile.png">
+                <div class="header__feature-box goHomeBtn">
+                    <i class="header__icon fa-solid fa-house btn-gohead hide-m" style="margin: 0 10px"></i>
+                    <i class="header__icon fa-solid fa-bars hide-tp"></i>
+                    <p class="header__feature-title">Trang chủ</p>
+                </div>
+                <div class="header__feature-box hide-m">
+                    <i class="header__icon fa-solid fa-money-check-dollar"></i>
+                    <p class="header__feature-title">Nạp tiền</p>
+                </div>
             </div>
-            <div class="l-6 m-5 c-6 header__input-contain">
+            <div class="header__input-box">
                 <i class="header__input-cursor"></i>
                 <form style="width:100%;" action="#">
                     <input class="header__input flicker" type="number" placeholder="Tìm kiếm UID..." minlength="5"
@@ -58,8 +65,15 @@
                     </div>
                 </div>
             </div>
-            <div class="l-3 m-35 c-3 header__navigation">
-                <i class="header__icon header__user-notification-icon fa-solid fa-bell"></i>
+            <div class="header__account-box">
+                <div class="header__feature-box">
+                    <i class="header__icon header__user-notification-icon fa-solid fa-bell"></i>
+                    <p class="header__feature-title">Thông báo</p>
+                </div>
+                <div class="header__feature-box">
+                    <i class="header__icon fa-solid fa-mobile"></i>
+                    <p class="header__feature-title">Liên hệ</p>
+                </div>
                 <div class="header__user-contain">
                     <div class="header__user-menu hide opacity">
                         <ul class="header__user-menu-list">
@@ -70,14 +84,13 @@
                             <li class="header__user-menu-item logout">Đăng xuất</li>
                         </ul>
                     </div>
-                    <div class="header__user-box">
-                        <p class="header__user-title hide-mt">Đăng nhập/Đăng ký</p>
+                    <div class="header__user-box hide-mt">
+                        <p class="header__user-title">Đăng nhập/Đăng ký</p>
                         <span style="display: flex; justify-content: flex-end;;">
                             <p class="header__user-name">Tài Khoản</p>
-                            <!-- <i class="header__user-angle-icon fa-solid fa-angle-up hide-mt"></i> -->
                         </span>
                     </div>
-                    <img src="./asset/img/user-avt/default.png"class="header__user-avt">
+                    <img src="./asset/img/user-avt/default.png" class="header__user-avt">
                     <!-- <img src="./asset/icon/user.png" alt="./asset/icon/user.png" class="header__user-avt"> -->
                     <div class="menu-logReg-modal hide opacity">
                         <div class="menu-logReg__sub">
@@ -87,7 +100,7 @@
                                 <h3 class="menu-logReg__sub-title">
                                     Chào mừng đến với
                                     <br>
-                                     Hbstore.com
+                                    Hbstore.com
                                 </h3>
                                 <p class="menu-logReg__sub-content">
                                     -> Bạn cảm khó chịu khi mỗi lần nhìn vào dãy số lộn xộn trong tài khoản của mình?
@@ -139,7 +152,8 @@
                                     </div>
                                     <div class="menu-logReg__bottom">
                                         <input id="menu-logReg__checkbox" type="checkbox" class="menu-logReg__memorize">
-                                        <label for="menu-logReg__checkbox" class="menu-logReg__memorize-text">Ghi nhớ tài
+                                        <label for="menu-logReg__checkbox" class="menu-logReg__memorize-text">Ghi nhớ
+                                            tài
                                             khoản
                                             này</label>
                                         <p class="menu-logReg__text2">Quên mật khẩu</p>
@@ -155,7 +169,8 @@
                                     <div class="window-warning hide">
                                         <i class="window-warning__close-icon fa-regular fa-xmark"></i>
                                         <h4 class="window-warning__title">Đăng ký chưa hoàn tất!</h4>
-                                        <p class="window-warning__content">Tiến trình hiện tại sẽ bị mất sau khi rời đi, bạn
+                                        <p class="window-warning__content">Tiến trình hiện tại sẽ bị mất sau khi rời đi,
+                                            bạn
                                             chắc
                                             chắn muốn hủy bỏ?</p>
                                         <div class="window-warning__btnbox">
@@ -163,11 +178,11 @@
                                             <button class="btn window-warning_btn cancel">Hủy bỏ</button>
                                         </div>
                                     </div>
-    
+
                                 </div>
                                 <div class="menu-logReg menu-logReg--register hide opacity">
                                     <p class="menu-logReg__title">Tham gia với Hb-store</p>
-    
+
                                     <div class="menu-logReg__account menu-logReg__username register">
                                         <i class="menu-logReg__icon fa-solid fa-user"></i>
                                         <input class="menu-logReg__input-username register" type="text"
@@ -193,7 +208,8 @@
                                     </div>
                                     <div class="menu-logReg__bottom">
                                         <input id="menu-logReg__checkbox" type="checkbox" class="menu-logReg__memorize">
-                                        <label for="menu-logReg__checkbox" class="menu-logReg__memorize-text">Ghi nhớ tài
+                                        <label for="menu-logReg__checkbox" class="menu-logReg__memorize-text">Ghi nhớ
+                                            tài
                                             khoản
                                             này</label>
                                         <p class="menu-logReg__text2">Trợ giúp</p>
@@ -228,55 +244,11 @@
                     <img src="./asset/icon/top-recharge.png" class="top-recharge__title-icon">
                 </div>
                 <ul class="top-recharge__list">
-                    <li class="top-recharge__item">
-                        <img src="./asset/img/user-avt/user-id0.jpg" class="top-recharge__order-icon">
-                        <p class="top-recharge__username">Admin</p>
-                        <p class="top-recharge__money">999.999.999đ</p>
-                    </li>
-                    <li class="top-recharge__item">
-                        <img src="./asset/img/user-avt/user-default.png" class="top-recharge__order-icon">
-                        <p class="top-recharge__username">Hạnh bá</p>
-                        <p class="top-recharge__money">99.999.999đ</p>
-                    </li>
-                    <li class="top-recharge__item">
-                        <img src="./asset/img/user-avt/user-id0.jpg" class="top-recharge__order-icon">
-                        <p class="top-recharge__username">Chúa hề teyvat</p>
-                        <p class="top-recharge__money">9.999.999đ</p>
-                    </li>
-                    <li class="top-recharge__item">
-                        <i class="top-recharge__order-icon">4</i>
-                        <p class="top-recharge__username">Não cá vàng</p>
-                        <p class="top-recharge__money">9.000.000đ</p>
-                    </li>
-                    <li class="top-recharge__item">
-                        <i class="top-recharge__order-icon">5</i>
-                        <p class="top-recharge__username">Em của ngày hôm qua asd asda</p>
-                        <p class="top-recharge__money">8.000.000đ</p>
-                    </li>
-                    <li class="top-recharge__item">
-                        <i class="top-recharge__order-icon">6</i>
-                        <p class="top-recharge__username">1hit về trời</p>
-                        <p class="top-recharge__money">6.000.000đ</p>
-                    </li>
-                    <li class="top-recharge__item">
-                        <i class="top-recharge__order-icon">7</i>
-                        <p class="top-recharge__username">Playerzz</p>
-                        <p class="top-recharge__money">2.000.000đ</p>
-                    </li>
-                    <li class="top-recharge__item">
-                        <i class="top-recharge__order-icon">8</i>
-                        <p class="top-recharge__username">Hải quay xe</p>
-                        <p class="top-recharge__money">1.000.000đ</p>
-                    </li>
-                    <li class="top-recharge__item">
-                        <i class="top-recharge__order-icon">9</i>
-                        <p class="top-recharge__username">Bing chilling</p>
-                        <p class="top-recharge__money">100.000đ</p>
-                    </li>
                 </ul>
             </div>
             <div class="content-top__intro">
-                <iframe id="myIframe" width="700px" height="480px" src="https://www.youtube.com/embed/VCUs2H-O5FE?playlist=VCUs2H-O5FE&loop=1&fs=0&rel=0"></iframe>
+                <iframe id="myIframe" width="700px" height="480px"
+                    src="https://www.youtube.com/embed/VCUs2H-O5FE?playlist=VCUs2H-O5FE&loop=1&fs=0&rel=0"></iframe>
                 <div class="content-top__intro-box">
                     <span class="content-top__intro-content">
                         <p class="content-top__intro-content-sub">Lưu ý:</p>
@@ -306,10 +278,9 @@
         <i class="loading__spindle"></i>
     </div>
     <div class="notification-welcome">
-            <p class="notification-welcome__message">Xin chào!</p>
-            <p class="notification-welcome__user-name">Lê Hạnh</p>
-            <img src="./asset/img/user-avt/user-default.png" 
-            class="notification-welcome__user-avt">
+        <p class="notification-welcome__message">Xin chào!</p>
+        <p class="notification-welcome__user-name">Lê Hạnh</p>
+        <img src="./asset/img/user-avt/user-default.png" class="notification-welcome__user-avt">
     </div>
     <div class="notification">
         <div class="notification__wrap">
@@ -331,4 +302,5 @@
 
 <script type="module" src="./asset/javascript/main.js">
 </script>
+
 </html>
