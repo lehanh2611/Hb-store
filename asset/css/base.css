@@ -47,6 +47,28 @@ button {
 
 /****************************************/
 
+/* Scroll bars */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background-color:#555;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-dark); 
+    border-radius: 2px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-bland-dark); 
+  }
+
 /* Background */
 .backgound {
     position: fixed;
