@@ -29,14 +29,15 @@ import {
     userLogin,
     logout,
     loginSuccess,
-    remember,
+    logHistory,
 
 
 } from "./end_point.js"
 //***** Global *****/
+
 const app = {
     start: function () {
-        remember.start()
+        logHistory.start()
     }
 }
 app.start()
@@ -572,9 +573,15 @@ function header() {
                                     let createAccount = Object.assign(newAccount, inputResult);
                                     POSTelement(homeApi, createAccount, (value) => {
                                         if (value.Username === createAccount.Username) {
-                                            // remember temporary account
-                                            sessionStorage.setItem('remember', value.UserID)
-                                            if (checked) { remember.addCode(createAccount.UserID) }
+                                            GETelement(homeApi, (accounts) => {
+                                                //Save info login
+                                                if (checked) {
+                                                    logHistory.saveLogInfo(value.UserID, accounts, true)
+                                                }
+                                                else {
+                                                    logHistory.saveLogInfo(value.UserID, accounts)
+                                                }
+                                            })
                                             resolve(createAccount.UserID)
                                         }
                                     })
@@ -657,10 +664,13 @@ function header() {
                                 });
                             checkAccount
                                 .then((value) => {
-                                    // remember temporary account
-                                    sessionStorage.setItem('remember', value.UserID)
-
-                                    if (checked) { remember.addCode(value.UserID) }
+                                    //Save remember device
+                                    if (checked) {
+                                        logHistory.saveLogInfo(value.UserID, value.Accounts, true)
+                                    }
+                                    else {
+                                        logHistory.saveLogInfo(value.UserID, value.Accounts)
+                                    }
                                     loginSuccess(value.UserID, value.Accounts)
                                     closemodalLogReg()
                                 })

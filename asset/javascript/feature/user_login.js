@@ -6,7 +6,8 @@ import {
     homeApi,
     plateBlurBody,
     PUTelement,
-    defaultAvt
+    defaultAvt,
+    logHistory
 }
     from "../end_point.js"
 export let userActiveID = null,
@@ -54,8 +55,7 @@ export function userLogin(UserID, accounts) {
 
 //Login succsessful
 export function loginSuccess(UserID, accounts) {
-    // menuUser.classList.add('active')
-    // modalLogReg.classList.add('hide', 'opacity')
+   
     userLogin(UserID, accounts)
 }
 
@@ -71,9 +71,11 @@ export const logout = {
             sessionStorage.clear()
             plateBlurBody.click()
             
-            //Delete remember
-            PUTelement(`${homeApi}/${userActiveID}`, {Devices: []})
+            // Delete remember
+            logHistory.deleteTrustedDevice()
             userActiveID = null
+            sessionStorage.removeItem('rememberLogInfo')
+            localStorage.removeItem('rememberLogInfo')
         }
     }
 }
