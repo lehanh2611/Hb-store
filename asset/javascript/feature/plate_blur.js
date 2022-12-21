@@ -15,10 +15,7 @@ export function plateBlur(value = true,) {
     else {
         --i
         if (i <= 0) {
-            plateBlurBody.classList.add('opacity');
-            setTimeout(() => {
-                plateBlurBody.classList.add('hide');
-            }, 500);
+            plateBlurBody.classList.add('hide', 'opacity');
         }
     };
 };

@@ -141,7 +141,7 @@ export const logHistory = {
                     if (isRemember) {
                         localStorage.setItem('rememberLogInfo', userId)
 
-                        if (account.TrustedDevice.length === 0) {
+                        if (account?.TrustedDevice?.length === 0 || !account.TrustedDevice) {
                             PUTelement(url, { TrustedDevice: [this.logInfo] })
                         }
                         else {
@@ -168,19 +168,22 @@ export const logHistory = {
         const url = `${homeApi}/${userActiveID}`
 
         GETelement(url, (account) => {
-            account.TrustedDevice.forEach((element, index) => {
+            if (typeof account.TrustedDevice !== 'undefined'
+                && account?.TrustedDevice?.length !== 0) {
+                account.TrustedDevice.forEach((element, index) => {
 
-                if (element.DeviceId === this.logInfo.DeviceId) {
-                    let trustedDevice = account.TrustedDevice
+                    if (element.DeviceId === this.logInfo.DeviceId) {
+                        let trustedDevice = account.TrustedDevice
 
-                    trustedDevice.splice(index, 1)
-                    PUTelement(url, {
-                        TrustedDevice: trustedDevice
-                    })
-                    this.logInfo = null
-                }
+                        trustedDevice.splice(index, 1)
+                        PUTelement(url, {
+                            TrustedDevice: trustedDevice
+                        })
+                        this.logInfo = null
+                    }
 
-            })
+                })
+            }
         })
 
     },
