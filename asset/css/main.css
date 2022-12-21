@@ -984,6 +984,7 @@
     overflow: hidden;
     height: 399px;
     border-radius: 10px;
+    box-shadow: 0 0 3px var(--box-shadow-dark);
     background-image: url(../img/bg-flash-sale.png);
 }
 
@@ -1068,8 +1069,4 @@
     margin-top: 30px;
     padding: 0 12px;
 
-}
-
-.product-item+.product-item {
-    margin: 0 12px;
 }

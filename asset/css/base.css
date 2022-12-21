@@ -13,6 +13,7 @@
     --red-dark: #850e08;
     --light-red: #f97068;
     --yellow: rgb(232 230 62);
+    --green: #4ec07d;
     --background-modal: #121212a2;
 }
 
@@ -689,6 +690,7 @@ button {
     border-radius: 2px;
     box-shadow: 0 0 3px var(--box-shadow-dark);
     cursor: pointer;
+    margin: 0 12px;
 }
 
 .product-item__box-top {
@@ -790,8 +792,8 @@ button {
     font-size: 1.2rem;
     color: var(--default);
     font-weight: 300;
-    padding: 0 3px;
-    background-color: var(--red-dark);
+    padding: 2px 3px 0 3px;
+    background-color: var(--green);
     transition: ease .2s;
     cursor: pointer;
 }
@@ -839,15 +841,17 @@ button {
 }
 
 .product-item-uid {
+    font-weight: 600;
     color: rgb(255, 0, 0);
 }
 
 .product-item__price-old {
     text-decoration: line-through;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--text-bland);
     margin-left: auto;
     margin-right: 10px;
+    margin-top: 3px;
 }
 
 .product-item__buy {
