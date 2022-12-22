@@ -7,7 +7,8 @@ import {
     plateBlurBody,
     PUTelement,
     defaultAvt,
-    logHistory
+    logHistory,
+    formatMoney
 }
     from "../end_point.js"
 export let userActiveID = null,
@@ -46,9 +47,8 @@ export function userLogin(UserID, accounts) {
         userAvt.src = defaultAvt;
         welcomeAvt.src = defaultAvt;
     };
-    let moneyFormat = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
-        .format(accounts[UserID].Money);
-    moneyBox.innerHTML = moneyFormat;
+   
+    moneyBox.innerHTML = formatMoney(accounts[UserID].Money);
     NotificationWelcome.classList.remove('on')
     setTimeout(() => { NotificationWelcome.classList.add('on') }, 30)
 };

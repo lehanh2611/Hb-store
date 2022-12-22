@@ -7,6 +7,7 @@ import {
     POSTelement,
     PUTelement,
     DELETEelement,
+    formatMoney,
 
     /***** Constant *****/
     $,
@@ -15,6 +16,7 @@ import {
     menuUser,
     plateBlurBody,
     rechargeList,
+    productAPi,
 
     /***** Variable *****/
     bodyModalLoading,
@@ -30,6 +32,7 @@ import {
     logout,
     loginSuccess,
     logHistory,
+    renderProduct,
 
 
 } from "./end_point.js"
@@ -38,6 +41,7 @@ import {
 const app = {
     start: function () {
         logHistory.start()
+
     }
 }
 app.start()
@@ -822,3 +826,114 @@ function content() {
         start()
     }
 }
+let i = -10
+
+//FLash sale
+const flashSale = {
+    productContain: $('.product-item__list'),
+
+    // Render product
+    render: function (product, indexStart, indexEnd) {
+
+        // let listLeng = Number.parseInt(product.length / slot)
+        let listProduct = product.slice(indexStart, indexEnd)
+
+        this.productContain.innerHTML = renderProduct(listProduct)
+    },
+
+    slide: function () {
+        const btnLeft = $('.flash-sale__btn.left')
+        const btnRight = $('.flash-sale__btn.right')
+        let slot = 5
+        let indexStart = 0
+        let indexEnd = slot
+
+
+        GETelement(productAPi, (Products) => {
+            let listLeng = Number.parseInt(Products.length / slot)
+            let products = []
+
+            for (let i = 5; i <= Products.length; i += slot) {
+                products = [...products, ...Products.slice(i - slot, i)]
+            }
+
+            this.render(products, 0, slot)
+
+            btnRight.addEventListener('click', nextList)
+            function nextList() {
+                btnRight.removeEventListener('click', nextList)
+                flashSale.productContain.classList.add('loadProduct')
+
+                indexStart += slot
+                indexEnd += slot
+
+                if (indexEnd <= Products.length) {
+                    flashSale.render(products, indexStart, indexEnd)
+                }
+                else {
+                    indexStart = 0
+                    indexEnd = slot
+                    flashSale.render(products, indexStart, indexEnd)
+                }
+
+                setTimeout(() => {
+                    btnRight.addEventListener('click', nextList)
+                }, 600)
+            }
+
+
+            btnLeft.addEventListener('click', backList)
+            function backList() {
+                btnLeft.removeEventListener('click', backList)
+                flashSale.productContain.classList.add('loadProduct')
+
+                indexStart -= slot
+                indexEnd -= slot
+
+                if (indexEnd < slot) {
+                    indexStart = products.length - slot
+                    indexEnd = products.length
+                    flashSale.render(products, indexStart, indexEnd)
+                }
+                else {
+                    flashSale.render(products, indexStart, indexEnd)
+                }
+
+                setTimeout(() => {
+                    btnLeft.addEventListener('click', backList)
+                }, 600)
+            }
+        })
+
+
+
+    },
+
+    timer: function () {
+        const time = new Date
+        const hours = time.getHours()
+        const minute = time.getMinutes()
+        const seconds = time.getSeconds()
+
+        $('.flash-sale__countdown-times.hours').innerHTML =
+            23 - hours <= 9 ? `0${23 - hours}` : 23 - hours
+
+        $('.flash-sale__countdown-times.minute').innerHTML =
+            60 - minute <= 9 ? `0${60 - minute}` : 60 - minute
+
+        $('.flash-sale__countdown-times.seconds').innerHTML =
+            60 - seconds <= 9 ? `0${60 - seconds}` : 60 - seconds
+    },
+
+
+
+
+    start: function () {
+        setInterval(() => {
+            this.timer()
+        }, 1000);
+
+        this.slide()
+    }
+}
+flashSale.start()

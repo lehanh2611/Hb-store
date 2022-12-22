@@ -45,7 +45,7 @@
         font-size: 2rem;
     }
 
-    .header__logo-box .header__feature-box{
+    .header__logo-box .header__feature-box {
         display: block;
     }
 
@@ -81,6 +81,29 @@
     .content-top__intro {
         height: 360px !important;
     }
+
+    /* FLash sale */
+    .flash-sale {
+        padding-left: 4px;
+    }
+    .flash-sale__wrap {
+        border-radius: 6px 0 0 6px;
+    }
+
+    .flash-sale__title {
+        font-size: 2.8rem;
+        margin: 0 10px;
+
+    }
+
+    .flash-sale__title::before {
+        right: -6px;
+    }
+
+    .flash-sale__countdown-times {
+        padding: 1px 3px 0 3px;
+    }
+
 }
 
 /****************************************/

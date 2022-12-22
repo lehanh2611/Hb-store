@@ -1,21 +1,3 @@
-//Recursive//
-export function recursive(timeOut, list, e, value1, value2, value3, value4,) {
-    let listLength = list.length,
-        i = 0;
-    callBack()
-    function callBack() {
-        if (i <= listLength - 1) {
-            e(list[i], i, value1, value2, value3, value4,);
-            setTimeout(() => {
-                callBack();
-            }, timeOut);
-        }
-        else {
-            return;
-        };
-        i++
-    };
-};
 //Account storage//
 export let acccounts = [
     [
@@ -43,6 +25,132 @@ export let acccounts = [
     ]
 ];
 
+//Product storage//
+export const productAPi = "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Product"
+export let products = [
+    [
+        {
+            "ID": "0",
+            "UID": "659999999",
+            "Server": "America",
+            "Price": 3000000
+        },
+        {
+            "ID": "1",
+            "UID": "660000000",
+            "Server": "America",
+            "Price": 2000000
+        },
+        {
+            "ID": "2",
+            "UID": "879999999",
+            "Server": "Asia",
+            "Price": 3000000
+        },
+        {
+            "ID": "3",
+            "UID": "880000000",
+            "Server": "Asia",
+            "Price": 2000000
+        },
+        {
+            "ID": "4",
+            "UID": "881999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "5",
+            "UID": "882999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "6",
+            "UID": "883999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "7",
+            "UID": "885999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "8",
+            "UID": "886999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "9",
+            "UID": "887999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "10",
+            "UID": "888999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+       {
+            "ID": "10",
+            "UID": "889999999",
+            "Server": "Asia",
+            "Price": 5000000
+        },
+        {
+            "ID": "11",
+            "UID": "890999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "11",
+            "UID": "890999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "12",
+            "UID": "891999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "13",
+            "UID": "892999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "14",
+            "UID": "893999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "15",
+            "UID": "895999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "16",
+            "UID": "896999999",
+            "Server": "Asia",
+            "Price": 500000
+        },
+        {
+            "ID": "17",
+            "UID": "88888888",
+            "Server": "Asia",
+            "Price": 19999999
+        }
+    ]
+];
 export let homeApi = "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts";
 //Get element/api
 export function GETelement(url, callback) {
