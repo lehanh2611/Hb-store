@@ -1125,12 +1125,12 @@
     align-items: center;
 }
 
-.flash-sale__slide-index-box {
+.flash-sale__list-index-box {
     display: flex;
     padding: 8px 0;
 }
 
-.flash-sale__slide-index {
+.flash-sale__list-index {
     display: block;
     width: 20px;
     height: 3px;
@@ -1139,7 +1139,7 @@
     background-color: var(--gray-transparent);
 }
 
-.flash-sale__slide-index.active {
+.flash-sale__list-index.active {
     background-color: var(--default-bland);
 }
 

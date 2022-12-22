@@ -850,10 +850,12 @@ const flashSale = {
 
 
         GETelement(productAPi, (Products) => {
-            let listLeng = Number.parseInt(Products.length / slot)
+            let listLeng = Number.parseInt(Products.length / slot) - 1
             let products = []
+            let iList = 0
 
             for (let i = 5; i <= Products.length; i += slot) {
+                console.log(Products[i])
                 products = [...products, ...Products.slice(i - slot, i)]
             }
 
@@ -874,6 +876,15 @@ const flashSale = {
                     indexStart = 0
                     indexEnd = slot
                     flashSale.render(products, indexStart, indexEnd)
+                }
+
+                iList += 1
+                if (iList <= listLeng) {
+                    indexList(iList)
+                }
+                else {
+                    iList = 0
+                    indexList(iList)
                 }
 
                 setTimeout(() => {
@@ -899,9 +910,28 @@ const flashSale = {
                     flashSale.render(products, indexStart, indexEnd)
                 }
 
+                iList -= 1
+                if (iList >= 0) {
+                    indexList(iList)
+                }
+                else {
+                    iList = listLeng
+                    indexList(iList)
+                }
+
                 setTimeout(() => {
                     btnLeft.addEventListener('click', backList)
                 }, 600)
+            }
+
+            function indexList(index) {
+
+                const items = $$('.flash-sale__list-index')
+
+                for (let item of items) {
+                    item.classList.remove('active')
+                }
+                items[index].classList.add('active')
             }
         })
 
