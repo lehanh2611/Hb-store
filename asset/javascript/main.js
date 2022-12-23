@@ -831,55 +831,57 @@ let i = -10
 //FLash sale
 const flashSale = {
     productContain: $('.product-item__list'),
+    btnLeft: $('.flash-sale__btn.left'),
+    btnRight: $('.flash-sale__btn.right'),
 
     // Render product
     render: function (product, indexStart, indexEnd) {
 
-        // let listLeng = Number.parseInt(product.length / slot)
         let listProduct = product.slice(indexStart, indexEnd)
 
         this.productContain.innerHTML = renderProduct(listProduct)
     },
 
     slide: function () {
-        const btnLeft = $('.flash-sale__btn.left')
-        const btnRight = $('.flash-sale__btn.right')
         let slot = 5
         let indexStart = 0
         let indexEnd = slot
 
 
         GETelement(productAPi, (Products) => {
-            let listLeng = Number.parseInt(Products.length / slot) - 1
-            let products = []
+            let listLeng = Math.ceil(Products.length / slot)
             let iList = 0
 
-            for (let i = 5; i <= Products.length; i += slot) {
-                console.log(Products[i])
-                products = [...products, ...Products.slice(i - slot, i)]
-            }
+            indexList(iList)
+            this.process()
+            this.render(Products, 0, slot)
+            flashSale.productContain.classList.add('loadProduct')
 
-            this.render(products, 0, slot)
-
-            btnRight.addEventListener('click', nextList)
+            this.btnRight.addEventListener('click', nextList)
             function nextList() {
-                btnRight.removeEventListener('click', nextList)
+                flashSale.btnRight.removeEventListener('click', nextList)
                 flashSale.productContain.classList.add('loadProduct')
 
                 indexStart += slot
                 indexEnd += slot
 
                 if (indexEnd <= Products.length) {
-                    flashSale.render(products, indexStart, indexEnd)
+                    flashSale.render(Products, indexStart, indexEnd)
                 }
                 else {
-                    indexStart = 0
-                    indexEnd = slot
-                    flashSale.render(products, indexStart, indexEnd)
+                    if (indexStart < Products.length) {
+
+                        flashSale.render(Products, indexStart, indexStart + (Products.length - indexStart))
+                    }
+                    else {
+                        indexStart = 0
+                        indexEnd = slot
+                        flashSale.render(Products, indexStart, indexEnd)
+                    }
                 }
 
                 iList += 1
-                if (iList <= listLeng) {
+                if (iList < listLeng) {
                     indexList(iList)
                 }
                 else {
@@ -888,26 +890,34 @@ const flashSale = {
                 }
 
                 setTimeout(() => {
-                    btnRight.addEventListener('click', nextList)
+                    flashSale.btnRight.addEventListener('click', nextList)
                 }, 600)
             }
 
 
-            btnLeft.addEventListener('click', backList)
+            this.btnLeft.addEventListener('click', backList)
             function backList() {
-                btnLeft.removeEventListener('click', backList)
+                flashSale.btnLeft.removeEventListener('click', backList)
                 flashSale.productContain.classList.add('loadProduct')
 
                 indexStart -= slot
                 indexEnd -= slot
 
-                if (indexEnd < slot) {
-                    indexStart = products.length - slot
-                    indexEnd = products.length
-                    flashSale.render(products, indexStart, indexEnd)
+                if (indexStart < 0) {
+                    let index = 1
+
+                    indexEnd = Products.length
+                    while ((Products.length - index) % slot !== 0) {
+                        ++index
+                    }
+
+                    indexStart = Products.length - index
+                    flashSale.render(Products, indexStart, indexEnd)
+
+                    indexEnd = indexStart + slot
                 }
                 else {
-                    flashSale.render(products, indexStart, indexEnd)
+                    flashSale.render(Products, indexStart, indexEnd)
                 }
 
                 iList -= 1
@@ -915,16 +925,28 @@ const flashSale = {
                     indexList(iList)
                 }
                 else {
-                    iList = listLeng
+                    iList = listLeng - 1
                     indexList(iList)
                 }
 
                 setTimeout(() => {
-                    btnLeft.addEventListener('click', backList)
+                    flashSale.btnLeft.addEventListener('click', backList)
                 }, 600)
             }
 
             function indexList(index) {
+                const itemBox = $('.flash-sale__list-index-box')
+
+                if (!itemBox.querySelector('span')) {
+                    let i = 0
+                    let accElement = ''
+
+                    while (i < listLeng) {
+                        accElement += `<span class="flash-sale__list-index"></span>`
+                        i++
+                    }
+                    itemBox.innerHTML = accElement
+                }
 
                 const items = $$('.flash-sale__list-index')
 
@@ -937,6 +959,49 @@ const flashSale = {
 
 
 
+    },
+
+    process: function () {
+        const processE = $('.flash-sale__slide-process')
+        const keyframes = [
+            { 'width': '0%' },
+            { 'width': '100%' }
+        ]
+        const options = {
+            duration: 10000,
+            iterations: 1,
+        }
+        const animate = processE.animate(keyframes, options)
+
+        animate.onfinish = () => {
+            this.btnRight.click()
+        }
+
+        this.productContain.addEventListener('mouseover', () => {
+            const products = $$('.flash-sale .product-item')
+            for (let product of products) {
+                
+                //Pause
+                product.addEventListener('mouseenter', () => {
+                    animate.pause()
+                })
+        
+                //Play
+                product.addEventListener('mouseleave', () => {
+                    animate.play()
+                })
+            }
+        })
+
+        //Cancel
+        this.btnRight.onclick = () => {
+            animate.cancel()
+            animate.play()
+        }
+        this.btnLeft.onclick = () => {
+            animate.cancel()
+            animate.play()
+        }
     },
 
     timer: function () {
