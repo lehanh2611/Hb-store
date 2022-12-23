@@ -933,44 +933,48 @@ const flashSale = {
 
             function indexList(index) {
                 const itemBox = $('.flash-sale__list-index-box')
-
-                if (!itemBox.querySelector('span')) {
-                    createIndex()
-                }
-                else {
-                    for (let element of $$('.flash-sale__list-index')) {
-                        element.remove()
-                    }
-                    createIndex()
-                }
-
-                function createIndex() {
-                    let i = 0
-                    let accElement = ''
-
-                    while (i < listLeng) {
-                        accElement += `<span class="flash-sale__list-index"></span>`
-                        i++
-                    }
-                    itemBox.innerHTML = accElement
-                }
-
-                const items = $$('.flash-sale__list-index')
+                let items = $$('.flash-sale__list-index')
 
                 for (let item of items) {
                     item.classList.remove('active')
                 }
-                items[index].classList.add('active')
+
+                setTimeout(() => {
+
+                    if (!itemBox.querySelector('span')) {
+                        createIndex()
+                    }
+                    else {
+                        for (let element of items) {
+                            element.remove()
+                        }
+                        createIndex()
+                    }
+
+                    function createIndex() {
+                        let i = 0
+                        let accElement = ''
+
+                        while (i < listLeng) {
+                            accElement += `<span class="flash-sale__list-index"></span>`
+                            i++
+                        }
+                        itemBox.innerHTML = accElement
+                    }
+
+                    items = $$('.flash-sale__list-index')
+                    items[index].classList.add('active')
+                }, 200);
             }
         })
 
-        window.addEventListener('scroll', showNoti )
+        window.addEventListener('scroll', showNoti)
         function showNoti() {
             let notifi = $('.flash-sale__notification')
             if (window.scrollY >= 300) {
                 notifi.classList.add('active')
-                setTimeout(() => {notifi.classList.remove('active')}, 3000);
-                window.removeEventListener('scroll', showNoti )
+                setTimeout(() => { notifi.classList.remove('active') }, 3000);
+                window.removeEventListener('scroll', showNoti)
             }
         }
     },

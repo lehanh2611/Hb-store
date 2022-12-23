@@ -1172,12 +1172,14 @@
     width: 8px;
     margin: 0 5px;
     border-radius: 50%;
-    transition: linear .3s;
-    background-color: var(--gray-transparent);
+    transition: linear .2s;
+    background-color: var(--default-bland);
+    opacity: 0.3;
 }
 
 .flash-sale__list-index.active {
-    background-color: var(--default-bland);
+    opacity: 1;
+    /* animation:flash-sale__list-index linear .3s forwards; */
 }
 
 .flash-sale__slide-process-box {
