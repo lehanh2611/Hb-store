@@ -786,10 +786,9 @@
 .content-top {
     display: flex;
     overflow: hidden;
-    background-color: transparent;
     border-radius: 10px;
     background-color: transparent;
-    padding: 0 4px;
+    padding: 0 6px;
 }
 
 .content-top__top-recharge {
@@ -977,9 +976,11 @@
 .flash-sale {
     width: 100%;
     margin-top: 55px;
+    padding-left: 6px;
 }
 
 .flash-sale__wrap {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -988,6 +989,36 @@
     border-radius: 10px;
     box-shadow: 0 0 3px var(--box-shadow-dark);
     background-image: url(../img/bg-flash-sale.png);
+}
+
+.flash-sale__notification {
+    position: absolute;
+    display: none;
+    text-align: center;
+    align-self: center;
+    white-space: nowrap;
+    z-index: 2;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 2rem;
+    bottom: 50%;
+    color: var(--default-bland);
+    background-color: var(--color-dark-bland);
+}
+
+.flash-sale__notification.active {
+    display: block;
+    animation: flash-sale__notification linear .2s forwards;
+}
+
+@keyframes flash-sale__notification {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0.6;
+    }
 }
 
 .flash-sale__box-top {

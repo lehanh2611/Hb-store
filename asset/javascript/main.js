@@ -833,6 +833,7 @@ const flashSale = {
     productContain: $('.product-item__list'),
     btnLeft: $('.flash-sale__btn.left'),
     btnRight: $('.flash-sale__btn.right'),
+    countdownTime: 10000,
 
     // Render product
     render: function (product, indexStart, indexEnd) {
@@ -963,8 +964,15 @@ const flashSale = {
             }
         })
 
-
-
+        window.addEventListener('scroll', showNoti )
+        function showNoti() {
+            let notifi = $('.flash-sale__notification')
+            if (window.scrollY >= 300) {
+                notifi.classList.add('active')
+                setTimeout(() => {notifi.classList.remove('active')}, 3000);
+                window.removeEventListener('scroll', showNoti )
+            }
+        }
     },
 
     process: function () {
@@ -974,15 +982,10 @@ const flashSale = {
             { 'width': '100%' }
         ]
         const options = {
-            duration: 10000,
+            duration: this.countdownTime,
             iterations: 1,
         }
-
-        processE.getAnimations().forEach((animate) => {
-            animate.cancel()
-        })
-
-        let animate = processE.animate(keyframes, options)
+        const animate = processE.animate(keyframes, options)
 
         animate.onfinish = () => {
             this.btnRight.click()
@@ -1042,35 +1045,56 @@ const flashSale = {
         setInterval(() => { this.timer() }, 1000);
 
         //Screen width case
-        changeWidth()
-        window.addEventListener('resize', changeWidth)
+        let screenWidth = window.innerWidth
 
-        function changeWidth(timeOut) {
-            
-            window.removeEventListener('resize', changeWidth)
-            setTimeout(() => {
-
-                let screenWidth = window.innerWidth
-
-                if (screenWidth > 1200) {
-                    flashSale.slide(5)
-                }
-                if (screenWidth < 1200 && screenWidth > 960) {
-                    flashSale.slide(4)
-                }
-                if (screenWidth < 960 && screenWidth > 720) {
-                    flashSale.slide(3)
-                }
-                if (screenWidth < 720 && screenWidth > 480) {
-                    flashSale.slide(2)
-                }
-                if (screenWidth < 480) {
-                    flashSale.slide(1)
-                }
-
-                window.addEventListener('resize', changeWidth)
-            }, 2000);
+        if (screenWidth > 1200) {
+            flashSale.slide(5)
         }
+        if (screenWidth < 1200 && screenWidth > 960) {
+            this.countdownTime = 8000
+            flashSale.slide(4)
+        }
+        if (screenWidth < 960 && screenWidth > 720) {
+            this.countdownTime = 6000
+            flashSale.slide(3)
+        }
+        if (screenWidth < 720 && screenWidth > 480) {
+            this.countdownTime = 5000
+            flashSale.slide(2)
+        }
+        if (screenWidth < 480) {
+            this.countdownTime = 3000
+            flashSale.slide(1)
+        }
+        // changeWidth()
+        // window.addEventListener('resize', changeWidth)
+
+        // function changeWidth() {
+
+        //     window.removeEventListener('resize', changeWidth)
+        //     setTimeout(() => {
+
+        //         let screenWidth = window.innerWidth
+
+        //         if (screenWidth > 1200) {
+        //             flashSale.slide(5)
+        //         }
+        //         if (screenWidth < 1200 && screenWidth > 960) {
+        //             flashSale.slide(4)
+        //         }
+        //         if (screenWidth < 960 && screenWidth > 720) {
+        //             flashSale.slide(3)
+        //         }
+        //         if (screenWidth < 720 && screenWidth > 480) {
+        //             flashSale.slide(2)
+        //         }
+        //         if (screenWidth < 480) {
+        //             flashSale.slide(1)
+        //         }
+
+        //         window.addEventListener('resize', changeWidth)
+        //     }, 2000);
+        // }
     }
 }
 flashSale.start()
