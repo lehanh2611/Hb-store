@@ -842,8 +842,8 @@ const flashSale = {
         this.productContain.innerHTML = renderProduct(listProduct)
     },
 
-    slide: function () {
-        let slot = 5
+    slide: function (value) {
+        let slot = value
         let indexStart = 0
         let indexEnd = slot
 
@@ -889,9 +889,7 @@ const flashSale = {
                     indexList(iList)
                 }
 
-                setTimeout(() => {
-                    flashSale.btnRight.addEventListener('click', nextList)
-                }, 600)
+                flashSale.btnRight.addEventListener('click', nextList)
             }
 
 
@@ -929,15 +927,23 @@ const flashSale = {
                     indexList(iList)
                 }
 
-                setTimeout(() => {
-                    flashSale.btnLeft.addEventListener('click', backList)
-                }, 600)
+                flashSale.btnLeft.addEventListener('click', backList)
             }
 
             function indexList(index) {
                 const itemBox = $('.flash-sale__list-index-box')
 
                 if (!itemBox.querySelector('span')) {
+                    createIndex()
+                }
+                else {
+                    for (let element of $$('.flash-sale__list-index')) {
+                        element.remove()
+                    }
+                    createIndex()
+                }
+
+                function createIndex() {
                     let i = 0
                     let accElement = ''
 
@@ -971,7 +977,12 @@ const flashSale = {
             duration: 10000,
             iterations: 1,
         }
-        const animate = processE.animate(keyframes, options)
+
+        processE.getAnimations().forEach((animate) => {
+            animate.cancel()
+        })
+
+        let animate = processE.animate(keyframes, options)
 
         animate.onfinish = () => {
             this.btnRight.click()
@@ -980,12 +991,12 @@ const flashSale = {
         this.productContain.addEventListener('mouseover', () => {
             const products = $$('.flash-sale .product-item')
             for (let product of products) {
-                
+
                 //Pause
                 product.addEventListener('mouseenter', () => {
                     animate.pause()
                 })
-        
+
                 //Play
                 product.addEventListener('mouseleave', () => {
                     animate.play()
@@ -994,6 +1005,10 @@ const flashSale = {
         })
 
         //Cancel
+        if (animate.currentTime > 100) {
+            console.log(clear)
+            animate.cancel()
+        }
         this.btnRight.onclick = () => {
             animate.cancel()
             animate.play()
@@ -1024,11 +1039,38 @@ const flashSale = {
 
 
     start: function () {
-        setInterval(() => {
-            this.timer()
-        }, 1000);
+        setInterval(() => { this.timer() }, 1000);
 
-        this.slide()
+        //Screen width case
+        changeWidth()
+        window.addEventListener('resize', changeWidth)
+
+        function changeWidth(timeOut) {
+            
+            window.removeEventListener('resize', changeWidth)
+            setTimeout(() => {
+
+                let screenWidth = window.innerWidth
+
+                if (screenWidth > 1200) {
+                    flashSale.slide(5)
+                }
+                if (screenWidth < 1200 && screenWidth > 960) {
+                    flashSale.slide(4)
+                }
+                if (screenWidth < 960 && screenWidth > 720) {
+                    flashSale.slide(3)
+                }
+                if (screenWidth < 720 && screenWidth > 480) {
+                    flashSale.slide(2)
+                }
+                if (screenWidth < 480) {
+                    flashSale.slide(1)
+                }
+
+                window.addEventListener('resize', changeWidth)
+            }, 2000);
+        }
     }
 }
 flashSale.start()
