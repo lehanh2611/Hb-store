@@ -1059,7 +1059,7 @@
 }
 
 .product-item__list {
-    justify-content: space-around;
+    justify-content: flex-start;
     list-style: none;
     flex-wrap: nowrap;
     padding: 0 6px;
@@ -1067,7 +1067,6 @@
     overflow: hidden;
     overflow-x: scroll;
     scroll-behavior: smooth;
-
 }
 
 .product-item__list::-webkit-scrollbar {
@@ -1075,7 +1074,15 @@
 }
 
 .product-item {
-    margin: 0;
+    margin: 0 6px;
+}
+
+.product-item:first-child {
+    margin-left: auto;
+}
+
+.product-item:last-child {
+    margin-right: auto;
 }
 
 .loadProduct .product-item {

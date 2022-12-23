@@ -353,3 +353,28 @@
 }
 
 /**************************************** Other ****************************************/
+
+/* @media (max-width: 1199.99px) {
+    
+    .product-item__list {
+        padding-bottom: 10px;
+    }
+    
+    
+    .product-item__list::-webkit-scrollbar {
+        display: unset;
+        height: 6px;
+    }
+    
+    .product-item__list::-webkit-scrollbar-track {
+        background: var(--default-bland);
+    }
+    
+    .product-item__list::-webkit-scrollbar-thumb {
+        background: var(--color-dark-bland);
+    }
+    
+    .product-item__list::-webkit-scrollbar-thumb:hover {
+        background: #333;
+    }
+} */
