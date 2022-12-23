@@ -5,26 +5,28 @@ export function renderProduct(products, uid, callback) {
     //Render all Product
     if (arguments.length <= 1) {
         let output = products.reduce((accmulate, element) => {
-            return accmulate += body(element.UID, element.Server, element.Price)
+            return accmulate += body(element.UID, element.Server, element.Price, element.Discount)
         }, '')
         return output
     }
     //Render one product
     else {
         const product = products.find((element) => element.UID == uid)
-        return body(product.UID, product.Server, product.Price)
+        return body(product.UID, product.Server, product.Price, element.Discount)
     }
 }
 
 //Render
-function body(uid, server, Price, oldPrice = Price) {
+function body(uid, server, price, discount) {
+    const discountRatio = discount
+    discount = price - ((price * discount) / 100)
     return `<div class="product-item">
     <div class="product-item__box-top">
         <div class="product-item__img-box">
             <img class="product-item__img" src="./asset/img/bg.jpg">
         </div>
         <span class="product-item__discounts-wrap">
-            <p class="product-item__discounts">-10%</p>
+            <p class="product-item__discounts">-${discountRatio}%</p>
         </span>
         <p class="product-item__view">
             Xem ảnh thực tế
@@ -42,8 +44,8 @@ function body(uid, server, Price, oldPrice = Price) {
         </div>
         <div class="box">
             <div class="product-item__title">Giá:</div>
-            <p class="product-item__price-old">${formatMoney(oldPrice)}</p>
-            <p class="product-item__price">${formatMoney(Price)}</p>
+            <p class="product-item__price-old">${formatMoney(price)}</p>
+            <p class="product-item__price">${formatMoney(discount)}</p>
         </div>
         <div class="box">
             <button class="btn product-item__buy">Mua ngay</button>

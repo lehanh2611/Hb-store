@@ -17,6 +17,7 @@ import {
     plateBlurBody,
     rechargeList,
     productAPi,
+    flashSaleApi,
 
     /***** Variable *****/
     bodyModalLoading,
@@ -849,7 +850,7 @@ const flashSale = {
         let indexEnd = slot
 
 
-        GETelement(productAPi, (Products) => {
+        GETelement(flashSaleApi, (Products) => {
             let listLeng = Math.ceil(Products.length / slot)
             let iList = 0
 
