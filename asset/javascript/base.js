@@ -320,3 +320,141 @@ export function DELETEelement(url, callback) {
         .then(callback)
 };
 
+[
+    {
+     "ID": "0",
+     "UID": "659999999",
+     "Server": "America",
+     "Price": 3000000,
+     "Discount": 80,
+     "Sold": 1
+    },
+    {
+     "ID": "1",
+     "UID": "660000000",
+     "Server": "America",
+     "Price": 2000000,
+     "Discount": 10,
+     "Sold": 0
+    },
+    {
+     "ID": "2",
+     "UID": "888888888",
+     "Server": "Asia",
+     "Price": 19999999,
+     "Discount": 20,
+     "Sold": 0
+    },
+    {
+     "ID": "3",
+     "UID": "880000000",
+     "Server": "Asia",
+     "Price": 2000000,
+     "Discount": 50,
+     "Sold": 0
+    },
+    {
+     "ID": "4",
+     "UID": "881999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 5,
+     "Sold": 0
+    },
+    {
+     "ID": "5",
+     "UID": "882999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 10,
+     "Sold": 0
+    },
+    {
+     "ID": "6",
+     "UID": "883999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 95,
+     "Sold": 1
+    },
+    {
+     "ID": "7",
+     "UID": "885999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 20,
+     "Sold": 0
+    },
+    {
+     "ID": "8",
+     "UID": "886999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 30,
+     "Sold": 1
+    },
+    {
+     "ID": "9",
+     "UID": "887999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 10,
+     "Sold": 0
+    },
+    {
+     "ID": "10",
+     "UID": "888999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 8,
+     "Sold": 0
+    },
+    {
+     "ID": "11",
+     "UID": "890999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 6,
+     "Sold": 0
+    },
+    {
+     "ID": "12",
+     "UID": "891999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 26,
+     "Sold": 1
+    },
+    {
+     "ID": "13",
+     "UID": "892999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 9,
+     "Sold": 0
+    },
+    {
+     "ID": "14",
+     "UID": "893999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 19,
+     "Sold": 0
+    },
+    {
+     "ID": "15",
+     "UID": "896999999",
+     "Server": "Asia",
+     "Price": 500000,
+     "Discount": 99,
+     "Sold": 1
+    },
+    {
+     "ID": "16",
+     "UID": "899999999",
+     "Server": "Asia",
+     "Price": 10000000,
+     "Discount": 100,
+     "Sold": 1
+    }
+   ]

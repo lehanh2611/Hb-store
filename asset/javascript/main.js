@@ -8,6 +8,8 @@ import {
     PUTelement,
     DELETEelement,
     formatMoney,
+    select,
+    rippleBtn,
 
     /***** Constant *****/
     $,
@@ -42,10 +44,10 @@ import {
 const app = {
     start: function () {
         logHistory.start()
-
+        rippleBtn($$('.rippleBtn'))
     }
 }
-app.start()
+setTimeout(() => {app.start()}, 0);
 
 
 
@@ -857,6 +859,7 @@ const flashSale = {
             indexList(iList)
             this.process()
             this.render(Products, 0, slot)
+            rippleBtn($$('.rippleBtn'))
             flashSale.productContain.classList.add('loadProduct')
 
             this.btnRight.addEventListener('click', nextList)
@@ -936,6 +939,8 @@ const flashSale = {
                 const itemBox = $('.flash-sale__list-index-box')
                 let items = $$('.flash-sale__list-index')
 
+                rippleBtn($$('.rippleBtn'))
+
                 for (let item of items) {
                     item.classList.remove('active')
                 }
@@ -967,17 +972,17 @@ const flashSale = {
                     items[index].classList.add('active')
                 }, 200);
             }
+            window.addEventListener('scroll', showNoti)
+            function showNoti() {
+                let notifi = $('.flash-sale__notification')
+                if (window.scrollY >= 260) {
+                    notifi.classList.add('active')
+                    setTimeout(() => { notifi.classList.remove('active') }, 5000);
+                    window.removeEventListener('scroll', showNoti)
+                }
+            }
         })
 
-        window.addEventListener('scroll', showNoti)
-        function showNoti() {
-            let notifi = $('.flash-sale__notification')
-            if (window.scrollY >= 300) {
-                notifi.classList.add('active')
-                setTimeout(() => { notifi.classList.remove('active') }, 3000);
-                window.removeEventListener('scroll', showNoti)
-            }
-        }
     },
 
     process: function () {
@@ -1071,35 +1076,52 @@ const flashSale = {
             this.countdownTime = 3000
             flashSale.slide(1)
         }
-        // changeWidth()
-        // window.addEventListener('resize', changeWidth)
-
-        // function changeWidth() {
-
-        //     window.removeEventListener('resize', changeWidth)
-        //     setTimeout(() => {
-
-        //         let screenWidth = window.innerWidth
-
-        //         if (screenWidth > 1200) {
-        //             flashSale.slide(5)
-        //         }
-        //         if (screenWidth < 1200 && screenWidth > 960) {
-        //             flashSale.slide(4)
-        //         }
-        //         if (screenWidth < 960 && screenWidth > 720) {
-        //             flashSale.slide(3)
-        //         }
-        //         if (screenWidth < 720 && screenWidth > 480) {
-        //             flashSale.slide(2)
-        //         }
-        //         if (screenWidth < 480) {
-        //             flashSale.slide(1)
-        //         }
-
-        //         window.addEventListener('resize', changeWidth)
-        //     }, 2000);
-        // }
     }
 }
 flashSale.start()
+
+//Stall
+const stall = {
+    productContain: $('.stall__product-contain'),
+    navItems: $$('.stall__navbar-item'),
+    options: $$('.stall__navbar-item-options'),
+
+    renderProduct: function () {
+        GETelement(productAPi, (products) => {
+            this.productContain.innerHTML = renderProduct(products)
+
+        })
+    },
+
+
+    activeBtn: function () {
+        //event select navbar
+        select(this.navItems)
+        
+        select(this.options, (element) => {
+            let parent = element.closest('.stall__navbar-menu')
+            let title = parent.querySelector('.stall__navbar-menu-title')
+            let titleText = title.innerText
+            let exist = titleText.indexOf(':')
+
+            if (exist !== -1) {
+                title.innerText =
+                    `${titleText.slice(0, exist)}: ${element.innerText}`
+            }
+            else {
+                title.innerText =
+                    `${titleText}: ${element.innerText}`
+            }
+
+        })
+
+
+    },
+
+    start: function () {
+        this.renderProduct()
+        this.activeBtn()
+    }
+}
+
+stall.start()
