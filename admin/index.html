@@ -26,69 +26,73 @@
     <div id="main">
         <div class="nav">
             <div class="nav-top">
-                <img src="../asset/img/logo.png" class="nav-logo">
+                <img src="./assets/image/logo.png" class="nav-logo">
                 <i class="nav-top-resize fa-solid fa-angle-left"></i>
             </div>
 
             <div class="nav-mid">
                 <ul class="nav__category">
                     <h3 class="nav__category-title">Tài khoản</h3>
-                    <p class="nav__category-options">
-                        <i class="nav__category-icon fa-solid fa-list-ul"></i>
-                        Danh sách
-                    </p>
+                    <span class="nav__category-options">
+                        <i class="nav__category-icon fa-sharp fa-solid fa-wand-magic-sparkles"></i>
+                        <p class="nav__category-options-tx">Manage</p>
+                    </span>
                 </ul>
                 <ul class="nav__category">
                     <h3 class="nav__category-title">Sản phẩm</h3>
-                    <p class="nav__category-options">
-                        <i class="nav__category-icon fa-solid fa-list-ul"></i>
-                        Danh sách
-                    </p>
-                    <p class="nav__category-options">
+                    <span class="nav__category-options">
+                        <i class="nav__category-icon fa-sharp fa-solid fa-wand-magic-sparkles"></i>
+                        <p class="nav__category-options-tx">Manage</p>
+                    </span>
+                    <span class="nav__category-options">
                         <i class="nav__category-icon fa-solid fa-bolt"></i>
-                        Flash sale
-                    </p>
-                    <p class="nav__category-options">
+                        <p class="nav__category-options-tx">Flash sale</p>
+                    </span>
+                    <span class="nav__category-options">
                         <i class="nav__category-icon fa-sharp fa-solid fa-bag-shopping"></i>
-                        Đơn mua
-                    </p>
-                    <p class="nav__category-options">
+                        <p class="nav__category-options-tx">Chờ xử lý</p>
+                    </span>
+                    <span class="nav__category-options">
+                        <i class="nav__category-icon fa-duotone fa-circle-three-quarters"></i>
+                        <p class="nav__category-options-tx">Doanh số</p>
+                    </span>
+                    <!-- <span class="nav__category-options">
                         <i class="nav__category-icon fa-solid fa-layer-plus"></i>
-                        Thêm sản phẩm
-                    </p>
+                        <p class="nav__category-options-tx">Thêm sản phẩm</p>
+                    </span> -->
                 </ul>
                 <ul class="nav__category">
                     <h3 class="nav__category-title">Tiền tệ</h3>
-                    <p class="nav__category-options">
+                    <span class="nav__category-options">
                         <i class="nav__category-icon fa-solid fa-chart-mixed"></i>
-                        Lưu lượng
-                    </p>
-                    <p class="nav__category-options">
+                        <p class="nav__category-options-tx">Lưu lượng</p>
+                    </span>
+                    <span class="nav__category-options">
                         <i class="nav__category-icon fa-solid fa-clock"></i>
-                        Chờ nạp, rút
-                    </p>
+                        <p class="nav__category-options-tx">Chờ nạp, rút</p>
+                    </span>
                 </ul>
                 <ul class="nav__category">
                     <h3 class="nav__category-title">Hệ thống</h3>
-                    <p class="nav__category-options">
+                    <span class="nav__category-options">
                         <i class="nav__category-icon fa-solid fa-clock-rotate-left"></i>
-                       Lịch sử
-                    </p>
-                    <p class="nav__category-options">
+                        <p class="nav__category-options-tx">Lịch sử</p>
+                    </span>
+                    <span class="nav__category-options">
                         <i class="nav__category-icon fa-solid fa-gear"></i>
-                        Cài đặt
-                    </p>
-                    <p class="nav__category-options">
+                        <p class="nav__category-options-tx">Cài đặt</p>
+                    </span>
+                    <span class="nav__category-options">
                         <i class="nav__category-icon fa-solid fa-circle-half-stroke"></i>
-                        Chủ đề tối
-                    </p>
+                        <p class="nav__category-options-tx">Chủ đề tối</p>
+                    </span>
                 </ul>
             </div>
 
             <div class="nav_bot">
                 <div class="nav_bot-user">
                     <img class="user__avt" src="../asset/img/user-avt/user-id0.jpg">
-                    <div class="user__info>">
+                    <div class="user__info">
                         <p class="user__name">Lê Hạnh</p>
                         <p class="user__position">Admin Manager</p>
                     </div>
@@ -99,6 +103,151 @@
                 </div>
             </div>
         </div>
+        <div id="body">
+            <div class="body__app">
+                <div class="app__top">
+                    <h3 class="app__top-title">Manage</h3>
+                    <div class="app__top-feature-contain">
+                        <div class="app__top-feature">
+                            <i class="app__top-feature-icon fa-solid fa-message"></i>
+                            <p class="app__top-feature-text">Nhắn tin</p>
+                        </div>
+                        <div class="app__top-feature">
+                            <i class="app__top-feature-icon fa-solid fa-credit-card"></i>
+                            <p class="app__top-feature-text">Nạp tiền</p>
+                        </div>
+                        <div class="app__top-feature">
+                            <i class="app__top-feature-icon fa-sharp fa-solid fa-screwdriver-wrench"></i>
+                            <p class="app__top-feature-text">Chỉnh sửa</p>
+                        </div>
+                        <div class="app__top-feature">
+                            <i class="app__top-feature-icon fa-solid fa-user-lock"></i>
+                            <p class="app__top-feature-text">Tạm khóa</p>
+                        </div>
+                        <div class="app__top-feature delete">
+                            <i class="app__top-feature-icon fa-solid fa-user-minus"></i>
+                            <p class="app__top-feature-text">Xóa bỏ</p>
+                        </div>
+                        <div class="app__top-feature">
+                            <i class="app__top-feature-icon fa-solid fa-user-plus"></i>
+                            <p class="app__top-feature-text">Tạo mới</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="app__mid">
+                    <div class="app__mid-nav">
+                        <div class="app__mid-nav-search-box">
+                            <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
+                            <input class="app__mid-nav-search" type="text"
+                                placeholder="Tìm kiếm với ID, tên tài khoản, biệt danh...">
+                        </div>
+                        <div class="app__mid-nav-ft">
+                            <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
+                            Bộ lọc
+                        </div>
+                        <div class="app__mid-nav-ft">
+                            <i class="app__mid-nav-icon fa-solid fa-file-arrow-down"></i>
+                            Xuất ra
+                        </div>
+                    </div>
+                    <div class="app-board grid">
+                        <ul class="app-board__nav">
+                            <li class="app-board__nav-item l-1">User ID</li>
+                            <li class="app-board__nav-item l-2">User Name</li>
+                            <li class="app-board__nav-item l-3">Email</li>
+                            <li class="app-board__nav-item l-6">Money</li>
+                        </ul>
+                        <div class="app-borad__contain">
+                            <ul class="app-board__data">
+                                <li class="app-board__data-item userId l-1">0</li>
+                                <li class="app-board__data-item userName l-2">admin</li>
+                                <li class="app-board__data-item email l-3">hbstore@gmail.com</li>
+                                <li class="app-board__data-item money l-6">999.999.999đ</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- <div class="app__mid-nav-page">
+                        <p class="app__mid-nav-page-info">1-9 of 99 pages</p>
+                        <div class="app__mid-nav-page-btn-box">
+                            <i class="app__mid-nav-page-btn fa-sharp fa-solid fa-arrow-left"></i>
+                            <i class="app__mid-nav-page-btn fa-sharp fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="app-bot">
+                    <h3 class="app-bot__title">
+                        <i class="fa-solid fa-address-card"></i>
+                        <p>Information</p>
+                        <!-- <i class="app-bot__title-resize fa-solid fa-arrow-down"></i> -->
+                    </h3>
+                    <div class="app-bot__info-contain">
+                        <ul class="app-bot__info-list">
+                            <li class="app-bot__info">
+                                <p class="app-bot__info-data title userid">1.User ID:</p>
+                                <p class="app-bot__info-data value userid">0</p>
+                            </li>
+                            <li class="app-bot__info">
+                                <p class="app-bot__info-data title username">2.User Name:</p>
+                                <p class="app-bot__info-data value username">admin</p>
+                            </li>
+                            <li class="app-bot__info">
+                                <p class="app-bot__info-data title nickname">3.Nick Name:</p>
+                                <p class="app-bot__info-data value nickname">Lê Hạnh</p>
+                            </li>
+                            <li class="app-bot__info">
+                                <p class="app-bot__info-data title email">4.Email:</p>
+                                <p class="app-bot__info-data value email">hbstore@gmail.com</p>
+                            </li>
+                        </ul>
+                        <ul class="app-bot__info-list">
+                            <li class="app-bot__info">
+                                <p class="app-bot__info-data title money">5.Money:</p>
+                                <p class="app-bot__info-data value money">999.999.999đ</p>
+                            </li>
+                            <li class="app-bot__info">
+                                <p class="app-bot__info-data title moneySpent">6.Money Spent:</p>
+                                <p class="app-bot__info-data value moneySpent">N/A</p>
+                            </li>
+                            <li class="app-bot__info">
+                                <p class="app-bot__info-data title totalDeposit">7.Total Deposit:</p>
+                                <p class="app-bot__info-data value totalDeposit">999.999.999đ</p>
+                            </li>
+                            <li class="app-bot__info">
+                                <p class="app-bot__info-data title date">8.Date created:</p>
+                                <p class="app-bot__info-data value date">26/11/2002</p>
+                            </li>
+                        </ul>
+                        <ul class="app-bot__info-list history">
+                            <li class="app-bot__info history">
+                                <p class="app-bot__info-data title history-title">Mua thành công:</p>
+                                <p class="app-bot__info-data value history">N/A</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <modal>
+        <div class="loading">
+            <i class="loading__spindle"></i>
+        </div>
+        <div class="notification">
+            <div class="notification__wrap">
+                <i class="notification__close fa-solid fa-xmark"></i>
+                <div class="notification__face-box">
+                    <i class="notification__face">
+                        <i class="notification__face-eye"></i>
+                        <i class="notification__face-eye"></i>
+                        <i class="notification__face__nose"></i>
+                    </i>
+                    <i class="notification__face-shadow"></i>
+                </div>
+                <p class="notification__title">Thất bại!</p>
+                <p class="notification__content">Vui lòng thử lại</p>
+                <button class="btn notification__btn">Thử lại</button>
+            </div>
+        </div>
+       </modal>
     </div>
     <script type="module" src="./assets/app.js"></script>
 </body>

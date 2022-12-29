@@ -14,7 +14,6 @@ import {
 export let userActiveID = null,
     userAvt = $('.header__user-avt')
 //Login user//
-let contentDefault = $('.header__user-box').outerHTML
 export function userLogin(UserID, accounts) {
     let NotificationWelcome = $('.notification-welcome'),
         userBox = $('.header__user-box'),
@@ -62,6 +61,7 @@ export function loginSuccess(UserID, accounts) {
 //Logout 
 export const logout = {
     start: function () {
+        let contentDefault = $('.header__user-box').outerHTML
         const logoutBtn = $('.header__user-menu .logout')
         logoutBtn.onclick = (e) => {
             //Reset value
@@ -79,5 +79,3 @@ export const logout = {
         }
     }
 }
-
-logout.start()

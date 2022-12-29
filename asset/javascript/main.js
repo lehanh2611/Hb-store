@@ -40,14 +40,16 @@ import {
 
 } from "./end_point.js"
 //***** Global *****/
+console.log(window.location)
 
 const app = {
     start: function () {
+        logout.start()
         logHistory.start()
         rippleBtn($$('.rippleBtn'))
     }
 }
-setTimeout(() => {app.start()}, 0);
+setTimeout(() => { app.start() }, 0);
 
 
 
@@ -1097,7 +1099,7 @@ const stall = {
     activeBtn: function () {
         //event select navbar
         select(this.navItems)
-        
+
         select(this.options, (element) => {
             let parent = element.closest('.stall__navbar-menu')
             let title = parent.querySelector('.stall__navbar-menu-title')

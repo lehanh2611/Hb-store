@@ -3,7 +3,7 @@ import {$,$$} from "../end_point.js"
 
 //Notification window
 export let notificationWindowBody = $('.notification');
-export function notificationWindow(status = 'close', title, content, callback) {
+export function notificationWindow(status = 'close', title, content, callback, contentBtn = null) {
     let titleElement = $('.notification__title'),
         contentElement = $('.notification__content'),
         agreeBox = $('.notification__btn'),
@@ -17,11 +17,11 @@ export function notificationWindow(status = 'close', title, content, callback) {
         //Notification Form
         if (status) {
             notificationWindowBody.classList.add('success');
-            agreeBox.innerHTML = 'Đồng ý';
+            agreeBox.innerHTML = contentBtn === null ? 'Đồng ý'  : contentBtn;
         }
         else {
             notificationWindowBody.classList.add('fail');
-            agreeBox.innerHTML = 'Thử lại';
+            agreeBox.innerHTML =contentBtn === null ?  'Thử lại': contentBtn;
         }
 
         //Render content
