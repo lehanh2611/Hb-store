@@ -238,28 +238,33 @@ const body = {
 
                             //Delete data from app-borad
                             delete: function () {
+
                                 $('.app__top-feature.delete').onclick =
                                     function () {
-                                        notificationWindow(
-                                            false,
-                                            'Bạn chắc chắn muốn xóa',
-                                            'Sẽ không thể khôi phục lại',
-                                            (isSuccess) => {
-                                                if (isSuccess) {
-                                                    const element = $('.app-board__data.active')
-                                                    const Id = element.querySelector('.userId').innerText
+                                        const elementActive = $('.app-board__data.active')
 
-                                                    //Delete data from api
-                                                    DELETEelement(`${homeApi}/${Id}`)
+                                        if (elementActive) {
+                                            notificationWindow(
+                                                false,
+                                                'Bạn chắc chắn muốn xóa',
+                                                'Sẽ không thể khôi phục lại',
+                                                (isSuccess) => {
+                                                    if (isSuccess) {
+                                                        const Id = elementActive.querySelector('.userId').innerText
 
-                                                    //Delete from DOM
-                                                    element.outerHTML = ''
-                                                    notificationWindow()
-                                                }
-                                                else {
-                                                    notificationWindow()
-                                                }
-                                            }, 'Tiếp tục')
+                                                        //Delete data from api
+                                                        DELETEelement(`${homeApi}/${Id}`)
+
+                                                        //Delete from DOM
+                                                        elementActive.outerHTML = ''
+                                                        notificationWindow()
+                                                    }
+                                                    else {
+                                                        notificationWindow()
+                                                    }
+                                                }, 'Tiếp tục')
+
+                                        }
                                     }
                             },
 
