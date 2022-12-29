@@ -309,6 +309,7 @@ html {
     padding: 10px;
     padding-left: 20px;
     height: 100vh;
+    overflow: hidden;
 }
 
 .body__app,
