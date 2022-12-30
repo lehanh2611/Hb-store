@@ -569,6 +569,7 @@ button {
 .notification__btn,
 .notification__content,
 .notification__title {
+    text-align: center;
     text-transform: uppercase;
 }
 

@@ -1,0 +1,140 @@
+html {
+    height: unset;
+    background-color: #FFFFFF;
+}
+
+#main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 368px;
+    height: 299px;
+    transform: translateY(-5vh);
+    background-color: #fcfbfd;
+    padding: 20px;
+    border-radius: 6px;
+    box-sizing: 0 0 10px var(--gray);
+    scale: 0.98;
+    transition: scale ease 1s;
+}
+
+.loginTitle {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #18171a;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.loginInput {
+    width: 96%;
+    height: 36px;
+    margin: 8px 0;
+    color: #514f59;
+    font-size: 1.6rem;
+    border-radius: 2px;
+    background-color: #f0eef0;
+    outline: 1px solid #dfdee2;
+    padding-left: 2px;
+}
+
+.loginInput:focus {
+    outline: 1px solid #8ba2ca;
+    background-color: #fff;
+    box-shadow: 0 0 3px #8ba2ca;
+}
+
+.loginInput::placeholder {
+    padding-left: 6px;
+}
+
+
+.loginButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 96%;
+    height: 38px;
+    border-radius: 6px;
+    box-shadow: 0 0 2px #5181dd;
+    background-color: #5181dd;
+    margin-top: 20px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.loginText {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #f8ffff;
+    letter-spacing: 0.05rem;
+}
+
+.loginText.active {
+    animation: loginText ease .3s forwards;
+}
+
+@keyframes loginText {
+    100% {
+        scale: 0.6;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+}
+
+.loginForgot {
+    text-align: center;
+    color: #b0afb3;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+
+.load {
+    position: absolute;
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid;
+    border-color: var(--gray-transparent);
+    transform: translateY(-32px);
+}
+
+.load.active {
+    animation: loadAnimate ease .3s forwards;
+}
+
+@keyframes loadAnimate {
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.load::before {
+    position: absolute;
+    content: '';
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 50%;
+    border: 3px solid;
+    border-color: #FFFFFF transparent transparent transparent;
+    animation: loadAimate linear 1s infinite;
+}
+
+@keyframes loadAimate {
+    100% {
+        rotate: 360deg;
+    }
+}

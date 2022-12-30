@@ -29,15 +29,15 @@ export function recursive(timeOut, list, e, value1, value2, value3, value4,) {
 
 // Select one element to list
 export function select(listElment, callback) {
-
     //Handle event click
     for (let element of listElment) {
-        element.onclick = () => {
-            
+
+        element.addEventListener('click', () => {
             removeActive()
+            
             element.classList.add('active')
             arguments.length >= 2 ? callback(element) : ''
-        }
+        })
     }
 
     //Remove active
@@ -71,7 +71,7 @@ export function rippleBtn(elements) {
                 'animation': 'rippleBtn 1250ms ease-out forwards'
             })
 
-            
+
 
             Object.assign(ripple.style, {
                 'top': `${y}px`,

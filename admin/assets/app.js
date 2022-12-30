@@ -45,7 +45,7 @@ const body = {
                         <i class="app__top-feature-icon fa-solid fa-user-lock"></i>
                         <p class="app__top-feature-text">Tạm khóa</p>
                     </div>
-                    <div class="app__top-feature">
+                    <div class="app__top-feature delete">
                         <i class="app__top-feature-icon fa-solid fa-user-minus"></i>
                         <p class="app__top-feature-text">Xóa bỏ</p>
                     </div>
@@ -79,21 +79,21 @@ const body = {
                         <li class="app-board__nav-item l-6">Money</li>
                     </ul>
                     <div class="app-borad__contain">
-                        <!-- <ul class="app-board__data">
+                        <ul class="app-board__data">
                             <li class="app-board__data-item userId l-1">0</li>
                             <li class="app-board__data-item userName l-2">admin</li>
                             <li class="app-board__data-item email l-3">hbstore@gmail.com</li>
                             <li class="app-board__data-item money l-6">999.999.999đ</li>
-                        </ul> -->
+                        </ul>
                     </div>
                 </div>
-                <div class="app__mid-nav-page">
+                <!-- <div class="app__mid-nav-page">
                     <p class="app__mid-nav-page-info">1-9 of 99 pages</p>
                     <div class="app__mid-nav-page-btn-box">
                         <i class="app__mid-nav-page-btn fa-sharp fa-solid fa-arrow-left"></i>
                         <i class="app__mid-nav-page-btn fa-sharp fa-solid fa-arrow-right"></i>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="app-bot">
                 <h3 class="app-bot__title">
@@ -166,22 +166,30 @@ const body = {
                             render: function () {
 
                                 const output = accounts.reduce((accmulate, account) => {
-                                    return accmulate += `<ul class="app-board__data">
-                                    <li class="app-board__data-item userId l-1">${account.UserID}</li>
+                                    return accmulate += `<ul id="${account.UserID}" ${account.Block === "true" ? 'block = "true" ' : 'block = "false"'} class="app-board__data">
+                                    <li class="app-board__data-item userId l-1">
+                                    ${account.Block === "true" ? '<i class="app-board__data-lock fa-solid fa-lock"></i>' : ''}
+                                    ${account.UserID}
+                                    </li>
                                     <li class="app-board__data-item userName l-2">${account.Username}</li>
                                     <li class="app-board__data-item email l-3">${account.Email === undefined ? 'Emtpy' : account.Email}</li>
-                                    <li class="app-board__data-item money l-6">${formatMoney(account.Money)}</li>
+                                    <li class="app-board__data-item money l-6">
+                                    ${formatMoney(account.Money)}</li>
                                 </ul>`
                                 }, '')
 
                                 this.appBoradContain.innerHTML = output
 
                                 const appboradElement = $$('.app-board__data')
+
+                                //Callback return element in process active
                                 select(appboradElement,
 
-                                    //render full data
+                                    //callback
                                     (element) => {
-                                        const getId = element.querySelector('.userId').innerText
+
+                                        //render full information
+                                        const getId = element.getAttribute('id')
                                         const result = accounts.find(account => {
                                             return account.UserID == getId
                                         })
@@ -209,20 +217,20 @@ const body = {
                                     <ul class="app-bot__info-list">
                                         <li class="app-bot__info">
                                             <p class="app-bot__info-data title money">5.Money:</p>
-                                            <p class="app-bot__info-data value money">${result.Money}</p>
+                                            <p class="app-bot__info-data value money">${formatMoney(result.Money)}</p>
                                         </li>
                                         <li class="app-bot__info">
                                             <p class="app-bot__info-data title moneySpent">6.Money Spent:</p>
-                                            <p class="app-bot__info-data value moneySpent">${result.MoneySpent === undefined ? 'N/A' : result.MoneySpent}</p>
+                                            <p class="app-bot__info-data value moneySpent">${result.MoneySpent === undefined ? 'N/A' : formatMoney(result.MoneySpent)}</p>
                                         </li>
                                         <li class="app-bot__info">
                                             <p class="app-bot__info-data title totalDeposit">7.Total Deposit:</p>
-                                            <p class="app-bot__info-data value totalDeposit">${result.TotalDeposit}</p>
+                                            <p class="app-bot__info-data value totalDeposit">${formatMoney(result.TotalDeposit)}</p>
                                         </li>
                                         <li class="app-bot__info">
                                             <p class="app-bot__info-data title date">8.Date created:</p>
                                             <p class="app-bot__info-data value date">
-                                            ${`${date.date}\\${date.month}\\${date.year}`}
+                                            ${`${date.date}/${date.month}/${date.year}`}
                                                 </p>
                                         </li>
                                     </ul>
@@ -232,6 +240,16 @@ const body = {
                                             <p class="app-bot__info-data value history">N/A</p>
                                         </li>
                                     </ul>`
+
+                                        // Check lock status
+                                        const parentIcon = $('.app__top-feature.block')
+
+                                        if (element.getAttribute('block') === 'true') {
+                                            parentIcon.classList.add('unlock')
+                                        }
+                                        else {
+                                            parentIcon.classList.remove('unlock')
+                                        }
                                     })
 
                             },
@@ -268,9 +286,79 @@ const body = {
                                     }
                             },
 
+                            block: function () {
+                                const blockBtn = $('.app__top-feature.block')
+
+                                blockBtn.onclick =
+                                    function () {
+                                        const elementActive = $('.app-board__data.active')
+
+                                        // Check select, not select => skip logic 
+                                        if(!elementActive) {
+                                            return
+                                        }
+
+                                        const containId = elementActive.closest('.app-board__data').getAttribute('id')
+                                        const lockBox = elementActive.querySelector('.app-board__data-item.userId')
+
+                                        if (elementActive) {
+
+                                            GETelement(`${homeApi}/${containId}`,
+                                                (account) => {
+
+
+                                                    if (account.Block == "false") {
+
+                                                        PUTelement(`${homeApi}/${containId}`, {
+                                                            Block: "true"
+                                                        })
+
+                                                        //add icon lock
+                                                        lockBox.innerHTML = `<i class="app-board__data-lock fa-solid fa-lock"></i>${lockBox.innerHTML}`
+
+                                                        //change icon button lock
+                                                        blockBtn.classList.add('unlock')
+
+                                                    }
+                                                    else {
+
+                                                        PUTelement(`${homeApi}/${containId}`, {
+                                                            Block: "false"
+                                                        })
+
+                                                        //remove icon lock
+                                                        elementActive.querySelector('.app-board__data-lock').remove()
+
+                                                        //change icon button lock
+                                                        blockBtn.classList.remove('unlock')
+                                                    }
+
+                                                })
+                                        }
+                                    }
+                            },
+
+                            ui: function () {
+                                const boardGrid = $('.app-board')
+                                const boardContain = $('.app-borad__contain')
+
+                                //Set height contain
+                                boardContain.style.height =
+                                    (boardGrid.getBoundingClientRect().height - 30) + 'px'
+
+                            },
+
+                            shared: {
+                                // getActive: function (button) {
+                                //     button.onclick = () => $('.app-board__data.active')
+                                // },
+                            },
+
                             start: function () {
+                                this.ui()
                                 this.render()
                                 this.delete()
+                                this.block()
                             }
                         }
 
@@ -294,11 +382,21 @@ const body = {
             if (element.key.parent == key.parent
                 && element.key.child == key.child) {
                 this.bodyMain.innerHTML = element.value
+                this.account.manage()
             }
         })
     },
 
+    login : function () {
+        if(sessionStorage.getItem('adminInfo') !== null) {
+        }
+        else {
+            window.location.href = window.location.origin + '/admin/login'
+        }
+    },
+
     start: function () {
+        this.login()
         this.account.manage()
     }
 }

@@ -306,8 +306,7 @@ html {
 }
 
 .body__app {
-    padding: 10px;
-    padding-left: 20px;
+    padding: 10px 10px 0 10px;
     height: 100vh;
     overflow: hidden;
 }
@@ -366,12 +365,36 @@ html {
     color: var(--primary);
 }
 
+.app__top-feature-icon.lock{
+    display: none;
+}
+
+.unlock .app__top-feature-icon{
+    display: none;
+}
+
+.unlock .app__top-feature-icon.lock{
+    display: block;
+}
+
 .active .app__top-feature-icon {
     color: var(--green);
 }
 
 .app__top-feature-text {
     font-size: 1.4rem;
+}
+
+.app__top-feature-text.lock{
+    display: none;
+}
+
+.unlock .app__top-feature-text{
+    display: none;
+}
+
+.unlock .app__top-feature-text.lock{
+    display: block;
 }
 
 .active .app__top-feature-text {
@@ -383,8 +406,8 @@ html {
     flex-direction: column;
     align-items: flex-start;
     flex: 1;
-    max-height: 62.9vh;
-    overflow: hidden;
+    /* max-height: 62.9vh;
+    overflow: hidden; */
 }
 
 .app__mid-nav {
@@ -459,7 +482,8 @@ html {
 }
 
 .app-board {
-    margin-top: 10px;
+    flex-grow: 1;
+    margin: 10px 0;
     border: 1px solid var(--gray);
     border-radius: 2px;
 }
@@ -474,6 +498,13 @@ html {
     border: 1px solid transparent;
 }
 
+.app-board__data-lock {
+    font-size: 2rem;
+    color: var(--red);
+    margin-left: -10px;
+    margin-right: 5px;
+}
+
 .app-board__data:hover {
     background-color: var(--green-bland);
     cursor: pointer;
@@ -486,7 +517,6 @@ html {
 }
 
 .app-borad__contain {
-    height: 480px;
     overflow: hidden;
     overflow-y: scroll;
 }
@@ -571,6 +601,7 @@ html {
     background-color: var(--default);
     border-radius: 5px;
     overflow: hidden;
+    transition: .3s;
 }
 
 .app-bot__title {
