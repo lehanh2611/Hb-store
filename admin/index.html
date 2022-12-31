@@ -33,7 +33,7 @@
             <div class="nav-mid">
                 <ul class="nav__category">
                     <h3 class="nav__category-title">Tài khoản</h3>
-                    <span class="nav__category-options">
+                    <span class="nav__category-options active">
                         <i class="nav__category-icon fa-sharp fa-solid fa-wand-magic-sparkles"></i>
                         <p class="nav__category-options-tx">Manage</p>
                     </span>
@@ -108,29 +108,29 @@
                 <div class="app__top">
                     <h3 class="app__top-title">Manage</h3>
                     <div class="app__top-feature-contain">
-                        <div class="app__top-feature">
+                        <div class="app__top-feature rippleBtn message disable">
                             <i class="app__top-feature-icon fa-solid fa-message"></i>
                             <p class="app__top-feature-text">Nhắn tin</p>
                         </div>
-                        <div class="app__top-feature">
+                        <div class="app__top-feature rippleBtn depositBtn">
                             <i class="app__top-feature-icon fa-solid fa-credit-card"></i>
                             <p class="app__top-feature-text">Nạp tiền</p>
                         </div>
-                        <div class="app__top-feature">
+                        <div class="app__top-feature rippleBtn replace disable">
                             <i class="app__top-feature-icon fa-sharp fa-solid fa-screwdriver-wrench"></i>
                             <p class="app__top-feature-text">Chỉnh sửa</p>
                         </div>
-                        <div class="app__top-feature block">
+                        <div class="app__top-feature rippleBtn block">
                             <i class="app__top-feature-icon fa-solid fa-user-lock"></i>
                             <p class="app__top-feature-text">Tạm khóa</p>
                             <i class="app__top-feature-icon lock fa-solid fa-user-unlock"></i>
                             <p class="app__top-feature-text lock ">Mở khóa</p>
                         </div>
-                        <div class="app__top-feature delete">
+                        <div class="app__top-feature rippleBtn delete">
                             <i class="app__top-feature-icon fa-solid fa-user-minus"></i>
                             <p class="app__top-feature-text">Xóa bỏ</p>
                         </div>
-                        <div class="app__top-feature">
+                        <div class="app__top-feature rippleBtn create disable">
                             <i class="app__top-feature-icon fa-solid fa-user-plus"></i>
                             <p class="app__top-feature-text">Tạo mới</p>
                         </div>
@@ -154,19 +154,19 @@
                     </div>
                     <div class="app-board grid">
                         <ul class="app-board__nav">
-                            <li class="app-board__nav-item l-1">User ID</li>
-                            <li class="app-board__nav-item l-2">User Name</li>
-                            <li class="app-board__nav-item l-3">Email</li>
-                            <li class="app-board__nav-item l-6">Money</li>
+                            <li class="app-board__nav-item l-2 m-2">User ID</li>
+                            <li class="app-board__nav-item l-3 m-3">User Name</li>
+                            <li class="app-board__nav-item l-3 m-3">Email</li>
+                            <li class="app-board__nav-item">Money</li>
                         </ul>
                         <div class="app-borad__contain">
                             <ul class="app-board__data">
-                                <li class="app-board__data-item userId l-1">
+                                <li class="app-board__data-item userId l-2 m-2">
                                     <i class="app-board__data-lock fa-solid fa-lock"></i>
                                     0</li>
-                                <li class="app-board__data-item userName l-2">admin</li>
-                                <li class="app-board__data-item email l-3">hbstore@gmail.com</li>
-                                <li class="app-board__data-item money l-6">
+                                <li class="app-board__data-item userName l-3 m-3">admin</li>
+                                <li class="app-board__data-item email l-3 m-3">hbstore@gmail.com</li>
+                                <li class="app-board__data-item money">
                                     999.999.999đ
                                 </li>
                             </ul>
@@ -251,6 +251,21 @@
                 <p class="notification__title">Thất bại!</p>
                 <p class="notification__content">Vui lòng thử lại</p>
                 <button class="btn notification__btn">Thử lại</button>
+            </div>
+        </div>
+        <div class="deposit">
+            <div class="deposit__contain">
+                <i class="deposit__close fa-solid fa-xmark"></i>
+                <h3 class="deposit__title">Nạp tiền cho Username:</h3>
+                <p class="deposit__title-sub">Naocavang</p>
+                <form>
+                    <input type="number" class="deposit__input money" placeholder="Số tiền cần nạp">
+                    <input type="password" class="deposit__input password" placeholder="Mật khẩu quản trị viên">
+                    <button class="btn-loading deposit__button">
+                        <p class="btn-loading__text">Tiến hành nạp</p>
+                        <div class="btn-loading__icon"></div>
+                    </button>
+                </form>
             </div>
         </div>
        </modal>

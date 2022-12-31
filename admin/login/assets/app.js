@@ -8,9 +8,7 @@ import {
 const login = {
     loginFrom: $('.login'),
     inputs: $$('.loginInput'),
-    submitBtn: $('.loginButton'),
-    textSubmit: $('.loginText'),
-    loading: $('.load'),
+    submitBtn: $('.btn-loading'),
 
     //Animate first focus
     animate: function () {
@@ -25,12 +23,10 @@ const login = {
     animateSumbit: function (isStatus = true) {
 
         if (isStatus) {
-            this.textSubmit.classList.add('active')
-            this.loading.classList.add('active')
+            this.submitBtn.classList.add('active')
         }
         else {
-            this.textSubmit.classList.remove('active')
-            this.loading.classList.remove('active')
+            this.submitBtn.classList.remove('active')
         }
     },
 
@@ -57,9 +53,10 @@ const login = {
                     if (account.Username === submitData.Username &&
                         account.Password === submitData.Password) {
                         result = {
-                            Userid: account.Userid,
+                            UserId: account.UserId,
                             Username: account.Username,
-                            Nickname: account.Nickname
+                            Nickname: account.Nickname,
+                            Avatar: account.Avatar
                         }
                     }
                 })
@@ -100,20 +97,12 @@ const login = {
             })
     },
 
-
-    atc: function () {
-        document.onkeydown = (e) => {
-            e.which === 13 ? this.submitBtn.click() : ''
-        }
-    },
-
     start: function () {
         this.submitBtn.onclick = () => {
             this.submit()
             this.animateSumbit()
         }
 
-        this.atc()
         this.animate()
     }
 }

@@ -1501,9 +1501,3 @@
 .stall .product-item__price-old {
     display: none;
 }
-
-@keyframes rippleBtn {
-	0%   { transform: translate(-100%, -100%); }
-	80%  { transform: translate(-100%, -100%) scale(50); }
-	100% { transform: translate(-100%, -100%) scale(50); opacity: 0; }
-}

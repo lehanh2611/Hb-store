@@ -1,5 +1,5 @@
 /***** Import *****/
-import {$,$$} from "../end_point.js"
+import { $, $$ } from "../end_point.js"
 
 //Notification window
 export let notificationWindowBody = $('.notification');
@@ -8,7 +8,7 @@ export function notificationWindow(status = 'close', title, content, callback, c
         contentElement = $('.notification__content'),
         agreeBox = $('.notification__btn'),
         close = $('.notification__close');
-        
+
     //Notification close
     if (status === 'close') {
         notificationWindowBody.classList.remove('on', 'success', 'fail');
@@ -17,11 +17,21 @@ export function notificationWindow(status = 'close', title, content, callback, c
         //Notification Form
         if (status) {
             notificationWindowBody.classList.add('success');
-            agreeBox.innerHTML = contentBtn === null ? 'Đồng ý'  : contentBtn;
+            agreeBox.innerHTML = contentBtn === null ? 'Đồng ý' : contentBtn;
         }
         else {
             notificationWindowBody.classList.add('fail');
-            agreeBox.innerHTML =contentBtn === null ?  'Thử lại': contentBtn;
+            agreeBox.innerHTML = contentBtn === null ? 'Thử lại' : contentBtn;
+        }
+
+        //Close with key enter
+        document.onkeydown = (e) => {
+            switch (e.which) {
+                case 13:
+                    if (notificationWindowBody.getBoundingClientRect().width !== 0) {
+                        agreeBox.onclick()
+                    }
+            }
         }
 
         //Render content

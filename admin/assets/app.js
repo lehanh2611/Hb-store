@@ -20,6 +20,9 @@ import {
 
 } from "../../asset/javascript/end_point.js"
 
+let admin
+
+
 /***** Body *****/
 const body = {
     bodyHTML: [
@@ -155,9 +158,10 @@ const body = {
     handle: {
         account: {
             manage: function () {
-
+                const urlAccounts = 'https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts'
+                const featureBtns = $$(".app__top-feature")
                 //get the account
-                GETelement('https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts',
+                GETelement(urlAccounts,
                     (accounts) => {
                         const manage = {
                             appBoradContain: $('.app-borad__contain'),
@@ -167,13 +171,13 @@ const body = {
 
                                 const output = accounts.reduce((accmulate, account) => {
                                     return accmulate += `<ul id="${account.UserID}" ${account.Block === "true" ? 'block = "true" ' : 'block = "false"'} class="app-board__data">
-                                    <li class="app-board__data-item userId l-1">
+                                    <li class="app-board__data-item userId l-2 m-2">
                                     ${account.Block === "true" ? '<i class="app-board__data-lock fa-solid fa-lock"></i>' : ''}
                                     ${account.UserID}
                                     </li>
-                                    <li class="app-board__data-item userName l-2">${account.Username}</li>
-                                    <li class="app-board__data-item email l-3">${account.Email === undefined ? 'Emtpy' : account.Email}</li>
-                                    <li class="app-board__data-item money l-6">
+                                    <li class="app-board__data-item userName l-3 m-3">${account.Username}</li>
+                                    <li class="app-board__data-item email l-3 m-3">${account.Email === undefined ? 'Emtpy' : account.Email}</li>
+                                    <li class="app-board__data-item money">
                                     ${formatMoney(account.Money)}</li>
                                 </ul>`
                                 }, '')
@@ -183,76 +187,96 @@ const body = {
                                 const appboradElement = $$('.app-board__data')
 
                                 //Callback return element in process active
-                                select(appboradElement,
+                                select(appboradElement, (element) => {
+                                    this.fullInfoRender(element)
+                                })
 
-                                    //callback
-                                    (element) => {
-
-                                        //render full information
-                                        const getId = element.getAttribute('id')
-                                        const result = accounts.find(account => {
-                                            return account.UserID == getId
-                                        })
-                                        const date = result.DateCreated
-
-                                        $('.app-bot__info-contain').innerHTML =
-                                            `<ul class="app-bot__info-list">
-                                        <li class="app-bot__info">
-                                            <p class="app-bot__info-data title userid">1.User ID:</p>
-                                            <p class="app-bot__info-data value userid">${result.UserID}</p>
-                                        </li>
-                                        <li class="app-bot__info">
-                                            <p class="app-bot__info-data title username">2.User Name:</p>
-                                            <p class="app-bot__info-data value username">${result.Username}</p>
-                                        </li>
-                                        <li class="app-bot__info">
-                                            <p class="app-bot__info-data title nickname">3.Nick Name:</p>
-                                            <p class="app-bot__info-data value nickname">${result.Nickname === undefined ? 'N/A' : result.Nickname}</p>
-                                        </li>
-                                        <li class="app-bot__info">
-                                            <p class="app-bot__info-data title email">4.Email:</p>
-                                            <p class="app-bot__info-data value email">${result.Email}</p>
-                                        </li>
-                                    </ul>
-                                    <ul class="app-bot__info-list">
-                                        <li class="app-bot__info">
-                                            <p class="app-bot__info-data title money">5.Money:</p>
-                                            <p class="app-bot__info-data value money">${formatMoney(result.Money)}</p>
-                                        </li>
-                                        <li class="app-bot__info">
-                                            <p class="app-bot__info-data title moneySpent">6.Money Spent:</p>
-                                            <p class="app-bot__info-data value moneySpent">${result.MoneySpent === undefined ? 'N/A' : formatMoney(result.MoneySpent)}</p>
-                                        </li>
-                                        <li class="app-bot__info">
-                                            <p class="app-bot__info-data title totalDeposit">7.Total Deposit:</p>
-                                            <p class="app-bot__info-data value totalDeposit">${formatMoney(result.TotalDeposit)}</p>
-                                        </li>
-                                        <li class="app-bot__info">
-                                            <p class="app-bot__info-data title date">8.Date created:</p>
-                                            <p class="app-bot__info-data value date">
-                                            ${`${date.date}/${date.month}/${date.year}`}
-                                                </p>
-                                        </li>
-                                    </ul>
-                                    <ul class="app-bot__info-list history">
-                                        <li class="app-bot__info history">
-                                            <p class="app-bot__info-data title history-title">Mua thành công:</p>
-                                            <p class="app-bot__info-data value history">N/A</p>
-                                        </li>
-                                    </ul>`
-
-                                        // Check lock status
-                                        const parentIcon = $('.app__top-feature.block')
-
-                                        if (element.getAttribute('block') === 'true') {
-                                            parentIcon.classList.add('unlock')
-                                        }
-                                        else {
-                                            parentIcon.classList.remove('unlock')
-                                        }
-                                    })
+                                // render done
+                                setTimeout(() => {
+                                    this.renderDone()
+                                }, 0);
 
                             },
+
+                            fullInfoRender: function (element, reload = false) {
+                                //render full information
+                                const getId = element.getAttribute('id')
+
+                                new Promise((resolve) => {
+                                    //get new data account
+                                    if (reload) {
+                                        GETelement(urlAccounts, (newAccounts) => {
+                                            resolve(newAccounts)
+                                        })
+                                    }
+                                    else {
+                                        resolve(accounts)
+                                    }
+
+                                }).then((data) => {
+                                    const result = data.find(account => {
+                                        return account.UserID == getId
+                                    })
+                                    const date = result.DateCreated
+
+                                    $('.app-bot__info-contain').innerHTML =
+                                        `<ul class="app-bot__info-list">
+                                    <li class="app-bot__info">
+                                        <p class="app-bot__info-data title userid">1.User ID:</p>
+                                        <p class="app-bot__info-data value userid">${result.UserID}</p>
+                                    </li>
+                                    <li class="app-bot__info">
+                                        <p class="app-bot__info-data title username">2.User Name:</p>
+                                        <p class="app-bot__info-data value username">${result.Username}</p>
+                                    </li>
+                                    <li class="app-bot__info">
+                                        <p class="app-bot__info-data title nickname">3.Nick Name:</p>
+                                        <p class="app-bot__info-data value nickname">${result.Nickname === undefined ? 'N/A' : result.Nickname}</p>
+                                    </li>
+                                    <li class="app-bot__info">
+                                        <p class="app-bot__info-data title email">4.Email:</p>
+                                        <p class="app-bot__info-data value email">${result.Email}</p>
+                                    </li>
+                                </ul>
+                                <ul class="app-bot__info-list">
+                                    <li class="app-bot__info">
+                                        <p class="app-bot__info-data title money">5.Money:</p>
+                                        <p class="app-bot__info-data value money">${formatMoney(result.Money)}</p>
+                                    </li>
+                                    <li class="app-bot__info">
+                                        <p class="app-bot__info-data title moneySpent">6.Money Spent:</p>
+                                        <p class="app-bot__info-data value moneySpent">${result.MoneySpent === undefined ? 'N/A' : formatMoney(result.MoneySpent)}</p>
+                                    </li>
+                                    <li class="app-bot__info">
+                                        <p class="app-bot__info-data title totalDeposit">7.Total Deposit:</p>
+                                        <p class="app-bot__info-data value totalDeposit">${formatMoney(result.TotalDeposit)}</p>
+                                    </li>
+                                    <li class="app-bot__info">
+                                        <p class="app-bot__info-data title date">8.Date created:</p>
+                                        <p class="app-bot__info-data value date">
+                                        ${`${date.date}/${date.month}/${date.year}`}
+                                            </p>
+                                    </li>
+                                </ul>
+                                <ul class="app-bot__info-list history">
+                                    <li class="app-bot__info history">
+                                        <p class="app-bot__info-data title history-title">Mua thành công:</p>
+                                        <p class="app-bot__info-data value history">N/A</p>
+                                    </li>
+                                </ul>`
+
+                                    // Check lock status
+                                    const parentIcon = $('.app__top-feature.block')
+
+                                    if (element.getAttribute('block') === 'true') {
+                                        parentIcon.classList.add('unlock')
+                                    }
+                                    else {
+                                        parentIcon.classList.remove('unlock')
+                                    }
+                                })
+                            },
+
 
                             //Delete data from app-borad
                             delete: function () {
@@ -286,56 +310,173 @@ const body = {
                                     }
                             },
 
-                            block: function () {
-                                const blockBtn = $('.app__top-feature.block')
+                            lock: function () {
+                                const lockBtn = $('.app__top-feature.block')
 
-                                blockBtn.onclick =
-                                    function () {
-                                        const elementActive = $('.app-board__data.active')
+                                lockBtn.addEventListener('click', lockHandle)
 
-                                        // Check select, not select => skip logic 
-                                        if(!elementActive) {
-                                            return
-                                        }
-
-                                        const containId = elementActive.closest('.app-board__data').getAttribute('id')
-                                        const lockBox = elementActive.querySelector('.app-board__data-item.userId')
-
-                                        if (elementActive) {
-
-                                            GETelement(`${homeApi}/${containId}`,
-                                                (account) => {
+                                function lockHandle() {
+                                    const elementActive = $('.app-board__data.active')
 
 
-                                                    if (account.Block == "false") {
-
-                                                        PUTelement(`${homeApi}/${containId}`, {
-                                                            Block: "true"
-                                                        })
-
-                                                        //add icon lock
-                                                        lockBox.innerHTML = `<i class="app-board__data-lock fa-solid fa-lock"></i>${lockBox.innerHTML}`
-
-                                                        //change icon button lock
-                                                        blockBtn.classList.add('unlock')
-
-                                                    }
-                                                    else {
-
-                                                        PUTelement(`${homeApi}/${containId}`, {
-                                                            Block: "false"
-                                                        })
-
-                                                        //remove icon lock
-                                                        elementActive.querySelector('.app-board__data-lock').remove()
-
-                                                        //change icon button lock
-                                                        blockBtn.classList.remove('unlock')
-                                                    }
-
-                                                })
-                                        }
+                                    // Check select, not select => skip logic 
+                                    if (!elementActive) {
+                                        return
                                     }
+                                    lockBtn.removeEventListener('click', lockHandle)
+
+                                    const containId = elementActive.closest('.app-board__data').getAttribute('id')
+                                    const lockBox = elementActive.querySelector('.app-board__data-item.userId')
+
+                                    if (elementActive) {
+
+                                        GETelement(`${homeApi}/${containId}`,
+                                            (account) => {
+
+
+                                                if (account.Block == "false") {
+
+                                                    PUTelement(`${homeApi}/${containId}`, {
+                                                        Block: "true"
+                                                    })
+
+                                                    //add icon lock
+                                                    lockBox.innerHTML = `<i class="app-board__data-lock fa-solid fa-lock"></i>${lockBox.innerHTML}`
+
+                                                    //change icon button lock
+                                                    lockBtn.classList.add('unlock')
+
+                                                }
+                                                else {
+
+                                                    PUTelement(`${homeApi}/${containId}`, {
+                                                        Block: "false"
+                                                    })
+
+                                                    //remove icon lock
+                                                    const lockIcon = elementActive.querySelector('.app-board__data-lock')
+
+                                                    if (lockIcon) {
+                                                        lockIcon.remove()
+                                                    }
+
+                                                    //change icon button lock
+                                                    lockBtn.classList.remove('unlock')
+                                                }
+                                                setTimeout(() => {
+                                                    lockBtn.addEventListener('click', lockHandle)
+                                                }, 1000);
+                                            })
+                                    }
+                                }
+                            },
+
+                            deposit: function () {
+                                const depositBtn = $('.app__top-feature.depositBtn')
+                                const depositBox = $('.deposit')
+                                const depositClose = $('.deposit__close')
+                                const nameContain = $('.deposit__title-sub')
+                                const depositSubmit = $('.deposit__button')
+
+                                depositBtn.onclick = () => {
+                                    const elementActive = $('.app-board__data.active')
+
+                                    // Check select, not select => skip logic 
+                                    if (!elementActive) {
+                                        return
+                                    }
+
+                                    //show deposit box
+                                    depositBox.style.display = 'flex'
+
+                                    //close deposit box
+                                    depositClose.onclick = () => {
+                                        depositBox.style.display = 'none'
+                                    }
+
+                                    $('.deposit__contain').onclick = (e) => e.stopPropagation()
+
+                                    depositBox.onclick = () => {
+                                        depositBox.style.display = 'none'
+                                    }
+
+                                    //show username deposit
+                                    nameContain.innerText =
+                                        elementActive.querySelector('.userName').innerText
+
+                                    // send request deposit
+                                    depositSubmit.onclick = () => {
+
+                                        //activated animate button
+                                        depositSubmit.classList.add('active')
+
+                                        //check password admin 
+                                        GETelement(`https://6392b4a0ac688bbe4c6929fb.mockapi.io/AdminAccount/${admin.UserId}`,
+                                            (account) => {
+
+                                                //password ok => continue deposit
+                                                //password not ok => stop deposit
+                                                if ($('.deposit__input.password').value === account.Password) {
+
+                                                    //Get value deposit
+                                                    const depositValue = Number($('.deposit__input.money').value)
+
+                                                    // not value => exit deposit request
+                                                    if (depositValue === 0 || depositValue === NaN) {
+                                                        //stop animate button
+                                                        depositSubmit.classList.remove('active')
+                                                        return
+                                                    }
+
+                                                    const url = `https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts/${elementActive.getAttribute('id')}`
+
+                                                    //deposit...
+                                                    GETelement(url, (account) => {
+                                                        const currentMoney = account.Money
+                                                        const newMoney = currentMoney + depositValue
+
+                                                        //deposit successful
+                                                        PUTelement(url, { Money: newMoney, TotalDeposit: account.TotalDeposit + depositValue }, () => {
+
+                                                            //show new money
+                                                            elementActive.querySelector('.app-board__data-item.money').innerText =
+                                                                formatMoney(newMoney)
+
+                                                            notificationWindow(true, 'Nạp tiền hoàn tất', '', () => {
+                                                                notificationWindow()
+                                                                depositBox.style.display = 'none'
+                                                            })
+
+                                                            depositBox.click()
+
+                                                            //update full info
+                                                            this.fullInfoRender(elementActive, true)
+
+                                                            //stop animate button
+                                                            depositSubmit.classList.remove('active')
+
+                                                            // clear value
+                                                            depositBox.querySelectorAll('input').forEach(element => {
+                                                                element.value = ''
+                                                            });
+                                                        })
+                                                    })
+                                                }
+                                                else {
+                                                    notificationWindow(false, 'Mật khẩu Quản trị viên sai', 'Vui lòng thử lại', () => {
+                                                        //stop animate button
+                                                        depositSubmit.classList.remove('active')
+                                                        notificationWindow()
+                                                    }, 'Thử lại')
+                                                }
+                                            })
+                                    }
+
+                                }
+
+                                //remove default submit
+                                depositBox.querySelector('form').addEventListener
+                                    ('submit', (e) => e.preventDefault())
                             },
 
                             ui: function () {
@@ -349,16 +490,47 @@ const body = {
                             },
 
                             shared: {
-                                // getActive: function (button) {
-                                //     button.onclick = () => $('.app-board__data.active')
-                                // },
+                                //notification not select
+                                notSelect: function () {
+                                    featureBtns.forEach(element => {
+                                        element.addEventListener('click', () => {
+                                            if ($('.app-board__data.active') === null
+                                                && !element.classList.value.includes('disable')) {
+                                                notificationWindow(false,
+                                                    'Bạn chưa chọn mục tiêu để thực hiện',
+                                                    'vui lòng chọn một mục và thử lại',
+                                                    () => {
+                                                        notificationWindow()
+                                                    }, 'Thử lại')
+                                            }
+                                        })
+                                    });
+                                },
+                                featureNotAvailable: function () {
+                                    $$(".app__top-feature.disable").forEach(element => {
+                                        element.addEventListener('click', () => {
+                                            notificationWindow(false,
+                                                'Chức năng chưa sẵn sàng',
+                                                'vẫn đang trong quá trình phát triển, vui lòng thử lại sau',
+                                                () => {
+                                                    notificationWindow()
+                                                }, 'Quay lại')
+                                        })
+                                    });
+                                }
+                            },
+
+                            renderDone: function () {
+                                this.shared.notSelect()
+                                this.shared.featureNotAvailable()
                             },
 
                             start: function () {
                                 this.ui()
                                 this.render()
                                 this.delete()
-                                this.block()
+                                this.lock()
+                                this.deposit()
                             }
                         }
 
@@ -387,8 +559,27 @@ const body = {
         })
     },
 
-    login : function () {
-        if(sessionStorage.getItem('adminInfo') !== null) {
+    login: function () {
+        admin = JSON.parse(sessionStorage.getItem('adminInfo'))
+
+        if (admin !== null) {
+            const avtContain = $('.user__avt')
+            const nameContain = $('.user__name')
+
+            if (admin.Avatar) {
+                avtContain.src = admin.Avatar
+            }
+            else {
+                avtContain.src = "../asset/img/user-avt/user-default.png"
+            }
+
+            if (admin.Nickname) {
+                nameContain.innerText = admin.Nickname
+            }
+            else {
+                nameContain.innerText = admin.Username
+            }
+
         }
         else {
             window.location.href = window.location.origin + '/admin/login'
@@ -517,10 +708,20 @@ const nav = {
         });
     },
 
+    logout: function () {
+        //remove data and navigation to login page
+        $('.nav_bot__log-out').onclick = () => {
+            sessionStorage.removeItem('adminInfo')
+            admin = ''
+            window.location.href = window.location.origin + '/admin/login'
+        }
+    },
+
     start: function () {
         select(this.optElement)
         this.open()
         this.resize()
+        this.logout()
     }
 }
 nav.start()
