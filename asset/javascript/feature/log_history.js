@@ -129,8 +129,8 @@ export const logHistory = {
                         if (!result) {
                             let oldLogHistory = account.LoginHistory
 
-                            //Save the last 10 login info
-                            if (oldLogHistory.length >= 10) { oldLogHistory = oldLogHistory.slice(0, 9) }
+                            //Save the last 5 login info
+                            if (oldLogHistory.length >= 5) { oldLogHistory = oldLogHistory.slice(0, 9) }
 
                             PUTelement(url, { LoginHistory: [this.logInfo, ...oldLogHistory,] })
                         }

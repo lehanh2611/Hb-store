@@ -29,6 +29,7 @@
                 <img src="./assets/image/logo.png" class="nav-logo">
                 <i class="nav-top-resize fa-solid fa-angle-left"></i>
             </div>
+
             <div class="nav-mid">
                 <ul class="nav__category">
                     <h3 class="nav__category-title">Tài khoản</h3>
@@ -55,6 +56,10 @@
                         <i class="nav__category-icon fa-duotone fa-circle-three-quarters"></i>
                         <p class="nav__category-options-tx">Doanh số</p>
                     </span>
+                    <!-- <span class="nav__category-options">
+                        <i class="nav__category-icon fa-solid fa-layer-plus"></i>
+                        <p class="nav__category-options-tx">Thêm sản phẩm</p>
+                    </span> -->
                 </ul>
                 <ul class="nav__category">
                     <h3 class="nav__category-title">Tiền tệ</h3>
@@ -135,9 +140,10 @@
                     <div class="app__mid-nav">
                         <div class="app__mid-nav-search-box">
                             <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
-                            <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm với ID, tên tài khoản, biệt danh...">
+                            <input class="app__mid-nav-search" type="text"
+                                placeholder="Tìm kiếm với ID, tên tài khoản, biệt danh...">
                         </div>
-    
+
                         <div class="app__mid-nav-ft-box">
                             <div class="app__mid-nav-ft">
                                 <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
@@ -156,8 +162,26 @@
                             <li class="app-board__nav-item l-4 hide-mt hide-t">Email</li>
                             <li class="app-board__nav-item hide-m">Money</li>
                         </ul>
-                        <div class="app-borad__contain"></div>
+                        <div class="app-borad__contain">
+                            <ul class="app-board__data">
+                                <li class="app-board__data-item userId l-2 m-2 c-3">
+                                    <i class="app-board__data-lock fa-solid fa-lock"></i>
+                                    0</li>
+                                <li class="app-board__data-item userName l-3 m-4 c-9">admin</li>
+                                <li class="app-board__data-item email l-4 hide-mt">hbstore@gmail.com</li>
+                                <li class="app-board__data-item money hide-m">
+                                    999.999.999đ
+                                </li>
+                            </ul>
+                        </div>
                     </div>
+                    <!-- <div class="app__mid-nav-page">
+                        <p class="app__mid-nav-page-info">1-9 of 99 pages</p>
+                        <div class="app__mid-nav-page-btn-box">
+                            <i class="app__mid-nav-page-btn fa-sharp fa-solid fa-arrow-left"></i>
+                            <i class="app__mid-nav-page-btn fa-sharp fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div> -->
                 </div>
                 <div class="app-bot">
                     <h3 class="app-bot__title">
@@ -212,75 +236,42 @@
                 </div>
             </div>
         </div>
-        <modal id="modal">
-            <div class="loading">
-                <i class="loading__spindle"></i>
-            </div>
-            <div class="notification">
-                <div class="notification__wrap">
-                    <i class="notification__close fa-solid fa-xmark"></i>
-                    <div class="notification__face-box">
-                        <i class="notification__face">
-                            <i class="notification__face-eye"></i>
-                            <i class="notification__face-eye"></i>
-                            <i class="notification__face__nose"></i>
-                        </i>
-                        <i class="notification__face-shadow"></i>
-                    </div>
-                    <p class="notification__title">Thất bại!</p>
-                    <p class="notification__content">Vui lòng thử lại</p>
-                    <button class="btn notification__btn">Thử lại</button>
+       <modal id="modal">
+        <div class="loading">
+            <i class="loading__spindle"></i>
+        </div>
+        <div class="notification">
+            <div class="notification__wrap">
+                <i class="notification__close fa-solid fa-xmark"></i>
+                <div class="notification__face-box">
+                    <i class="notification__face">
+                        <i class="notification__face-eye"></i>
+                        <i class="notification__face-eye"></i>
+                        <i class="notification__face__nose"></i>
+                    </i>
+                    <i class="notification__face-shadow"></i>
                 </div>
+                <p class="notification__title">Thất bại!</p>
+                <p class="notification__content">Vui lòng thử lại</p>
+                <button class="btn notification__btn">Thử lại</button>
             </div>
-            <div class="deposit">
-                <div class="deposit__contain">
-                    <i class="deposit__close fa-solid fa-xmark"></i>
-                    <h3 class="deposit__title">Nạp tiền cho Username:</h3>
-                    <p class="deposit__title-sub">Naocavang</p>
-                    <form>
-                        <input type="number" class="deposit__input money" placeholder="Số tiền cần nạp">
-                        <input type="password" class="deposit__input password" placeholder="Mật khẩu quản trị viên">
-                        <button class="btn-loading deposit__button">
-                            <p class="btn-loading__text">Tiến hành nạp</p>
-                            <div class="btn-loading__icon"></div>
-                        </button>
-                    </form>
-                </div>
+        </div>
+        <div class="deposit">
+            <div class="deposit__contain">
+                <i class="deposit__close fa-solid fa-xmark"></i>
+                <h3 class="deposit__title">Nạp tiền cho Username:</h3>
+                <p class="deposit__title-sub">Naocavang</p>
+                <form>
+                    <input type="number" class="deposit__input money" placeholder="Số tiền cần nạp">
+                    <input type="password" class="deposit__input password" placeholder="Mật khẩu quản trị viên">
+                    <button class="btn-loading deposit__button">
+                        <p class="btn-loading__text">Tiến hành nạp</p>
+                        <div class="btn-loading__icon"></div>
+                    </button>
+                </form>
             </div>
-            <div class="product-form">
-                <div class="product-form__contain">
-                    <h3 class="product-form__title">Thêm sản phẩm</h3>
-                    <form class="product-form__input-box">
-                        <i class="product-form__close fa-solid fa-xmark"></i>
-
-                        <label for="product-form__input-uid" class="product-form__input-title">UID</label>
-                        <input type="number" id="product-form__input-uid" class="product-form__input" placeholder="Nhập UID sản phẩm">
-
-                        <label for="product-form__input-price" class="product-form__input-title">Giá sản phẩm</label>
-                        <input type="number" id="product-form__input-price" class="product-form__input" placeholder="Nhập giá sản phẩm">
-
-                        <label for="product-form__select-type" class="product-form__input-title">Phân loại sản phẩm</label>
-                        <select name="" id="product-form__select-type" class="product-form__select">
-                            <option value="Đặc biệt">Đặc biệt</option>
-                            <option value="Ngũ quý">Ngũ quý</option>
-                            <option value="Lục quý">Lục quý</option>
-                            <option value="Thất quý">Thất quý</option>
-                        </select>
-
-                        <label for="product-form__select-server" class="product-form__input-title">Máy chủ sản phẩm</label>
-                        <select name="" id="product-form__select-server" class="product-form__select">
-                            <option value="Asia">Asia</option>
-                            <option value="America">America</option>
-                        </select>
-
-                        <button class="btn-loading product-form__submit">
-                            <p class="btn-loading__text">Lưu sản phẩm</p>
-                            <div class="btn-loading__icon"></div>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </modal>
+        </div>
+       </modal>
     </div>
     <script type="module" src="./assets/app.js"></script>
 </body>

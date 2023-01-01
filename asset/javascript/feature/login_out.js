@@ -21,13 +21,19 @@ export function userLogin(UserID, accounts) {
         welcomeName = $('.notification-welcome__user-name'),
         welcomeAvt = $('.notification-welcome__user-avt'),
         moneyBox = $('.header__user-title');
+
     UserID = Number(UserID);
     userActiveID = UserID;
+
+    //Reset input value
+    $$('.menu-logReg-modal input').forEach(
+        (element) => element.value = '')
 
     Object.assign(userBox.style, {
         'flex-direction': ' column-reverse',
     });
-    if (accounts[UserID]?.Nickname !== undefined) {
+
+    if (accounts[UserID]?.Nickname !== '') {
         let nickName = accounts[UserID].Nickname;
         usernameBox.innerHTML = nickName;
         welcomeName.innerHTML = nickName;
@@ -37,7 +43,8 @@ export function userLogin(UserID, accounts) {
         usernameBox.innerHTML = username;
         welcomeName.innerHTML = username;
     };
-    if (accounts[UserID]?.Avatar !== undefined) {
+
+    if (accounts[UserID]?.Avatar !== '') {
         let avatar = accounts[UserID].Avatar;
         userAvt.src = avatar;
         welcomeAvt.src = avatar;
@@ -46,7 +53,7 @@ export function userLogin(UserID, accounts) {
         userAvt.src = defaultAvt;
         welcomeAvt.src = defaultAvt;
     };
-   
+
     moneyBox.innerHTML = formatMoney(accounts[UserID].Money);
     NotificationWelcome.classList.remove('on')
     setTimeout(() => { NotificationWelcome.classList.add('on') }, 30)
@@ -54,7 +61,7 @@ export function userLogin(UserID, accounts) {
 
 //Login succsessful
 export function loginSuccess(UserID, accounts) {
-   
+
     userLogin(UserID, accounts)
 }
 
@@ -70,7 +77,7 @@ export const logout = {
             userAvt.src = "./asset/img/user-avt/default.png"
             sessionStorage.clear()
             plateBlurBody.click()
-            
+
             // Delete remember
             logHistory.deleteTrustedDevice()
             userActiveID = null

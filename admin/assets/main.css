@@ -6,6 +6,11 @@
     --bland: #bbbdbf;
     --white-bland: #f8f8fa;
     --white-text: #9f9f9f;
+    --bg-form: #fcfbfd;
+    --bg-input: #f0eef0;
+    --outline-input: #dfdee2;
+    --text-input: #514f59;
+
 }
 
 html {
@@ -20,7 +25,32 @@ html {
 }
 
 #body {
+    overflow: hidden;
     flex-grow: 1;
+}
+
+input,
+.product-form__select {
+    height: 30px;
+    font-size: 1.6rem;
+    border-radius: 2px;
+    padding-left: 2px;
+    color: var(--text-input);
+    background-color: var(--bg-input);
+    outline: 1px solid var(--outline-input);
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+input[type=number]:focus {
+    outline: 1px solid #5181dd;
 }
 
 /* Modal */
@@ -41,15 +71,14 @@ html {
     position: relative;
     width: 399px;
     height: 268px;
-    background-color: #fcfbfd;
+    background-color: var(--bg-form);
     border-radius: 6px;
     box-shadow: 0 0 10px var(--box-shadow-dark);
     opacity: 0;
-    animation: deposit__contain ease .2s forwards;
-
+    animation: openAnimate ease .2s forwards;
 }
 
-@keyframes deposit__contain {
+@keyframes openAnimate {
     0% {
         scale: 1;
     }
@@ -101,36 +130,97 @@ html {
 
 .deposit__input {
     width: 96%;
-    height: 30px;
-    color: #514f59;
-    font-size: 1.6rem;
-    border-radius: 2px;
-    background-color: #f0eef0;
-    outline: 1px solid #dfdee2;
-    padding-left: 2px;
     margin: 6px 0;
 }
 
-/* Chrome, Safari, Edge, Opera */
-.deposit__input::-webkit-outer-spin-button,
-.deposit__input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-
-/* Firefox */
-.deposit__input[type=number] {
-    -moz-appearance: textfield;
-}
-
-.deposit__input:focus {
-    outline: 1px solid #5181dd;
-}
-
-.deposit__button .btn-loading__icon {
+.deposit__button .btn-loading__icon,
+.product-form__submit .btn-loading__icon{
     width: 22px;
     height: 22px;
 }
 
+/* Product form */
+.product-form {
+    position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.product-form.show {
+    display: flex;
+    animation: openAnimate ease .2s forwards;
+}
+
+.product-form__title {
+    font-size: 2rem;
+    text-align: center;
+    padding: 10px 0;
+    color: var(--green);
+    border-bottom: 1px solid var(--gray);
+}
+
+.product-form__contain {
+    position: relative;
+    width: 500px;
+    height: 438px;
+    border-radius: 6px;
+    background-color: var(--bg-form);
+    box-shadow: 0 0 5px var(--box-shadow-dark);
+}
+
+.product-form__close {
+    position: absolute;
+    font-size: 2.3rem;
+    padding: 10px;
+    color: var(--light-red);
+    top: 0;
+    right: 0;
+}
+
+.product-form__close:hover {
+    color: var(--red);
+    cursor: pointer;
+}
+
+.product-form__input-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.product-form__input,
+.product-form__select {
+    margin: 6px 0;
+    height: 36px;
+}
+
+.product-form__input-title {
+    margin-top: 6px;
+    font-size: 1.6rem;
+}
+
+.product-form__select option {
+    display: block;
+    font-size: 1.6rem;
+    zoom: 1.2;
+    background-color: #fff !important;
+}
+
+.product-form__submit {
+    width: 100%;
+}
+
+.product-form__submit:hover {
+    opacity: 0.9;
+
+}
 /* END modal */
 
 .nav {
@@ -336,8 +426,6 @@ html {
     padding-left: 8px;
 }
 
-.user__info.animate {}
-
 @keyframes nav_bot-user {
     0% {
         transform: translateX(-10px);
@@ -416,9 +504,9 @@ html {
 }
 
 .body__app {
+    width: 100%;
+    height: 100%;
     padding: 10px 10px 0 10px;
-    height: 100vh;
-    overflow: hidden;
 }
 
 .body__app,
@@ -477,8 +565,8 @@ html {
 }
 
 
-.app__top-feature.message .app__top-feature-icon  {
-    color:#edc940;
+.app__top-feature.message .app__top-feature-icon {
+    color: #edc940;
 }
 
 .app__top-feature.depositBtn .app__top-feature-icon {
@@ -551,6 +639,7 @@ html {
 .app__mid-nav {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     width: 100%;
     padding: 6px 10px;
     padding-right: 0;
@@ -558,11 +647,16 @@ html {
     background-color: var(--white-bland);
 }
 
+.app__mid-nav-ft-box {
+    display: flex;
+}
+
 .app__mid-nav-search-box {
     position: relative;
     display: flex;
     align-items: center;
     height: 32px;
+    margin-bottom: 2px;
     margin-right: auto;
 }
 
@@ -582,12 +676,14 @@ html {
 
 .app__mid-nav-search {
     outline: none;
-    width: 500px;
+    width: 48vw;
+    max-width: 500px;
     height: 100%;
     color: var(--primary);
     font-size: 1.6rem;
     padding-left: 36px;
     margin-right: auto;
+    background-color:transparent;
     border: 1px solid var(--gray);
 }
 
@@ -663,25 +759,28 @@ html {
     overflow-y: scroll;
 }
 
+
 .app-borad__contain::-webkit-scrollbar {
-    display: none;
+    width: 3px;
 }
+
+.app-borad__contain::-webkit-scrollbar-thumb {
+    background-color: var(--gray);
+}
+
 
 .app-board__nav-item,
 .app-board__data-item {
     padding-left: 10px;
-    max-width: 283px;
 }
 
 .app-board__nav-item:first-child,
-.app-board__data-item:first-child
- {
+.app-board__data-item:first-child {
     text-align: center;
 }
 
 .app-board__nav-item:last-child,
-.app-board__data-item:last-child
- {
+.app-board__data-item:last-child {
     flex-grow: 1;
     max-width: unset;
 }

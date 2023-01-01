@@ -546,15 +546,7 @@ function header() {
                         //classify
                         if (loginMenu.getBoundingClientRect().top <= 0) {
                             //Register
-                            //New account//
-                            let newAccount = {
-                                'UserID': accounts.length,
-                                'Username': '',
-                                'Password': '',
-                                'Money': 0,
-                                'Email': '',
-                            };
-                            checkAgain
+                            
                             let register = new Promise((resolve, reject) => {
                                 //Input of Register
                                 let inputRegisters = [
@@ -579,9 +571,34 @@ function header() {
                                     })
                                 //Register successful
                                 if (existenceResult) {
-                                    let createAccount = Object.assign(newAccount, inputResult);
-                                    POSTelement(homeApi, createAccount, (value) => {
-                                        if (value.Username === createAccount.Username) {
+
+                                    // Account contructor
+                                    function NewAccount(Username, Password, Email) {
+                                        this.UserID = accounts.length
+                                        this.Username = Username
+                                        this.Password = Password
+                                        this.Email = Email
+                                        this.Nickname = ''
+                                        this.Avatar = ''
+                                        this.LoginHistory = ''
+                                        this.TrustedDevice = ''
+                                        this.Money = 0
+                                        this.MoneySpent = 0
+                                        this.TotalDeposit = 0
+                                        this.Cart = ''
+                                        this.History = ''
+                                        this.Block = false
+                                        this.DateCreated = logHistory.getRealTime()
+                                    }
+
+                                    // newAccount
+                                    let createUser = new NewAccount(
+                                        inputResult.Username,
+                                        inputResult.Password,
+                                        inputResult.Email)
+
+                                    POSTelement(homeApi, createUser, (value) => {
+                                        if (value.Username === createUser.Username) {
                                             GETelement(homeApi, (accounts) => {
                                                 //Save info login
                                                 if (checked) {
@@ -591,7 +608,7 @@ function header() {
                                                     logHistory.saveLogInfo(value.UserID, accounts)
                                                 }
                                             })
-                                            resolve(createAccount.UserID)
+                                            resolve(createUser.UserID)
                                         }
                                     })
                                 }
@@ -616,9 +633,6 @@ function header() {
                                             else {
                                                 notificationWindow()
                                             }
-                                            //Reset input value
-                                            // $$('.menu-logReg-modal input').forEach(
-                                            //     (element) => element.value = '')
                                         });
                                 })
                                 .catch(() => {
@@ -636,7 +650,6 @@ function header() {
                         }
                         else {
                             //Login
-                            checkAgain
                             let inputLogins = [
                                 {
                                     type: 'Username',
@@ -710,23 +723,6 @@ content()
 function content() {
 
     /*** Content top ***/
-    //Animation title top recharge//
-    // animationTitile();
-    function animationTitile() {
-        let title = $('.top-recharge__title'),
-            string = (title.innerText.replace(/ /g, '')),
-            titleDetached = "";
-        for (let item of string) {
-            let accmulate = `<p class="top-recharge__title">${item}</p>`;
-            titleDetached += accmulate;
-        };
-        title.innerHTML = titleDetached;
-        let titles = $$('.top-recharge__title')
-        recursive(300, titles, titleDance)
-        function titleDance(element) {
-            element.style.color = 'blue'
-        }
-    };
 
     //Render top recharge
     const renderTopRecharge = {

@@ -21,137 +21,11 @@ import {
 } from "../../asset/javascript/end_point.js"
 
 let admin
+let apiBody
 
 
 /***** Body *****/
 const body = {
-    bodyHTML: [
-        {
-            key: { parent: 'TÀI KHOẢN', child: 'Manage' },
-            value: ` <div class="body__app">
-            <div class="app__top">
-                <h3 class="app__top-title">Manage</h3>
-                <div class="app__top-feature-contain">
-                    <div class="app__top-feature">
-                        <i class="app__top-feature-icon fa-solid fa-message"></i>
-                        <p class="app__top-feature-text">Nhắn tin</p>
-                    </div>
-                    <div class="app__top-feature">
-                        <i class="app__top-feature-icon fa-solid fa-credit-card"></i>
-                        <p class="app__top-feature-text">Nạp tiền</p>
-                    </div>
-                    <div class="app__top-feature">
-                        <i class="app__top-feature-icon fa-sharp fa-solid fa-screwdriver-wrench"></i>
-                        <p class="app__top-feature-text">Chỉnh sửa</p>
-                    </div>
-                    <div class="app__top-feature">
-                        <i class="app__top-feature-icon fa-solid fa-user-lock"></i>
-                        <p class="app__top-feature-text">Tạm khóa</p>
-                    </div>
-                    <div class="app__top-feature delete">
-                        <i class="app__top-feature-icon fa-solid fa-user-minus"></i>
-                        <p class="app__top-feature-text">Xóa bỏ</p>
-                    </div>
-                    <div class="app__top-feature">
-                        <i class="app__top-feature-icon fa-solid fa-user-plus"></i>
-                        <p class="app__top-feature-text">Tạo mới</p>
-                    </div>
-                </div>
-            </div>
-            <div class="app__mid">
-                <div class="app__mid-nav">
-                    <div class="app__mid-nav-search-box">
-                        <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
-                        <input class="app__mid-nav-search" type="text"
-                            placeholder="Tìm kiếm với ID, tên tài khoản, biệt danh...">
-                    </div>
-                    <div class="app__mid-nav-ft">
-                        <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
-                        Bộ lọc
-                    </div>
-                    <div class="app__mid-nav-ft">
-                        <i class="app__mid-nav-icon fa-solid fa-file-arrow-down"></i>
-                        Xuất ra
-                    </div>
-                </div>
-                <div class="app-board grid">
-                    <ul class="app-board__nav">
-                        <li class="app-board__nav-item l-1">User ID</li>
-                        <li class="app-board__nav-item l-2">User Name</li>
-                        <li class="app-board__nav-item l-3">Email</li>
-                        <li class="app-board__nav-item l-6">Money</li>
-                    </ul>
-                    <div class="app-borad__contain">
-                        <ul class="app-board__data">
-                            <li class="app-board__data-item userId l-1">0</li>
-                            <li class="app-board__data-item userName l-2">admin</li>
-                            <li class="app-board__data-item email l-3">hbstore@gmail.com</li>
-                            <li class="app-board__data-item money l-6">999.999.999đ</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- <div class="app__mid-nav-page">
-                    <p class="app__mid-nav-page-info">1-9 of 99 pages</p>
-                    <div class="app__mid-nav-page-btn-box">
-                        <i class="app__mid-nav-page-btn fa-sharp fa-solid fa-arrow-left"></i>
-                        <i class="app__mid-nav-page-btn fa-sharp fa-solid fa-arrow-right"></i>
-                    </div>
-                </div> -->
-            </div>
-            <div class="app-bot">
-                <h3 class="app-bot__title">
-                    <i class="fa-solid fa-address-card"></i>
-                    <p>Information</p>
-                    <!-- <i class="app-bot__title-resize fa-solid fa-arrow-down"></i> -->
-                </h3>
-                <div class="app-bot__info-contain">
-                    <ul class="app-bot__info-list">
-                        <li class="app-bot__info">
-                            <p class="app-bot__info-data title userid">1.User ID:</p>
-                            <p class="app-bot__info-data value userid">0</p>
-                        </li>
-                        <li class="app-bot__info">
-                            <p class="app-bot__info-data title username">2.User Name:</p>
-                            <p class="app-bot__info-data value username">admin</p>
-                        </li>
-                        <li class="app-bot__info">
-                            <p class="app-bot__info-data title nickname">3.Nick Name:</p>
-                            <p class="app-bot__info-data value nickname">Lê Hạnh</p>
-                        </li>
-                        <li class="app-bot__info">
-                            <p class="app-bot__info-data title email">4.Email:</p>
-                            <p class="app-bot__info-data value email">hbstore@gmail.com</p>
-                        </li>
-                    </ul>
-                    <ul class="app-bot__info-list">
-                        <li class="app-bot__info">
-                            <p class="app-bot__info-data title money">5.Money:</p>
-                            <p class="app-bot__info-data value money">999.999.999đ</p>
-                        </li>
-                        <li class="app-bot__info">
-                            <p class="app-bot__info-data title moneySpent">6.Money Spent:</p>
-                            <p class="app-bot__info-data value moneySpent">N/A</p>
-                        </li>
-                        <li class="app-bot__info">
-                            <p class="app-bot__info-data title totalDeposit">7.Total Deposit:</p>
-                            <p class="app-bot__info-data value totalDeposit">999.999.999đ</p>
-                        </li>
-                        <li class="app-bot__info">
-                            <p class="app-bot__info-data title date">8.Date created:</p>
-                            <p class="app-bot__info-data value date">26/11/2002</p>
-                        </li>
-                    </ul>
-                    <ul class="app-bot__info-list history">
-                        <li class="app-bot__info history">
-                            <p class="app-bot__info-data title history-title">Mua thành công:</p>
-                            <p class="app-bot__info-data value history">N/A</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>`
-        }
-    ],
     bodyMain: $('#body'),
 
     //Handle from branching structure
@@ -159,7 +33,6 @@ const body = {
         account: {
             manage: function () {
                 const urlAccounts = 'https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts'
-                const featureBtns = $$(".app__top-feature")
                 //get the account
                 GETelement(urlAccounts,
                     (accounts) => {
@@ -170,14 +43,14 @@ const body = {
                             render: function () {
 
                                 const output = accounts.reduce((accmulate, account) => {
-                                    return accmulate += `<ul id="${account.UserID}" ${account.Block === "true" ? 'block = "true" ' : 'block = "false"'} class="app-board__data">
-                                    <li class="app-board__data-item userId l-2 m-2">
+                                    return accmulate += `<ul item_id="${account.UserID}" ${account.Block === "true" ? 'block = "true" ' : 'block = "false"'} class="app-board__data">
+                                    <li class="app-board__data-item userId l-2 m-2 c-3">
                                     ${account.Block === "true" ? '<i class="app-board__data-lock fa-solid fa-lock"></i>' : ''}
                                     ${account.UserID}
                                     </li>
-                                    <li class="app-board__data-item userName l-3 m-3">${account.Username}</li>
-                                    <li class="app-board__data-item email l-3 m-3">${account.Email === undefined ? 'Emtpy' : account.Email}</li>
-                                    <li class="app-board__data-item money">
+                                    <li class="app-board__data-item userName l-3 m-4 c-9">${account.Username}</li>
+                                    <li class="app-board__data-item email l-4 hide-mt">${account.Email === undefined ? 'Emtpy' : account.Email}</li>
+                                    <li class="app-board__data-item money hide-m">
                                     ${formatMoney(account.Money)}</li>
                                 </ul>`
                                 }, '')
@@ -199,9 +72,8 @@ const body = {
                             },
 
                             fullInfoRender: function (element, reload = false) {
-                                //render full information
-                                const getId = element.getAttribute('id')
 
+                                //render full information
                                 new Promise((resolve) => {
                                     //get new data account
                                     if (reload) {
@@ -213,57 +85,22 @@ const body = {
                                         resolve(accounts)
                                     }
 
-                                }).then((data) => {
-                                    const result = data.find(account => {
-                                        return account.UserID == getId
-                                    })
-                                    const date = result.DateCreated
+                                }).then((accounts) => {
 
-                                    $('.app-bot__info-contain').innerHTML =
-                                        `<ul class="app-bot__info-list">
-                                    <li class="app-bot__info">
-                                        <p class="app-bot__info-data title userid">1.User ID:</p>
-                                        <p class="app-bot__info-data value userid">${result.UserID}</p>
-                                    </li>
-                                    <li class="app-bot__info">
-                                        <p class="app-bot__info-data title username">2.User Name:</p>
-                                        <p class="app-bot__info-data value username">${result.Username}</p>
-                                    </li>
-                                    <li class="app-bot__info">
-                                        <p class="app-bot__info-data title nickname">3.Nick Name:</p>
-                                        <p class="app-bot__info-data value nickname">${result.Nickname === undefined ? 'N/A' : result.Nickname}</p>
-                                    </li>
-                                    <li class="app-bot__info">
-                                        <p class="app-bot__info-data title email">4.Email:</p>
-                                        <p class="app-bot__info-data value email">${result.Email}</p>
-                                    </li>
-                                </ul>
-                                <ul class="app-bot__info-list">
-                                    <li class="app-bot__info">
-                                        <p class="app-bot__info-data title money">5.Money:</p>
-                                        <p class="app-bot__info-data value money">${formatMoney(result.Money)}</p>
-                                    </li>
-                                    <li class="app-bot__info">
-                                        <p class="app-bot__info-data title moneySpent">6.Money Spent:</p>
-                                        <p class="app-bot__info-data value moneySpent">${result.MoneySpent === undefined ? 'N/A' : formatMoney(result.MoneySpent)}</p>
-                                    </li>
-                                    <li class="app-bot__info">
-                                        <p class="app-bot__info-data title totalDeposit">7.Total Deposit:</p>
-                                        <p class="app-bot__info-data value totalDeposit">${formatMoney(result.TotalDeposit)}</p>
-                                    </li>
-                                    <li class="app-bot__info">
-                                        <p class="app-bot__info-data title date">8.Date created:</p>
-                                        <p class="app-bot__info-data value date">
-                                        ${`${date.date}/${date.month}/${date.year}`}
-                                            </p>
-                                    </li>
-                                </ul>
-                                <ul class="app-bot__info-list history">
-                                    <li class="app-bot__info history">
-                                        <p class="app-bot__info-data title history-title">Mua thành công:</p>
-                                        <p class="app-bot__info-data value history">N/A</p>
-                                    </li>
-                                </ul>`
+                                    accounts.forEach((account) => {
+                                        if (account.UserID === element.getAttribute('item_id')) {
+                                            const date = account.DateCreated
+
+                                            $('.app-bot__info-data.value.userid').innerText = account.UserID
+                                            $('.app-bot__info-data.value.username').innerText = account.Username
+                                            $('.app-bot__info-data.value.nickname').innerText = account.Nickname === undefined ? 'N/A' : account.Nickname
+                                            $('.app-bot__info-data.value.email').innerText = account.Email
+                                            $('.app-bot__info-data.value.money').innerText = formatMoney(account.Money)
+                                            $('.app-bot__info-data.value.moneySpent').innerText = account.MoneySpent === undefined ? 'N/A' : formatMoney(account.MoneySpent)
+                                            $('.app-bot__info-data.value.totalDeposit').innerText = formatMoney(account.TotalDeposit)
+                                            $('.app-bot__info-data.value.date').innerText = `${date.date}/${date.month}/${date.year}`
+                                        }
+                                    })
 
                                     // Check lock status
                                     const parentIcon = $('.app__top-feature.block')
@@ -277,38 +114,6 @@ const body = {
                                 })
                             },
 
-
-                            //Delete data from app-borad
-                            delete: function () {
-
-                                $('.app__top-feature.delete').onclick =
-                                    function () {
-                                        const elementActive = $('.app-board__data.active')
-
-                                        if (elementActive) {
-                                            notificationWindow(
-                                                false,
-                                                'Bạn chắc chắn muốn xóa',
-                                                'Sẽ không thể khôi phục lại',
-                                                (isSuccess) => {
-                                                    if (isSuccess) {
-                                                        const Id = elementActive.querySelector('.userId').innerText
-
-                                                        //Delete data from api
-                                                        DELETEelement(`${homeApi}/${Id}`)
-
-                                                        //Delete from DOM
-                                                        elementActive.outerHTML = ''
-                                                        notificationWindow()
-                                                    }
-                                                    else {
-                                                        notificationWindow()
-                                                    }
-                                                }, 'Tiếp tục')
-
-                                        }
-                                    }
-                            },
 
                             lock: function () {
                                 const lockBtn = $('.app__top-feature.block')
@@ -325,7 +130,7 @@ const body = {
                                     }
                                     lockBtn.removeEventListener('click', lockHandle)
 
-                                    const containId = elementActive.closest('.app-board__data').getAttribute('id')
+                                    const containId = elementActive.closest('.app-board__data').getAttribute('item_id')
                                     const lockBox = elementActive.querySelector('.app-board__data-item.userId')
 
                                     if (elementActive) {
@@ -365,7 +170,7 @@ const body = {
                                                 }
                                                 setTimeout(() => {
                                                     lockBtn.addEventListener('click', lockHandle)
-                                                }, 1000);
+                                                }, 0);
                                             })
                                     }
                                 }
@@ -428,7 +233,7 @@ const body = {
                                                         return
                                                     }
 
-                                                    const url = `https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts/${elementActive.getAttribute('id')}`
+                                                    const url = `https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts/${elementActive.getAttribute('item_id')}`
 
                                                     //deposit...
                                                     GETelement(url, (account) => {
@@ -479,33 +284,7 @@ const body = {
                                     ('submit', (e) => e.preventDefault())
                             },
 
-                            ui: function () {
-                                const boardGrid = $('.app-board')
-                                const boardContain = $('.app-borad__contain')
-
-                                //Set height contain
-                                boardContain.style.height =
-                                    (boardGrid.getBoundingClientRect().height - 30) + 'px'
-
-                            },
-
                             shared: {
-                                //notification not select
-                                notSelect: function () {
-                                    featureBtns.forEach(element => {
-                                        element.addEventListener('click', () => {
-                                            if ($('.app-board__data.active') === null
-                                                && !element.classList.value.includes('disable')) {
-                                                notificationWindow(false,
-                                                    'Bạn chưa chọn mục tiêu để thực hiện',
-                                                    'vui lòng chọn một mục và thử lại',
-                                                    () => {
-                                                        notificationWindow()
-                                                    }, 'Thử lại')
-                                            }
-                                        })
-                                    });
-                                },
                                 featureNotAvailable: function () {
                                     $$(".app__top-feature.disable").forEach(element => {
                                         element.addEventListener('click', () => {
@@ -521,14 +300,13 @@ const body = {
                             },
 
                             renderDone: function () {
-                                this.shared.notSelect()
+                                body.handle.shared.notSelect()
+                                body.handle.shared.delete()
                                 this.shared.featureNotAvailable()
                             },
 
                             start: function () {
-                                this.ui()
                                 this.render()
-                                this.delete()
                                 this.lock()
                                 this.deposit()
                             }
@@ -538,6 +316,176 @@ const body = {
                     })
 
             }
+        },
+        product: {
+            manage: function () {
+                const productContain = $('.app-borad__contain')
+                //Get product list
+                GETelement(apiBody, products => {
+                    const manage = {
+
+                        //Render products
+                        renderProduct: function () {
+                            const output = products.reduce((accmulate, product) => {
+                                return accmulate +=
+                                    `<ul item_id="${product.ProductID}"class="app-board__data">
+                                <li class="app-board__data-item productId l-2 m-2 c-4">
+                                ${product.ProductID}
+                                </li>
+                                <li class="app-board__data-item uid l-3 m-4 c-8">
+                                ${product.UID}</li>
+                                <li class="app-board__data-item type l-4 hide-mt">${product.Type}</li>
+                                <li class="app-board__data-item price hide-m">
+                                ${formatMoney(product.Price)}
+                                </li>
+                            </ul>`
+                            }, '')
+
+                            productContain.innerHTML = output
+                            this.renderDone()
+                        },
+
+                        renderInfoProduct: function (element) {
+
+                            products.forEach(product => {
+                                if (product.ProductID === element.getAttribute('item_id')) {
+                                    $('.app-bot__info-data.value.productId').innerText = product.ProductID
+                                    $('.app-bot__info-data.value.uid').innerText = product.UID
+                                    $('.app-bot__info-data.value.tpye').innerText = product.Type
+                                    $('.app-bot__info-data.value.price').innerText = formatMoney(product.Price)
+                                    $('.app-bot__info-data.value.server').innerText = product.Server
+                                    $('.app-bot__info-data.value.discount').innerText = product.Discount + '%'
+                                    $('.app-bot__info-data.value.flashSale').innerText = product.Flashsale === 1 ? 'Yes' : 'No'
+                                    $('.app-bot__info-data.value.sold').innerText = product.Sold === 1 ? 'Yes' : 'No'
+                                }
+                            })
+
+                        },
+
+                        renderDone: function () {
+                            const appboradElement = $$('.app-board__data')
+
+                            body.handle.shared.notSelect()
+                            body.handle.shared.delete()
+
+                            //Callback return element in process active
+                            select(appboradElement, (element) => {
+                                this.renderInfoProduct(element)
+                            })
+                        },
+
+                        addProduct: function () {
+                            const form = $('.product-form')
+                            const submit = $('.product-form__submit')
+
+                            //Show form add product
+                            $('.app__top-feature.create').addEventListener('click', () => {
+                                form.classList.add('show')
+                            })
+
+                            //Hide form add product
+                            $('.product-form__close').onclick = () => {
+                                form.classList.remove('show')
+                            }
+
+
+                            //stop submit default
+                            $('.product-form__input-box').addEventListener('submit', e => e.preventDefault())
+
+                            submit.onclick = (e) => {
+
+                                //Get value submit
+                                const value = {
+                                    UID: $('#product-form__input-uid').value,
+                                    Price: $('#product-form__input-price').value,
+                                    Type: $('#product-form__select-type').value,
+                                    Server: $('#product-form__select-server').value,
+                                }
+
+                                console.log(Object.values(value).includes('1'))
+
+                                console.log(value)
+                                //Product constructor
+                                function NewProduct(uid, price, type, server) {
+                                    // this.ProductID = products
+                                    this.UID = uid
+                                    this.Server = server
+                                    this.Price = price
+                                    this.Type = type
+                                    this.Discount = 0
+                                    this.Flashsale = 0
+                                    this.Sold = 0
+                                }
+
+                                const newProduct = new NewProduct
+                                console.log(newProduct)
+                            }
+
+                        },
+
+                        start: function () {
+                            this.renderProduct()
+                            this.addProduct()
+                        }
+                    }
+                    manage.start()
+                })
+            }
+        },
+
+        shared: {
+
+            //notification not select
+            notSelect: function () {
+                $$(".app__top-feature").forEach(element => {
+                    console.log()
+                    element.addEventListener('click', () => {
+                        if ($('.app-board__data.active') === null
+                            && !element.classList.value.includes('disable')
+                            && !element.classList.value.includes('create')) {
+                            notificationWindow(false,
+                                'Bạn chưa chọn mục tiêu để thực hiện',
+                                'vui lòng chọn một mục và thử lại',
+                                () => {
+                                    notificationWindow()
+                                }, 'Thử lại')
+                        }
+                    })
+                });
+            },
+
+            //feature delete
+            //Delete data from app-borad
+            delete: function () {
+                $('.app__top-feature.delete').onclick =
+                    function () {
+                        const elementActive = $('.app-board__data.active')
+
+                        if (elementActive) {
+                            notificationWindow(
+                                false,
+                                'Bạn chắc chắn muốn xóa',
+                                'Sẽ không thể khôi phục lại',
+                                (isSuccess) => {
+                                    if (isSuccess) {
+                                        const Id = elementActive.getAttribute('item_id')
+
+                                        //Delete data from api
+                                        DELETEelement(`${apiBody}/${Id}`)
+
+                                        //Delete from DOM
+                                        elementActive.outerHTML = ''
+                                        notificationWindow()
+                                    }
+                                    else {
+                                        notificationWindow()
+                                    }
+                                }, 'Tiếp tục')
+
+                        }
+                    }
+            },
+
         }
     },
 
@@ -548,13 +496,28 @@ const body = {
         }
     },
 
+    product: {
+        manage: function () {
+            body.handle.product.manage()
+        }
+    },
+
     //Render body HTML
     renderHTML: function (key) {
         this.bodyHTML.forEach((element) => {
             if (element.key.parent == key.parent
                 && element.key.child == key.child) {
+
                 this.bodyMain.innerHTML = element.value
-                this.account.manage()
+                apiBody = element.url
+                element.start()
+
+                //Set height contain
+                const boardGrid = $('.app-board')
+                const boardContain = $('.app-borad__contain')
+
+                boardContain.style.height =
+                    (boardGrid.getBoundingClientRect().height - 30) + 'px'
             }
         })
     },
@@ -586,9 +549,250 @@ const body = {
         }
     },
 
+    // Body Handle
+    bodyHTML: [
+        {
+            url: "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts",
+            key: { parent: 'TÀI KHOẢN', child: 'Manage' },
+            start: () => {
+                body.account.manage()
+            },
+            value: `<div class="body__app">
+            <div class="app__top">
+                <h3 class="app__top-title">Manage</h3>
+                <div class="app__top-feature-contain">
+                    <div class="app__top-feature rippleBtn message disable">
+                        <i class="app__top-feature-icon fa-solid fa-message"></i>
+                        <p class="app__top-feature-text">Nhắn tin</p>
+                    </div>
+                    <div class="app__top-feature rippleBtn depositBtn">
+                        <i class="app__top-feature-icon fa-solid fa-credit-card"></i>
+                        <p class="app__top-feature-text">Nạp tiền</p>
+                    </div>
+                    <div class="app__top-feature rippleBtn replace disable">
+                        <i class="app__top-feature-icon fa-sharp fa-solid fa-screwdriver-wrench"></i>
+                        <p class="app__top-feature-text">Chỉnh sửa</p>
+                    </div>
+                    <div class="app__top-feature rippleBtn block">
+                        <i class="app__top-feature-icon fa-solid fa-user-lock"></i>
+                        <p class="app__top-feature-text">Tạm khóa</p>
+                        <i class="app__top-feature-icon lock fa-solid fa-user-unlock"></i>
+                        <p class="app__top-feature-text lock ">Mở khóa</p>
+                    </div>
+                    <div class="app__top-feature rippleBtn delete">
+                        <i class="app__top-feature-icon fa-solid fa-user-minus"></i>
+                        <p class="app__top-feature-text">Xóa bỏ</p>
+                    </div>
+                    <div class="app__top-feature rippleBtn create disable">
+                        <i class="app__top-feature-icon fa-solid fa-user-plus"></i>
+                        <p class="app__top-feature-text">Tạo mới</p>
+                    </div>
+                </div>
+            </div>
+            <div class="app__mid">
+                <div class="app__mid-nav">
+                    <div class="app__mid-nav-search-box">
+                        <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
+                        <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm với ID, tên tài khoản, biệt danh...">
+                    </div>
+
+                    <div class="app__mid-nav-ft-box">
+                        <div class="app__mid-nav-ft">
+                            <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
+                            Bộ lọc
+                        </div>
+                        <div class="app__mid-nav-ft">
+                            <i class="app__mid-nav-icon fa-solid fa-file-arrow-down"></i>
+                            Xuất ra
+                        </div>
+                    </div>
+                </div>
+                <div class="app-board grid">
+                    <ul class="app-board__nav">
+                        <li class="app-board__nav-item l-2 m-2 c-3">User ID</li>
+                        <li class="app-board__nav-item l-3 m-4 c-9">User Name</li>
+                        <li class="app-board__nav-item l-4 hide-mt hide-t">Email</li>
+                        <li class="app-board__nav-item hide-m">Money</li>
+                    </ul>
+                    <div class="app-borad__contain""></div>
+                </div>
+                <!-- <div class="app__mid-nav-page">
+                    <p class="app__mid-nav-page-info">1-9 of 99 pages</p>
+                    <div class="app__mid-nav-page-btn-box">
+                        <i class="app__mid-nav-page-btn fa-sharp fa-solid fa-arrow-left"></i>
+                        <i class="app__mid-nav-page-btn fa-sharp fa-solid fa-arrow-right"></i>
+                    </div>
+                </div> -->
+            </div>
+            <div class="app-bot">
+                <h3 class="app-bot__title">
+                    <i class="fa-solid fa-address-card"></i>
+                    <p>Information</p>
+                    <!-- <i class="app-bot__title-resize fa-solid fa-arrow-down"></i> -->
+                </h3>
+                <div class="app-bot__info-contain">
+                    <ul class="app-bot__info-list">
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title userid">1.User ID:</p>
+                            <p class="app-bot__info-data value userid">0</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title username">2.User Name:</p>
+                            <p class="app-bot__info-data value username">admin</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title nickname">3.Nick Name:</p>
+                            <p class="app-bot__info-data value nickname">Lê Hạnh</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title email">4.Email:</p>
+                            <p class="app-bot__info-data value email">hbstore@gmail.com</p>
+                        </li>
+                    </ul>
+                    <ul class="app-bot__info-list">
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title money">5.Money:</p>
+                            <p class="app-bot__info-data value money">999.999.999đ</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title moneySpent">6.Money Spent:</p>
+                            <p class="app-bot__info-data value moneySpent">N/A</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title totalDeposit">7.Total Deposit:</p>
+                            <p class="app-bot__info-data value totalDeposit">999.999.999đ</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title date">8.Date created:</p>
+                            <p class="app-bot__info-data value date">26/11/2002</p>
+                        </li>
+                    </ul>
+                    <ul class="app-bot__info-list history">
+                        <li class="app-bot__info history">
+                            <p class="app-bot__info-data title history-title">Mua thành công:</p>
+                            <p class="app-bot__info-data value history">N/A</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>`
+        },
+        {
+            url: "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Products",
+            key: { parent: 'SẢN PHẨM', child: 'Manage' },
+            start: () => {
+                body.product.manage()
+            },
+            value: ` <div class="body__app">
+            <div class="app__top">
+                <h3 class="app__top-title">Manage</h3>
+                <div class="app__top-feature-contain">
+                    <div class="app__top-feature rippleBtn create">
+                        <i class="app__top-feature-icon fa-solid fa-layer-plus"></i>
+                        <p class="app__top-feature-text">Tạo mới</p>
+                    </div>
+                    <div class="app__top-feature rippleBtn replace">
+                        <i class="app__top-feature-icon fa-sharp fa-solid fa-screwdriver-wrench"></i>
+                        <p class="app__top-feature-text">Chỉnh sửa</p>
+                    </div>
+                    <div class="app__top-feature rippleBtn delete">
+                        <i class="app__top-feature-icon fa-solid fa-layer-minus"></i>
+                        <p class="app__top-feature-text">Xóa bỏ</p>
+                    </div>
+                </div>
+            </div>
+            <div class="app__mid">
+                <div class="app__mid-nav">
+                    <div class="app__mid-nav-search-box">
+                        <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
+                        <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm với ID, UID, Type...">
+                    </div>
+
+                    <div class="app__mid-nav-ft-box">
+                        <div class="app__mid-nav-ft">
+                            <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
+                            Bộ lọc
+                        </div>
+                        <div class="app__mid-nav-ft">
+                            <i class="app__mid-nav-icon fa-solid fa-file-arrow-down"></i>
+                            Xuất ra
+                        </div>
+                    </div>
+                </div>
+                <div class="app-board grid">
+                    <ul class="app-board__nav">
+                        <li class="app-board__nav-item l-2 m-2 c-4">Product ID</li>
+                        <li class="app-board__nav-item l-3 m-4 c-8">UID</li>
+                        <li class="app-board__nav-item l-4 hide-mt hide-t">Type</li>
+                        <li class="app-board__nav-item hide-m">Price</li>
+                    </ul>
+                    <div class="app-borad__contain">
+                        <ul class="app-board__data">
+                            <li class="app-board__data-item productId l-2 m-2 c-4">
+                                0</li>
+                            <li class="app-board__data-item uid l-3 m-4 c-8">659999999</li>
+                            <li class="app-board__data-item type l-4 hide-mt">Thất quý</li>
+                            <li class="app-board__data-item price hide-m">
+                                5.000.000đ
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="app-bot">
+                <h3 class="app-bot__title">
+                    <i class="fa-solid fa-address-card"></i>
+                    <p>Information</p>
+                    <!-- <i class="app-bot__title-resize fa-solid fa-arrow-down"></i> -->
+                </h3>
+                <div class="app-bot__info-contain">
+                    <ul class="app-bot__info-list">
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title productId">1.Product ID:</p>
+                            <p class="app-bot__info-data value productId">0</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title uid">2.UID:</p>
+                            <p class="app-bot__info-data value uid">659999999</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title tpye">3.Tpye:</p>
+                            <p class="app-bot__info-data value tpye">Thất quý</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title price">4.Price:</p>
+                            <p class="app-bot__info-data value price">5.000.000đ</p>
+                        </li>
+                    </ul>
+                    <ul class="app-bot__info-list">
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title server">5.Server:</p>
+                            <p class="app-bot__info-data value server">Asia</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title discount">6.Discount:</p>
+                            <p class="app-bot__info-data value discount">100%</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title flashSale">7.FlashSale:</p>
+                            <p class="app-bot__info-data value flashSale">False</p>
+                        </li>
+                        <li class="app-bot__info">
+                            <p class="app-bot__info-data title sold">8.Sold:</p>
+                            <p class="app-bot__info-data value sold">True</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>`
+        }
+    ],
+
     start: function () {
         this.login()
-        this.account.manage()
+        setTimeout(() => {
+            $('.nav__category-options.active').click()
+        }, 0);
     }
 }
 body.start()
@@ -691,6 +895,11 @@ const nav = {
 
         }
 
+        if (window.innerWidth < 960) {
+            setTimeout(() => {
+                button.click()
+            }, 500);
+        }
         button.addEventListener('click', resize)
     },
 
@@ -698,11 +907,12 @@ const nav = {
     open: function () {
         this.optElement.forEach(element => {
             element.onclick = () => {
-                const parent = element.closest('.nav__category')
+
                 const key = {
-                    parent: parent.querySelector('.nav__category-title').innerText,
-                    child: parent.querySelector('.nav__category-options-tx').innerText
+                    parent: element.closest('.nav__category').getAttribute('Name'),
+                    child: element.querySelector('.nav__category-options-tx').innerText
                 }
+                console.log(key)
                 body.renderHTML(key)
             }
         });
@@ -717,7 +927,16 @@ const nav = {
         }
     },
 
+    //Set name category
+    setNameCategory: function () {
+        $$('.nav__category').forEach(element => {
+            const categoryName = element.querySelector('.nav__category-title').innerText
+            element.setAttribute('Name', categoryName)
+        })
+    },
+
     start: function () {
+        this.setNameCategory()
         select(this.optElement)
         this.open()
         this.resize()

@@ -26,7 +26,7 @@ export let acccounts = [
 ];
 
 //Product storage//
-export const productAPi = "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Product"
+export const productAPi = "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Products"
 export let products = [
     [
         {
