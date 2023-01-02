@@ -16,7 +16,8 @@ import {
     homeApi,
 
     /***** Feature *****/
-    notificationWindow
+    notificationWindow,
+    validate
 
 } from "../../asset/javascript/end_point.js"
 
@@ -320,6 +321,12 @@ const body = {
         product: {
             manage: function () {
                 const productContain = $('.app-borad__contain')
+                const form = $('.product-form')
+                const submit = $('.product-form__submit')
+                const formTitle = $('.product-form__title')
+                const formTitleSub = $('.product-form__title-sub')
+                // const form
+
                 //Get product list
                 GETelement(apiBody, products => {
                     const manage = {
@@ -351,7 +358,7 @@ const body = {
                                 if (product.ProductID === element.getAttribute('item_id')) {
                                     $('.app-bot__info-data.value.productId').innerText = product.ProductID
                                     $('.app-bot__info-data.value.uid').innerText = product.UID
-                                    $('.app-bot__info-data.value.tpye').innerText = product.Type
+                                    $('.app-bot__info-data.value.type').innerText = product.Type
                                     $('.app-bot__info-data.value.price').innerText = formatMoney(product.Price)
                                     $('.app-bot__info-data.value.server').innerText = product.Server
                                     $('.app-bot__info-data.value.discount').innerText = product.Discount + '%'
@@ -375,57 +382,251 @@ const body = {
                         },
 
                         addProduct: function () {
-                            const form = $('.product-form')
-                            const submit = $('.product-form__submit')
 
                             //Show form add product
                             $('.app__top-feature.create').addEventListener('click', () => {
+
+                                //reset form
+                                if (!form.classList.value.includes('createForm')) {
+                                    for (let input of form.querySelectorAll('input')) {
+                                        input.value = ''
+                                    }
+
+                                    formTitle.innerText = 'Thêm sản phẩm'
+                                    formTitleSub.innerText = ''
+                                }
+
+
                                 form.classList.add('show')
+
+                                //Hide form add product
+                                $('.product-form__close').onclick = () => {
+                                    form.classList.remove('show')
+                                }
+
+                                //stop submit default
+                                $('.product-form__contain').addEventListener('submit', e => e.preventDefault())
+
+                                //Validate
+                                const inputs = [
+                                    {
+                                        selector: $('.product-form__input-box.uid'),
+                                        options: ['required', 'leng_9']
+                                    },
+                                    {
+                                        selector: $('.product-form__input-box.price'),
+                                        options: ['required']
+                                    }
+
+                                ]
+
+                                function validateRequest(selector, validateType) {
+                                    const parent = selector.closest('.product-form__input-box')
+                                    const selectorElm = {
+                                        parent: parent,
+                                        input: parent.querySelector('input'),
+                                        message: parent.querySelector('message')
+                                    }
+
+                                    selector.addEventListener('input', () => { selectorElm.message.innerText = '' })
+                                    validate.start(selectorElm, validateType)
+                                }
+
+
+                                //act focusout
+                                inputs[0].selector.addEventListener('focusout', (e) => {
+                                    validateRequest(e.target, ['required', 'leng_9'])
+                                })
+                                inputs[1].selector.addEventListener('focusout', (e) => {
+                                    validateRequest(e.target, ['required'])
+                                })
+
+                                //act submit
+                                submit.onclick = (e) => {
+
+                                    inputs.forEach(input => { validateRequest(input.selector, input.options) })
+
+
+                                    //All no more error messages
+                                    const result = Array.from(form.querySelectorAll('message')).every(element => {
+                                        return element.innerText === ''
+                                    })
+                                    //Exist error messages => skip
+                                    if (!result) { return }
+
+                                    // show button loading
+                                    form.classList.add('active')
+                                    //Get value submit
+                                    const value = {
+                                        UID: $('#product-form__input-uid').value,
+                                        Price: $('#product-form__input-price').value,
+                                        Type: $('#product-form__select-type').value,
+                                        Server: $('#product-form__select-server').value,
+                                    }
+
+                                    //Product constructor
+                                    function NewProduct(uid, price, type, server) {
+
+                                        // this.ProductID = products
+                                        this.UID = uid
+                                        this.Server = server
+                                        this.Price = price
+                                        this.Type = type
+                                        this.Discount = 0
+                                        this.Flashsale = 0
+                                        this.Sold = 0
+                                    }
+                                    const newProduct = new NewProduct(value.UID, value.Price, value.Type, value.Server)
+
+                                    //Push product to api
+                                    POSTelement(apiBody, newProduct, (product) => {
+                                        // hide button loading
+                                        form.classList.remove('active')
+
+                                        //show notification
+                                        notificationWindow(true,
+                                            'Thêm sản phẩm thành công',
+                                            'Bạn muốn tiếp tục thêm sản phẩm mới?',
+                                            (isSuccess) => {
+
+                                                //reset form
+                                                for (let input of form.querySelectorAll('input')) {
+                                                    input.value = ''
+                                                }
+
+                                                if (isSuccess) {
+                                                    notificationWindow()
+                                                }
+                                                else {
+                                                    //close form add product
+                                                    notificationWindow()
+                                                    $('.product-form__close').click()
+                                                }
+                                            },
+                                            'Tiếp tục')
+
+
+                                        //Add product to DOM 
+                                        let newPdtDom = document.createElement('ul')
+
+                                        //Add product to list
+                                        $('.app-borad__contain').appendChild(newPdtDom)
+
+                                        newPdtDom.outerHTML = `<ul item_id="${product.ProductID}"class="app-board__data">
+                                    <li class="app-board__data-item productId l-2 m-2 c-4">
+                                    ${product.ProductID}
+                                    </li>
+                                    <li class="app-board__data-item uid l-3 m-4 c-8">
+                                    ${product.UID}</li>
+                                    <li class="app-board__data-item type l-4 hide-mt">${product.Type}</li>
+                                    <li class="app-board__data-item price hide-m">
+                                    ${formatMoney(product.Price)}
+                                    </li>
+                                </ul>`
+                                        //update products
+                                        GETelement(apiBody, (value) => {
+                                            products = value
+                                            this.renderDone()
+                                        })
+                                    })
+                                }
                             })
 
-                            //Hide form add product
-                            $('.product-form__close').onclick = () => {
-                                form.classList.remove('show')
-                            }
+                        },
+
+                        replaceProduct: function () {
+
+                            $(".app__top-feature.replace").addEventListener('click', () => {
+                                const elmActive = $('.app-board__data.active')
+
+                                //not select skip => logic
+                                if (!elmActive) { return }
+
+                                const close = $('.product-form__close')
+                                let productid = elmActive.querySelector('.app-board__data-item.productId')
+                                let uid = elmActive.querySelector('.app-board__data-item.uid')
+                                let type = elmActive.querySelector('.app-board__data-item.type')
+                                let price = elmActive.querySelector('.app-board__data-item.price')
 
 
-                            //stop submit default
-                            $('.product-form__input-box').addEventListener('submit', e => e.preventDefault())
+                                //show form
+                                form.classList.add('show')
 
-                            submit.onclick = (e) => {
-
-                                //Get value submit
-                                const value = {
-                                    UID: $('#product-form__input-uid').value,
-                                    Price: $('#product-form__input-price').value,
-                                    Type: $('#product-form__select-type').value,
-                                    Server: $('#product-form__select-server').value,
+                                //hide form
+                                close.onclick = () => {
+                                    form.classList.remove('show')
                                 }
 
-                                console.log(Object.values(value).includes('1'))
+                                //change content form
+                                form.classList.remove('createForm')
+                                formTitle.innerHTML = 'Chỉnh sửa UID:'
 
-                                console.log(value)
-                                //Product constructor
-                                function NewProduct(uid, price, type, server) {
-                                    // this.ProductID = products
-                                    this.UID = uid
-                                    this.Server = server
-                                    this.Price = price
-                                    this.Type = type
-                                    this.Discount = 0
-                                    this.Flashsale = 0
-                                    this.Sold = 0
+                                formTitleSub.innerHTML = uid.innerText
+
+                                $('#product-form__input-uid').value = uid.innerText
+
+
+                                //convert currency to number
+                                let priceConvert = price.innerText
+                                while (priceConvert.includes('.')) {
+                                    priceConvert = priceConvert.replace('.', '')
+                                }
+                                $('#product-form__input-price').value = Number.parseFloat(priceConvert)
+
+                                $('#product-form__select-server').value =
+                                    $('.app-bot__info-data.value.server').innerText
+
+                                $('#product-form__select-type').value =
+                                    $('.app-bot__info-data.value.type').innerText
+
+
+                                //act submit
+                                $('.product-form__contain').addEventListener('submit', (e) => e.preventDefault())
+
+                                $('.product-form__submit').onclick = () => {
+
+                                    // show buttom loading
+                                    form.classList.add('active')
+
+                                    //get value submit
+                                    let newValue = {
+                                        UID: $('#product-form__input-uid').value,
+                                        Price: $('#product-form__input-price').value,
+                                        Type: $('#product-form__select-type').value,
+                                        Server: $('#product-form__select-server').value,
+                                    }
+
+
+                                    //update to api 
+                                    PUTelement(`${apiBody}/${elmActive.getAttribute('item_id')}`, newValue, (product) => {
+                                        console.log(product)
+                                        notificationWindow(true,
+                                            'Chỉnh sửa thông tin thành công',
+                                            'Thông tin mới đã được áp dụng',
+                                            () => {
+                                                notificationWindow()
+                                                this.renderDone()
+                                                close.click()
+                                            })
+
+                                        //update to dom 
+                                        productid.innerText = product.ProductID
+                                        uid.innerText = product.UID
+                                        type.innerText = product.Type
+                                        price.innerText = formatMoney(product.Price)
+
+                                        // hide buttom loading
+                                        form.classList.remove('active')
+                                    })
                                 }
 
-                                const newProduct = new NewProduct
-                                console.log(newProduct)
-                            }
-
+                            })
                         },
 
                         start: function () {
                             this.renderProduct()
                             this.addProduct()
+                            this.replaceProduct()
                         }
                     }
                     manage.start()
@@ -438,11 +639,12 @@ const body = {
             //notification not select
             notSelect: function () {
                 $$(".app__top-feature").forEach(element => {
-                    console.log()
+
                     element.addEventListener('click', () => {
                         if ($('.app-board__data.active') === null
                             && !element.classList.value.includes('disable')
                             && !element.classList.value.includes('create')) {
+
                             notificationWindow(false,
                                 'Bạn chưa chọn mục tiêu để thực hiện',
                                 'vui lòng chọn một mục và thử lại',
@@ -756,8 +958,8 @@ const body = {
                             <p class="app-bot__info-data value uid">659999999</p>
                         </li>
                         <li class="app-bot__info">
-                            <p class="app-bot__info-data title tpye">3.Tpye:</p>
-                            <p class="app-bot__info-data value tpye">Thất quý</p>
+                            <p class="app-bot__info-data title type">3.Type:</p>
+                            <p class="app-bot__info-data value type">Thất quý</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title price">4.Price:</p>
@@ -912,7 +1114,6 @@ const nav = {
                     parent: element.closest('.nav__category').getAttribute('Name'),
                     child: element.querySelector('.nav__category-options-tx').innerText
                 }
-                console.log(key)
                 body.renderHTML(key)
             }
         });

@@ -311,7 +311,6 @@ export function PUTelement(url, value, callback) {
 };
 //Delete element/api
 export function DELETEelement(url, callback) {
-    console.log(url)
     fetch(url, {
         method: "DELETE",
         headers: { 'Content-type': 'application/json' },
