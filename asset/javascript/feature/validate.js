@@ -36,7 +36,7 @@ export const validate = {
 
     validateTypes: {
         required: {
-            message: "Trường này không được để trống",
+            message: "Trường này không đúng",
             handle: function (selector) {
                 return validate.validator.required(selector, this.message)
             }

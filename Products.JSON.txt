@@ -5,9 +5,9 @@
   "Server": "America",
   "Type": "Lục quý",
   "Price": 3000000,
-  "Discount": 80,
-  "Flashsale": 1,
-  "Sold": 1
+  "Discount": "99%",
+  "Flashsale": "Yes",
+  "Sold": "Yes"
  },
  {
   "ProductID": "1",
@@ -15,9 +15,9 @@
   "Server": "America",
   "Type": "Lục quý",
   "Price": 2000000,
-  "Discount": 10,
-  "Flashsale": 1,
-  "Sold": 0
+  "Discount": "22%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "2",
@@ -25,9 +25,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 19999999,
-  "Discount": 20,
-  "Flashsale": 1,
-  "Sold": 0
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "3",
@@ -35,9 +35,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 2000000,
-  "Discount": 50,
-  "Flashsale": 1,
-  "Sold": 0
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "4",
@@ -45,9 +45,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 5,
-  "Flashsale": 1,
-  "Sold": 0
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "5",
@@ -55,9 +55,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 10,
-  "Flashsale": 1,
-  "Sold": 0
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "6",
@@ -65,9 +65,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 95,
-  "Flashsale": 1,
-  "Sold": 1
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "7",
@@ -75,9 +75,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 20,
-  "Flashsale": 1,
-  "Sold": 0
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "8",
@@ -85,9 +85,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 30,
-  "Flashsale": 1,
-  "Sold": 1
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "9",
@@ -95,9 +95,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 10,
-  "Flashsale": 1,
-  "Sold": 0
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "10",
@@ -105,9 +105,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 8,
-  "Flashsale": 1,
-  "Sold": 0
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "11",
@@ -115,9 +115,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 6,
-  "Flashsale": 1,
-  "Sold": 0
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "12",
@@ -125,9 +125,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 26,
-  "Flashsale": 1,
-  "Sold": 1
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "13",
@@ -135,9 +135,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 9,
-  "Flashsale": 1,
-  "Sold": 0
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "14",
@@ -145,9 +145,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 19,
-  "Flashsale": 1,
-  "Sold": 0
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "15",
@@ -155,9 +155,9 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 500000,
-  "Discount": 99,
-  "Flashsale": 1,
-  "Sold": 1
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  },
  {
   "ProductID": "16",
@@ -165,8 +165,8 @@
   "Server": "Asia",
   "Type": "Lục quý",
   "Price": 10000000,
-  "Discount": 100,
-  "Flashsale": 1,
-  "Sold": 1
+  "Discount": "10%",
+  "Flashsale": "Yes",
+  "Sold": "No"
  }
 ]

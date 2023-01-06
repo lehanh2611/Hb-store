@@ -6,7 +6,6 @@ export const processLoad = {
     totalStep: 0,
     currentStep: 0,
 
-
     end: function () {
         setTimeout(() => {
             this.processLine.style.display = 'none'
@@ -16,26 +15,22 @@ export const processLoad = {
             this.processLine.classList.remove('ready')
             this.processLine.style.width = 0 + 'px'
             this.processLine.style.display = 'block'
-            this.processAcc = 0
-            this.processStep = 0
             this.totalStep = 0
             this.currentStep = 0
         }, 300);
 
     },
     continue: function () {
-        if (this.currentStep >= this.totalStep) { return this.end() }
-
-        this.processLine.style.width = this.processAcc + 'px'
-        this.processAcc += this.processStep
+        if (this.currentStep === this.totalStep) { return this.end() }
         this.currentStep++
 
+        this.processLine.style.width = 
+        `${Number.parseInt(this.currentStep / this.totalStep * 100)}%`
+        
         this.processTitle.innerText = 
         `${Number.parseInt(this.currentStep / this.totalStep * 100)}%`
     },
     start: function () {
-        this.processStep = window.innerWidth / this.totalStep
-        this.processAcc = this.processStep
         this.continue()
     },
 

@@ -141,7 +141,7 @@ export function filter(dataFil, rulesFil, callback) {
                     const result = value.filter(data => {
 
                         return (toLowerCaseNonAccentVietnamese(Object.values(data).toString())
-                            .includes(toLowerCaseNonAccentVietnamese(rule)))
+                            .includes(toLowerCaseNonAccentVietnamese(rule.trim())))
                     })
                     resolve(result)
                 })

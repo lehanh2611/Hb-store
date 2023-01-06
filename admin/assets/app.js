@@ -19,7 +19,8 @@ import {
     notificationWindow,
     validate,
     filter,
-    processLoad
+    processLoad,
+    logHistory
 
 } from "../../asset/javascript/end_point.js"
 
@@ -35,10 +36,30 @@ const body = {
     handle: {
         account: {
             manage: function () {
-                const urlAccounts = 'https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts'
+                const keyBody = 'Account.Manage'
+                const apiBody = 'https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts'
+
                 //get the account
-                GETelement(urlAccounts,
-                    (accounts) => {
+                new Promise((resolve) => {
+                    const accounts = JSON.parse(localStorage.getItem(keyBody))
+                    if (accounts) {
+                        resolve(accounts)
+                    }
+                    else {
+                        GETelement(apiBody, accounts => resolve(accounts))
+                    }
+
+                    // update localStorage data
+                    if ((new Date).getMinutes() != localStorage.getItem('latestUpdate')) {
+                        GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
+                    }
+                })
+
+                    //Get product list
+                    .then(accounts => {
+                        // update product 
+                        localStorage.setItem(keyBody, JSON.stringify(accounts))
+
                         const manage = {
                             appBoradContain: $('.app-borad__contain'),
 
@@ -80,7 +101,7 @@ const body = {
                                 new Promise((resolve) => {
                                     //get new data account
                                     if (reload) {
-                                        GETelement(urlAccounts, (newAccounts) => {
+                                        GETelement(apiBody, (newAccounts) => {
                                             resolve(newAccounts)
                                         })
                                     }
@@ -117,7 +138,6 @@ const body = {
                                 })
                             },
 
-
                             lock: function () {
                                 const lockBtn = $('.app__top-feature.block')
 
@@ -140,40 +160,46 @@ const body = {
 
                                         GETelement(`${homeApi}/${containId}`,
                                             (account) => {
+                                                new Promise((resolve) => {
+                                                    if (account.Block == "false") {
 
+                                                        PUTelement(`${homeApi}/${containId}`, {
+                                                            Block: "true"
+                                                        }, () => { resolve() })
 
-                                                if (account.Block == "false") {
+                                                        //add icon lock
+                                                        lockBox.innerHTML = `<i class="app-board__data-lock fa-solid fa-lock"></i>${lockBox.innerHTML}`
 
-                                                    PUTelement(`${homeApi}/${containId}`, {
-                                                        Block: "true"
-                                                    })
+                                                        //change icon button lock
+                                                        lockBtn.classList.add('unlock')
 
-                                                    //add icon lock
-                                                    lockBox.innerHTML = `<i class="app-board__data-lock fa-solid fa-lock"></i>${lockBox.innerHTML}`
-
-                                                    //change icon button lock
-                                                    lockBtn.classList.add('unlock')
-
-                                                }
-                                                else {
-
-                                                    PUTelement(`${homeApi}/${containId}`, {
-                                                        Block: "false"
-                                                    })
-
-                                                    //remove icon lock
-                                                    const lockIcon = elementActive.querySelector('.app-board__data-lock')
-
-                                                    if (lockIcon) {
-                                                        lockIcon.remove()
                                                     }
+                                                    else {
 
-                                                    //change icon button lock
-                                                    lockBtn.classList.remove('unlock')
-                                                }
-                                                setTimeout(() => {
-                                                    lockBtn.addEventListener('click', lockHandle)
-                                                }, 0);
+                                                        PUTelement(`${homeApi}/${containId}`, {
+                                                            Block: "false"
+                                                        }, () => { resolve() })
+
+                                                        //remove icon lock
+                                                        const lockIcon = elementActive.querySelector('.app-board__data-lock')
+
+                                                        if (lockIcon) {
+                                                            lockIcon.remove()
+                                                        }
+
+                                                        //change icon button lock
+                                                        lockBtn.classList.remove('unlock')
+                                                    }
+                                                    setTimeout(() => {
+                                                        lockBtn.addEventListener('click', lockHandle)
+                                                    }, 0);
+                                                })
+
+                                                    //update data
+                                                    .then(() => {
+                                                        GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
+                                                    })
+
                                             })
                                     }
                                 }
@@ -267,6 +293,9 @@ const body = {
                                                             depositBox.querySelectorAll('input').forEach(element => {
                                                                 element.value = ''
                                                             });
+
+                                                            //update data
+                                                            GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
                                                         })
                                                     })
                                                 }
@@ -304,7 +333,7 @@ const body = {
 
                             renderDone: function () {
                                 body.handle.shared.notSelect()
-                                body.handle.shared.delete()
+                                body.handle.shared.delete(keyBody)
                                 this.shared.featureNotAvailable()
                             },
 
@@ -322,6 +351,7 @@ const body = {
         },
         product: {
             manage: function () {
+                const keyBody = 'Product.Manage'
                 const productContain = $('.app-borad__contain')
                 const form = $('.product-form')
                 const submit = $('.product-form__submit')
@@ -329,178 +359,43 @@ const body = {
                 const formTitleSub = $('.product-form__title-sub')
                 // const form
 
-                //Get product list
-                GETelement(apiBody, products => {
-                    const manage = {
+                new Promise((resolve) => {
+                    const products = JSON.parse(localStorage.getItem(keyBody))
+                    if (products) {
+                        resolve(products)
+                    }
+                    else {
+                        GETelement(apiBody, products => resolve(products))
+                    }
 
-                        //Render products
-                        renderProduct: function () {
-                            const output = products.reduce((accmulate, product) => {
-                                return accmulate +=
-                                    `<ul item_id="${product.ProductID}"class="app-board__data">
-                                <li class="app-board__data-item productId l-2 m-2 c-4">
-                                ${product.ProductID}
-                                </li>
-                                <li class="app-board__data-item uid l-3 m-4 c-8">
-                                ${product.UID}</li>
-                                <li class="app-board__data-item type l-4 hide-mt">${product.Type}</li>
-                                <li class="app-board__data-item price hide-m">
-                                ${formatMoney(product.Price)}
-                                </li>
-                            </ul>`
-                            }, '')
+                    // update localStorage data
+                    if ((new Date).getMinutes() != localStorage.getItem('latestUpdate')) {
+                        GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
+                    }
+                })
 
-                            productContain.innerHTML = output
-                            this.renderDone()
-                        },
+                    //Get product list
+                    .then(products => {
 
-                        renderInfoProduct: function (element) {
-                            products.forEach(product => {
-                                if (product.ProductID === element.getAttribute('item_id')) {
-                                    $('.app-bot__info-data.value.productId').innerText = product.ProductID
-                                    $('.app-bot__info-data.value.uid').innerText = product.UID
-                                    $('.app-bot__info-data.value.type').innerText = product.Type
-                                    $('.app-bot__info-data.value.price').innerText = formatMoney(product.Price)
-                                    $('.app-bot__info-data.value.server').innerText = product.Server
-                                    $('.app-bot__info-data.value.discount').innerText = product.Discount
-                                    $('.app-bot__info-data.value.flashSale').innerText = product.Flashsale
-                                    $('.app-bot__info-data.value.sold').innerText = product.Sold
-                                }
-                            })
-                        },
+                        //update product
+                        localStorage.setItem(keyBody, JSON.stringify(products))
 
-                        addProduct: function () {
+                        const manage = {
 
-                            //Show form add product
-                            $('.app__top-feature.create').addEventListener('click', () => {
+                            //Render products
+                            renderProduct: function (rule) {
 
-                                //reset form
-                                if (!form.classList.value.includes('createForm')) {
-                                    for (let input of form.querySelectorAll('input')) {
-                                        input.value = ''
+                                new Promise((resolve) => {
+                                    if (arguments.length >= 1) {
+                                        filter(products, rule, productsFil => { resolve(productsFil) })
                                     }
-
-                                    formTitle.innerText = 'Thêm sản phẩm'
-                                    formTitleSub.innerText = ''
-                                }
-
-
-                                form.classList.add('show')
-
-                                //Hide form add product
-                                $('.product-form__close').onclick = () => {
-                                    form.classList.remove('show')
-                                }
-
-                                //stop submit default
-                                $('.product-form__contain').addEventListener('submit', e => e.preventDefault())
-
-                                //Validate
-                                const inputs = [
-                                    {
-                                        selector: $('.product-form__input-box.uid'),
-                                        options: ['required', 'leng_9']
-                                    },
-                                    {
-                                        selector: $('.product-form__input-box.price'),
-                                        options: ['required']
-                                    }
-
-                                ]
-
-                                function validateRequest(selector, validateType) {
-                                    const parent = selector.closest('.product-form__input-box')
-                                    const selectorElm = {
-                                        parent: parent,
-                                        input: parent.querySelector('input'),
-                                        message: parent.querySelector('message')
-                                    }
-
-                                    selector.addEventListener('input', () => { selectorElm.message.innerText = '' })
-                                    validate.start(selectorElm, validateType)
-                                }
-
-
-                                //act focusout
-                                inputs[0].selector.addEventListener('focusout', (e) => {
-                                    validateRequest(e.target, ['required', 'leng_9'])
+                                    else { resolve(products) }
                                 })
-                                inputs[1].selector.addEventListener('focusout', (e) => {
-                                    validateRequest(e.target, ['required'])
-                                })
+                                    .then((data) => {
 
-                                //act submit
-                                submit.onclick = (e) => {
-
-                                    inputs.forEach(input => { validateRequest(input.selector, input.options) })
-
-
-                                    //All no more error messages
-                                    const result = Array.from(form.querySelectorAll('message')).every(element => {
-                                        return element.innerText === ''
-                                    })
-                                    //Exist error messages => skip
-                                    if (!result) { return }
-
-                                    // show button loading
-                                    form.classList.add('active')
-                                    //Get value submit
-                                    const value = {
-                                        UID: $('#product-form__input-uid').value,
-                                        Price: $('#product-form__input-price').value,
-                                        Type: $('#product-form__select-type').value,
-                                        Server: $('#product-form__select-server').value,
-                                    }
-
-                                    //Product constructor
-                                    function NewProduct(uid, price, type, server) {
-
-                                        // this.ProductID = products
-                                        this.UID = uid
-                                        this.Server = server
-                                        this.Price = price
-                                        this.Type = type
-                                        this.Discount = 'No'
-                                        this.Flashsale = 'No'
-                                        this.Sold = 'No'
-                                    }
-                                    const newProduct = new NewProduct(value.UID, value.Price, value.Type, value.Server)
-
-                                    //Push product to api
-                                    POSTelement(apiBody, newProduct, (product) => {
-                                        // hide button loading
-                                        form.classList.remove('active')
-
-                                        //show notification
-                                        notificationWindow(true,
-                                            'Thêm sản phẩm thành công',
-                                            'Bạn muốn tiếp tục thêm sản phẩm mới?',
-                                            (isSuccess) => {
-
-                                                //reset form
-                                                for (let input of form.querySelectorAll('input')) {
-                                                    input.value = ''
-                                                }
-
-                                                if (isSuccess) {
-                                                    notificationWindow()
-                                                }
-                                                else {
-                                                    //close form add product
-                                                    notificationWindow()
-                                                    $('.product-form__close').click()
-                                                }
-                                            },
-                                            'Tiếp tục')
-
-
-                                        //Add product to DOM 
-                                        let newPdtDom = document.createElement('ul')
-
-                                        //Add product to list
-                                        $('.app-borad__contain').appendChild(newPdtDom)
-
-                                        newPdtDom.outerHTML = `<ul item_id="${product.ProductID}"class="app-board__data">
+                                        const output = data.reduce((accmulate, product) => {
+                                            return accmulate +=
+                                                `<ul item_id="${product.ProductID}"class="app-board__data">
                                     <li class="app-board__data-item productId l-2 m-2 c-4">
                                     ${product.ProductID}
                                     </li>
@@ -511,165 +406,349 @@ const body = {
                                     ${formatMoney(product.Price)}
                                     </li>
                                 </ul>`
-                                        //update products
-                                        GETelement(apiBody, (value) => {
-                                            products = value
-                                            this.renderDone()
-                                        })
+                                        }, '')
 
-                                        //pull scroll
-                                        const contain = $('.app-borad__contain')
-                                        contain.scrollTop += contain.scrollTop + 38
+                                        productContain.innerHTML = output
+                                        this.renderDone()
                                     })
-                                }
-                            })
+                            },
 
-                        },
+                            renderInfoProduct: function (element) {
+                                products.forEach(product => {
+                                    if (product.ProductID === element.getAttribute('item_id')) {
+                                        $('.app-bot__info-data.value.productId').innerText = product.ProductID
+                                        $('.app-bot__info-data.value.uid').innerText = product.UID
+                                        $('.app-bot__info-data.value.type').innerText = product.Type
+                                        $('.app-bot__info-data.value.price').innerText = formatMoney(product.Price)
+                                        $('.app-bot__info-data.value.server').innerText = product.Server
+                                        $('.app-bot__info-data.value.discount').innerText = product.Discount
+                                        $('.app-bot__info-data.value.flashSale').innerText = product.Flashsale
+                                        $('.app-bot__info-data.value.sold').innerText = product.Sold
+                                    }
+                                })
+                            },
 
-                        replaceProduct: function () {
+                            addProduct: function () {
 
-                            $(".app__top-feature.replace").addEventListener('click', () => {
-                                const elmActive = $('.app-board__data.active')
+                                //Show form add product
+                                $('.app__top-feature.create').addEventListener('click', () => {
 
-                                //not select skip => logic
-                                if (!elmActive) { return }
+                                    //reset form
+                                    if (!form.classList.value.includes('createForm')) {
+                                        for (let input of form.querySelectorAll('input')) {
+                                            input.value = ''
+                                        }
 
-                                const close = $('.product-form__close')
-                                let productid = elmActive.querySelector('.app-board__data-item.productId')
-                                let uid = elmActive.querySelector('.app-board__data-item.uid')
-                                let type = elmActive.querySelector('.app-board__data-item.type')
-                                let price = elmActive.querySelector('.app-board__data-item.price')
+                                        formTitle.innerText = 'Thêm sản phẩm'
+                                        formTitleSub.innerText = ''
+                                    }
 
+                                    form.classList.add('show')
 
-                                //show form
-                                form.classList.add('show')
+                                    //Hide form add product
+                                    $('.product-form__close').onclick = () => {
+                                        form.classList.remove('show')
+                                    }
 
-                                //hide form
-                                close.onclick = () => {
-                                    form.classList.remove('show')
-                                }
+                                    //stop submit default
+                                    $('.product-form__contain').addEventListener('submit', e => e.preventDefault())
 
-                                //change content form
-                                form.classList.remove('createForm')
-                                formTitle.innerHTML = 'Chỉnh sửa UID:'
+                                    //Validate
+                                    const inputs = [
+                                        {
+                                            selector: $('.product-form__input-box.uid'),
+                                            options: ['required', 'number', 'leng_9']
+                                        },
+                                        {
+                                            selector: $('.product-form__input-box.price'),
+                                            options: ['required', 'number']
+                                        }
 
-                                formTitleSub.innerHTML = uid.innerText
+                                    ]
 
-                                $('#product-form__input-uid').value = uid.innerText
+                                    function validateRequest(selector, validateType) {
+                                        const parent = selector.closest('.product-form__input-box')
+                                        const selectorElm = {
+                                            parent: parent,
+                                            input: parent.querySelector('input'),
+                                            message: parent.querySelector('message')
+                                        }
 
-
-                                //convert currency to number
-                                let priceConvert = price.innerText
-                                while (priceConvert.includes('.')) {
-                                    priceConvert = priceConvert.replace('.', '')
-                                }
-                                $('#product-form__input-price').value = Number.parseFloat(priceConvert)
-
-                                $('#product-form__select-server').value =
-                                    $('.app-bot__info-data.value.server').innerText
-
-                                $('#product-form__select-type').value =
-                                    $('.app-bot__info-data.value.type').innerText
-
-
-                                //act submit
-                                $('.product-form__contain').addEventListener('submit', (e) => e.preventDefault())
-
-                                $('.product-form__submit').onclick = () => {
-
-                                    // show buttom loading
-                                    form.classList.add('active')
-
-                                    //get value submit
-                                    let newValue = {
-                                        UID: $('#product-form__input-uid').value,
-                                        Price: $('#product-form__input-price').value,
-                                        Type: $('#product-form__select-type').value,
-                                        Server: $('#product-form__select-server').value,
+                                        selector.addEventListener('input', () => { selectorElm.message.innerText = '' })
+                                        validate.start(selectorElm, validateType)
                                     }
 
 
-                                    //update to api 
-                                    PUTelement(`${apiBody}/${elmActive.getAttribute('item_id')}`, newValue, (product) => {
-                                        notificationWindow(true,
-                                            'Chỉnh sửa thông tin thành công',
-                                            'Thông tin mới đã được áp dụng',
-                                            () => {
-                                                notificationWindow()
-                                                close.click()
+                                    //act focusout
+                                    inputs[0].selector.addEventListener('focusout', (e) => {
+                                        validateRequest(e.target, ['required', 'leng_9'])
+                                    })
+                                    inputs[1].selector.addEventListener('focusout', (e) => {
+                                        validateRequest(e.target, ['required'])
+                                    })
+
+                                    //act submit
+                                    submit.onclick = (e) => {
+
+                                        inputs.forEach(input => { validateRequest(input.selector, input.options) })
+
+
+                                        //All no more error messages
+                                        const result = Array.from(form.querySelectorAll('message')).every(element => {
+                                            return element.innerText === ''
+                                        })
+                                        //Exist error messages => skip
+                                        if (!result) { return }
+
+                                        // show button loading
+                                        form.classList.add('active')
+                                        //Get value submit
+                                        const value = {
+                                            UID: $('#product-form__input-uid').value,
+                                            Price: $('#product-form__input-price').value,
+                                            Type: $('#product-form__select-type').value,
+                                            Server: $('#product-form__select-server').value,
+                                        }
+
+                                        //Product constructor
+                                        function NewProduct(uid, price, type, server) {
+
+                                            // this.ProductID = products
+                                            this.UID = uid
+                                            this.Server = server
+                                            this.Price = price
+                                            this.Type = type
+                                            this.Discount = 'No'
+                                            this.Flashsale = 'No'
+                                            this.Sold = 'No'
+                                        }
+                                        const newProduct = new NewProduct(value.UID, value.Price, value.Type, value.Server)
+
+                                        //Push product to api
+                                        POSTelement(apiBody, newProduct, (product) => {
+                                            // hide button loading
+                                            form.classList.remove('active')
+
+                                            //show notification
+                                            notificationWindow(true,
+                                                'Thêm sản phẩm thành công',
+                                                'Bạn muốn tiếp tục thêm sản phẩm mới?',
+                                                (isSuccess) => {
+
+                                                    //reset form
+                                                    for (let input of form.querySelectorAll('input')) {
+                                                        input.value = ''
+                                                    }
+
+                                                    if (isSuccess) {
+                                                        notificationWindow()
+                                                    }
+                                                    else {
+                                                        //close form add product
+                                                        notificationWindow()
+                                                        $('.product-form__close').click()
+                                                    }
+                                                },
+                                                'Tiếp tục')
+
+
+                                            //Add product to DOM 
+                                            let newPdtDom = document.createElement('ul')
+
+                                            //Add product to list
+                                            $('.app-borad__contain').appendChild(newPdtDom)
+
+                                            newPdtDom.outerHTML = `<ul item_id="${product.ProductID}"class="app-board__data">
+                                    <li class="app-board__data-item productId l-2 m-2 c-4">
+                                    ${product.ProductID}
+                                    </li>
+                                    <li class="app-board__data-item uid l-3 m-4 c-8">
+                                    ${product.UID}</li>
+                                    <li class="app-board__data-item type l-4 hide-mt">${product.Type}</li>
+                                    <li class="app-board__data-item price hide-m">
+                                    ${formatMoney(product.Price)}
+                                    </li>
+                                </ul>`
+                                            //update products
+                                            GETelement(apiBody, (value) => {
+                                                products = value
+                                                this.renderDone()
+                                                body.handle.shared.updateDataApi(keyBody, products)
                                             })
 
-                                        //update to dom 
-                                        productid.innerText = product.ProductID
-                                        uid.innerText = product.UID
-                                        type.innerText = product.Type
-                                        price.innerText = formatMoney(product.Price)
-
-                                        //update products
-                                        GETelement(apiBody, (value) => {
-                                            products = value
-                                            this.renderDone()
+                                            //pull scroll
+                                            const contain = $('.app-borad__contain')
+                                            contain.scrollTop += contain.scrollTop + 38
                                         })
+                                    }
+                                })
 
-                                        // hide buttom loading
-                                        form.classList.remove('active')
-                                    })
+                            },
+
+                            replaceProduct: function () {
+
+                                $(".app__top-feature.replace").addEventListener('click', () => {
+                                    const elmActive = $('.app-board__data.active')
+
+                                    //not select skip => logic
+                                    if (!elmActive) { return }
+
+                                    const close = $('.product-form__close')
+                                    let productid = elmActive.querySelector('.app-board__data-item.productId')
+                                    let uid = elmActive.querySelector('.app-board__data-item.uid')
+                                    let type = elmActive.querySelector('.app-board__data-item.type')
+                                    let price = elmActive.querySelector('.app-board__data-item.price')
+
+
+                                    //show form
+                                    form.classList.add('show')
+
+                                    //hide form
+                                    close.onclick = () => {
+                                        form.classList.remove('show')
+                                    }
+
+                                    //change content form
+                                    form.classList.remove('createForm')
+                                    formTitle.innerHTML = 'Chỉnh sửa UID:'
+
+                                    formTitleSub.innerHTML = uid.innerText
+
+                                    $('#product-form__input-uid').value = uid.innerText
+
+
+                                    //convert currency to number
+                                    let priceConvert = price.innerText
+                                    while (priceConvert.includes('.')) {
+                                        priceConvert = priceConvert.replace('.', '')
+                                    }
+                                    $('#product-form__input-price').value = Number.parseFloat(priceConvert)
+
+                                    $('#product-form__select-server').value =
+                                        $('.app-bot__info-data.value.server').innerText
+
+                                    $('#product-form__select-type').value =
+                                        $('.app-bot__info-data.value.type').innerText
+
+
+                                    //act submit
+                                    $('.product-form__contain').addEventListener('submit', (e) => e.preventDefault())
+
+                                    $('.product-form__submit').onclick = () => {
+
+                                        // show buttom loading
+                                        form.classList.add('active')
+
+                                        //get value submit
+                                        let newValue = {
+                                            UID: $('#product-form__input-uid').value,
+                                            Price: $('#product-form__input-price').value,
+                                            Type: $('#product-form__select-type').value,
+                                            Server: $('#product-form__select-server').value,
+                                        }
+
+
+                                        //update to api 
+                                        PUTelement(`${apiBody}/${elmActive.getAttribute('item_id')}`, newValue, (product) => {
+                                            notificationWindow(true,
+                                                'Chỉnh sửa thông tin thành công',
+                                                'Thông tin mới đã được áp dụng',
+                                                () => {
+                                                    notificationWindow()
+                                                    close.click()
+                                                })
+
+                                            //update to dom 
+                                            productid.innerText = product.ProductID
+                                            uid.innerText = product.UID
+                                            type.innerText = product.Type
+                                            price.innerText = formatMoney(product.Price)
+
+                                            //update products
+                                            GETelement(apiBody, (value) => {
+                                                products = value
+                                                body.handle.shared.updateDataApi(keyBody, products)
+                                                this.renderDone()
+                                            })
+
+                                            // hide buttom loading
+                                            form.classList.remove('active')
+                                        })
+                                    }
+
+                                })
+                            },
+
+                            renderDone: function () {
+                                const appboradElement = $$('.app-board__data')
+                                const elmActive = $('.app-board__data.active')
+
+                                body.handle.shared.notSelect()
+                                body.handle.shared.delete()
+
+                                //update info product
+                                if (elmActive) {
+                                    this.renderInfoProduct(elmActive)
                                 }
 
-                            })
-                        },
+                                //Callback return element in process active
+                                select(appboradElement, (element) => {
+                                    this.renderInfoProduct(element)
+                                })
+                            },
 
-                        renderDone: function () {
-                            const appboradElement = $$('.app-board__data')
-                            const elmActive = $('.app-board__data.active')
-
-                            body.handle.shared.notSelect()
-                            body.handle.shared.delete()
-
-                            //update info product
-                            if (elmActive) {
-                                this.renderInfoProduct(elmActive)
+                            start: function () {
+                                this.renderProduct()
+                                this.addProduct()
+                                this.replaceProduct()
+                                body.handle.shared.productSearch(this)
                             }
-
-                            //Callback return element in process active
-                            select(appboradElement, (element) => {
-                                this.renderInfoProduct(element)
-                            })
-                        },
-
-                        start: function () {
-                            this.renderProduct()
-                            this.addProduct()
-                            this.replaceProduct()
                         }
-                    }
-                    manage.start()
-                })
+                        manage.start()
+                    })
             },
             flashSale: function () {
+                const keyBody = 'Product.FlashSale'
                 const createBtn = $('.app__top-feature.create')
                 const deleteBtn = $('.app__top-feature.delete')
 
-                //Get product list
-                GETelement(apiBody, (products) => {
+                new Promise((resolve) => {
+                    const products = JSON.parse(localStorage.getItem(keyBody))
+                    if (products) {
+                        resolve(products)
+                    }
+                    else {
+                        GETelement(apiBody, products => resolve(products))
+                    }
 
-                    const productNFScontain = $('.app__flashsale-product-contain.notFlashSale')
-                    const productFScontain = $('.app__flashsale-product-contain.flashSale')
+                    // update localStorage data
+                    if ((new Date).getMinutes() != localStorage.getItem('latestUpdate')) {
+                        GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
+                    }
+                })
 
-                    const flashSale = {
+                    //Get product list
+                    .then(products => {
+                        // update product 
+                        localStorage.setItem(keyBody, JSON.stringify(products))
 
-                        //Render the products
-                        renderProduct: function (rule = { flashSale: 'No' }) {
-                            let contain = productNFScontain
+                        const productNFScontain = $('.app__flashsale-product-contain.notFlashSale')
+                        const productFScontain = $('.app__flashsale-product-contain.flashSale')
 
-                            if (rule.flashSale !== 'No') {
-                                contain = productFScontain
-                            }
+                        const flashSale = {
 
-                            filter(products, rule, productsFil => {
-                                const output = productsFil.reduce((accmulate, product) => {
-                                    return accmulate +=
-                                        `<ul item_id="${product.ProductID}"
+                            //Render the products
+                            renderProduct: function (rule = { flashSale: 'No' }) {
+                                let contain = productNFScontain
+
+                                if (rule.flashSale !== 'No') {
+                                    contain = productFScontain
+                                }
+
+                                filter(products, rule, productsFil => {
+                                    const output = productsFil.reduce((accmulate, product) => {
+                                        return accmulate +=
+                                            `<ul item_id="${product.ProductID}"
                                                class="app__flashsale-product-item-box ${product.Sold}">
                                                <li class="app__flashsale-product-item">
                                                    <span class="app__flashsale-product-item-check-wrap">
@@ -681,362 +760,352 @@ const body = {
                                                <li class="app__flashsale-product-item discount">${product.Discount}</li>
                                                <li class="app__flashsale-product-item sold">${product.Sold}</li>
                                            </ul>`
-                                }, '')
-                                contain.innerHTML = output
+                                    }, '')
+                                    contain.innerHTML = output
 
-                                // render done
-                                setTimeout(() => {
-                                   this.renderDone()
-                                }, 0);
-                            })
-                        },
-                        renderProductFS: function () {
-                            this.renderProduct({ flashSale: 'Yes' })
-
-                        },
-                        nFSSearch: function () {
-
-                            const parent = $('.app__flashsale-page.notFlashSale')
-                            const input = parent.querySelector('.app__mid-nav-search')
-                            const clear = parent.querySelector('.app__mid-nav-clear')
-
-                            input.oninput = () => {
-                                const value = input.value
-
-                                if (value === '') { return }
-                                filter(products, {
-                                    flashSale: 'No',
-                                    all: value
-                                }, (v) => {
+                                    // render done
+                                    setTimeout(() => {
+                                        this.renderDone()
+                                    }, 0);
                                 })
-                                this.renderProduct({
-                                    flashSale: 'No',
-                                    all: value
-                                })
+                            },
+                            renderProductFS: function () {
+                                this.renderProduct({ flashSale: 'Yes' })
 
-                            }
+                            },
 
-                        },
-                        selectsProducts: function (parents = $$('.app__flashsale-contain')) {
-                            const btn = $('.app__top-feature.selects')
+                            selectsProducts: function (parents = $$('.app__flashsale-contain')) {
+                                const btn = $('.app__top-feature.selects')
 
-                            btn.onclick = () => {
-                                for (let parent of parents) {
+                                btn.onclick = () => {
+                                    for (let parent of parents) {
 
-                                    btn.classList.toggle('active')
-                                    parent.classList.toggle('show')
-                                    this.selectProduct.selectAll()
+                                        btn.classList.toggle('active')
+                                        parent.classList.toggle('show')
+                                        this.selectProduct.selectAll()
 
-                                    if (!parent.classList.value.includes('show')) {
-                                        this.selectProduct.selectAll('clear')
-                                        this.selectProduct.selectOne()
-                                    }
-                                }
-                            }
-                        },
-                        disableFeature: function (isCheck = false) {
-
-                            for (let elm of $$('.app__flashsale-product-item-box')) {
-                                // elm.removeEventListener('click', checkType)
-
-                                elm.addEventListener('click', checkType)
-                            }
-
-                            if (isCheck) { checkType() }
-
-                            function checkType() {
-                                const elmActive = $('.app__flashsale-product-item-box.active')
-
-                                if (!elmActive) {
-                                    deleteBtn.classList.remove('disable')
-                                    createBtn.classList.remove('disable')
-                                    return
-                                }
-
-                                const parent = elmActive.closest('.app__flashsale-product-contain')
-
-                                //Select Flash sale => disable list all
-                                if (parent.classList.value.includes('flashSale')) {
-                                    createBtn.classList.add('disable')
-                                    deleteBtn.classList.remove('disable')
-
-                                }
-                                //Select list all => disable Flash sale
-                                else {
-                                    createBtn.classList.remove('disable')
-                                    deleteBtn.classList.add('disable')
-                                }
-
-                                //Select list all and Flash sale => disable flash sale and list all
-                                const containAll =
-                                    $('.app__flashsale-product-contain.notFlashSale').querySelector(
-                                        '.app__flashsale-product-item-box.active')
-
-                                const containFS =
-                                    $('.app__flashsale-product-contain.flashSale').querySelector(
-                                        '.app__flashsale-product-item-box.active')
-
-                                if (containAll && containFS) {
-                                    createBtn.classList.add('disable')
-                                    deleteBtn.classList.add('disable')
-                                }
-                            }
-                        },
-                        moveProductFS: function () {
-                            const btns = [$('.app__top-feature.delete'), $('.app__top-feature.create')]
-                            const containFS = $('.app__flashsale-product-contain.flashSale')
-                            const containNFS = $('.app__flashsale-product-contain.notFlashSale')
-                            const btnLoadings = $$('.app__flashsale-page .btn-loading')
-
-                            for (const btn of btns) {
-                                btn.onclick = function () {
-                                    let containReceive = containNFS
-                                    let contain = containFS
-                                    let rule = 'No'
-                                    let i = 0
-
-                                    if (btn.classList.value.includes('create')) {
-                                        containReceive = containFS
-                                        contain = containNFS
-                                        rule = 'Yes'
-                                    }
-
-                                    let elements = Array.from(contain.querySelectorAll('.app__flashsale-product-item-box.active'))
-
-                                    //Feature disable => skip logic
-                                    if (btn.classList.value.includes('disable') || elements.length === 0) { return }
-
-                                    const datas = elements.map(element => element.getAttribute('item_id'))
-
-                                    //show loading
-                                    for (const btnLoading of btnLoadings) { btnLoading.classList.add('active') }
-                                    function update() {
-
-                                        processLoad.run(datas.length)
-                                        if (i === datas.length) {
-                                            flashSale.containLeng()
-                                            for (const btnLoading of btnLoadings) { btnLoading.classList.remove('active') }
-                                            return GETelement(apiBody, v => products = v)
-                                        }
-
-                                        PUTelement(`${apiBody}/${datas[i]}`, { Flashsale: rule },
-                                            () => { update() })
-
-                                        containReceive.appendChild(elements[i])
-                                        containReceive.scrollTop = containReceive.scrollTop + 38
-
-                                        flashSale.selectProduct.selectAll('clear')
-                                        for (const elm of $$('.app__flashsale-bars-checkAll')) {
-                                            elm.classList.remove('all')
-                                        }
-
-                                        if ($('.app__flashsale-contain').classList.value.includes('show')) {
-                                            flashSale.selectProduct.selectAll()
-                                        }
-                                        else {
-                                            flashSale.selectProduct.selectOne()
-                                        }
-                                        flashSale.disableFeature()
-
-                                        i++
-                                    }
-                                    update()
-                                }
-                            }
-                        },
-                        replaceDiscount: function () {
-                            const contain = $('.discount-form')
-                            const btn = $('.app__top-feature.replace')
-                            const submit = $('.discount-form__submit')
-                            const close = $('.discount-form__close')
-                            const input = $('.discount-form__input')
-                            const selectorElm = {
-                                input: input,
-                                message: contain.querySelector('message')
-                            }
-                            const rule = ['required', 'maxLeng_2', 'number']
-
-                            btn.onclick = () => {
-                                const elmActive = Array.from($$('.app__flashsale-product-item-box.active'))
-
-                                if (elmActive.length === 0) { return }
-
-                                //show form
-                                contain.classList.add('active')
-                                contain.querySelector('form').addEventListener('submit', e => e.preventDefault())
-                                selectorElm.message.innerText = ''
-
-                                //hide form
-                                close.onclick = () => { contain.classList.remove('active') }
-
-                                //show UID
-                                $('.discount-form__title-sub').innerText = elmActive.reduce((acc, elm) => {
-                                    return acc += `${elm.querySelector('.app__flashsale-product-item.uid').innerText}
-                                    `
-                                }, '')
-
-                                //atc focusout
-                                input.addEventListener('focusout', () => {
-                                    validate.start(selectorElm, rule)
-                                })
-
-                                //atc submit
-                                submit.onclick = () => {
-                                    const data = input.value
-                                    let i = 0
-
-                                    //exist error message stop => submit
-                                    if (!validate.start(selectorElm, rule)) { return }
-                                    //sumbmit => done
-                                    close.click()
-                                    input.value = ''
-
-                                    notificationWindow(true,
-                                        'Thay đổi đã được áp dụng',
-                                        'Đang xử lý yêu cầu',
-                                        () => {
+                                        if (!parent.classList.value.includes('show')) {
                                             this.selectProduct.selectAll('clear')
-                                            for (const item of $$('.app__flashsale-bars-checkAll')) {
-                                                item.classList.remove('all')
-                                            }
-                                            notificationWindow()
-                                        })
-
-
-                                    updateDiscount()
-                                    function updateDiscount() {
-                                        const item = elmActive[i]
-
-                                        processLoad.run(elmActive.length)
-                                    
-                                        if (i === elmActive.length) {return GETelement(apiBody, (v) => {products = v}) }
-
-                                        //update data => server
-                                        PUTelement(`${apiBody}/${item.getAttribute('item_id')}`, { Discount: data + '%'}, () => {
-                                            updateDiscount()
-                                        })
-                                        //update data => dom
-                                        item.querySelector('.app__flashsale-product-item.discount').innerText = data + '%'
-                                        i++
+                                            this.selectProduct.selectOne()
+                                        }
                                     }
                                 }
+                            },
+                            disableFeature: function (isCheck = false) {
 
-                            }
-                        },
-                        containLeng: function () {
-                            const contains = $$('.app__flashsale-page')
+                                for (let elm of $$('.app__flashsale-product-item-box')) {
+                                    // elm.removeEventListener('click', checkType)
 
-                            for (const contain of contains) {
-                                const getLeng = contain.querySelectorAll('.app__flashsale-product-item-box').length
-                                contain.querySelector('.btn-loading__text').innerText = `Toàn bộ(${getLeng})`
-                            }
-                        },
-                        selectProduct: {
-                            selectAll: function (isClear) {
+                                    elm.addEventListener('click', checkType)
+                                }
 
-                                const selectors = $$('.app__flashsale-product-item-box')
+                                if (isCheck) { checkType() }
 
-                                if (isClear) {
-                                    for (let selector of selectors) {
+                                function checkType() {
+                                    const elmActive = $('.app__flashsale-product-item-box.active')
 
+                                    if (!elmActive) {
                                         deleteBtn.classList.remove('disable')
                                         createBtn.classList.remove('disable')
-                                        selector.classList.remove('active')
+                                        return
+                                    }
+
+                                    const parent = elmActive.closest('.app__flashsale-product-contain')
+
+                                    //Select Flash sale => disable list all
+                                    if (parent.classList.value.includes('flashSale')) {
+                                        createBtn.classList.add('disable')
+                                        deleteBtn.classList.remove('disable')
+
+                                    }
+                                    //Select list all => disable Flash sale
+                                    else {
+                                        createBtn.classList.remove('disable')
+                                        deleteBtn.classList.add('disable')
+                                    }
+
+                                    //Select list all and Flash sale => disable flash sale and list all
+                                    const containAll =
+                                        $('.app__flashsale-product-contain.notFlashSale').querySelector(
+                                            '.app__flashsale-product-item-box.active')
+
+                                    const containFS =
+                                        $('.app__flashsale-product-contain.flashSale').querySelector(
+                                            '.app__flashsale-product-item-box.active')
+
+                                    if (containAll && containFS) {
+                                        createBtn.classList.add('disable')
+                                        deleteBtn.classList.add('disable')
                                     }
                                 }
-                                else {
+                            },
+                            moveProductFS: function () {
+                                const btns = [$('.app__top-feature.delete'), $('.app__top-feature.create')]
+                                const containFS = $('.app__flashsale-product-contain.flashSale')
+                                const containNFS = $('.app__flashsale-product-contain.notFlashSale')
+                                const btnLoadings = $$('.app__flashsale-page .btn-loading')
+
+                                for (const btn of btns) {
+                                    btn.onclick = function () {
+                                        let containReceive = containNFS
+                                        let contain = containFS
+                                        let rule = 'No'
+                                        let i = 0
+
+                                        if (btn.classList.value.includes('create')) {
+                                            containReceive = containFS
+                                            contain = containNFS
+                                            rule = 'Yes'
+                                        }
+
+                                        let elements = Array.from(contain.querySelectorAll('.app__flashsale-product-item-box.active'))
+
+                                        //Feature disable => skip logic
+                                        if (btn.classList.value.includes('disable') || elements.length === 0) { return }
+
+                                        const datas = elements.map(element => element.getAttribute('item_id'))
+
+                                        //show loading
+                                        for (const btnLoading of btnLoadings) { btnLoading.classList.add('active') }
+                                        function update() {
+
+                                            processLoad.run(datas.length)
+                                            if (i === datas.length) {
+                                                flashSale.containLeng()
+                                                for (const btnLoading of btnLoadings) { btnLoading.classList.remove('active') }
+                                                return GETelement(apiBody, v => {
+                                                    products = v
+                                                    body.handle.shared.updateDataApi(keyBody, products)
+                                                })
+                                            }
+
+                                            PUTelement(`${apiBody}/${datas[i]}`, { Flashsale: rule },
+                                                () => { update() })
+
+                                            containReceive.appendChild(elements[i])
+                                            containReceive.scrollTop = containReceive.scrollTop + 38
+
+                                            flashSale.selectProduct.selectAll('clear')
+                                            for (const elm of $$('.app__flashsale-bars-checkAll')) {
+                                                elm.classList.remove('all')
+                                            }
+
+                                            if ($('.app__flashsale-contain').classList.value.includes('show')) {
+                                                flashSale.selectProduct.selectAll()
+                                            }
+                                            else {
+                                                flashSale.selectProduct.selectOne()
+                                            }
+                                            flashSale.disableFeature()
+
+                                            i++
+                                        }
+                                        update()
+                                    }
+                                }
+                            },
+                            replaceDiscount: function () {
+                                const contain = $('.discount-form')
+                                const btn = $('.app__top-feature.replace')
+                                const submit = $('.discount-form__submit')
+                                const close = $('.discount-form__close')
+                                const input = $('.discount-form__input')
+                                const selectorElm = {
+                                    input: input,
+                                    message: contain.querySelector('message')
+                                }
+                                const rule = ['required', 'maxLeng_2', 'number']
+
+                                btn.onclick = () => {
+                                    const elmActive = Array.from($$('.app__flashsale-product-item-box.active'))
+
+                                    if (elmActive.length === 0) { return }
+
+                                    //show form
+                                    contain.classList.add('active')
+                                    contain.querySelector('form').addEventListener('submit', e => e.preventDefault())
+                                    selectorElm.message.innerText = ''
+
+                                    //hide form
+                                    close.onclick = () => { contain.classList.remove('active') }
+
+                                    //show UID
+                                    $('.discount-form__title-sub').innerText = elmActive.reduce((acc, elm) => {
+                                        return acc += `${elm.querySelector('.app__flashsale-product-item.uid').innerText}
+                                    `
+                                    }, '')
+
+                                    //atc focusout
+                                    input.addEventListener('focusout', () => {
+                                        validate.start(selectorElm, rule)
+                                    })
+
+                                    //atc submit
+                                    submit.onclick = () => {
+                                        const data = input.value
+                                        let i = 0
+
+                                        //exist error message stop => submit
+                                        if (!validate.start(selectorElm, rule)) { return }
+                                        //sumbmit => done
+                                        close.click()
+                                        input.value = ''
+
+                                        notificationWindow(true,
+                                            'Thay đổi đã được áp dụng',
+                                            'Đang xử lý yêu cầu',
+                                            () => {
+                                                this.selectProduct.selectAll('clear')
+                                                for (const item of $$('.app__flashsale-bars-checkAll')) {
+                                                    item.classList.remove('all')
+                                                }
+                                                notificationWindow()
+                                            })
+
+
+                                        updateDiscount()
+                                        function updateDiscount() {
+                                            const item = elmActive[i]
+
+                                            processLoad.run(elmActive.length)
+
+                                            if (i === elmActive.length) {
+                                                return GETelement(apiBody, (v) => {
+                                                    products = v
+                                                    body.handle.shared.updateDataApi(keyBody, products)
+                                                })
+                                            }
+
+                                            //update data => server
+                                            PUTelement(`${apiBody}/${item.getAttribute('item_id')}`, { Discount: data + '%' }, () => {
+                                                updateDiscount()
+                                            })
+                                            //update data => dom
+                                            item.querySelector('.app__flashsale-product-item.discount').innerText = data + '%'
+                                            i++
+                                        }
+                                    }
+
+                                }
+                            },
+                            containLeng: function () {
+                                const contains = $$('.app__flashsale-page')
+
+                                for (const contain of contains) {
+                                    const getLeng = contain.querySelectorAll('.app__flashsale-product-item-box').length
+                                    contain.querySelector('.btn-loading__text').innerText = `Toàn bộ(${getLeng})`
+                                }
+                            },
+                            selectProduct: {
+                                selectAll: function (isClear) {
+
+                                    const selectors = $$('.app__flashsale-product-item-box')
+
+                                    if (isClear) {
+                                        for (let selector of selectors) {
+
+                                            deleteBtn.classList.remove('disable')
+                                            createBtn.classList.remove('disable')
+                                            selector.classList.remove('active')
+                                        }
+                                    }
+                                    else {
+                                        for (let selector of selectors) {
+                                            selector.onclick = () => {
+                                                selector.classList.toggle('active')
+                                            }
+                                        }
+                                    }
+                                },
+                                selectOne: function () {
+                                    const selectors = $$('.app__flashsale-product-item-box')
                                     for (let selector of selectors) {
                                         selector.onclick = () => {
+                                            for (let selector2 of selectors) {
+                                                if (selector2 != selector) {
+                                                    selector2.classList.remove('active')
+                                                }
+                                            }
+
                                             selector.classList.toggle('active')
                                         }
                                     }
                                 }
                             },
-                            selectOne: function () {
-                                const selectors = $$('.app__flashsale-product-item-box')
-                                for (let selector of selectors) {
-                                    selector.onclick = () => {
-                                        for (let selector2 of selectors) {
-                                            if (selector2 != selector) {
-                                                selector2.classList.remove('active')
+                            selectAllProduct: function () {
+                                const btns = $$('.app__flashsale-bars-checkAll')
+
+                                for (let btn of btns) {
+                                    btn.onclick = () => {
+                                        const parent = btn.closest('.app__flashsale-page')
+                                        const elmNFS = $$('.app__flashsale-page.notFlashSale .app__flashsale-product-item-box ')
+                                        const elmFS = $$('.app__flashsale-page.flashSale .app__flashsale-product-item-box ')
+                                        let elmHandle
+
+                                        btn.classList.toggle('all')
+
+                                        if (parent.classList.value.includes('flashSale')) {
+                                            elmHandle = elmFS
+                                        } else { elmHandle = elmNFS }
+
+
+                                        if (btn.classList.value.includes('all')) {
+                                            for (const elm of elmHandle) {
+                                                elm.classList.add('active')
+                                            }
+                                        }
+                                        else {
+                                            for (const elm of elmHandle) {
+                                                elm.classList.remove('active')
                                             }
                                         }
 
-                                        selector.classList.toggle('active')
+                                        this.disableFeature(true)
+
                                     }
                                 }
-                            }
-                        },
-                        selectAllProduct: function () {
-                            const btns = $$('.app__flashsale-bars-checkAll')
+                            },
+                            renderDone: function () {
+                                this.selectProduct.selectOne()
+                                this.selectsProducts()
+                                this.disableFeature()
+                                this.moveProductFS()
+                                this.containLeng()
+                                this.replaceDiscount()
+                            },
+                            ui: function () {
+                                //set height contain
+                                const contains = $$('.app__flashsale-product-contain')
+                                const widthParent = $('.app__flashsale-page').getBoundingClientRect().height
 
-                            for (let btn of btns) {
-                                btn.onclick = () => {
-                                    const parent = btn.closest('.app__flashsale-page')
-                                    const elmNFS = $$('.app__flashsale-page.notFlashSale .app__flashsale-product-item-box ')
-                                    const elmFS = $$('.app__flashsale-page.flashSale .app__flashsale-product-item-box ')
-                                    let elmHandle
-
-                                    btn.classList.toggle('all')
-
-                                    if (parent.classList.value.includes('flashSale')) {
-                                        elmHandle = elmFS
-                                    } else { elmHandle = elmNFS }
-
-
-                                    if (btn.classList.value.includes('all')) {
-                                        for (const elm of elmHandle) {
-                                            elm.classList.add('active')
-                                        }
-                                    }
-                                    else {
-                                        for (const elm of elmHandle) {
-                                            elm.classList.remove('active')
-                                        }
-                                    }
-
-                                    this.disableFeature(true)
-
+                                if (!widthParent) { return }
+                                for (const contain of contains) {
+                                    contain.style.height = widthParent - 84 + 'px'
                                 }
+                            },
+
+
+                            start: function () {
+                                this.ui()
+                                this.renderProduct()
+                                this.renderProductFS()
+                                this.selectAllProduct()
+                                body.handle.shared.notSelect()
+                                body.handle.shared.productSearch(this)
                             }
-                        },
-                        ui: function () {
 
-                            //set height contain
-                            if (productNFScontain && productFScontain) {
-                                productNFScontain.style.height =
-                                    $('.app__flashsale-page.notFlashSale').getBoundingClientRect().height - 84 + 'px'
-
-                                productFScontain.style.height =
-                                    $('.app__flashsale-page.flashSale').getBoundingClientRect().height - 84 + 'px'
-
-                            }
-                        },
-                        renderDone: function () {
-                            this.selectProduct.selectOne()
-                            this.selectsProducts()
-                            this.disableFeature()
-                            this.moveProductFS()
-                            this.containLeng()
-                            this.replaceDiscount()
-                        },
-
-                        start: function () {
-                            this.ui()
-                            this.renderProduct()
-                            this.renderProductFS()
-                            this.selectAllProduct()
-                            body.handle.shared.notSelect()
-                            this.nFSSearch()
                         }
-
-                    }
-                    flashSale.start()
-                })
+                        flashSale.start()
+                    })
             }
         },
 
         shared: {
+            //update data stored on storage
+            updateDataApi: function (key, value) {
+                localStorage.setItem(key, JSON.stringify(value))
+                localStorage.setItem('latestUpdate', JSON.stringify((new Date).getMinutes()))
+            },
 
             //notification not select
             notSelect: function () {
@@ -1062,7 +1131,7 @@ const body = {
 
             //feature delete
             //Delete data from app-borad
-            delete: function () {
+            delete: function (keyBody) {
                 $('.app__top-feature.delete').onclick =
                     function () {
                         const elementActive = $('.app-board__data.active')
@@ -1077,7 +1146,10 @@ const body = {
                                         const Id = elementActive.getAttribute('item_id')
 
                                         //Delete data from api
-                                        DELETEelement(`${apiBody}/${Id}`)
+                                        DELETEelement(`${apiBody}/${Id}`, () => {
+                                            //update data
+                                            GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
+                                        })
 
                                         //Delete from DOM
                                         elementActive.outerHTML = ''
@@ -1090,6 +1162,46 @@ const body = {
 
                         }
                     }
+            },
+
+            productSearch: function (category) {
+                const inputs = $$('.app__mid-nav-search')
+                for (const input of inputs) {
+
+                    input.oninput = () => {
+                        let parent = input.closest('.app__flashsale-page')
+                        let flashSale = 'No'
+                        if (inputs.length === 1) {
+                            parent = $('.app__mid')
+                            flashSale = ''
+                        }
+
+                        const clear = parent.querySelector('.app__mid-nav-clear')
+                        const value = input.value
+
+                        // Clear value
+                        clear.classList.add('active')
+                        clear.onclick = () => {
+                            input.value = ''
+                            clear.classList.remove('active')
+                            category.renderProduct({
+                                flashSale,
+                                all: input.value
+                            })
+                        }
+
+                        if (parent.classList.value.includes('flashSale')) {
+                            flashSale = 'Yes'
+                        }
+
+                        category.renderProduct({
+                            flashSale,
+                            all: value
+                        })
+                    }
+                }
+
+
             },
         }
     },
@@ -1125,8 +1237,7 @@ const body = {
                 const boardContain = $('.app-borad__contain')
 
                 if (boardContain) {
-                    boardContain.style.height =
-                        (boardGrid.getBoundingClientRect().height - 30) + 'px'
+                    boardContain.style.height = (boardGrid.getBoundingClientRect().height - 30) + 'px'
                 }
             }
         })
@@ -1339,15 +1450,6 @@ const body = {
                         <li class="app-board__nav-item hide-m">Price</li>
                     </ul>
                     <div class="app-borad__contain">
-                        <ul class="app-board__data">
-                            <li class="app-board__data-item productId l-2 m-2 c-4">
-                                0</li>
-                            <li class="app-board__data-item uid l-3 m-4 c-8">659999999</li>
-                            <li class="app-board__data-item type l-4 hide-mt">Thất quý</li>
-                            <li class="app-board__data-item price hide-m">
-                                5.000.000đ
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -1361,37 +1463,37 @@ const body = {
                     <ul class="app-bot__info-list">
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title productId">1.Product ID:</p>
-                            <p class="app-bot__info-data value productId">0</p>
+                            <p class="app-bot__info-data value productId">N/A</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title uid">2.UID:</p>
-                            <p class="app-bot__info-data value uid">659999999</p>
+                            <p class="app-bot__info-data value uid">N/A</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title type">3.Type:</p>
-                            <p class="app-bot__info-data value type">Thất quý</p>
+                            <p class="app-bot__info-data value type">N/A</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title price">4.Price:</p>
-                            <p class="app-bot__info-data value price">5.000.000đ</p>
+                            <p class="app-bot__info-data value price">N/A</p>
                         </li>
                     </ul>
                     <ul class="app-bot__info-list">
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title server">5.Server:</p>
-                            <p class="app-bot__info-data value server">Asia</p>
+                            <p class="app-bot__info-data value server">N/A</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title discount">6.Discount:</p>
-                            <p class="app-bot__info-data value discount">100%</p>
+                            <p class="app-bot__info-data value discount">N/A</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title flashSale">7.FlashSale:</p>
-                            <p class="app-bot__info-data value flashSale">False</p>
+                            <p class="app-bot__info-data value flashSale">N/A</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title sold">8.Sold:</p>
-                            <p class="app-bot__info-data value sold">True</p>
+                            <p class="app-bot__info-data value sold">N/A</p>
                         </li>
                     </ul>
                 </div>
@@ -1525,12 +1627,10 @@ const body = {
                                 </div>
                             </li>
                         </ul>
-                        <div class="app__flashsale-product-contain flashSale" style="height: 311.938px;">
+                        <div class="app__flashsale-product-contain flashSale">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="app-bot">
             </div>
         </div>`
         }

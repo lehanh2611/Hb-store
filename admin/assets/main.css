@@ -673,6 +673,7 @@ input[type=number]:focus {
     width: 100%;
     height: 100%;
     padding: 10px 10px 0 10px;
+    position: relative;
 }
 
 .body__app,
@@ -806,8 +807,6 @@ input[type=number]:focus {
     flex-direction: column;
     align-items: flex-start;
     flex: 1;
-    /* max-height: 62.9vh;
-    overflow: hidden; */
 }
 
 .app__mid-nav {
@@ -822,7 +821,8 @@ input[type=number]:focus {
 }
 
 .app__mid-nav-ft-box {
-    display: flex;
+    /* display: flex; */
+    display: none;
 }
 
 .app__mid-nav-search-box {
@@ -857,7 +857,16 @@ input[type=number]:focus {
     padding: 6px;
     font-weight: 500;
 }
-.app__mid-nav-clear:hover,
+
+.app__mid-nav-clear.active {
+    display: block;
+}
+
+.app__mid-nav-clear:hover {
+    color: var(--light-red);
+    cursor: pointer;
+}
+
 .app__mid-nav-icon.search:hover {
     cursor: pointer;
     color: var(--green);
@@ -912,8 +921,8 @@ input[type=number]:focus {
 .app-board {
     flex-grow: 1;
     margin: 10px 0;
-    border: 1px solid var(--gray);
     border-radius: 2px;
+    background-color: #eff4fb;
 }
 
 .app-board__nav,
@@ -925,6 +934,8 @@ input[type=number]:focus {
 .app-board__data {
     position: relative;
     border: 1px solid transparent;
+    border-radius: 20px;
+    animation: app__flashsale-product-item-box ease .5s forwards;
 }
 
 .app-board__data-lock {
@@ -938,14 +949,12 @@ input[type=number]:focus {
 }
 
 .app-board__data:hover {
-    background-color: var(--green-bland);
+    background-color: #e4e9f2;
     cursor: pointer;
 }
 
 .app-board__data.active {
-    background-color: var(--green-bland);
-    border: 1px solid var(--green);
-
+    background-color: #e4e9f2;
 }
 
 .app-borad__contain {
@@ -983,7 +992,7 @@ input[type=number]:focus {
 .app-board__nav {
     display: flex;
     align-items: center;
-    height: 30px;
+    background-color: #cae3e5;
 }
 
 .app-board__nav-item {
@@ -991,6 +1000,9 @@ input[type=number]:focus {
     font-size: 1.8rem;
     color: var(--color-dark);
     border-bottom: 1px solid var(--gray);
+    color: var(--blue);
+    font-weight: 500;
+    padding: 2px 0;
 }
 
 .app-board__data-item {
