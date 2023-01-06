@@ -201,6 +201,9 @@ button {
     justify-content: center;
     width: 96%;
     height: 38px;
+    color: #f8ffff;
+    font-size: 1.8rem;
+    font-weight: 500;
     border-radius: 6px;
     box-shadow: 0 0 2px #5181dd;
     background-color: #5181dd;
@@ -210,13 +213,13 @@ button {
 }
 
 .btn-loading__text {
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: #f8ffff;
+    font-weight: inherit;
+    font-size: inherit;
+    color: inherit;
     letter-spacing: 0.05rem;
 }
 
-.active .btn-loading__text {
+.btn-loading.active .btn-loading__text {
     animation: btn-loading__text ease .3s forwards;
 }
 
@@ -247,7 +250,7 @@ button {
     transform: translateY(-32px);
 }
 
-.active .btn-loading__icon {
+.btn-loading.active .btn-loading__icon {
     animation: loadAnimate ease .3s forwards;
 }
 

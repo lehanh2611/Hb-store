@@ -19,7 +19,6 @@ import {
     plateBlurBody,
     rechargeList,
     productAPi,
-    flashSaleApi,
 
     /***** Variable *****/
     bodyModalLoading,
@@ -36,6 +35,7 @@ import {
     loginSuccess,
     logHistory,
     renderProduct,
+    filter,
 
 
 } from "./end_point.js"
@@ -850,7 +850,13 @@ const flashSale = {
         let indexEnd = slot
 
 
-        GETelement(flashSaleApi, (Products) => {
+        GETelement(productAPi, (Products) => {
+
+            filter(Products, {flashSale: 'Yes'}, (newProduct) => {
+                Products = newProduct
+
+
+
             let listLeng = Math.ceil(Products.length / slot)
             let iList = 0
 
@@ -979,6 +985,8 @@ const flashSale = {
                     window.removeEventListener('scroll', showNoti)
                 }
             }
+        })
+
         })
 
     },

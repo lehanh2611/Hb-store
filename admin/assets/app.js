@@ -17,7 +17,9 @@ import {
 
     /***** Feature *****/
     notificationWindow,
-    validate
+    validate,
+    filter,
+    processLoad
 
 } from "../../asset/javascript/end_point.js"
 
@@ -353,7 +355,6 @@ const body = {
                         },
 
                         renderInfoProduct: function (element) {
-
                             products.forEach(product => {
                                 if (product.ProductID === element.getAttribute('item_id')) {
                                     $('.app-bot__info-data.value.productId').innerText = product.ProductID
@@ -361,23 +362,10 @@ const body = {
                                     $('.app-bot__info-data.value.type').innerText = product.Type
                                     $('.app-bot__info-data.value.price').innerText = formatMoney(product.Price)
                                     $('.app-bot__info-data.value.server').innerText = product.Server
-                                    $('.app-bot__info-data.value.discount').innerText = product.Discount + '%'
-                                    $('.app-bot__info-data.value.flashSale').innerText = product.Flashsale === 1 ? 'Yes' : 'No'
-                                    $('.app-bot__info-data.value.sold').innerText = product.Sold === 1 ? 'Yes' : 'No'
+                                    $('.app-bot__info-data.value.discount').innerText = product.Discount
+                                    $('.app-bot__info-data.value.flashSale').innerText = product.Flashsale
+                                    $('.app-bot__info-data.value.sold').innerText = product.Sold
                                 }
-                            })
-
-                        },
-
-                        renderDone: function () {
-                            const appboradElement = $$('.app-board__data')
-
-                            body.handle.shared.notSelect()
-                            body.handle.shared.delete()
-
-                            //Callback return element in process active
-                            select(appboradElement, (element) => {
-                                this.renderInfoProduct(element)
                             })
                         },
 
@@ -472,9 +460,9 @@ const body = {
                                         this.Server = server
                                         this.Price = price
                                         this.Type = type
-                                        this.Discount = 0
-                                        this.Flashsale = 0
-                                        this.Sold = 0
+                                        this.Discount = 'No'
+                                        this.Flashsale = 'No'
+                                        this.Sold = 'No'
                                     }
                                     const newProduct = new NewProduct(value.UID, value.Price, value.Type, value.Server)
 
@@ -528,6 +516,10 @@ const body = {
                                             products = value
                                             this.renderDone()
                                         })
+
+                                        //pull scroll
+                                        const contain = $('.app-borad__contain')
+                                        contain.scrollTop += contain.scrollTop + 38
                                     })
                                 }
                             })
@@ -599,13 +591,11 @@ const body = {
 
                                     //update to api 
                                     PUTelement(`${apiBody}/${elmActive.getAttribute('item_id')}`, newValue, (product) => {
-                                        console.log(product)
                                         notificationWindow(true,
                                             'Chỉnh sửa thông tin thành công',
                                             'Thông tin mới đã được áp dụng',
                                             () => {
                                                 notificationWindow()
-                                                this.renderDone()
                                                 close.click()
                                             })
 
@@ -615,11 +605,35 @@ const body = {
                                         type.innerText = product.Type
                                         price.innerText = formatMoney(product.Price)
 
+                                        //update products
+                                        GETelement(apiBody, (value) => {
+                                            products = value
+                                            this.renderDone()
+                                        })
+
                                         // hide buttom loading
                                         form.classList.remove('active')
                                     })
                                 }
 
+                            })
+                        },
+
+                        renderDone: function () {
+                            const appboradElement = $$('.app-board__data')
+                            const elmActive = $('.app-board__data.active')
+
+                            body.handle.shared.notSelect()
+                            body.handle.shared.delete()
+
+                            //update info product
+                            if (elmActive) {
+                                this.renderInfoProduct(elmActive)
+                            }
+
+                            //Callback return element in process active
+                            select(appboradElement, (element) => {
+                                this.renderInfoProduct(element)
                             })
                         },
 
@@ -630,6 +644,394 @@ const body = {
                         }
                     }
                     manage.start()
+                })
+            },
+            flashSale: function () {
+                const createBtn = $('.app__top-feature.create')
+                const deleteBtn = $('.app__top-feature.delete')
+
+                //Get product list
+                GETelement(apiBody, (products) => {
+
+                    const productNFScontain = $('.app__flashsale-product-contain.notFlashSale')
+                    const productFScontain = $('.app__flashsale-product-contain.flashSale')
+
+                    const flashSale = {
+
+                        //Render the products
+                        renderProduct: function (rule = { flashSale: 'No' }) {
+                            let contain = productNFScontain
+
+                            if (rule.flashSale !== 'No') {
+                                contain = productFScontain
+                            }
+
+                            filter(products, rule, productsFil => {
+                                const output = productsFil.reduce((accmulate, product) => {
+                                    return accmulate +=
+                                        `<ul item_id="${product.ProductID}"
+                                               class="app__flashsale-product-item-box ${product.Sold}">
+                                               <li class="app__flashsale-product-item">
+                                                   <span class="app__flashsale-product-item-check-wrap">
+                                                       <i class="app__flashsale-product-item-check fa-solid fa-check"></i>
+                                                   </span>
+                                               </li>
+                                               <li class="app__flashsale-product-item uid">${product.UID}</li>
+                                               <li class="app__flashsale-product-item price">${formatMoney(product.Price)}</li>
+                                               <li class="app__flashsale-product-item discount">${product.Discount}</li>
+                                               <li class="app__flashsale-product-item sold">${product.Sold}</li>
+                                           </ul>`
+                                }, '')
+                                contain.innerHTML = output
+
+                                // render done
+                                setTimeout(() => {
+                                   this.renderDone()
+                                }, 0);
+                            })
+                        },
+                        renderProductFS: function () {
+                            this.renderProduct({ flashSale: 'Yes' })
+
+                        },
+                        nFSSearch: function () {
+
+                            const parent = $('.app__flashsale-page.notFlashSale')
+                            const input = parent.querySelector('.app__mid-nav-search')
+                            const clear = parent.querySelector('.app__mid-nav-clear')
+
+                            input.oninput = () => {
+                                const value = input.value
+
+                                if (value === '') { return }
+                                filter(products, {
+                                    flashSale: 'No',
+                                    all: value
+                                }, (v) => {
+                                })
+                                this.renderProduct({
+                                    flashSale: 'No',
+                                    all: value
+                                })
+
+                            }
+
+                        },
+                        selectsProducts: function (parents = $$('.app__flashsale-contain')) {
+                            const btn = $('.app__top-feature.selects')
+
+                            btn.onclick = () => {
+                                for (let parent of parents) {
+
+                                    btn.classList.toggle('active')
+                                    parent.classList.toggle('show')
+                                    this.selectProduct.selectAll()
+
+                                    if (!parent.classList.value.includes('show')) {
+                                        this.selectProduct.selectAll('clear')
+                                        this.selectProduct.selectOne()
+                                    }
+                                }
+                            }
+                        },
+                        disableFeature: function (isCheck = false) {
+
+                            for (let elm of $$('.app__flashsale-product-item-box')) {
+                                // elm.removeEventListener('click', checkType)
+
+                                elm.addEventListener('click', checkType)
+                            }
+
+                            if (isCheck) { checkType() }
+
+                            function checkType() {
+                                const elmActive = $('.app__flashsale-product-item-box.active')
+
+                                if (!elmActive) {
+                                    deleteBtn.classList.remove('disable')
+                                    createBtn.classList.remove('disable')
+                                    return
+                                }
+
+                                const parent = elmActive.closest('.app__flashsale-product-contain')
+
+                                //Select Flash sale => disable list all
+                                if (parent.classList.value.includes('flashSale')) {
+                                    createBtn.classList.add('disable')
+                                    deleteBtn.classList.remove('disable')
+
+                                }
+                                //Select list all => disable Flash sale
+                                else {
+                                    createBtn.classList.remove('disable')
+                                    deleteBtn.classList.add('disable')
+                                }
+
+                                //Select list all and Flash sale => disable flash sale and list all
+                                const containAll =
+                                    $('.app__flashsale-product-contain.notFlashSale').querySelector(
+                                        '.app__flashsale-product-item-box.active')
+
+                                const containFS =
+                                    $('.app__flashsale-product-contain.flashSale').querySelector(
+                                        '.app__flashsale-product-item-box.active')
+
+                                if (containAll && containFS) {
+                                    createBtn.classList.add('disable')
+                                    deleteBtn.classList.add('disable')
+                                }
+                            }
+                        },
+                        moveProductFS: function () {
+                            const btns = [$('.app__top-feature.delete'), $('.app__top-feature.create')]
+                            const containFS = $('.app__flashsale-product-contain.flashSale')
+                            const containNFS = $('.app__flashsale-product-contain.notFlashSale')
+                            const btnLoadings = $$('.app__flashsale-page .btn-loading')
+
+                            for (const btn of btns) {
+                                btn.onclick = function () {
+                                    let containReceive = containNFS
+                                    let contain = containFS
+                                    let rule = 'No'
+                                    let i = 0
+
+                                    if (btn.classList.value.includes('create')) {
+                                        containReceive = containFS
+                                        contain = containNFS
+                                        rule = 'Yes'
+                                    }
+
+                                    let elements = Array.from(contain.querySelectorAll('.app__flashsale-product-item-box.active'))
+
+                                    //Feature disable => skip logic
+                                    if (btn.classList.value.includes('disable') || elements.length === 0) { return }
+
+                                    const datas = elements.map(element => element.getAttribute('item_id'))
+
+                                    //show loading
+                                    for (const btnLoading of btnLoadings) { btnLoading.classList.add('active') }
+                                    function update() {
+
+                                        processLoad.run(datas.length)
+                                        if (i === datas.length) {
+                                            flashSale.containLeng()
+                                            for (const btnLoading of btnLoadings) { btnLoading.classList.remove('active') }
+                                            return GETelement(apiBody, v => products = v)
+                                        }
+
+                                        PUTelement(`${apiBody}/${datas[i]}`, { Flashsale: rule },
+                                            () => { update() })
+
+                                        containReceive.appendChild(elements[i])
+                                        containReceive.scrollTop = containReceive.scrollTop + 38
+
+                                        flashSale.selectProduct.selectAll('clear')
+                                        for (const elm of $$('.app__flashsale-bars-checkAll')) {
+                                            elm.classList.remove('all')
+                                        }
+
+                                        if ($('.app__flashsale-contain').classList.value.includes('show')) {
+                                            flashSale.selectProduct.selectAll()
+                                        }
+                                        else {
+                                            flashSale.selectProduct.selectOne()
+                                        }
+                                        flashSale.disableFeature()
+
+                                        i++
+                                    }
+                                    update()
+                                }
+                            }
+                        },
+                        replaceDiscount: function () {
+                            const contain = $('.discount-form')
+                            const btn = $('.app__top-feature.replace')
+                            const submit = $('.discount-form__submit')
+                            const close = $('.discount-form__close')
+                            const input = $('.discount-form__input')
+                            const selectorElm = {
+                                input: input,
+                                message: contain.querySelector('message')
+                            }
+                            const rule = ['required', 'maxLeng_2', 'number']
+
+                            btn.onclick = () => {
+                                const elmActive = Array.from($$('.app__flashsale-product-item-box.active'))
+
+                                if (elmActive.length === 0) { return }
+
+                                //show form
+                                contain.classList.add('active')
+                                contain.querySelector('form').addEventListener('submit', e => e.preventDefault())
+                                selectorElm.message.innerText = ''
+
+                                //hide form
+                                close.onclick = () => { contain.classList.remove('active') }
+
+                                //show UID
+                                $('.discount-form__title-sub').innerText = elmActive.reduce((acc, elm) => {
+                                    return acc += `${elm.querySelector('.app__flashsale-product-item.uid').innerText}
+                                    `
+                                }, '')
+
+                                //atc focusout
+                                input.addEventListener('focusout', () => {
+                                    validate.start(selectorElm, rule)
+                                })
+
+                                //atc submit
+                                submit.onclick = () => {
+                                    const data = input.value
+                                    let i = 0
+
+                                    //exist error message stop => submit
+                                    if (!validate.start(selectorElm, rule)) { return }
+                                    //sumbmit => done
+                                    close.click()
+                                    input.value = ''
+
+                                    notificationWindow(true,
+                                        'Thay đổi đã được áp dụng',
+                                        'Đang xử lý yêu cầu',
+                                        () => {
+                                            this.selectProduct.selectAll('clear')
+                                            for (const item of $$('.app__flashsale-bars-checkAll')) {
+                                                item.classList.remove('all')
+                                            }
+                                            notificationWindow()
+                                        })
+
+
+                                    updateDiscount()
+                                    function updateDiscount() {
+                                        const item = elmActive[i]
+
+                                        processLoad.run(elmActive.length)
+                                    
+                                        if (i === elmActive.length) {return GETelement(apiBody, (v) => {products = v}) }
+
+                                        //update data => server
+                                        PUTelement(`${apiBody}/${item.getAttribute('item_id')}`, { Discount: data + '%'}, () => {
+                                            updateDiscount()
+                                        })
+                                        //update data => dom
+                                        item.querySelector('.app__flashsale-product-item.discount').innerText = data + '%'
+                                        i++
+                                    }
+                                }
+
+                            }
+                        },
+                        containLeng: function () {
+                            const contains = $$('.app__flashsale-page')
+
+                            for (const contain of contains) {
+                                const getLeng = contain.querySelectorAll('.app__flashsale-product-item-box').length
+                                contain.querySelector('.btn-loading__text').innerText = `Toàn bộ(${getLeng})`
+                            }
+                        },
+                        selectProduct: {
+                            selectAll: function (isClear) {
+
+                                const selectors = $$('.app__flashsale-product-item-box')
+
+                                if (isClear) {
+                                    for (let selector of selectors) {
+
+                                        deleteBtn.classList.remove('disable')
+                                        createBtn.classList.remove('disable')
+                                        selector.classList.remove('active')
+                                    }
+                                }
+                                else {
+                                    for (let selector of selectors) {
+                                        selector.onclick = () => {
+                                            selector.classList.toggle('active')
+                                        }
+                                    }
+                                }
+                            },
+                            selectOne: function () {
+                                const selectors = $$('.app__flashsale-product-item-box')
+                                for (let selector of selectors) {
+                                    selector.onclick = () => {
+                                        for (let selector2 of selectors) {
+                                            if (selector2 != selector) {
+                                                selector2.classList.remove('active')
+                                            }
+                                        }
+
+                                        selector.classList.toggle('active')
+                                    }
+                                }
+                            }
+                        },
+                        selectAllProduct: function () {
+                            const btns = $$('.app__flashsale-bars-checkAll')
+
+                            for (let btn of btns) {
+                                btn.onclick = () => {
+                                    const parent = btn.closest('.app__flashsale-page')
+                                    const elmNFS = $$('.app__flashsale-page.notFlashSale .app__flashsale-product-item-box ')
+                                    const elmFS = $$('.app__flashsale-page.flashSale .app__flashsale-product-item-box ')
+                                    let elmHandle
+
+                                    btn.classList.toggle('all')
+
+                                    if (parent.classList.value.includes('flashSale')) {
+                                        elmHandle = elmFS
+                                    } else { elmHandle = elmNFS }
+
+
+                                    if (btn.classList.value.includes('all')) {
+                                        for (const elm of elmHandle) {
+                                            elm.classList.add('active')
+                                        }
+                                    }
+                                    else {
+                                        for (const elm of elmHandle) {
+                                            elm.classList.remove('active')
+                                        }
+                                    }
+
+                                    this.disableFeature(true)
+
+                                }
+                            }
+                        },
+                        ui: function () {
+
+                            //set height contain
+                            if (productNFScontain && productFScontain) {
+                                productNFScontain.style.height =
+                                    $('.app__flashsale-page.notFlashSale').getBoundingClientRect().height - 84 + 'px'
+
+                                productFScontain.style.height =
+                                    $('.app__flashsale-page.flashSale').getBoundingClientRect().height - 84 + 'px'
+
+                            }
+                        },
+                        renderDone: function () {
+                            this.selectProduct.selectOne()
+                            this.selectsProducts()
+                            this.disableFeature()
+                            this.moveProductFS()
+                            this.containLeng()
+                            this.replaceDiscount()
+                        },
+
+                        start: function () {
+                            this.ui()
+                            this.renderProduct()
+                            this.renderProductFS()
+                            this.selectAllProduct()
+                            body.handle.shared.notSelect()
+                            this.nFSSearch()
+                        }
+
+                    }
+                    flashSale.start()
                 })
             }
         },
@@ -642,8 +1044,10 @@ const body = {
 
                     element.addEventListener('click', () => {
                         if ($('.app-board__data.active') === null
+                            && $('.app__flashsale-product-item-box.active') === null
                             && !element.classList.value.includes('disable')
-                            && !element.classList.value.includes('create')) {
+                            && !element.classList.value.includes('selects')
+                            && !element.classList.value.includes('create product')) {
 
                             notificationWindow(false,
                                 'Bạn chưa chọn mục tiêu để thực hiện',
@@ -687,7 +1091,6 @@ const body = {
                         }
                     }
             },
-
         }
     },
 
@@ -701,6 +1104,9 @@ const body = {
     product: {
         manage: function () {
             body.handle.product.manage()
+        },
+        flashSale: function () {
+            body.handle.product.flashSale()
         }
     },
 
@@ -718,8 +1124,10 @@ const body = {
                 const boardGrid = $('.app-board')
                 const boardContain = $('.app-borad__contain')
 
-                boardContain.style.height =
-                    (boardGrid.getBoundingClientRect().height - 30) + 'px'
+                if (boardContain) {
+                    boardContain.style.height =
+                        (boardGrid.getBoundingClientRect().height - 30) + 'px'
+                }
             }
         })
     },
@@ -794,8 +1202,9 @@ const body = {
             <div class="app__mid">
                 <div class="app__mid-nav">
                     <div class="app__mid-nav-search-box">
-                        <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
-                        <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm với ID, tên tài khoản, biệt danh...">
+                    <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm với ID, tên tài khoản, biệt danh...">
+                    <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
+                    <i class="app__mid-nav-clear fa-solid fa-xmark"></i>
                     </div>
 
                     <div class="app__mid-nav-ft-box">
@@ -889,13 +1298,13 @@ const body = {
             <div class="app__top">
                 <h3 class="app__top-title">Manage</h3>
                 <div class="app__top-feature-contain">
-                    <div class="app__top-feature rippleBtn create">
+                <div class="app__top-feature rippleBtn replace">
+                <i class="app__top-feature-icon fa-sharp fa-solid fa-screwdriver-wrench"></i>
+                <p class="app__top-feature-text">Chỉnh sửa</p>
+                    </div>
+                    <div class="app__top-feature rippleBtn create product">
                         <i class="app__top-feature-icon fa-solid fa-layer-plus"></i>
                         <p class="app__top-feature-text">Tạo mới</p>
-                    </div>
-                    <div class="app__top-feature rippleBtn replace">
-                        <i class="app__top-feature-icon fa-sharp fa-solid fa-screwdriver-wrench"></i>
-                        <p class="app__top-feature-text">Chỉnh sửa</p>
                     </div>
                     <div class="app__top-feature rippleBtn delete">
                         <i class="app__top-feature-icon fa-solid fa-layer-minus"></i>
@@ -906,8 +1315,9 @@ const body = {
             <div class="app__mid">
                 <div class="app__mid-nav">
                     <div class="app__mid-nav-search-box">
-                        <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
-                        <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm với ID, UID, Type...">
+                    <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm với UID, Server, Type...">
+                    <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
+                    <i class="app__mid-nav-clear fa-solid fa-xmark"></i>
                     </div>
 
                     <div class="app__mid-nav-ft-box">
@@ -985,6 +1395,142 @@ const body = {
                         </li>
                     </ul>
                 </div>
+            </div>
+        </div>`
+        },
+        {
+            url: "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Products",
+            key: { parent: 'SẢN PHẨM', child: 'Flash sale' },
+            start: () => {
+                body.product.flashSale()
+            },
+            value: `<div class="body__app">
+            <div class="app__top">
+                <h3 class="app__top-title">Flash sale</h3>
+                <div class="app__top-feature-contain flashSale">
+                    <div class="app__top-feature rippleBtn create">
+                        <i class="app__top-feature-icon fa-solid fa-circle-plus"></i>
+                        <p class="app__top-feature-text">Thêm vào D.s Flash Sale</p>
+                    </div>
+                    <div class="app__top-feature rippleBtn delete">
+                        <i class="app__top-feature-icon fa-solid fa-circle-minus"></i>
+                        <p class="app__top-feature-text">Xóa khỏi D.s Flash Sale</p>
+                    </div>
+                    <div class="app__top-feature rippleBtn selects">
+                        <i class="app__top-feature-icon fa-regular fa-check-double"></i>
+                        <p class="app__top-feature-text">Chọn nhiều sản phẩm</p>
+                    </div>
+                    <div class="app__top-feature rippleBtn replace">
+                        <i class="app__top-feature-icon fa-solid fa-gift-card"></i>
+                        <p class="app__top-feature-text">Điều chỉnh % giảm giá</p>
+                    </div>
+                </div>
+            </div>
+            <div class="app__mid">
+                <div class="app__flashsale-contain">
+                    <div class="app__flashsale-page notFlashSale">
+                        <div class="app__flashsale-product-contain-title-box">
+                            <h3 class="app__flashsale-product-contain-title">
+                                Sản phẩm chưa Flash sale
+                                <svg focusable="false" viewBox="0 0 24 25" aria-hidden="true" width="24" height="25"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_7893_45671)">
+                                        <path
+                                            d="M19.882 8.3615C19.708 8.0365 19.369 7.8335 19 7.8335H14.326L15.962 2.1085C16.048 1.8065 15.988 1.4825 15.799 1.2315C15.61 0.980496 15.314 0.833496 15 0.833496H7.99998C7.54898 0.833496 7.15398 1.1355 7.03498 1.5705L4.03498 12.5705C3.95298 12.8715 4.01598 13.1935 4.20498 13.4405C4.39498 13.6875 4.68798 13.8335 4.99998 13.8335H9.80198L8.01598 23.6545C7.93098 24.1205 8.18498 24.5825 8.62498 24.7605C8.74798 24.8105 8.87498 24.8335 8.99998 24.8335C9.32698 24.8335 9.64298 24.6735 9.83298 24.3885L19.833 9.3885C20.037 9.0815 20.056 8.6875 19.882 8.3615Z"
+                                            fill="#FF6264"></path>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_7893_45671">
+                                            <rect width="24" height="24" fill="white" transform="translate(0 0.833496)">
+                                            </rect>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </h3>
+                            <button class="btn-loading app__flashsale-product-total-box">
+                                <p class="btn-loading__text">Toàn bộ (99)</p>
+                                <div class="btn-loading__icon"></div>
+                            </button>
+                            <span class="app__flashsale-product-process"></span>
+                        </div>
+                        <ul class="app__flashsale-bars-nav">
+                            <li class="app__flashsale-bars-item">
+                            <i class="app__flashsale-bars-checkAll fa-solid fa-check-double"></i></li>
+                            <li class="app__flashsale-bars-item">UID</li>
+                            <li class="app__flashsale-bars-item">Price</li>
+                            <li class="app__flashsale-bars-item">Discount</li>
+                            <li class="app__flashsale-bars-item">Sold</li>
+
+                            <li class="app__flashsale-bars-item app__mid-nav">
+                                <div class="app__mid-nav-search-box">
+                                <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm...">
+                                <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
+                                <i class="app__mid-nav-clear fa-solid fa-xmark"></i>
+                                </div>
+                                <div class="app__mid-nav-ft-box">
+                                    <div class="app__mid-nav-ft">
+                                        <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="app__flashsale-product-contain notFlashSale" style="height: 374.047px;">
+                        </div>
+                    </div>
+
+                    <div class="app__flashsale-page flashSale">
+                        <div class="app__flashsale-product-contain-title-box">
+                            <h3 class="app__flashsale-product-contain-title">
+                                Sản phẩm Flash sale
+                                <svg focusable="false" viewBox="0 0 24 25" aria-hidden="true" width="24" height="25"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_7893_45671)">
+                                        <path
+                                            d="M19.882 8.3615C19.708 8.0365 19.369 7.8335 19 7.8335H14.326L15.962 2.1085C16.048 1.8065 15.988 1.4825 15.799 1.2315C15.61 0.980496 15.314 0.833496 15 0.833496H7.99998C7.54898 0.833496 7.15398 1.1355 7.03498 1.5705L4.03498 12.5705C3.95298 12.8715 4.01598 13.1935 4.20498 13.4405C4.39498 13.6875 4.68798 13.8335 4.99998 13.8335H9.80198L8.01598 23.6545C7.93098 24.1205 8.18498 24.5825 8.62498 24.7605C8.74798 24.8105 8.87498 24.8335 8.99998 24.8335C9.32698 24.8335 9.64298 24.6735 9.83298 24.3885L19.833 9.3885C20.037 9.0815 20.056 8.6875 19.882 8.3615Z"
+                                            fill="#FF6264"></path>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_7893_45671">
+                                            <rect width="24" height="24" fill="white" transform="translate(0 0.833496)">
+                                            </rect>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </h3>
+                            <button class="btn-loading app__flashsale-product-total-box">
+                                <p class="btn-loading__text">Toàn bộ (99)</p>
+                                <div class="btn-loading__icon"></div>
+                            </button>
+                            <span class="app__flashsale-product-process"></span>
+                        </div>
+                        <ul class="app__flashsale-bars-nav">
+                            <li class="app__flashsale-bars-item">
+                            <i class="app__flashsale-bars-checkAll fa-solid fa-check-double"></i></li>
+                            <li class="app__flashsale-bars-item">UID</li>
+                            <li class="app__flashsale-bars-item">Price</li>
+                            <li class="app__flashsale-bars-item">Discount</li>
+                            <li class="app__flashsale-bars-item">Sold</li>
+
+                            <li class="app__flashsale-bars-item app__mid-nav">
+                                <div class="app__mid-nav-search-box">
+                                <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm...">
+                                <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
+                                <i class="app__mid-nav-clear fa-solid fa-xmark"></i>
+                                </div>
+                                <div class="app__mid-nav-ft-box">
+                                    <div class="app__mid-nav-ft">
+                                        <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="app__flashsale-product-contain flashSale" style="height: 311.938px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="app-bot">
             </div>
         </div>`
         }

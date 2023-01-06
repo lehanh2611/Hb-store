@@ -18,12 +18,13 @@ export function renderProduct(products, uid, callback) {
 
 //Render
 function body(uid, server, price, discount = undefined, sold) {
+    discount = Number(discount.replace('%',''))
 
     if (discount !== undefined) {
         var discountRatio = discount
         discount = price - ((price * discount) / 100)
 
-        sold = sold === 1 ? 'sold' : ''
+        sold = sold === 'Yes' ? 'sold' : ''
     }
     else {
         discount = price

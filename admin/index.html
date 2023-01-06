@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin page</title>
+    <title>Hbstore | Admin</title>
     <link rel="icon" type="image/x-icon" href="../asset/img/logo-mobile.png">
     <link rel="stylesheet" href="../asset/font/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../asset/font/fontawesome/css/all.css">
@@ -32,7 +32,7 @@
             <div class="nav-mid">
                 <ul class="nav__category">
                     <h3 class="nav__category-title">Tài khoản</h3>
-                    <span class="nav__category-options active">
+                    <span class="nav__category-options">
                         <i class="nav__category-icon fa-sharp fa-solid fa-wand-magic-sparkles"></i>
                         <p class="nav__category-options-tx">Manage</p>
                     </span>
@@ -43,7 +43,7 @@
                         <i class="nav__category-icon fa-sharp fa-solid fa-wand-magic-sparkles"></i>
                         <p class="nav__category-options-tx">Manage</p>
                     </span>
-                    <span class="nav__category-options">
+                    <span class="nav__category-options active">
                         <i class="nav__category-icon fa-solid fa-bolt"></i>
                         <p class="nav__category-options-tx">Flash sale</p>
                     </span>
@@ -101,121 +101,156 @@
         <div id="body">
             <div class="body__app">
                 <div class="app__top">
-                    <h3 class="app__top-title">Manage</h3>
-                    <div class="app__top-feature-contain">
-                        <div class="app__top-feature rippleBtn message disable">
-                            <i class="app__top-feature-icon fa-solid fa-message"></i>
-                            <p class="app__top-feature-text">Nhắn tin</p>
-                        </div>
-                        <div class="app__top-feature rippleBtn depositBtn">
-                            <i class="app__top-feature-icon fa-solid fa-credit-card"></i>
-                            <p class="app__top-feature-text">Nạp tiền</p>
-                        </div>
-                        <div class="app__top-feature rippleBtn replace disable">
-                            <i class="app__top-feature-icon fa-sharp fa-solid fa-screwdriver-wrench"></i>
-                            <p class="app__top-feature-text">Chỉnh sửa</p>
-                        </div>
-                        <div class="app__top-feature rippleBtn block">
-                            <i class="app__top-feature-icon fa-solid fa-user-lock"></i>
-                            <p class="app__top-feature-text">Tạm khóa</p>
-                            <i class="app__top-feature-icon lock fa-solid fa-user-unlock"></i>
-                            <p class="app__top-feature-text lock ">Mở khóa</p>
+                    <h3 class="app__top-title">Flash sale</h3>
+                    <div class="app__top-feature-contain flashSale">
+                        <div class="app__top-feature rippleBtn create">
+                            <i class="app__top-feature-icon fa-solid fa-circle-plus"></i>
+                            <p class="app__top-feature-text">Thêm vào D.s Flash Sale</p>
                         </div>
                         <div class="app__top-feature rippleBtn delete">
-                            <i class="app__top-feature-icon fa-solid fa-user-minus"></i>
-                            <p class="app__top-feature-text">Xóa bỏ</p>
+                            <i class="app__top-feature-icon fa-solid fa-circle-minus"></i>
+                            <p class="app__top-feature-text">Xóa khỏi D.s Flash Sale</p>
                         </div>
-                        <div class="app__top-feature rippleBtn create disable">
-                            <i class="app__top-feature-icon fa-solid fa-user-plus"></i>
-                            <p class="app__top-feature-text">Tạo mới</p>
+                        <div class="app__top-feature rippleBtn selects">
+                            <i class="app__top-feature-icon fa-regular fa-check-double"></i>
+                            <p class="app__top-feature-text">Chọn nhiều sản phẩm</p>
+                        </div>
+                        <div class="app__top-feature rippleBtn replace">
+                            <i class="app__top-feature-icon fa-solid fa-gift-card"></i>
+                            <p class="app__top-feature-text">Điều chỉnh % giảm giá</p>
                         </div>
                     </div>
                 </div>
                 <div class="app__mid">
-                    <div class="app__mid-nav">
-                        <div class="app__mid-nav-search-box">
-                            <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
-                            <input class="app__mid-nav-search" type="text"
-                                placeholder="Tìm kiếm với ID, tên tài khoản, biệt danh...">
+                    <div class="app__flashsale-contain">
+                        <div class="app__flashsale-page notFlashSale">
+                            <div class="app__flashsale-product-contain-title-box">
+                                <h3 class="app__flashsale-product-contain-title">
+                                    Sản phẩm chưa Flash sale
+                                    <svg focusable="false" viewBox="0 0 24 25" aria-hidden="true" width="24" height="25"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_7893_45671)">
+                                            <path
+                                                d="M19.882 8.3615C19.708 8.0365 19.369 7.8335 19 7.8335H14.326L15.962 2.1085C16.048 1.8065 15.988 1.4825 15.799 1.2315C15.61 0.980496 15.314 0.833496 15 0.833496H7.99998C7.54898 0.833496 7.15398 1.1355 7.03498 1.5705L4.03498 12.5705C3.95298 12.8715 4.01598 13.1935 4.20498 13.4405C4.39498 13.6875 4.68798 13.8335 4.99998 13.8335H9.80198L8.01598 23.6545C7.93098 24.1205 8.18498 24.5825 8.62498 24.7605C8.74798 24.8105 8.87498 24.8335 8.99998 24.8335C9.32698 24.8335 9.64298 24.6735 9.83298 24.3885L19.833 9.3885C20.037 9.0815 20.056 8.6875 19.882 8.3615Z"
+                                                fill="#FF6264"></path>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_7893_45671">
+                                                <rect width="24" height="24" fill="white"
+                                                    transform="translate(0 0.833496)">
+                                                </rect>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </h3>
+                                <button class="btn-loading app__flashsale-product-total-box active ">
+                                    <p class="btn-loading__text">Toàn bộ (99)</p>
+                                    <div class="btn-loading__icon"></div>
+                                </button>
+                                <span class="app__flashsale-product-process"></span>
+                            </div>
+                            <ul class="app__flashsale-bars-nav">
+                                <li class="app__flashsale-bars-item"><i class="fa-solid fa-check-double"></i></li>
+                                <li class="app__flashsale-bars-item">UID</li>
+                                <li class="app__flashsale-bars-item">Price</li>
+                                <li class="app__flashsale-bars-item">Discount</li>
+                                <li class="app__flashsale-bars-item">Sold</li>
+
+                                <li class="app__flashsale-bars-item app__mid-nav">
+                                    <div class="app__mid-nav-search-box">
+                                        <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
+                                        <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm...">
+                                    </div>
+                                    <div class="app__mid-nav-ft-box">
+                                        <div class="app__mid-nav-ft">
+                                            <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div class="app__flashsale-product-contain notFlashSale" style="height: 374.047px;">
+                            </div>
                         </div>
 
-                        <div class="app__mid-nav-ft-box">
-                            <div class="app__mid-nav-ft">
-                                <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
-                                Bộ lọc
+                        <div class="app__flashsale-page flashSale">
+                            <div class="app__flashsale-product-contain-title-box">
+                                <h3 class="app__flashsale-product-contain-title">
+                                    Sản phẩm Flash sale
+                                    <svg focusable="false" viewBox="0 0 24 25" aria-hidden="true" width="24" height="25"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_7893_45671)">
+                                            <path
+                                                d="M19.882 8.3615C19.708 8.0365 19.369 7.8335 19 7.8335H14.326L15.962 2.1085C16.048 1.8065 15.988 1.4825 15.799 1.2315C15.61 0.980496 15.314 0.833496 15 0.833496H7.99998C7.54898 0.833496 7.15398 1.1355 7.03498 1.5705L4.03498 12.5705C3.95298 12.8715 4.01598 13.1935 4.20498 13.4405C4.39498 13.6875 4.68798 13.8335 4.99998 13.8335H9.80198L8.01598 23.6545C7.93098 24.1205 8.18498 24.5825 8.62498 24.7605C8.74798 24.8105 8.87498 24.8335 8.99998 24.8335C9.32698 24.8335 9.64298 24.6735 9.83298 24.3885L19.833 9.3885C20.037 9.0815 20.056 8.6875 19.882 8.3615Z"
+                                                fill="#FF6264"></path>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_7893_45671">
+                                                <rect width="24" height="24" fill="white"
+                                                    transform="translate(0 0.833496)">
+                                                </rect>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </h3>
+                                <button class="btn-loading app__flashsale-product-total-box active ">
+                                    <p class="btn-loading__text">Toàn bộ (99)</p>
+                                    <div class="btn-loading__icon"></div>
+                                </button>
+                                <span class="app__flashsale-product-process"></span>
                             </div>
-                            <div class="app__mid-nav-ft">
-                                <i class="app__mid-nav-icon fa-solid fa-file-arrow-down"></i>
-                                Xuất ra
+                            <ul class="app__flashsale-bars-nav">
+                                <li class="app__flashsale-bars-item"><i class="fa-solid fa-check-double"></i></li>
+                                <li class="app__flashsale-bars-item">UID</li>
+                                <li class="app__flashsale-bars-item">Price</li>
+                                <li class="app__flashsale-bars-item">Discount</li>
+                                <li class="app__flashsale-bars-item">Sold</li>
+
+                                <li class="app__flashsale-bars-item app__mid-nav">
+                                    <div class="app__mid-nav-search-box">
+                                        <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
+                                        <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm...">
+                                    </div>
+                                    <div class="app__mid-nav-ft-box">
+                                        <div class="app__mid-nav-ft">
+                                            <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="app__flashsale-product-contain flashSale" style="height: 311.938px;">
                             </div>
                         </div>
-                    </div>
-                    <div class="app-board grid">
-                        <ul class="app-board__nav">
-                            <li class="app-board__nav-item l-2 m-2 c-3">User ID</li>
-                            <li class="app-board__nav-item l-3 m-4 c-9">User Name</li>
-                            <li class="app-board__nav-item l-4 hide-mt hide-t">Email</li>
-                            <li class="app-board__nav-item hide-m">Money</li>
-                        </ul>
-                        <div class="app-borad__contain"></div>
                     </div>
                 </div>
                 <div class="app-bot">
-                    <h3 class="app-bot__title">
-                        <i class="fa-solid fa-address-card"></i>
-                        <p>Information</p>
-                        <!-- <i class="app-bot__title-resize fa-solid fa-arrow-down"></i> -->
-                    </h3>
-                    <div class="app-bot__info-contain">
-                        <ul class="app-bot__info-list">
-                            <li class="app-bot__info">
-                                <p class="app-bot__info-data title userid">1.User ID:</p>
-                                <p class="app-bot__info-data value userid">0</p>
-                            </li>
-                            <li class="app-bot__info">
-                                <p class="app-bot__info-data title username">2.User Name:</p>
-                                <p class="app-bot__info-data value username">admin</p>
-                            </li>
-                            <li class="app-bot__info">
-                                <p class="app-bot__info-data title nickname">3.Nick Name:</p>
-                                <p class="app-bot__info-data value nickname">Lê Hạnh</p>
-                            </li>
-                            <li class="app-bot__info">
-                                <p class="app-bot__info-data title email">4.Email:</p>
-                                <p class="app-bot__info-data value email">hbstore@gmail.com</p>
-                            </li>
-                        </ul>
-                        <ul class="app-bot__info-list">
-                            <li class="app-bot__info">
-                                <p class="app-bot__info-data title money">5.Money:</p>
-                                <p class="app-bot__info-data value money">999.999.999đ</p>
-                            </li>
-                            <li class="app-bot__info">
-                                <p class="app-bot__info-data title moneySpent">6.Money Spent:</p>
-                                <p class="app-bot__info-data value moneySpent">N/A</p>
-                            </li>
-                            <li class="app-bot__info">
-                                <p class="app-bot__info-data title totalDeposit">7.Total Deposit:</p>
-                                <p class="app-bot__info-data value totalDeposit">999.999.999đ</p>
-                            </li>
-                            <li class="app-bot__info">
-                                <p class="app-bot__info-data title date">8.Date created:</p>
-                                <p class="app-bot__info-data value date">26/11/2002</p>
-                            </li>
-                        </ul>
-                        <ul class="app-bot__info-list history">
-                            <li class="app-bot__info history">
-                                <p class="app-bot__info-data title history-title">Mua thành công:</p>
-                                <p class="app-bot__info-data value history">N/A</p>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
         <modal id="modal">
+            <div class="process-load">
+                <span class="process-load__line">
+                    <span class="process-load__title">100%</span>
+                </span>
+            </div>
             <div class="loading">
                 <i class="loading__spindle"></i>
+            </div>
+            <div class="discount-form">
+                <form class="discount-form_contain">
+                    <i class="discount-form__close fa-solid fa-xmark"></i>
+                    <h3 class="discount-form__title">Sửa mức giảm giá cho UID:</h3>
+                    <p class="discount-form__title-sub">
+                        659999999
+                    </p>
+                    <input type="number" class="discount-form__input" placeholder="Nhập số % giảm giá (vd: 10, 20, 30)">
+                    <message class="message"></message>
+
+                    <button class="btn-loading discount-form__submit">
+                        <p class="btn-loading__text">Lưu thay đổi</p>
+                        <div class="btn-loading__icon"></div>
+                    </button>
+                </form>
             </div>
             <div class="notification">
                 <div class="notification__wrap">
