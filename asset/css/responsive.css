@@ -10,6 +10,26 @@
     .flash-sale__title::before {
         right: -5px !important;
     }
+
+    /* Footer */
+
+    .footer__get-new-box:last-child {
+        flex-direction: column;
+    }
+
+    .footer__get-new-input-email {
+        min-height: 38px !important;
+        width: 100% !important;
+    }
+
+    .footer__get-new-submit {
+        margin-left: auto;
+        margin-top: 10px;
+    }
+
+    .footer__follow-title {
+        white-space: normal !important;
+    }
 }
 
 /***** Mobile *****/
@@ -145,6 +165,29 @@
         margin: 0 3px;
     }
 
+    /* Footer */
+    .footer {
+        padding: 0 5px;
+    }
+
+    .footer__get-new-box:last-child {
+        display: flex;
+    }
+
+    .footer__mid {
+        flex-direction: column;
+    }
+
+    .footer__get-new-box {}
+
+    .footer__get-new-input-email {
+        max-width: unset !important;
+        flex: 1;
+    }
+
+    .footer__mid .footer__follow-title {
+        white-space: nowrap ;
+    }
 }
 
 /****************************************/
@@ -313,6 +356,35 @@
         color: #555555;
     }
 
+    /* Footer */
+    .footer {
+        padding-left: 10px;
+    }
+
+    .footer__get-news {
+        flex-direction: column;
+    }
+
+    .footer__get-new-box:last-child {
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer__get-new-input-email {
+        width: 60vw;
+        max-width: 399px;
+    }
+
+    .footer__follow {
+        margin-bottom: auto;
+        max-width: 200px;
+    }
+
+    .footer__follow-title {
+        font-size: 2rem;
+        white-space: normal;
+    }
+
 }
 
 /****************************************/
@@ -345,7 +417,6 @@
     .menu-logReg__account {
         margin: 6px 0;
     }
-
 }
 
 /****************************************/
@@ -417,7 +488,7 @@
         min-width: unset;
         filter: brightness(1.01);
     }
-    
+
     .stall__filter::before {
         display: block;
     }

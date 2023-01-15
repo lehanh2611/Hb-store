@@ -1957,6 +1957,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 6px;
 }
 
 .footer__get-news {
@@ -1964,12 +1965,11 @@
 }
 
 .footer__get-new-box {
-    padding: 30px 6px;
+    padding: 30px 0;
 }
 
-.footer__get-new-box:first-child {}
-
 .footer__get-new-box:last-child {
+    margin-top: 10px;
     margin-left: auto;
 }
 
@@ -1979,7 +1979,6 @@
 
 .footer__get-news-sub-title {
     font-weight: 300;
-
 }
 
 .footer__get-new-box {}
@@ -1988,15 +1987,15 @@
     border-radius: 3px;
     outline: 1px solid #000;
     padding: 0 10px;
-    width: 399px;
+    max-width: 360px;
     height: 38px;
+    width: 26vw;
     font-size: 1.8rem;
     letter-spacing: 0.03rem;
     background-color: var(--color-dark-bland);
 }
 
 .footer__get-new-input-email:focus {
-    outline-color: #1d26c8;
     outline-color: var(--blue);
 }
 
@@ -2011,6 +2010,11 @@
     margin-left: 20px;
     font-size: 1.6rem;
     background-image: linear-gradient(to bottom right, #1d26c8 20%, #402786 100%);
+}
+
+.footer__get-new-submit:hover {
+    opacity: 0.9;
+    cursor: pointer;
 }
 
 .footer__mid {
@@ -2056,6 +2060,7 @@
 .footer__follow {
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .footer__follow-title {
@@ -2068,9 +2073,9 @@
 }
 
 .footer__follow-item {
-    display: flex;
     align-items: center;
     font-size: 2rem;
+    cursor: pointer;
 }
 
 .footer__follow-icon {
@@ -2079,17 +2084,33 @@
     margin-right: 6px;
 }
 
+.footer__follow-icon,
+.footer__follow-item {
+    transition: ease .3s;
+}
+
+.footer__follow-item:hover {
+    color: var(--red);
+    margin-left: -2px;
+}
+
+.footer__follow-item:first-child:hover,
+.footer__follow-item:last-child:hover  {
+    color: var(--blue);
+}
+
+.footer__follow-item:hover .footer__follow-icon  {
+    scale: 1.1;
+}
+
 .footer,
 .footer__last,
 .footer__contact-list,
 .footer__get-news,
 .footer__mid,
+.footer__follow-item,
 .footer__brand-title-box {
     display: flex;
-}
-
-.footer__logo.animate {
-    animation: up-in ease .8s forwards;
 }
 
 .footer__last {
@@ -2099,36 +2120,6 @@
     justify-content: space-between;
 }
 
-.footer__copyright,
-.footer__contact-item {
-    /* opacity: 0.8; */
+.footer__copyright{
     font-size: 1.6rem;
-}
-
-.footer__contact-list {
-    padding: 2px 0;
-}
-
-.footer__contact-item {
-    padding: 0 10px;
-    transition: .3s ease;
-}
-
-.footer__contact-item:hover {
-    color: var(--red);
-    cursor: pointer;
-    scale: 1.2;
-}
-
-.footer__contact-item:first-child:hover {
-    color: var(--blue);
-}
-
-.footer__contact-item:last-child:hover {
-    color: var(--yellow);
-}
-
-.footer__contact-icon {
-    font-size: 1.8rem;
-    margin-right: 3px;
 }
