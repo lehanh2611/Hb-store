@@ -1,12 +1,9 @@
 /***** Import *****/
 import {
-    $,
-    $$,
-    homeApi,
+    accountApi,
     GETelement,
-    PUTelement,
+    PATCHelement,
     loginSuccess,
-    acccounts,
     userActiveID
 } from "../end_point.js"
 
@@ -16,12 +13,11 @@ export const logHistory = {
     rememberId: sessionStorage.getItem('rememberLogInfo'),
     localId: localStorage.getItem('rememberLogInfo'),
 
-
     //Auto login from login history
     autoLogin: function () {
         if (this.rememberId || this.localId) {
 
-            GETelement(homeApi, (accounts) => {
+            GETelement(accountApi, (accounts) => {
 
                 if (this.rememberId) {
                     loginSuccess(this.rememberId, accounts)
@@ -81,7 +77,7 @@ export const logHistory = {
 
     //Save login info
     saveLogInfo: function (userId, accounts, isRemember = false) {
-        const url = `${homeApi}/${userId}`
+        const url = `${accountApi}/${userId}`
         const loginHistory = accounts[userId]?.LoginHistory
         const trustedDevice = accounts[userId]?.TrustedDevice
 
@@ -98,7 +94,7 @@ export const logHistory = {
         Promise.all([
             new Promise((resolve) => {
                 if (loginHistory === 'undefined' || loginHistory === '') {
-                    PUTelement(url, { LoginHistory: [] }, () => resolve())
+                    PATCHelement(url, { LoginHistory: [] }, () => resolve())
                 }
                 else {
                     resolve()
@@ -106,7 +102,7 @@ export const logHistory = {
             }),
             new Promise((resolve) => {
                 if (trustedDevice === 'undefined' || trustedDevice === '') {
-                    PUTelement(url, { TrustedDevice: [] }, () => resolve())
+                    PATCHelement(url, { TrustedDevice: [] }, () => resolve())
                 } else {
                     resolve()
                 }
@@ -116,7 +112,7 @@ export const logHistory = {
                 GETelement(url, (account) => {
 
                     if (account?.LoginHistory?.length === 0 || !account.LoginHistory) {
-                        PUTelement(url, { LoginHistory: [this.logInfo] })
+                        PATCHelement(url, { LoginHistory: [this.logInfo] })
                     }
                     else {
 
@@ -132,7 +128,7 @@ export const logHistory = {
                             //Save the last 5 login info
                             if (oldLogHistory.length >= 5) { oldLogHistory = oldLogHistory.slice(0, 9) }
 
-                            PUTelement(url, { LoginHistory: [this.logInfo, ...oldLogHistory,] })
+                            PATCHelement(url, { LoginHistory: [this.logInfo, ...oldLogHistory,] })
                         }
 
                     }
@@ -142,7 +138,7 @@ export const logHistory = {
                         localStorage.setItem('rememberLogInfo', userId)
 
                         if (account?.TrustedDevice?.length === 0 || !account.TrustedDevice) {
-                            PUTelement(url, { TrustedDevice: [this.logInfo] })
+                            PATCHelement(url, { TrustedDevice: [this.logInfo] })
                         }
                         else {
 
@@ -151,7 +147,7 @@ export const logHistory = {
                                 return device.DeviceId === this.logInfo.DeviceId
                             })
                             if (!result) {
-                                PUTelement(url, { TrustedDevice: [...trustedDevice, this.logInfo] })
+                                PATCHelement(url, { TrustedDevice: [...trustedDevice, this.logInfo] })
                             }
                         }
 
@@ -165,7 +161,7 @@ export const logHistory = {
 
     //Remove from trusted device
     deleteTrustedDevice: function () {
-        const url = `${homeApi}/${userActiveID}`
+        const url = `${accountApi}/${userActiveID}`
 
         GETelement(url, (account) => {
             if (typeof account.TrustedDevice !== 'undefined'
@@ -176,7 +172,7 @@ export const logHistory = {
                         let trustedDevice = account.TrustedDevice
 
                         trustedDevice.splice(index, 1)
-                        PUTelement(url, {
+                        PATCHelement(url, {
                             TrustedDevice: trustedDevice
                         })
                         this.logInfo = null
@@ -187,10 +183,6 @@ export const logHistory = {
         })
 
     },
-
-
-
-
     start: function () {
         this.autoLogin()
     }

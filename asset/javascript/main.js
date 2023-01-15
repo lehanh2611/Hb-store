@@ -2,10 +2,9 @@
 import {
     /***** Function *****/
     recursive,
-    homeApi,
+    accountApi,
     GETelement,
-    POSTelement,
-    PUTelement,
+    PATCHelement,
     DELETEelement,
     formatMoney,
     select,
@@ -36,22 +35,15 @@ import {
     logHistory,
     renderProduct,
     filter,
+    responsive,
+    processLoad,
+    cart,
+    closeWithRule,
 
 
 } from "./end_point.js"
 //***** Global *****/
-console.log(window.location)
-
-const app = {
-    start: function () {
-        logout.start()
-        logHistory.start()
-        rippleBtn($$('.rippleBtn'))
-    }
-}
-setTimeout(() => { app.start() }, 0);
-
-
+let productsMain
 
 /***** Header *****/
 header();
@@ -90,6 +82,21 @@ function header() {
         setTimeout(() => { goHeadBtn.addEventListener('click', goHead) }, 1000)
     };
 
+    //Render cart
+    $('.header__feature-box.cart').onmouseenter = () => {
+        renderCart()
+    }
+    $('.header__user-menu-item.cart').addEventListener('click', renderCart)
+    function renderCart() {
+        if (!productsMain || !cart.cartData) {
+            setTimeout(() => { renderCart() }, 100);
+        }
+        else {
+            cart.renderCart(productsMain)
+        }
+    }
+    renderCart()
+
     //Menu bar
     const menuBarBtn = $('.header__feature-box .menuBarBtn')
     const menuBarBody = $('.header__menu-bar')
@@ -97,24 +104,32 @@ function header() {
     menuBarBtn.addEventListener('click', menuBar)
 
     function menuBar() {
-        menuBarBtn.removeEventListener('click', menuBar)
         menuBarBody.classList.toggle('active')
 
-        if (menuBarBody.classList.value.indexOf('active') === -1) {
-            plateBlur(false)
+        if (menuBarBody.classList.value.includes('active')) {
+            plateBlur(true, menuBarBody)
         }
         else {
-            plateBlur()
+            plateBlur(false)
         }
 
-        plateBlurBody.addEventListener('click', () => {
+        window.addEventListener('click', function close(e) {
+
+            closeWithRule.start(e, ['.header__menu-bar', '.menuBarBtn'], (e) => {
+                menuBarBody.classList.remove('active')
+                window.removeEventListener('click', close)
+                plateBlur(false)
+            }, true)
+        })
+
+    }
+    window.addEventListener('resize', () => {
+        responsive.custom(() => {
             menuBarBody.classList.remove('active')
             plateBlur(false)
-        })
-        setTimeout(() => {
-            menuBarBtn.addEventListener('click', menuBar)
-        }, 399);
-    }
+        }, 600, Infinity, 'menuBar')
+        responsive.low(() => { }, 'menuBar')
+    })
 
     // MenuSearch
     let menuSearch = $('.header__menu-search'),
@@ -192,9 +207,11 @@ function header() {
         function showHidePassWord() {
             let btnTop = (this.getBoundingClientRect()).top;
             let btnBottom = (this.getBoundingClientRect()).bottom;
+
             for (let inputPassWord of inputPassWords) {
                 let inputTop = (inputPassWord.getBoundingClientRect()).top
                 let inputBotom = (inputPassWord.getBoundingClientRect()).bottom;;
+
                 if (btnTop <= inputTop && btnBottom >= inputBotom) {
                     this.classList.toggle('fa-eye-slash');
                     if (inputPassWord.type === 'password') {
@@ -224,22 +241,39 @@ function header() {
                 openmodalLogReg()
             }
             else {
+                if (window.innerWidth > 600) {
+                    menuUser.classList.add('hide');
+                    setTimeout(() => {
+                        menuUser.classList.remove('hide');
+                    }, 100);
+                    return
+                }
+
                 menuUser.classList.toggle('active')
 
-                if (menuUser.classList.value.indexOf('active') !== -1) {
-                    plateBlur()
+                if (menuUser.classList.value.includes('active')) {
+                    plateBlur(true, menuUser)
                 }
                 else {
                     plateBlur(false)
                 }
-
-                plateBlurBody.onclick = () => {
-                    plateBlur(false)
-                    menuUser.classList.remove('active')
-                }
             }
 
         }
+
+        window.addEventListener('click', function close(e) {
+            closeWithRule.start(
+                e,
+                ['.header__user-menu',
+                    '.flash-sale__btn',
+                    '.header__user-contain'],
+                () => {
+                    if (menuUser.classList.value.includes('active')) {
+                        menuUser.classList.remove('active')
+                        plateBlur(false)
+                    }
+                })
+        })
         function openmodalLogReg() {
             setTimeout(() => {
                 plateBlur()
@@ -538,7 +572,7 @@ function header() {
                     })
                     //Get list account
                     let getAccounts = new Promise((resolve) => {
-                        GETelement(homeApi, (element) => {
+                        GETelement(accountApi, (element) => {
                             resolve(element)
                         })
                     })
@@ -546,7 +580,7 @@ function header() {
                         //classify
                         if (loginMenu.getBoundingClientRect().top <= 0) {
                             //Register
-                            
+
                             let register = new Promise((resolve, reject) => {
                                 //Input of Register
                                 let inputRegisters = [
@@ -564,10 +598,9 @@ function header() {
                                     }
                                 ];
 
-                                //Check existence
                                 let inputResult = getValueInput(inputRegisters),
                                     existenceResult = accounts.every((account) => {
-                                        return account['Username'] !== inputResult.Username
+                                        return account.Username !== inputResult.Username
                                     })
                                 //Register successful
                                 if (existenceResult) {
@@ -596,10 +629,10 @@ function header() {
                                         inputResult.Username,
                                         inputResult.Password,
                                         inputResult.Email)
+                                    PATCHelement(`${accountApi}/${createUser.UserID}`, createUser, (value) => {
 
-                                    POSTelement(homeApi, createUser, (value) => {
                                         if (value.Username === createUser.Username) {
-                                            GETelement(homeApi, (accounts) => {
+                                            GETelement(accountApi, (accounts) => {
                                                 //Save info login
                                                 if (checked) {
                                                     logHistory.saveLogInfo(value.UserID, accounts, true)
@@ -625,7 +658,7 @@ function header() {
                                         'Nhấn để đăng nhập nhanh!',
                                         (isSuccess) => {
                                             if (isSuccess) {
-                                                GETelement(homeApi, (accounts) => {
+                                                GETelement(accountApi, (accounts) => {
                                                     closemodalLogReg()
                                                     loginSuccess(userId, accounts)
                                                 })
@@ -728,7 +761,7 @@ function content() {
     const renderTopRecharge = {
         balance: function () {
             let getBalance = new Promise((resolve) => {
-                GETelement(homeApi, (value) => {
+                GETelement(accountApi, (value) => {
                     let money = value.map(element => element.Money)
                     resolve([money, value])
                 })
@@ -834,174 +867,175 @@ const flashSale = {
     productContain: $('.product-item__list'),
     btnLeft: $('.flash-sale__btn.left'),
     btnRight: $('.flash-sale__btn.right'),
+    slot: 0,
+    indexStart: 0,
+    indexEnd: 0,
+    iList: 0,
     countdownTime: 10000,
 
     // Render product
     render: function (product, indexStart, indexEnd) {
-
         let listProduct = product.slice(indexStart, indexEnd)
-
         this.productContain.innerHTML = renderProduct(listProduct)
     },
 
     slide: function (value) {
-        let slot = value
-        let indexStart = 0
-        let indexEnd = slot
+        flashSale.slot = value
+        this.indexStart = 0
+        this.indexEnd = flashSale.slot
 
 
         GETelement(productAPi, (Products) => {
+            productsMain = Products
 
-            filter(Products, {flashSale: 'Yes'}, (newProduct) => {
+            filter(Products, { flashSale: 'Yes' }, (newProduct) => {
                 Products = newProduct
 
+                let listLeng = Math.ceil(Products.length / flashSale.slot)
 
-
-            let listLeng = Math.ceil(Products.length / slot)
-            let iList = 0
-
-            indexList(iList)
-            this.process()
-            this.render(Products, 0, slot)
-            rippleBtn($$('.rippleBtn'))
-            flashSale.productContain.classList.add('loadProduct')
-
-            this.btnRight.addEventListener('click', nextList)
-            function nextList() {
-                flashSale.btnRight.removeEventListener('click', nextList)
-                flashSale.productContain.classList.add('loadProduct')
-
-                indexStart += slot
-                indexEnd += slot
-
-                if (indexEnd <= Products.length) {
-                    flashSale.render(Products, indexStart, indexEnd)
-                }
-                else {
-                    if (indexStart < Products.length) {
-
-                        flashSale.render(Products, indexStart, indexStart + (Products.length - indexStart))
-                    }
-                    else {
-                        indexStart = 0
-                        indexEnd = slot
-                        flashSale.render(Products, indexStart, indexEnd)
-                    }
-                }
-
-                iList += 1
-                if (iList < listLeng) {
-                    indexList(iList)
-                }
-                else {
-                    iList = 0
-                    indexList(iList)
-                }
-
-                flashSale.btnRight.addEventListener('click', nextList)
-            }
-
-
-            this.btnLeft.addEventListener('click', backList)
-            function backList() {
-                flashSale.btnLeft.removeEventListener('click', backList)
-                flashSale.productContain.classList.add('loadProduct')
-
-                indexStart -= slot
-                indexEnd -= slot
-
-                if (indexStart < 0) {
-                    let index = 1
-
-                    indexEnd = Products.length
-                    while ((Products.length - index) % slot !== 0) {
-                        ++index
-                    }
-
-                    indexStart = Products.length - index
-                    flashSale.render(Products, indexStart, indexEnd)
-
-                    indexEnd = indexStart + slot
-                }
-                else {
-                    flashSale.render(Products, indexStart, indexEnd)
-                }
-
-                iList -= 1
-                if (iList >= 0) {
-                    indexList(iList)
-                }
-                else {
-                    iList = listLeng - 1
-                    indexList(iList)
-                }
-
-                flashSale.btnLeft.addEventListener('click', backList)
-            }
-
-            function indexList(index) {
-                const itemBox = $('.flash-sale__list-index-box')
-                let items = $$('.flash-sale__list-index')
-
+                indexList(flashSale.iList)
+                this.process()
+                this.render(Products, 0, flashSale.slot)
                 rippleBtn($$('.rippleBtn'))
+                flashSale.productContain.classList.add('loadProduct')
 
-                for (let item of items) {
-                    item.classList.remove('active')
-                }
+                this.btnRight.addEventListener('click', nextList)
+                function nextList() {
+                    flashSale.btnRight.removeEventListener('click', nextList)
+                    flashSale.productContain.classList.add('loadProduct')
 
-                setTimeout(() => {
+                    flashSale.indexStart += flashSale.slot
+                    flashSale.indexEnd += flashSale.slot
 
-                    if (!itemBox.querySelector('span')) {
-                        createIndex()
+                    if (flashSale.indexEnd <= Products.length) {
+                        flashSale.render(Products, flashSale.indexStart, flashSale.indexEnd)
                     }
                     else {
-                        for (let element of items) {
-                            element.remove()
+                        if (flashSale.indexStart < Products.length) {
+
+                            flashSale.render(Products, flashSale.indexStart, flashSale.indexStart + (Products.length - flashSale.indexStart))
                         }
-                        createIndex()
+                        else {
+                            flashSale.indexStart = 0
+                            flashSale.indexEnd = flashSale.slot
+                            flashSale.render(Products, flashSale.indexStart, flashSale.indexEnd)
+                        }
                     }
 
-                    function createIndex() {
-                        let i = 0
-                        let accElement = ''
-
-                        while (i < listLeng) {
-                            accElement += `<span class="flash-sale__list-index"></span>`
-                            i++
-                        }
-                        itemBox.innerHTML = accElement
+                    flashSale.iList += 1
+                    if (flashSale.iList < listLeng) {
+                        indexList(flashSale.iList)
+                    }
+                    else {
+                        flashSale.iList = 0
+                        indexList(flashSale.iList)
                     }
 
-                    items = $$('.flash-sale__list-index')
-                    items[index].classList.add('active')
-                }, 200);
-            }
-            window.addEventListener('scroll', showNoti)
-            function showNoti() {
-                let notifi = $('.flash-sale__notification')
-                if (window.scrollY >= 260) {
-                    notifi.classList.add('active')
-                    setTimeout(() => { notifi.classList.remove('active') }, 5000);
-                    window.removeEventListener('scroll', showNoti)
+                    flashSale.btnRight.addEventListener('click', nextList)
                 }
-            }
-        })
+
+
+                this.btnLeft.addEventListener('click', backList)
+                function backList() {
+                    flashSale.btnLeft.removeEventListener('click', backList)
+                    flashSale.productContain.classList.add('loadProduct')
+
+                    flashSale.indexStart -= flashSale.slot
+                    flashSale.indexEnd -= flashSale.slot
+
+                    if (flashSale.indexStart < 0) {
+                        let index = 1
+
+                        flashSale.indexEnd = Products.length
+                        while ((Products.length - index) % flashSale.slot !== 0) {
+                            ++index
+                        }
+
+                        flashSale.indexStart = Products.length - index
+                        flashSale.render(Products, flashSale.indexStart, flashSale.indexEnd)
+
+                        flashSale.indexEnd = flashSale.indexStart + flashSale.slot
+                    }
+                    else {
+                        flashSale.render(Products, flashSale.indexStart, flashSale.indexEnd)
+                    }
+
+                    flashSale.iList -= 1
+                    if (flashSale.iList >= 0) {
+                        indexList(flashSale.iList)
+                    }
+                    else {
+                        flashSale.iList = listLeng - 1
+                        indexList(flashSale.iList)
+                    }
+
+                    flashSale.btnLeft.addEventListener('click', backList)
+                }
+
+                function indexList(index) {
+                    const itemBox = $('.flash-sale__list-index-box')
+                    let items = $$('.flash-sale__list-index')
+
+                    rippleBtn($$('.rippleBtn'))
+
+                    for (let item of items) {
+                        item.classList.remove('active')
+                    }
+
+                    setTimeout(() => {
+
+                        if (!itemBox.querySelector('span')) {
+                            createIndex()
+                        }
+                        else {
+                            for (let element of items) {
+                                element.remove()
+                            }
+                            createIndex()
+                        }
+
+                        function createIndex() {
+                            let i = 0
+                            let accElement = ''
+
+                            while (i < listLeng) {
+                                accElement += `<span class="flash-sale__list-index"></span>`
+                                i++
+                            }
+                            itemBox.innerHTML = accElement
+                        }
+
+                        items = $$('.flash-sale__list-index')
+                        items[index].classList.add('active')
+                    }, 200);
+                }
+                window.addEventListener('scroll', showNoti)
+
+                function showNoti() {
+                    let notifi = $('.flash-sale__notification')
+                    if (window.scrollY >= 260) {
+                        notifi.classList.add('active')
+                        setTimeout(() => { notifi.classList.remove('active') }, 5000);
+                        window.removeEventListener('scroll', showNoti)
+                    }
+                }
+            })
 
         })
 
     },
 
     process: function () {
-        const processE = $('.flash-sale__slide-process')
-        const keyframes = [
+        var processE = $('.flash-sale__slide-process')
+        var keyframes = [
             { 'width': '0%' },
             { 'width': '100%' }
         ]
-        const options = {
+        var options = {
             duration: this.countdownTime,
             iterations: 1,
         }
-        const animate = processE.animate(keyframes, options)
+        var animate = processE.animate(keyframes, options)
 
         animate.onfinish = () => {
             this.btnRight.click()
@@ -1025,14 +1059,11 @@ const flashSale = {
 
         //Cancel
         if (animate.currentTime > 100) {
-            console.log(clear)
             animate.cancel()
         }
-        this.btnRight.onclick = () => {
-            animate.cancel()
-            animate.play()
-        }
-        this.btnLeft.onclick = () => {
+        this.btnRight.addEventListener('click', cancel)
+        this.btnLeft.addEventListener('click', cancel)
+        function cancel() {
             animate.cancel()
             animate.play()
         }
@@ -1053,81 +1084,521 @@ const flashSale = {
         $('.flash-sale__countdown-times.seconds').innerHTML =
             60 - seconds <= 9 ? `0${60 - seconds}` : 60 - seconds
     },
+    responsive: function () {
+        responsive.custom(() => {
+            flashSale.slot = 5
+            flashSale.indexStart = 0
+            flashSale.indexEnd = 5
+            flashSale.iList = 0
+            flashSale.btnLeft.click()
+            flashSale.btnRight.click()
+        }, 1200, Infinity, 'flashSale_slide')
 
+        responsive.custom(() => {
+            flashSale.slot = 4
+            flashSale.indexStart = 0
+            flashSale.indexEnd = 4
+            flashSale.iList = 0
+            flashSale.countdownTime = 8000
+            flashSale.btnLeft.click()
+            flashSale.btnRight.click()
+        }, 960, 1119.9, 'flashSale_slide')
 
+        responsive.custom(() => {
+            flashSale.slot = 3
+            flashSale.indexStart = 0
+            flashSale.indexEnd = 3
+            flashSale.iList = 0
+            flashSale.countdownTime = 6000
+            flashSale.btnLeft.click()
+            flashSale.btnRight.click()
+        }, 720, 959.9, 'flashSale_slide')
+
+        responsive.custom(() => {
+            flashSale.slot = 2
+            flashSale.indexStart = 0
+            flashSale.indexEnd = 2
+            flashSale.iList = 0
+            flashSale.countdownTime = 3999
+            flashSale.btnLeft.click()
+            flashSale.btnRight.click()
+        }, 480, 719.9, 'flashSale_slide')
+
+        responsive.custom(() => {
+            flashSale.slot = 1
+            flashSale.indexStart = 0
+            flashSale.indexEnd = 1
+            flashSale.iList = 0
+            flashSale.countdownTime = 3999
+            flashSale.btnLeft.click()
+            flashSale.btnRight.click()
+        }, 0, 480, 'flashSale_slide')
+    },
 
 
     start: function () {
+        flashSale.slide(5)
+        setTimeout(() => {
+            this.responsive()
+        }, 0);
+
+        //countdown timer
         setInterval(() => { this.timer() }, 1000);
 
-        //Screen width case
-        let screenWidth = window.innerWidth
 
-        if (screenWidth > 1200) {
-            flashSale.slide(5)
-        }
-        if (screenWidth < 1200 && screenWidth > 960) {
-            this.countdownTime = 8000
-            flashSale.slide(4)
-        }
-        if (screenWidth < 960 && screenWidth > 720) {
-            this.countdownTime = 6000
-            flashSale.slide(3)
-        }
-        if (screenWidth < 720 && screenWidth > 480) {
-            this.countdownTime = 5000
-            flashSale.slide(2)
-        }
-        if (screenWidth < 480) {
-            this.countdownTime = 3000
-            flashSale.slide(1)
-        }
+        window.addEventListener('resize', () => {
+            this.responsive()
+        })
     }
 }
+
 flashSale.start()
 
+
+
 //Stall
-const stall = {
-    productContain: $('.stall__product-contain'),
-    navItems: $$('.stall__navbar-item'),
-    options: $$('.stall__navbar-item-options'),
+const stall = function () {
+    GETelement(productAPi, products => {
+        const stall = {
+            productContain: $('.stall__product-contain'),
+            filterBtn: $('.stall__filter-btn'),
+            navItems: $$('.stall__navbar-item'),
+            options: $$('.stall__navbar-item-options'),
+            iStart: 0,
+            iEnd: 0,
+            slot: 0,
+            iCheck: 0,
+            productsFil: products,
 
-    renderProduct: function () {
-        GETelement(productAPi, (products) => {
-            this.productContain.innerHTML = renderProduct(products)
+            activeBtn: function () {
+                //event select navbar
+                select(this.navItems)
+                select(this.options, (element) => {
+                    let parent = element.closest('.stall__navbar-menu')
+                    let title = parent.querySelector('.stall__navbar-menu-title')
+                    let titleText = title.innerText
+                    let exist = titleText.indexOf(':')
 
+                    if (exist !== -1) {
+                        title.innerText =
+                            `${titleText.slice(0, exist)}: ${element.innerText}`
+                    }
+                    else {
+                        title.innerText =
+                            `${titleText}: ${element.innerText}`
+                    }
+                })
+
+                //filer btn
+                this.filterBtn.addEventListener('click', (e) => {
+                    e.stopPropagation()
+                    this.filterBtn.classList.toggle('active')
+                })
+
+                window.onclick = (e) => {
+                    if (!e.target.closest('.stall__filter')
+                        && this.filterBtn.classList.value.includes('active')
+                        && e.target !== $('.flash-sale__btn.right')) {
+
+                        this.filterBtn.classList.remove('active')
+                    }
+                }
+
+            },
+
+            filterProduct: function () {
+                const options = $$('.stall__navbar-item')
+                const optionsSv = $('#stall__filter-menu-server')
+                const opntionPrice = $('#stall__filter-menu-price')
+                sessionStorage.setItem('filter_sort', JSON.stringify(products))
+                const productsOld = JSON.parse(sessionStorage.getItem('filter_sort'))
+                let ruleFil = {}
+
+                //turn on filter
+                this.responsive()
+                optionsSv.onchange = () => {
+                    startFil()
+                }
+                opntionPrice.onchange = () => {
+                    startFil()
+                }
+                for (const option of options) {
+                    option.onclick = () => { startFil() }
+                }
+
+                //turn off filter
+                $('.stall__filter-menu-clear').onclick = () => {
+                    const menuFils = $$('.stall__filter-menu select')
+
+                    startFil(true)
+                    //reset default select
+                    for (const menuFil of menuFils) {
+                        menuFil.querySelector('option').selected = true
+                    }
+                    //hide menu filter
+                    this.filterBtn.classList.remove('active')
+                }
+
+                function startFil(clear = false) {
+                    const optionActive = $('.stall__navbar-item.active')
+                    const iconFil = $('.stall__filter-icon')
+
+                    ruleFil.price = opntionPrice.value
+                    ruleFil.server = optionsSv.value
+
+                    ruleFil.type = optionActive.innerText
+
+                    if (ruleFil.type === 'Tất cả') {
+                        delete ruleFil.type
+                    }
+                    if (ruleFil.server === 'default') {
+                        delete ruleFil.server
+                    }
+                    if (ruleFil.price === 'default') {
+                        delete ruleFil.price
+                    }
+
+                    if (clear) {
+                        delete ruleFil.server
+                        delete ruleFil.price
+                    }
+
+                    if (Object.values(ruleFil).length > 1) {
+                        iconFil.classList.add('active')
+                    }
+                    else {
+                        iconFil.classList.remove('active')
+                    }
+
+                    filter(products, ruleFil, (v) => {
+                        stall.productsFil = v
+                        stall.renderPdtStall()
+
+                        if (clear) {
+                            stall.productsFil = productsOld
+                        }
+                        else {
+                            products = productsOld
+                        }
+                    })
+                }
+
+            },
+
+            nextPage: function () {
+                const btnLeft = $('.stall__page-return')
+                const btnRight = $('.stall__page-next')
+
+                function iSearch() {
+                    let searchI = products.length - 1
+
+                    while (searchI % stall.slot !== 0) {
+                        searchI--
+                    }
+                    stall.iStart = searchI
+                    stall.iEnd = products.length
+                }
+
+                btnRight.onclick = () => {
+                    this.iStart += this.slot
+                    this.iEnd = this.iStart + this.slot
+
+                    if (this.iEnd > products.length) {
+                        iSearch()
+                        if (this.iCheck !== 0) {
+                            this.iStart = 0
+                            this.iEnd = this.slot
+                            this.iCheck = -1
+                        }
+                        this.iCheck++
+                    }
+                    this.goUp()
+                    stall.renderPdtStall(this.iStart, this.iEnd)
+                }
+
+                btnLeft.onclick = () => {
+                    // this.iCheck = 0
+                    this.iStart -= this.slot
+                    this.iEnd = this.iStart + this.slot
+
+                    if (this.iStart < 0) {
+                        iSearch()
+                    }
+                    this.goUp()
+                    stall.renderPdtStall(this.iStart, this.iEnd)
+                }
+            },
+
+            indexPage: function () {
+                let indexs = Array.from($$('.stall__page-index'))
+                const indexStart = $('.stall__page-index-start')
+                const indexEnd = $('.stall__page-index-last')
+                const moreFirst = $('.stall__page-index-more.first')
+                const moreLast = $('.stall__page-index-more.last')
+                const totalPageNum = Math.ceil(products.length / this.slot)
+                const indexCurrent = Math.ceil(this.iEnd / this.slot)
+
+                //update box index page
+                indexs.forEach((elm, i) => {
+                    if (i >= totalPageNum) {
+                        elm.remove()
+                    }
+                })
+                indexs = Array.from($$('.stall__page-index'))
+
+                //act select page
+                for (let index of indexs) {
+                    index.onclick = () => {
+                        const iActive = Number(index.innerText)
+                        indexHandle(iActive)
+
+                        ++this.iCheck
+
+                        this.goUp()
+                        this.renderPdtStall()
+                    }
+                }
+
+                indexHandle(indexCurrent)
+                function indexHandle(j) {
+                    indexEnd.innerText = totalPageNum
+                    // if (indexEnd.innerText <= 5) {
+                    //     console.log(indexEnd.innerText)
+                    //     moreLast.style.display = 'none'
+                    //     indexEnd.style.display = 'none'
+                    // }
+                    // else {
+                    //     console.log(indexEnd.innerText)
+                    //     moreLast.style.display = 'flex'
+                    //     indexEnd.style.display = 'flex'
+                    // }
+
+
+                    function removeActive() {
+                        for (let elm of indexs) {
+                            elm.classList.remove('active')
+                        }
+                    }
+
+                    if (j <= 4) {
+                        indexs.forEach((elm, i) => {
+                            const index = ++i
+                            elm.innerText = index
+                            removeActive()
+                            if (index === j) { elm.classList.add('active') }
+                        })
+                    }
+                    else {
+                        removeActive()
+                        indexs[2].classList.add('active')
+                        indexs[0].innerText = j - 2
+                        indexs[1].innerText = j - 1
+                        indexs[2].innerText = j
+                        indexs[3].innerText = j + 1
+                        indexs[4].innerText = j + 2
+                    }
+
+                    if (j === totalPageNum) {
+                        let i = indexs.length - 1
+                        for (let e of indexs) {
+                            e.innerText = totalPageNum - i--
+                        }
+
+                        indexEnd.style.display = 'none'
+                        moreLast.style.display = 'none'
+
+                        removeActive()
+                        indexs[4].classList.add('active')
+                    }
+                    else {
+                        indexEnd.style.display = 'flex'
+                    }
+
+                    if (indexs[3].innerText >= totalPageNum) {
+                        indexs[3].style.display = 'none'
+                    }
+                    else {
+                        indexs[3].style.display = 'flex'
+                    }
+
+                    if (indexs[4].innerText >= totalPageNum
+                        && indexEnd.style.display !== 'none') {
+
+                        indexs[4].style.display = 'none'
+                    }
+                    else {
+                        indexs[4].style.display = 'flex'
+                    }
+
+                    if (indexs[4].innerText <= totalPageNum - 2) {
+                        moreLast.style.display = 'flex'
+                    }
+                    else {
+                        moreLast.style.display = 'none'
+                    }
+
+                    if (j >= 6) {
+                        indexStart.classList.add('active')
+                        moreFirst.classList.add('active')
+                    }
+                    else {
+                        indexStart.classList.remove('active')
+                        moreFirst.classList.remove('active')
+                    }
+
+                    //active current page
+                    for (let i of indexs) {
+                        if (i.innerText == indexCurrent) {
+                            removeActive()
+                            i.classList.add('active')
+                        }
+                        else {
+                            i.classList.remove('active')
+                        }
+                    }
+                    stall.iEnd = j * stall.slot
+                    stall.iStart = stall.iEnd - stall.slot
+                }
+                indexStart.onclick = () => {
+                    indexs[2].innerText = 3
+                    indexs[2].click()
+                }
+
+                indexEnd.onclick = () => {
+                    indexs[2].innerText = totalPageNum
+                    indexs[2].click()
+                }
+
+            },
+            goUp: function () {
+                window.scroll({ top: window.scrollY + this.productContain.getBoundingClientRect().top - 200 })
+            },
+
+            renderPdtStall: function (iStart = this.iStart, iEnd = this.iEnd) {
+                processLoad.run(1)
+                this.productContain.innerHTML = renderProduct(stall.productsFil.slice(iStart, iEnd), false)
+
+                sessionStorage.setItem('iSStallPage', this.iStart)
+                let timeDelay = 0
+                for (const pdt of $$('.stall .product-item')) {
+                    pdt.style.animationDelay += timeDelay + 'ms'
+                    timeDelay += 50
+                }
+
+                this.indexPage()
+                processLoad.run(1)
+            },
+            responsive: function () {
+                const iStart = Number(sessionStorage.getItem('iSStallPage'))
+                if (!iStart) { this.iStart = iStart }
+
+                responsive.custom(() => {
+                    this.slot = 20
+                    this.iEnd = this.iStart + this.slot
+                    stall.renderPdtStall()
+                }, 1200, Infinity, 'stall_renderProduct')
+
+                responsive.custom(() => {
+                    this.slot = 16
+                    this.iEnd = this.iStart + this.slot
+                    stall.renderPdtStall()
+                }, 960, 1199.9, 'stall_renderProduct')
+
+                responsive.custom(() => {
+                    this.slot = 12
+                    this.iEnd = this.iStart + this.slot
+                    stall.renderPdtStall()
+                }, 720, 959.9, 'stall_renderProduct')
+
+                responsive.custom(() => {
+                    this.slot = 12
+                    this.iEnd = this.iStart + this.slot
+                    stall.renderPdtStall()
+                }, 529, 719.9, 'stall_renderProduct')
+
+                responsive.custom(() => {
+                    this.slot = 10
+                    this.iEnd = this.iStart + this.slot
+                    stall.renderPdtStall()
+                }, 0, 528.9, 'stall_renderProduct')
+
+                this.nextPage()
+            },
+            ui: function () {
+
+            },
+
+            start: function () {
+
+                this.activeBtn()
+                this.nextPage()
+                this.responsive()
+
+                window.onresize = () => {
+                    this.responsive()
+                }
+
+                this.filterProduct()
+            }
+        }
+        stall.start()
+    })
+}
+stall()
+
+const footer = {
+
+    ui: function () {
+        window.addEventListener('scroll', function animate() {
+            const logo = $('.footer__logo')
+            const category = $('.footer__category-list')
+
+            if (window.innerHeight - logo.getBoundingClientRect().top >= 0) {
+                logo.classList.add('animate')
+            }
+            else {
+                logo.classList.remove('animate')
+            }
+            if (window.innerHeight - category.getBoundingClientRect().top >= 0) {
+                category.classList.add('animate')
+            }
+            else {
+                category.classList.remove('animate')
+            }
         })
     },
 
+    selectOption: function () {
+        const btnFilHandle = Array.from($$('.stall__navbar-item'))
+        const options = Array.from($$('.footer__category-item'))
 
-    activeBtn: function () {
-        //event select navbar
-        select(this.navItems)
+        for (const option of options) {
+            option.onclick = function () {
+                const result = btnFilHandle.find(v => {
+                    return option.innerText.includes(v.innerText)
+                })
 
-        select(this.options, (element) => {
-            let parent = element.closest('.stall__navbar-menu')
-            let title = parent.querySelector('.stall__navbar-menu-title')
-            let titleText = title.innerText
-            let exist = titleText.indexOf(':')
-
-            if (exist !== -1) {
-                title.innerText =
-                    `${titleText.slice(0, exist)}: ${element.innerText}`
+                if (result) {
+                    result.click()
+                    window.scroll({ top: window.scrollY +  $('.stall__product-contain').getBoundingClientRect().top - 200 })
+                }
             }
-            else {
-                title.innerText =
-                    `${titleText}: ${element.innerText}`
-            }
-
-        })
-
-
+        }
     },
 
     start: function () {
-        this.renderProduct()
-        this.activeBtn()
+        // this.ui()
+        // this.selectOption()
     }
 }
+footer.start()
 
-stall.start()
+const app = {
+    start: function () {
+        logout.start()
+        logHistory.start()
+        rippleBtn($$('.rippleBtn'))
+        cart.start()
+    }
+}
+setTimeout(() => { app.start() }, 0);

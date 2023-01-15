@@ -1,4 +1,4 @@
-import { $, $$ } from "../end_point.js"
+import { $, $$, notificationWindow } from "../end_point.js"
 
 // Format money
 export function formatMoney(value) {
@@ -34,7 +34,7 @@ export function select(listElment, callback) {
 
         element.addEventListener('click', () => {
             removeActive()
-            
+
             element.classList.add('active')
             arguments.length >= 2 ? callback(element) : ''
         })
@@ -106,4 +106,44 @@ export function toLowerCaseNonAccentVietnamese(str) {
     str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // Huyền sắc hỏi ngã nặng 
     str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // Â, Ê, Ă, Ơ, Ư
     return str;
+}
+
+
+export function fastAtc() {
+    let clicks = 0
+    window.addEventListener('click', () => {
+        ++clicks
+        if (clicks >= 5) {
+            notificationWindow(false,
+                'Thao tác quá nhanh',
+                'vui lòng thao tác chậm lại',
+                () => { notificationWindow() })
+        }
+    })
+    setInterval(() => {
+        clicks -= 6
+        if (clicks < 0) { clicks = 0 }
+    }, 1000);
+}
+
+//close with rules
+export const closeWithRule = {
+    rules: '',
+    callback: '',
+    ruleDefault: '.flash-sale__btn',
+
+    run: function (e) {
+        const elmActive = e.target
+
+        if (!this.rules.some((v) => {
+            return elmActive.closest(v)
+        })) {
+            this.callback()
+        }
+    },
+    start: function (e,rules, callback) {
+        this.rules = [...rules, this.ruleDefault]
+        this.callback = callback
+        this.run(e)
+    }
 }

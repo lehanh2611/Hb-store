@@ -2,20 +2,20 @@
 import { $, $$ } from "../end_point.js"
 
 //plateBlur
-let i = 0
+let modals = []
 export let plateBlurBody = $('.plateBlur');
-export function plateBlur(value = true,) {
+export function plateBlur(value = true, selectModal) {
+    if (selectModal) { modals = [...modals, selectModal] }
+
     if (value === true) {
-        ++i
         plateBlurBody.classList.remove('hide');
         setTimeout(() => {
             plateBlurBody.classList.remove('opacity');
         }, 30);
     }
     else {
-        --i
-        if (i <= 0) {
-            plateBlurBody.classList.add('hide', 'opacity');
-        }
+        if (modals.some(v => v.classList.value.includes('active'))) { return }
+        plateBlurBody.classList.add('hide', 'opacity');
+        modals = []
     };
 };

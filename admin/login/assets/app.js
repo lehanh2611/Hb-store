@@ -1,5 +1,6 @@
 import {
     $, $$,
+    admin_accountApi,
     GETelement,
     notificationWindow,
 
@@ -46,7 +47,7 @@ const login = {
         }
 
         //Check if submit
-        GETelement('https://6392b4a0ac688bbe4c6929fb.mockapi.io/AdminAccount',
+        GETelement(admin_accountApi,
             (accounts) => {
                 let result = false
                 accounts.forEach((account) => {

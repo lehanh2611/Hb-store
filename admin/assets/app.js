@@ -2,10 +2,10 @@ import {
     /***** Function *****/
     recursive,
     GETelement,
-    POSTelement,
-    PUTelement,
+    PATCHelement,
     DELETEelement,
     formatMoney,
+    removeNull,
     select,
 
     /***** Constant *****/
@@ -13,14 +13,16 @@ import {
     $$,
 
     /***** Variable *****/
-    homeApi,
+    accountApi,
+    productAPi,
+    admin_accountApi,
 
     /***** Feature *****/
     notificationWindow,
     validate,
     filter,
     processLoad,
-    logHistory
+    logHistory,
 
 } from "../../asset/javascript/end_point.js"
 
@@ -35,9 +37,10 @@ const body = {
     //Handle from branching structure
     handle: {
         account: {
-            manage: function () {
+            manage: function (categoryKey) {
                 const keyBody = 'Account.Manage'
-                const apiBody = 'https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts'
+                const apiBody = accountApi
+                localStorage.setItem('categoryHistory', JSON.stringify(categoryKey))
 
                 //get the account
                 new Promise((resolve) => {
@@ -50,8 +53,8 @@ const body = {
                     }
 
                     // update localStorage data
+                    GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
                     if ((new Date).getMinutes() != localStorage.getItem('latestUpdate')) {
-                        GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
                     }
                 })
 
@@ -112,9 +115,8 @@ const body = {
                                 }).then((accounts) => {
 
                                     accounts.forEach((account) => {
-                                        if (account.UserID === element.getAttribute('item_id')) {
+                                        if (account.UserID == element.getAttribute('item_id')) {
                                             const date = account.DateCreated
-
                                             $('.app-bot__info-data.value.userid').innerText = account.UserID
                                             $('.app-bot__info-data.value.username').innerText = account.Username
                                             $('.app-bot__info-data.value.nickname').innerText = account.Nickname === undefined ? 'N/A' : account.Nickname
@@ -158,12 +160,12 @@ const body = {
 
                                     if (elementActive) {
 
-                                        GETelement(`${homeApi}/${containId}`,
+                                        GETelement(`${accountApi}/${containId}`,
                                             (account) => {
                                                 new Promise((resolve) => {
                                                     if (account.Block == "false") {
 
-                                                        PUTelement(`${homeApi}/${containId}`, {
+                                                        PATCHelement(`${accountApi}/${containId}`, {
                                                             Block: "true"
                                                         }, () => { resolve() })
 
@@ -176,7 +178,7 @@ const body = {
                                                     }
                                                     else {
 
-                                                        PUTelement(`${homeApi}/${containId}`, {
+                                                        PATCHelement(`${accountApi}/${containId}`, {
                                                             Block: "false"
                                                         }, () => { resolve() })
 
@@ -245,7 +247,7 @@ const body = {
                                         depositSubmit.classList.add('active')
 
                                         //check password admin 
-                                        GETelement(`https://6392b4a0ac688bbe4c6929fb.mockapi.io/AdminAccount/${admin.UserId}`,
+                                        GETelement(`${admin_accountApi}/${admin.UserId}`,
                                             (account) => {
 
                                                 //password ok => continue deposit
@@ -262,7 +264,7 @@ const body = {
                                                         return
                                                     }
 
-                                                    const url = `https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts/${elementActive.getAttribute('item_id')}`
+                                                    const url = `${accountApi}/${elementActive.getAttribute('item_id')}`
 
                                                     //deposit...
                                                     GETelement(url, (account) => {
@@ -270,7 +272,7 @@ const body = {
                                                         const newMoney = currentMoney + depositValue
 
                                                         //deposit successful
-                                                        PUTelement(url, { Money: newMoney, TotalDeposit: account.TotalDeposit + depositValue }, () => {
+                                                        PATCHelement(url, { Money: newMoney, TotalDeposit: account.TotalDeposit + depositValue }, () => {
 
                                                             //show new money
                                                             elementActive.querySelector('.app-board__data-item.money').innerText =
@@ -350,14 +352,15 @@ const body = {
             }
         },
         product: {
-            manage: function () {
+            manage: function (categoryKey) {
                 const keyBody = 'Product.Manage'
                 const productContain = $('.app-borad__contain')
                 const form = $('.product-form')
                 const submit = $('.product-form__submit')
                 const formTitle = $('.product-form__title')
                 const formTitleSub = $('.product-form__title-sub')
-                // const form
+
+                localStorage.setItem('categoryHistory', JSON.stringify(categoryKey))
 
                 new Promise((resolve) => {
                     const products = JSON.parse(localStorage.getItem(keyBody))
@@ -369,8 +372,8 @@ const body = {
                     }
 
                     // update localStorage data
+                    GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
                     if ((new Date).getMinutes() != localStorage.getItem('latestUpdate')) {
-                        GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
                     }
                 })
 
@@ -392,7 +395,6 @@ const body = {
                                     else { resolve(products) }
                                 })
                                     .then((data) => {
-
                                         const output = data.reduce((accmulate, product) => {
                                             return accmulate +=
                                                 `<ul item_id="${product.ProductID}"class="app-board__data">
@@ -415,7 +417,7 @@ const body = {
 
                             renderInfoProduct: function (element) {
                                 products.forEach(product => {
-                                    if (product.ProductID === element.getAttribute('item_id')) {
+                                    if (product.ProductID == element.getAttribute('item_id')) {
                                         $('.app-bot__info-data.value.productId').innerText = product.ProductID
                                         $('.app-bot__info-data.value.uid').innerText = product.UID
                                         $('.app-bot__info-data.value.type').innerText = product.Type
@@ -512,8 +514,7 @@ const body = {
 
                                         //Product constructor
                                         function NewProduct(uid, price, type, server) {
-
-                                            // this.ProductID = products
+                                            this.ProductID = products.length
                                             this.UID = uid
                                             this.Server = server
                                             this.Price = price
@@ -525,7 +526,7 @@ const body = {
                                         const newProduct = new NewProduct(value.UID, value.Price, value.Type, value.Server)
 
                                         //Push product to api
-                                        POSTelement(apiBody, newProduct, (product) => {
+                                        PATCHelement(`${apiBody}/${newProduct.ProductID}`, newProduct, (product) => {
                                             // hide button loading
                                             form.classList.remove('active')
 
@@ -634,10 +635,11 @@ const body = {
                                     //act submit
                                     $('.product-form__contain').addEventListener('submit', (e) => e.preventDefault())
 
-                                    $('.product-form__submit').onclick = () => {
+                                    submit.onclick = () => {
 
                                         // show buttom loading
-                                        form.classList.add('active')
+                                        submit.classList.add('active')
+                                        processLoad.run(1)
 
                                         //get value submit
                                         let newValue = {
@@ -647,9 +649,8 @@ const body = {
                                             Server: $('#product-form__select-server').value,
                                         }
 
-
                                         //update to api 
-                                        PUTelement(`${apiBody}/${elmActive.getAttribute('item_id')}`, newValue, (product) => {
+                                        PATCHelement(`${apiBody}/${elmActive.getAttribute('item_id')}`, newValue, (product) => {
                                             notificationWindow(true,
                                                 'Chỉnh sửa thông tin thành công',
                                                 'Thông tin mới đã được áp dụng',
@@ -672,7 +673,8 @@ const body = {
                                             })
 
                                             // hide buttom loading
-                                            form.classList.remove('active')
+                                            submit.classList.remove('active')
+                                            processLoad.run(1)
                                         })
                                     }
 
@@ -707,10 +709,12 @@ const body = {
                         manage.start()
                     })
             },
-            flashSale: function () {
+            flashSale: function (categoryKey) {
                 const keyBody = 'Product.FlashSale'
                 const createBtn = $('.app__top-feature.create')
                 const deleteBtn = $('.app__top-feature.delete')
+
+                localStorage.setItem('categoryHistory', JSON.stringify(categoryKey))
 
                 new Promise((resolve) => {
                     const products = JSON.parse(localStorage.getItem(keyBody))
@@ -722,8 +726,8 @@ const body = {
                     }
 
                     // update localStorage data
+                    GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
                     if ((new Date).getMinutes() != localStorage.getItem('latestUpdate')) {
-                        GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
                     }
                 })
 
@@ -756,8 +760,8 @@ const body = {
                                                    </span>
                                                </li>
                                                <li class="app__flashsale-product-item uid">${product.UID}</li>
-                                               <li class="app__flashsale-product-item price">${formatMoney(product.Price)}</li>
-                                               <li class="app__flashsale-product-item discount">${product.Discount}</li>
+                                               <li class="app__flashsale-product-item hide-m price">${formatMoney(product.Price)}</li>
+                                               <li class="app__flashsale-product-item hide-m discount">${product.Discount}</li>
                                                <li class="app__flashsale-product-item sold">${product.Sold}</li>
                                            </ul>`
                                     }, '')
@@ -868,7 +872,6 @@ const body = {
                                         //show loading
                                         for (const btnLoading of btnLoadings) { btnLoading.classList.add('active') }
                                         function update() {
-
                                             processLoad.run(datas.length)
                                             if (i === datas.length) {
                                                 flashSale.containLeng()
@@ -879,7 +882,7 @@ const body = {
                                                 })
                                             }
 
-                                            PUTelement(`${apiBody}/${datas[i]}`, { Flashsale: rule },
+                                            PATCHelement(`${apiBody}/${datas[i]}`, { Flashsale: rule },
                                                 () => { update() })
 
                                             containReceive.appendChild(elements[i])
@@ -977,7 +980,7 @@ const body = {
                                             }
 
                                             //update data => server
-                                            PUTelement(`${apiBody}/${item.getAttribute('item_id')}`, { Discount: data + '%' }, () => {
+                                            PATCHelement(`${apiBody}/${item.getAttribute('item_id')}`, { Discount: data + '%' }, () => {
                                                 updateDiscount()
                                             })
                                             //update data => dom
@@ -993,7 +996,7 @@ const body = {
 
                                 for (const contain of contains) {
                                     const getLeng = contain.querySelectorAll('.app__flashsale-product-item-box').length
-                                    contain.querySelector('.btn-loading__text').innerText = `Toàn bộ(${getLeng})`
+                                    contain.querySelector('.btn-loading__text-value').innerText = `(${getLeng})`
                                 }
                             },
                             selectProduct: {
@@ -1147,8 +1150,8 @@ const body = {
 
                                         //Delete data from api
                                         DELETEelement(`${apiBody}/${Id}`, () => {
-                                            //update data
-                                            GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
+                                            //update data and remove null
+                                            removeNull(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
                                         })
 
                                         //Delete from DOM
@@ -1181,13 +1184,17 @@ const body = {
 
                         // Clear value
                         clear.classList.add('active')
+                        parent.querySelector('.app__mid-nav-search').style.paddingRight = '26px'
+
                         clear.onclick = () => {
                             input.value = ''
-                            clear.classList.remove('active')
                             category.renderProduct({
                                 flashSale,
                                 all: input.value
                             })
+
+                            clear.classList.remove('active')
+                            parent.querySelector('.app__mid-nav-search').style.paddingRight = '0'
                         }
 
                         if (parent.classList.value.includes('flashSale')) {
@@ -1198,6 +1205,11 @@ const body = {
                             flashSale,
                             all: value
                         })
+
+                        if (value.length == 0) {
+                            clear.classList.remove('active')
+                            parent.querySelector('.app__mid-nav-search').style.paddingRight = '0'
+                        }
                     }
                 }
 
@@ -1208,44 +1220,22 @@ const body = {
 
     //Branching structure
     account: {
-        manage: function () {
-            body.handle.account.manage()
+        manage: function (key) {
+            body.handle.account.manage(key)
         }
     },
 
     product: {
-        manage: function () {
-            body.handle.product.manage()
+        manage: function (key) {
+            body.handle.product.manage(key)
         },
-        flashSale: function () {
-            body.handle.product.flashSale()
+        flashSale: function (key) {
+            body.handle.product.flashSale(key)
         }
-    },
-
-    //Render body HTML
-    renderHTML: function (key) {
-        this.bodyHTML.forEach((element) => {
-            if (element.key.parent == key.parent
-                && element.key.child == key.child) {
-
-                this.bodyMain.innerHTML = element.value
-                apiBody = element.url
-                element.start()
-
-                //Set height contain
-                const boardGrid = $('.app-board')
-                const boardContain = $('.app-borad__contain')
-
-                if (boardContain) {
-                    boardContain.style.height = (boardGrid.getBoundingClientRect().height - 30) + 'px'
-                }
-            }
-        })
     },
 
     login: function () {
         admin = JSON.parse(sessionStorage.getItem('adminInfo'))
-
         if (admin !== null) {
             const avtContain = $('.user__avt')
             const nameContain = $('.user__name')
@@ -1270,13 +1260,34 @@ const body = {
         }
     },
 
+    //Render body HTML
+    renderHTML: function (key) {
+        this.bodyHTML.forEach((element) => {
+            if (element.key.parent == key.parent
+                && element.key.child == key.child) {
+
+                this.bodyMain.innerHTML = element.value
+                apiBody = element.url
+                element.start(key)
+
+                //Set height contain
+                const boardGrid = $('.app-board')
+                const boardContain = $('.app-borad__contain')
+
+                if (boardContain) {
+                    boardContain.style.height = (boardGrid.getBoundingClientRect().height - 30) + 'px'
+                }
+            }
+        })
+    },
+
     // Body Handle
     bodyHTML: [
         {
-            url: "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts",
+            url: accountApi,
             key: { parent: 'TÀI KHOẢN', child: 'Manage' },
-            start: () => {
-                body.account.manage()
+            start: (key) => {
+                body.account.manage(key)
             },
             value: `<div class="body__app">
             <div class="app__top">
@@ -1356,43 +1367,43 @@ const body = {
                     <ul class="app-bot__info-list">
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title userid">1.User ID:</p>
-                            <p class="app-bot__info-data value userid">0</p>
+                            <p class="app-bot__info-data value userid"></p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title username">2.User Name:</p>
-                            <p class="app-bot__info-data value username">admin</p>
+                            <p class="app-bot__info-data value username"></p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title nickname">3.Nick Name:</p>
-                            <p class="app-bot__info-data value nickname">Lê Hạnh</p>
+                            <p class="app-bot__info-data value nickname"></p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title email">4.Email:</p>
-                            <p class="app-bot__info-data value email">hbstore@gmail.com</p>
+                            <p class="app-bot__info-data value email"></p>
                         </li>
                     </ul>
                     <ul class="app-bot__info-list">
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title money">5.Money:</p>
-                            <p class="app-bot__info-data value money">999.999.999đ</p>
+                            <p class="app-bot__info-data value money"></p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title moneySpent">6.Money Spent:</p>
-                            <p class="app-bot__info-data value moneySpent">N/A</p>
+                            <p class="app-bot__info-data value moneySpent"></p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title totalDeposit">7.Total Deposit:</p>
-                            <p class="app-bot__info-data value totalDeposit">999.999.999đ</p>
+                            <p class="app-bot__info-data value totalDeposit"></p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title date">8.Date created:</p>
-                            <p class="app-bot__info-data value date">26/11/2002</p>
+                            <p class="app-bot__info-data value date"></p>
                         </li>
                     </ul>
                     <ul class="app-bot__info-list history">
                         <li class="app-bot__info history">
                             <p class="app-bot__info-data title history-title">Mua thành công:</p>
-                            <p class="app-bot__info-data value history">N/A</p>
+                            <p class="app-bot__info-data value history"></p>
                         </li>
                     </ul>
                 </div>
@@ -1400,10 +1411,10 @@ const body = {
         </div>`
         },
         {
-            url: "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Products",
+            url: productAPi,
             key: { parent: 'SẢN PHẨM', child: 'Manage' },
-            start: () => {
-                body.product.manage()
+            start: (key) => {
+                body.product.manage(key)
             },
             value: ` <div class="body__app">
             <div class="app__top">
@@ -1463,37 +1474,37 @@ const body = {
                     <ul class="app-bot__info-list">
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title productId">1.Product ID:</p>
-                            <p class="app-bot__info-data value productId">N/A</p>
+                            <p class="app-bot__info-data value productId"</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title uid">2.UID:</p>
-                            <p class="app-bot__info-data value uid">N/A</p>
+                            <p class="app-bot__info-data value uid"</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title type">3.Type:</p>
-                            <p class="app-bot__info-data value type">N/A</p>
+                            <p class="app-bot__info-data value type"</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title price">4.Price:</p>
-                            <p class="app-bot__info-data value price">N/A</p>
+                            <p class="app-bot__info-data value price"</p>
                         </li>
                     </ul>
                     <ul class="app-bot__info-list">
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title server">5.Server:</p>
-                            <p class="app-bot__info-data value server">N/A</p>
+                            <p class="app-bot__info-data value server"</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title discount">6.Discount:</p>
-                            <p class="app-bot__info-data value discount">N/A</p>
+                            <p class="app-bot__info-data value discount"</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title flashSale">7.FlashSale:</p>
-                            <p class="app-bot__info-data value flashSale">N/A</p>
+                            <p class="app-bot__info-data value flashSale"</p>
                         </li>
                         <li class="app-bot__info">
                             <p class="app-bot__info-data title sold">8.Sold:</p>
-                            <p class="app-bot__info-data value sold">N/A</p>
+                            <p class="app-bot__info-data value sold"</p>
                         </li>
                     </ul>
                 </div>
@@ -1501,10 +1512,10 @@ const body = {
         </div>`
         },
         {
-            url: "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Products",
+            url:productAPi,
             key: { parent: 'SẢN PHẨM', child: 'Flash sale' },
-            start: () => {
-                body.product.flashSale()
+            start: (key) => {
+                body.product.flashSale(key)
             },
             value: `<div class="body__app">
             <div class="app__top">
@@ -1550,7 +1561,10 @@ const body = {
                                 </svg>
                             </h3>
                             <button class="btn-loading app__flashsale-product-total-box">
-                                <p class="btn-loading__text">Toàn bộ (99)</p>
+                            <div class="btn-loading__text">
+                            <p class="btn-loading__text-title">Toàn bộ</p>
+                            <p class="btn-loading__text-value">(99)</p>
+                            </div>
                                 <div class="btn-loading__icon"></div>
                             </button>
                             <span class="app__flashsale-product-process"></span>
@@ -1558,10 +1572,10 @@ const body = {
                         <ul class="app__flashsale-bars-nav">
                             <li class="app__flashsale-bars-item">
                             <i class="app__flashsale-bars-checkAll fa-solid fa-check-double"></i></li>
-                            <li class="app__flashsale-bars-item">UID</li>
-                            <li class="app__flashsale-bars-item">Price</li>
-                            <li class="app__flashsale-bars-item">Discount</li>
-                            <li class="app__flashsale-bars-item">Sold</li>
+                            <li class="app__flashsale-bars-item uid">UID</li>
+                            <li class="app__flashsale-bars-item price hide-m">Price</li>
+                            <li class="app__flashsale-bars-item discount hide-m">Discount</li>
+                            <li class="app__flashsale-bars-item sold">Sold</li>
 
                             <li class="app__flashsale-bars-item app__mid-nav">
                                 <div class="app__mid-nav-search-box">
@@ -1601,7 +1615,10 @@ const body = {
                                 </svg>
                             </h3>
                             <button class="btn-loading app__flashsale-product-total-box">
-                                <p class="btn-loading__text">Toàn bộ (99)</p>
+                                <div class="btn-loading__text">
+                                <p class="btn-loading__text-title">Toàn bộ</p>
+                                <p class="btn-loading__text-value">(99)</p>
+                                </div>
                                 <div class="btn-loading__icon"></div>
                             </button>
                             <span class="app__flashsale-product-process"></span>
@@ -1610,8 +1627,8 @@ const body = {
                             <li class="app__flashsale-bars-item">
                             <i class="app__flashsale-bars-checkAll fa-solid fa-check-double"></i></li>
                             <li class="app__flashsale-bars-item">UID</li>
-                            <li class="app__flashsale-bars-item">Price</li>
-                            <li class="app__flashsale-bars-item">Discount</li>
+                            <li class="app__flashsale-bars-item hide-m">Price</li>
+                            <li class="app__flashsale-bars-item hide-m">Discount</li>
                             <li class="app__flashsale-bars-item">Sold</li>
 
                             <li class="app__flashsale-bars-item app__mid-nav">
@@ -1635,12 +1652,37 @@ const body = {
         </div>`
         }
     ],
+    categoryHistory: function () {
+        const key = JSON.parse(localStorage.getItem('categoryHistory'))
+
+        //Render the category history
+        if (!key) {
+            this.renderHTML(body.bodyHTML[0].key)
+            $('.nav__category-options').classList.add('active')
+        }
+        else {
+            this.renderHTML(key)
+
+            //Active category
+            for (let parent of $$('.nav__category-title')) {
+
+                if (parent.innerText.includes(key.parent)) {
+                    parent = parent.closest('.nav__category')
+
+                    for (const child of parent.querySelectorAll('.nav__category-options-tx')) {
+
+                        if (child.innerText.includes(key.child)) {
+                            child.closest('.nav__category-options').classList.add('active')
+                        }
+                    }
+                }
+            }
+        }
+    },
 
     start: function () {
         this.login()
-        setTimeout(() => {
-            $('.nav__category-options.active').click()
-        }, 0);
+        this.categoryHistory()
     }
 }
 body.start()
@@ -1665,6 +1707,19 @@ const nav = {
     navTop: $('.nav-top'),
     navMid: $('.nav-mid'),
     optElement: $$('.nav__category-options'),
+
+    //Create key and call render body
+    open: function () {
+        this.optElement.forEach(element => {
+            element.onclick = () => {
+                const key = {
+                    parent: element.closest('.nav__category').getAttribute('Name'),
+                    child: element.querySelector('.nav__category-options-tx').innerText
+                }
+                body.renderHTML(key)
+            }
+        });
+    },
 
     resize: function () {
         let titleOld = []
@@ -1749,20 +1804,6 @@ const nav = {
             }, 500);
         }
         button.addEventListener('click', resize)
-    },
-
-    //Create key and call render body
-    open: function () {
-        this.optElement.forEach(element => {
-            element.onclick = () => {
-
-                const key = {
-                    parent: element.closest('.nav__category').getAttribute('Name'),
-                    child: element.querySelector('.nav__category-options-tx').innerText
-                }
-                body.renderHTML(key)
-            }
-        });
     },
 
     logout: function () {

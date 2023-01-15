@@ -37,13 +37,6 @@ export function filter(dataFil, rulesFil, callback) {
                     return filter.handle.price(value, rule)
                 })
 
-                //Filter discount
-                .then(value => {
-                    const rule = rulesFil['discount']
-                    if (!rule) { return value }
-                    return filter.handle.price(value, rule)
-                })
-
                 //Filter UID 
                 .then(value => {
                     const rule = rulesFil['uid']
@@ -91,36 +84,14 @@ export function filter(dataFil, rulesFil, callback) {
                 })
             },
 
-            // handle price and discount
             price: function (value, rule) {
                 return new Promise((resolve) => {
-                    let output = []
-
-                    if (rule === 'price') {
-                        rule = 'Price'
+                    if (rule === 'h-l') {
+                        resolve(value.sort((a, b) => b.Price - a.Price))
                     }
                     else {
-                        rule = 'Discount'
+                        resolve(value.sort((a, b) => a.Price - b.Price))
                     }
-                    let prices = value.map(data => {
-                        return data[rule]
-                    })
-
-                    if (rule === '>') {
-                        prices = prices.sort((a, b) => b - a)
-                    }
-                    else {
-                        prices = prices.sort((a, b) => a - b)
-                    }
-
-                    prices.forEach(price => {
-                        output.push(value.find(data => {
-                            return data[rule] == price
-
-                        }))
-                    });
-
-                    resolve(output)
                 })
             },
 

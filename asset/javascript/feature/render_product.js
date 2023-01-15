@@ -1,36 +1,33 @@
 import { formatMoney } from "../end_point.js"
 
-export function renderProduct(products, uid, callback) {
-
+export function renderProduct(products, disStatus = true, uid) {
     //Render all Product
-    if (arguments.length <= 1) {
+    if (arguments.length <= 2) {
         let output = products.reduce((accmulate, element) => {
-            return accmulate += body(element.UID, element.Server, element.Price, element.Discount, element.Sold)
+            return accmulate += body(element.ProductID,element.UID, element.Server, element.Price, disStatus, element.Discount, element.Sold)
         }, '')
         return output
     }
     //Render one product
     else {
         const product = products.find((element) => element.UID == uid)
-        return body(product.UID, product.Server, product.Price, element.Discount, element.Sold)
+        return body(product.ProductID,product.UID, product.Server, product.Price, disStatus, element.Discount, element.Sold)
     }
 }
 
 //Render
-function body(uid, server, price, discount = undefined, sold) {
-    discount = Number(discount.replace('%',''))
+function body(id,uid, server, price, disStatus, discount = undefined, sold) {
+    discount = Number(discount.replace('%', ''))
 
-    if (discount !== undefined) {
+    if (discount !== undefined && disStatus) {
         var discountRatio = discount
         discount = price - ((price * discount) / 100)
-
-        sold = sold === 'Yes' ? 'sold' : ''
     }
     else {
         discount = price
     }
 
-    return `<div class="product-item ${sold}">
+    return `<div item_id="${id}" class="product-item ${sold}">
     <div class="product-item__box-top">
         <div class="product-item__img-box">
         <img class="product-item__img" src="./asset/img/660000000.png">

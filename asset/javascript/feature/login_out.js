@@ -3,12 +3,13 @@ import {
     $,
     $$,
     modalLogReg,
-    homeApi,
+    accountApi,
     plateBlurBody,
-    PUTelement,
+    PATCHelement,
     defaultAvt,
     logHistory,
-    formatMoney
+    formatMoney,
+    cart
 }
     from "../end_point.js"
 export let userActiveID = null,
@@ -20,10 +21,10 @@ export function userLogin(UserID, accounts) {
         usernameBox = $('.header__user-name'),
         welcomeName = $('.notification-welcome__user-name'),
         welcomeAvt = $('.notification-welcome__user-avt'),
-        moneyBox = $('.header__user-title');
+        moneyBox = $('.header__user-title'),
+        User = accounts[Number(UserID)];
 
-    UserID = Number(UserID);
-    userActiveID = UserID;
+    userActiveID = User.UserID;
 
     //Reset input value
     $$('.menu-logReg-modal input').forEach(
@@ -33,19 +34,19 @@ export function userLogin(UserID, accounts) {
         'flex-direction': ' column-reverse',
     });
 
-    if (accounts[UserID]?.Nickname !== '') {
-        let nickName = accounts[UserID].Nickname;
+    if (User?.Nickname !== '') {
+        let nickName = User.Nickname;
         usernameBox.innerHTML = nickName;
         welcomeName.innerHTML = nickName;
     }
     else {
-        let username = accounts[UserID].Username
+        let username = User.Username
         usernameBox.innerHTML = username;
         welcomeName.innerHTML = username;
     };
 
-    if (accounts[UserID]?.Avatar !== '') {
-        let avatar = accounts[UserID].Avatar;
+    if (User?.Avatar !== '') {
+        let avatar = User.Avatar;
         userAvt.src = avatar;
         welcomeAvt.src = avatar;
     }
@@ -54,8 +55,13 @@ export function userLogin(UserID, accounts) {
         welcomeAvt.src = defaultAvt;
     };
 
-    moneyBox.innerHTML = formatMoney(accounts[UserID].Money);
+    moneyBox.innerHTML = formatMoney(User.Money);
     NotificationWelcome.classList.remove('on')
+    if (User.Cart.length === 0) {
+        PATCHelement(`${accountApi}/${UserID}`, { Cart: JSON.parse(localStorage.getItem('cart')) })
+    } else {
+        cart.cartData = User.Cart
+    }
     setTimeout(() => { NotificationWelcome.classList.add('on') }, 30)
 };
 
@@ -83,6 +89,8 @@ export const logout = {
             userActiveID = null
             sessionStorage.removeItem('rememberLogInfo')
             localStorage.removeItem('rememberLogInfo')
+            localStorage.removeItem('cart')
+            cart.cartData = ''
         }
     }
 }
