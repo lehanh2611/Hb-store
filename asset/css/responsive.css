@@ -102,11 +102,15 @@
     }
 
     .header__cart-item {
-        padding: 0;
+        padding: 6px 0;
     }
 
     .header__cart-info.price p {
         font-size: 1.9rem;
+    }
+    .header__cart-item-img {
+        height: 50px;
+        border: 1px solid rgb(19 105 183);
     }
 
     /* Content */
