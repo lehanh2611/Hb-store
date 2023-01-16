@@ -141,9 +141,28 @@ export const closeWithRule = {
             this.callback()
         }
     },
-    start: function (e,rules, callback) {
+    start: function (e, rules, callback) {
         this.rules = [...rules, this.ruleDefault]
         this.callback = callback
         this.run(e)
     }
+}
+
+// Simple notification 
+let timeOutSimpleNotification
+export function simpleNoti(content, status = true, timeOutClear) {
+    const html = `<div class="simple-noti ${status === true ? '' : 'fail'}">${content}</p></div>`
+    const notificationOld = $('.simple-noti')
+    const notification = document.createElement('div')
+
+    if (notificationOld) {
+        clearTimeout(timeOutSimpleNotification)
+        notificationOld.remove()
+    }
+
+    $('#modal').appendChild(notification)
+    notification.outerHTML = html
+    timeOutSimpleNotification = setTimeout(() => {
+        $('.simple-noti').remove()
+    }, 2000)
 }

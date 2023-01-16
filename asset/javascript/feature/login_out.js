@@ -61,7 +61,7 @@ export function userLogin(UserID, accounts) {
     moneyBox.innerHTML = formatMoney(User.Money);
     NotificationWelcome.classList.remove('on')
     
-    if (User.Cart.length === 0 && cartLocal !== null) {
+    if (User.Cart?.length === 0 && cartLocal !== null) {
         PATCHelement(`${accountApi}/${UserID}`, { Cart: cartLocal })
     } else {
         cart.cartData = User.Cart

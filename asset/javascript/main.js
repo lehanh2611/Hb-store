@@ -39,6 +39,8 @@ import {
     processLoad,
     cart,
     closeWithRule,
+    validate,
+    simpleNoti,
 
 
 } from "./end_point.js"
@@ -98,7 +100,7 @@ function header() {
     let iWait = 0
     function renderCart() {
         if (!productsMain || !cart.cartData) {
-            if(iWait < 100) {
+            if (iWait < 100) {
                 setTimeout(() => { renderCart() }, 100);
                 iWait++
             }
@@ -127,7 +129,8 @@ function header() {
 
         window.addEventListener('click', function close(e) {
 
-            closeWithRule.start(e, ['.header__menu-bar', '.menuBarBtn'], (e) => {
+            closeWithRule.start(e, ['.header__menu-bar', '.menuBarBtn'], () => {
+
                 menuBarBody.classList.remove('active')
                 window.removeEventListener('click', close)
                 plateBlur(false)
@@ -249,20 +252,22 @@ function header() {
 
         // Open modal login/register and on/off menu user
 
-        modalLogRegBtn.addEventListener('mouseenter', () => {
-            if (window.innerWidth >= 960 && userActiveID !== null) {
+        function showMenuUserML() {
+            console.log('run')
+            if (window.innerWidth >= 600 && userActiveID !== null) {
                 menuUser.classList.add('show-ml')
+                menuUser.classList.remove('active')
+                plateBlur(false)
             }
             else {
                 menuUser.classList.remove('show-ml')
             }
-        })
+        }
+        modalLogRegBtn.addEventListener('mouseenter', showMenuUserML)
+        window.addEventListener('resize', showMenuUserML)
 
         menuUser.addEventListener('click', () => {
-            // menuUser.removeEventListener('click', close)
-
             menuUser.classList.remove('show-ml')
-
         })
 
         modalLogRegBtn.onclick = () => {
@@ -271,7 +276,7 @@ function header() {
                 openmodalLogReg()
             }
             else {
-                if (window.innerWidth >= 960) { return }
+                if (window.innerWidth >= 600) { return }
 
                 menuUser.classList.toggle('active')
 
@@ -655,7 +660,7 @@ function header() {
                                         inputResult.Username,
                                         inputResult.Password,
                                         inputResult.Email)
-                                        console.log(createUser)
+                                    console.log(createUser)
                                     PATCHelement(`${accountApi}/${createUser.UserID}`, createUser, (value) => {
 
                                         if (value.Username === createUser.Username) {
@@ -1262,6 +1267,8 @@ const stall = function () {
                     for (const menuFil of menuFils) {
                         menuFil.querySelector('option').selected = true
                     }
+                    $('.stall__navbar-item').click()
+
                     //hide menu filter
                     this.filterBtn.classList.remove('active')
                 }
@@ -1290,7 +1297,7 @@ const stall = function () {
                         delete ruleFil.price
                     }
 
-                    if (Object.values(ruleFil).length > 1) {
+                    if (Object.values(ruleFil).length >= 1) {
                         iconFil.classList.add('active')
                     }
                     else {
@@ -1556,7 +1563,6 @@ const stall = function () {
             },
 
             start: function () {
-
                 this.activeBtn()
                 this.nextPage()
                 this.responsive()
@@ -1564,7 +1570,6 @@ const stall = function () {
                 window.onresize = () => {
                     this.responsive()
                 }
-
                 this.filterProduct()
             }
         }
@@ -1575,9 +1580,27 @@ stall()
 
 const footer = {
     submit: function () {
-        $('.submitForm').addEventListener('submit', (e) => {
-            e.preventDefault()
-        })
+        const form = $('.submitForm')
+        const submit = $('.footer__get-new-submit')
+        const selector = {
+            input: form.querySelector('input'),
+            message: form.querySelector('message'),
+        }
+        let result
+
+        form.addEventListener('submit', (e) => { e.preventDefault() })
+
+        selector.input.oninput = () => {
+            selector.message.innerText = ''
+        }
+
+        submit.onclick = () => {
+            result = validate.start(selector, ['required','email'])
+
+            if (result) {
+                simpleNoti('Đã đăng ký nhận tin')
+            }
+        }
     },
 
     start: function () {
@@ -1595,3 +1618,4 @@ const app = {
     }
 }
 setTimeout(() => { app.start() }, 0);
+

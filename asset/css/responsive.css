@@ -461,6 +461,11 @@
     .header__user-contain {
         padding: 0 2px;
     }
+    
+    .header__user-contain:hover .header__user-menu.show-ml {
+        display: block;
+        opacity: 1;
+    }
 }
 
 /****************************************/
@@ -478,11 +483,6 @@
     /* header */
     .header__input-contain {
         margin: 0 26px;
-    }
-
-    .header__user-contain:hover .header__user-menu.show-ml {
-        display: block;
-        opacity: 1;
     }
 
     /* Content */

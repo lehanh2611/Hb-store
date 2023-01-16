@@ -540,6 +540,32 @@ button {
 
 /*END Notification-welcome window */
 
+/* Simple notification */
+.simple-noti {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 68px;
+    right: 6px;
+    margin-top: 2px;
+    opacity: 0;
+    height: 38px;
+    font-size: 1.8rem;
+    padding: 3px 6px;
+    color: var(--default);
+    border-radius: 3px;
+    box-shadow: 0 0 6px var(--box-shadow-dark);
+    animation: show ease .2s forwards;
+    background-image: linear-gradient(180deg, #7da8db 40%, #99d8db 100%);
+}
+
+.simple-noti.fail {
+    background-image: linear-gradient(180deg, #db7d7d 40%, #db9999 100%);
+}
+
+/* END Simple notification */
+
 /* Empty box */
 
 .empty-box {
@@ -565,6 +591,37 @@ button {
 .empty-box-title-sub {}
 
 /* ENDEmpty box */
+
+/* Fly Gift Box */
+.flyGiftBox {
+    display: block;
+    z-index: 10;
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    margin-top: -30px;
+    /* animation: flyGiftBox ease 3s forwards; */
+}
+
+@keyframes flyGiftBox {
+    0% {
+        scale: 1;
+    }
+
+    20% {
+        scale: 2;
+    }
+
+    50% {
+        transform: translate(10px, -10px);
+    }
+
+    100% {
+        transform: translate(800px, -500px);
+    }
+}
+
+/* ENDFly Gift Box */
 
 
 /* Notification window */
@@ -924,6 +981,10 @@ button {
     scale: 1 !important;
 }
 
+.product-item.tall {
+    z-index: 99
+}
+
 .product-item__box-top {
     position: relative;
     width: 224px;
@@ -966,6 +1027,7 @@ button {
 }
 
 .product-item__img-box {
+    z-index: -1;
     top: 0;
     left: 0;
     right: 0;
@@ -1126,7 +1188,7 @@ button {
 }
 
 .product-item__add-cart:hover {
-    opacity: 0.8;
+    /* opacity: 0.8; */
     transform: translateY(1px);
 }
 
@@ -1150,7 +1212,7 @@ button {
 }
 
 
-.product-item__add-cart-box::before {
+/* .product-item__add-cart-box::before {
     position: absolute;
     display: none;
     content: 'Thêm vào giỏ hàng';
@@ -1166,13 +1228,13 @@ button {
     padding: 5px 5px 2px 5px;
     border-radius: 2px;
     transition: ease .1s;
-}
+} */
 
-
+/* 
 .product-item__add-cart-box:hover::before {
     display: block;
     opacity: 1;
-}
+} */
 
 .Yes .product-item__add-cart-box:hover::before {
     display: none;

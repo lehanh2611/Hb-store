@@ -8,7 +8,8 @@ import {
     select,
     PUTelement,
     plateBlur,
-    closeWithRule
+    closeWithRule,
+    simpleNoti
 } from "../end_point.js";
 export const cart = {
     cartData: JSON.parse(localStorage.getItem('cart')),
@@ -26,26 +27,25 @@ export const cart = {
     click: function () {
         const meunuCartH = $('.header__feature-box.cart')
 
-
         window.addEventListener('click', (e) => {
             const elm = e.target
+            const parent = elm.closest('.product-item')
             const elmCN = elm.classList.value
             const addText = 'product-item__add-cart'
             const buyText = 'product-item__buy'
             let elmActive
 
-
             if (elmCN.includes(addText)) { elmActive = addText }
             if (elmCN.includes(buyText)) { elmActive = buyText }
 
             if (!elmActive) { return }
-            const id = elm.closest('.product-item').getAttribute('item_id')
+            const id = parent.getAttribute('item_id')
 
             switch (elmActive) {
                 case buyText: { this.buyCart(Number(id)) }
                     break
 
-                case addText: { this.addCart(Number(id)) }
+                case addText: { this.addCart(Number(id), elm, parent) }
             }
         })
 
@@ -88,9 +88,56 @@ export const cart = {
         })
     },
 
-    addCart: function (id) {
+    addCart: function (id, elm, parent) {
+        let cartBoxP = $('.header__feature-box.cart').getBoundingClientRect()
+        if (window.innerWidth < 600) { cartBoxP = $('.header__user-contain').getBoundingClientRect() }
+
+        const elmP = elm.getBoundingClientRect()
+        const spaceX = cartBoxP.x - elmP.x + 20
+        const spaceY = cartBoxP.y - elmP.y
+        const keyFrames = [
+            {
+                scale: 1,
+            },
+            {
+                scale: 1.5,
+                opacity: .8
+            },
+
+            {
+                scale: 1,
+                opacity: 0,
+                transform: `translate(${spaceX}px, ${spaceY}px)`,
+            }
+        ]
+        const options = {
+            duration: 1600,
+            iterations: 1,
+        }
+
         if (!this.cartData || this.cartData === '') { this.cartData = [] }
-        if (this.cartData.includes(id)) { return }
+        if (this.cartData.includes(id)) {
+            setTimeout(() => { simpleNoti('Sản phẩm đã tồn tại', false) }, 0)
+            return
+        }
+
+        //animate 
+        else {
+            const icon = document.createElement('img')
+            const animate = icon.animate(keyFrames, options)
+
+            icon.src = './asset/icon/gift-box.png'
+            icon.className = 'flyGiftBox'
+            parent.classList.add('tall')
+            elm.closest('.product-item__add-cart-box').appendChild(icon)
+
+            animate.onfinish = () => {
+                icon.remove()
+                parent.classList.remove('tall')
+            }
+
+            setTimeout(() => { simpleNoti('Thêm sản phẩm thành công') }, 1100)
+        }
 
         this.cartData = [...this.cartData, id]
         this.saveCart()
@@ -104,6 +151,9 @@ export const cart = {
         else {
             localStorage.setItem('cart', JSON.stringify(this.cartData))
         }
+    },
+    buyCart: function (id) {
+        console.log(id)
     },
     removeCart: function () {
         const showRemove = $('.header__cart-btn.replace')
@@ -147,9 +197,6 @@ export const cart = {
             }
         }
 
-    },
-    buyCart: function (id) {
-        console.log(id)
     },
 
     renderCart: function (products) {

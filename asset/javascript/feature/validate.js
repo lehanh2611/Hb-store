@@ -31,7 +31,17 @@ export const validate = {
                 return false
             }
             else { return true }
+        },
+
+        email: function (selector, subType, messageTx) {
+
+            if (!((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(selector.input.value))) {
+                selector.message.innerText = `${messageTx}`
+                return false
+            }
+            else { return true }
         }
+       
     },
 
     validateTypes: {
@@ -59,6 +69,12 @@ export const validate = {
             message: "Trường này phải có độ dài ký tự là:",
             handle: function (selector, subType) {
                 return validate.validator.leng(selector, subType, this.message)
+            }
+        },
+        email: {
+            message: "Email không hợp lệ",
+            handle: function (selector, subType) {
+                return validate.validator.email(selector, subType, this.message)
             }
         }
     },
