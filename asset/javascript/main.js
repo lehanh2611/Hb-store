@@ -83,13 +83,25 @@ function header() {
     };
 
     //Render cart
-    $('.header__feature-box.cart').onmouseenter = () => {
+    const cartBtn = $('.header__feature-box.cart')
+
+    cartBtn.onmouseenter = (e) => {
+        e.target.classList.add('active')
         renderCart()
     }
+    cartBtn.onmouseleave = (e) => {
+        e.target.classList.remove('active')
+        renderCart()
+    }
+
     $('.header__user-menu-item.cart').addEventListener('click', renderCart)
+    let iWait = 0
     function renderCart() {
         if (!productsMain || !cart.cartData) {
-            setTimeout(() => { renderCart() }, 100);
+            if(iWait < 100) {
+                setTimeout(() => { renderCart() }, 100);
+                iWait++
+            }
         }
         else {
             cart.renderCart(productsMain)
@@ -236,18 +248,30 @@ function header() {
         modalLogReg.onclick = (e) => { e.stopPropagation() }
 
         // Open modal login/register and on/off menu user
+
+        modalLogRegBtn.addEventListener('mouseenter', () => {
+            if (window.innerWidth >= 960 && userActiveID !== null) {
+                menuUser.classList.add('show-ml')
+            }
+            else {
+                menuUser.classList.remove('show-ml')
+            }
+        })
+
+        menuUser.addEventListener('click', () => {
+            // menuUser.removeEventListener('click', close)
+
+            menuUser.classList.remove('show-ml')
+
+        })
+
         modalLogRegBtn.onclick = () => {
+
             if (userActiveID === null) {
                 openmodalLogReg()
             }
             else {
-                if (window.innerWidth > 600) {
-                    menuUser.classList.add('hide');
-                    setTimeout(() => {
-                        menuUser.classList.remove('hide');
-                    }, 100);
-                    return
-                }
+                if (window.innerWidth >= 960) { return }
 
                 menuUser.classList.toggle('active')
 
@@ -258,6 +282,8 @@ function header() {
                     plateBlur(false)
                 }
             }
+
+
 
         }
 
@@ -629,6 +655,7 @@ function header() {
                                         inputResult.Username,
                                         inputResult.Password,
                                         inputResult.Email)
+                                        console.log(createUser)
                                     PATCHelement(`${accountApi}/${createUser.UserID}`, createUser, (value) => {
 
                                         if (value.Username === createUser.Username) {
@@ -1547,48 +1574,14 @@ const stall = function () {
 stall()
 
 const footer = {
-
-    ui: function () {
-        window.addEventListener('scroll', function animate() {
-            const logo = $('.footer__logo')
-            const category = $('.footer__category-list')
-
-            if (window.innerHeight - logo.getBoundingClientRect().top >= 0) {
-                logo.classList.add('animate')
-            }
-            else {
-                logo.classList.remove('animate')
-            }
-            if (window.innerHeight - category.getBoundingClientRect().top >= 0) {
-                category.classList.add('animate')
-            }
-            else {
-                category.classList.remove('animate')
-            }
+    submit: function () {
+        $('.submitForm').addEventListener('submit', (e) => {
+            e.preventDefault()
         })
     },
 
-    selectOption: function () {
-        const btnFilHandle = Array.from($$('.stall__navbar-item'))
-        const options = Array.from($$('.footer__category-item'))
-
-        for (const option of options) {
-            option.onclick = function () {
-                const result = btnFilHandle.find(v => {
-                    return option.innerText.includes(v.innerText)
-                })
-
-                if (result) {
-                    result.click()
-                    window.scroll({ top: window.scrollY +  $('.stall__product-contain').getBoundingClientRect().top - 200 })
-                }
-            }
-        }
-    },
-
     start: function () {
-        // this.ui()
-        // this.selectOption()
+        this.submit()
     }
 }
 footer.start()

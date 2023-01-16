@@ -161,6 +161,7 @@ export const logHistory = {
 
     //Remove from trusted device
     deleteTrustedDevice: function () {
+        if(!userActiveID) { return}
         const url = `${accountApi}/${userActiveID}`
 
         GETelement(url, (account) => {

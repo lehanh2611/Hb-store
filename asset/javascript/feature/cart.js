@@ -15,9 +15,17 @@ export const cart = {
     products: '',
     meunuCart: $('.header__cart-box'),
     cartContain: $('.header__cart-list'),
+    emptyHTML: ` <li class="header__cart-empty">
+                <div class="empty-box">
+                <img class="empty-img" src="./asset/img/empty.png">
+                 <h3 class="empty-box-title">Chưa có sản phẩm trong giỏ hàng!</h3>
+                    <p class="empty-box-title-sub"></p>
+                    </div>
+                    </li>`,
 
     click: function () {
         const meunuCartH = $('.header__feature-box.cart')
+
 
         window.addEventListener('click', (e) => {
             const elm = e.target
@@ -88,15 +96,12 @@ export const cart = {
         this.saveCart()
     },
     saveCart: function () {
-        console.log('run')
         //login save data to server
-        if (userActiveID !== null) {
-            console.log(this.cartData)
-            PATCHelement(`${accountApi}/${userActiveID}`, { Cart: this.cartData })
+        if (userActiveID !== null && this.cartData !== null) {
+            PATCHelement(`${accountApi}/${userActiveID}`, { Cart: this.cartData.length === 0 ? '' : this.cartData })
         }
         //not login save data to localStorage
         else {
-            console.log(this.cartData)
             localStorage.setItem('cart', JSON.stringify(this.cartData))
         }
     },
@@ -133,7 +138,9 @@ export const cart = {
 
                         elm.remove()
                         $('.header__cart-total').innerText = `Tất cả (${cartLeng})`
-                        if (cartLeng === 0) { $('.empty-box').classList.add('show') }
+                        if (cartLeng === 0) {
+                            this.cartContain.innerHTML = this.emptyHTML
+                        }
                     })
 
                 }
@@ -146,22 +153,18 @@ export const cart = {
     },
 
     renderCart: function (products) {
-        const empty = $('.empty-box')
-
         const productCart = products.filter(v => {
             return this.cartData.some(e => v.ProductID == e)
         })
 
         this.cartContain.classList.remove('show')
 
+        $('.header__cart-total').innerText = `Tất cả (${this.cartData.length})`
+
         if (productCart.length === 0) {
-            empty.classList.add('show')
+            this.cartContain.innerHTML = this.emptyHTML
             return
         }
-        else {
-            empty.classList.remove('show')
-        }
-        $('.header__cart-total').innerText = `Tất cả (${this.cartData.length})`
 
         this.cartContain.innerHTML = productCart.reduce((acc, item) => {
             return acc += `<li item_id="${item.ProductID}" class="header__cart-item">
@@ -182,13 +185,7 @@ export const cart = {
             <p class="header__cart-info-value price">${formatMoney(item.Price)}</p>
         </span>
     </li>`
-        }, ` <li class="header__cart-empty">
-        <div class="empty-box">
-            <img class="empty-img" src="./asset/img/empty.png">
-            <h3 class="empty-box-title">Chưa có sản phẩm trong giỏ hàng!</h3>
-            <p class="empty-box-title-sub"></p>
-        </div>
-    </li>`)
+        }, '')
 
         this.renderDone()
     },
@@ -198,9 +195,6 @@ export const cart = {
     },
     ui: {
     },
-
-
-
 
     start: function () {
         this.click()

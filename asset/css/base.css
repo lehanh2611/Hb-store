@@ -543,7 +543,8 @@ button {
 /* Empty box */
 
 .empty-box {
-    display: none;
+    /* display: none; */
+    display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;

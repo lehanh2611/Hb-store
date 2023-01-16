@@ -22,8 +22,11 @@ export function userLogin(UserID, accounts) {
         welcomeName = $('.notification-welcome__user-name'),
         welcomeAvt = $('.notification-welcome__user-avt'),
         moneyBox = $('.header__user-title'),
-        User = accounts[Number(UserID)];
+        User = accounts[Number(UserID)],
+        cartLocal = JSON.parse(localStorage.getItem('cart'))
 
+
+    if (!User) { return }
     userActiveID = User.UserID;
 
     //Reset input value
@@ -57,8 +60,9 @@ export function userLogin(UserID, accounts) {
 
     moneyBox.innerHTML = formatMoney(User.Money);
     NotificationWelcome.classList.remove('on')
-    if (User.Cart.length === 0) {
-        PATCHelement(`${accountApi}/${UserID}`, { Cart: JSON.parse(localStorage.getItem('cart')) })
+    
+    if (User.Cart.length === 0 && cartLocal !== null) {
+        PATCHelement(`${accountApi}/${UserID}`, { Cart: cartLocal })
     } else {
         cart.cartData = User.Cart
     }
@@ -78,7 +82,7 @@ export const logout = {
         const logoutBtn = $('.header__user-menu .logout')
         logoutBtn.onclick = (e) => {
             //Reset value
-            e.stopPropagation()
+            // e.stopPropagation()
             $('.header__user-box').outerHTML = contentDefault
             userAvt.src = "./asset/img/user-avt/default.png"
             sessionStorage.clear()
@@ -91,6 +95,7 @@ export const logout = {
             localStorage.removeItem('rememberLogInfo')
             localStorage.removeItem('cart')
             cart.cartData = ''
+            cart.renderCart([])
         }
     }
 }

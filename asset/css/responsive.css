@@ -215,6 +215,11 @@
         display: none;
     }
 
+    .header__user-menu.active {
+        display: block;
+        opacity: 1;
+    }
+
     /* Content */
     /* Content top */
     .content-top {
@@ -452,7 +457,6 @@
     .header__user-contain {
         padding: 0 2px;
     }
-
 }
 
 /****************************************/
@@ -470,6 +474,11 @@
     /* header */
     .header__input-contain {
         margin: 0 26px;
+    }
+
+    .header__user-contain:hover .header__user-menu.show-ml {
+        display: block;
+        opacity: 1;
     }
 
     /* Content */
