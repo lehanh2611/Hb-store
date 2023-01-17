@@ -30,6 +30,10 @@
     .footer__follow-title {
         white-space: normal !important;
     }
+
+    .footer .submitForm .message {
+        bottom: 26px !important;
+    }
 }
 
 /***** Mobile *****/
@@ -108,6 +112,7 @@
     .header__cart-info.price p {
         font-size: 1.9rem;
     }
+
     .header__cart-item-img {
         height: 50px;
         border: 1px solid rgb(19 105 183);
@@ -190,7 +195,7 @@
     }
 
     .footer__mid .footer__follow-title {
-        white-space: nowrap ;
+        white-space: nowrap;
     }
 }
 
@@ -394,6 +399,9 @@
         white-space: normal;
     }
 
+    .footer .submitForm .message {
+        bottom: -20px;
+    }
 }
 
 /****************************************/
@@ -461,7 +469,7 @@
     .header__user-contain {
         padding: 0 2px;
     }
-    
+
     .header__user-contain:hover .header__user-menu.show-ml {
         display: block;
         opacity: 1;

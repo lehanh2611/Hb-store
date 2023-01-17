@@ -142,6 +142,11 @@ export const cart = {
         this.cartData = [...this.cartData, id]
         this.saveCart()
     },
+    buyCart: function (id) {
+        console.log(id)
+        console.log(userActiveID)
+        window.location.href = window.location.origin + '/thanh-toan'
+    },
     saveCart: function () {
         //login save data to server
         if (userActiveID !== null && this.cartData !== null) {
@@ -151,9 +156,6 @@ export const cart = {
         else {
             localStorage.setItem('cart', JSON.stringify(this.cartData))
         }
-    },
-    buyCart: function (id) {
-        console.log(id)
     },
     removeCart: function () {
         const showRemove = $('.header__cart-btn.replace')

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt đơn hàng</title>
+    <link rel="icon" type="image/x-icon" href="../asset/icon/Hb-store_not-text.png">
+    <link rel="stylesheet" href="../asset/font/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../asset/css/grid-sys.css">
+    <link rel="stylesheet" href="../asset/css/base.css">
+    <link rel="stylesheet" href="./assets/main.css">
+    <link rel="stylesheet" href="./assets/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="header">
+        <div class="header__nav">
+            <button class="header__nav-go-back">
+                <i class="fa-solid fa-angle-left"></i>
+                Quay lại
+            </button>
+            <!-- <div class="header__nav-user-box">
+                <p class="header__nav-user-name">Lê Hạnh</p>
+                <img class="header__nav-user-avt" src="../asset/img/user-avt/user-default.png">
+                <i class="header__nav-user-logout fa-sharp fa-solid fa-right-from-bracket"></i>
+            </div> -->
+        </div>
+        <div class="header__main contain">
+            <div class="header__main-title-box">
+                <img class="header__main-logo notSelect" src="../asset/icon/Hb-store_not-text_remove-bg.png">
+                <h3 class="header__main-brand">Hb store</h3>
+                <h3 class="header__main-title">#Đơn Hàng</h3>
+                <h3 class="header__main-title uid"> UID: 88888888</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="content-wrap contain">
+            <div class="content__info-product-box">
+                <h3 class="content__info-product-title">Thông tin sản phẩm</h3>
+                <img class="content__info-product-img" src="../asset/img/660000000.png">
+
+                <div class="content__info-product-content-wrap">
+                    <span>
+                        <p class="content__info-product-text uid">UID:</p>
+                        <p class="content__info-product-text uid value">88888888</p>
+                    </span>
+                    <span>
+                        <p class="content__info-product-text server">Server:</p>
+                        <p class="content__info-product-text server value">Asia</p>
+                    </span>
+                    <span>
+                        <p class="content__info-product-text level">Hạng mạo hiểm:</p>
+                        <p class="content__info-product-text level value">Ar 0 (chưa chọn nhân vật chính)</p>
+                    </span>
+                    <span>
+                        <p class="content__info-product-text username">Tên tài khoản:</p>
+                        <p class="content__info-product-text username value">Chưa thiết lập</p>
+                    </span>
+                </div>
+
+            </div>
+            <div class="content__payment-box">
+                <h3 class="content__payment-title">Thông tin thanh toán</h3>
+                <span class="content__payment-item">
+                    <p class="content__payment price">Giá sản phẩm:</p>
+                    <p class="content__payment price value">19.999.999đ</p>
+                </span>
+                <span class="content__payment-item">
+                    <p class="content__payment discount-gift">Mã giảm giá:</p>
+                    <p class="content__payment discount-gift value">-3.000.000đ</p>
+                </span>
+                <span class="content__payment-item">
+                    <p class="content__payment total-gift">Tổng cộng giảm giá:</p>
+                    <p class="content__payment total-gift value">-3.000.000đ</p>
+                </span>
+                <span class="content__payment-item total">
+                    <p class="content__payment total">Tổng thanh toán:</p>
+                    <p class="content__payment total value">15.999.999đ</p>
+                </span>
+                <div class="content__payment-giftcode-box">
+                    <input type="text" class="content__payment-giftcode-input" placeholder="Nhập mã giảm giá">
+                    <button class="btn content__payment-giftcode-submit">Áp dụng</button>
+                </div>
+
+                <buttom class="btn rippleBtn content__payment pay">Thanh toán ngay</buttom>
+            </div>
+            <div class="payment-methods">
+                <h3 class="payment-methods-title">Hình thức thanh toán khác</h3>
+                <div class="payment-method">
+                    <p class="payment-method-title">Chuyển khoản ngân hàng</p>
+                    <span class="payment-method-icon-box">
+                        <img class="payment-method-icon" src="./assets/icon/mbbank.jpg">
+                    </span>
+                </div>
+                <div class="payment-method">
+                    <p class="payment-method-title">Chuyển tiền bằng ví Momo</p>
+                    <span class="payment-method-icon-box">
+                        <img class="payment-method-icon" src="./assets/icon/momo.jpg">
+                    </span>
+                </div>
+                <div class="payment-method">
+                    <p class="payment-method-title">Chuyển tiền bằng ví Paypal</p>
+                    <span class="payment-method-icon-box">
+                        <img class="payment-method-icon" src="./assets/icon/paypal.png">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer grid">
+        <div class="footer__wrap contain">
+            <div class="footer__get-news">
+                <div class="footer__get-new-box">
+                    <h3 class="footer__get-news-title">Đăng ký nhận tin mới</h3>
+                    <h3 class="footer__get-news-sub-title">
+                        Nhận tin tức về các chương trình khuyến mãi, mã giảm giá và sản phẩm mới nhất.
+                    </h3>
+                </div>
+                    <form class="footer__get-new-box submitForm">
+                        <input type="email" class="footer__get-new-input-email" placeholder="Nhập email của bạn">
+                        <button class="footer__get-new-submit">Đăng ký</button>
+                        <message class="message"></message>
+                    </form>
+            </div>
+            <div class="footer__last">
+                <p class="footer__copyright">© 2023 - Hbstore | Đã đăng ký bản quyền.</p>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="./assets/app.js"></script>
+</body>
+
+</html>
