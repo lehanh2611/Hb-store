@@ -4,24 +4,24 @@ export function renderProduct(products, disStatus = true, uid) {
     //Render all Product
     if (arguments.length <= 2) {
         let output = products.reduce((accmulate, element) => {
-            return accmulate += body(element.ProductID,element.UID, element.Server, element.Price, disStatus, element.Discount, element.Sold)
+            return accmulate += body(element.ProductID, element.UID, element.Server, element.Price, disStatus, element.Discount, element.Sold)
         }, '')
         return output
     }
     //Render one product
     else {
         const product = products.find((element) => element.UID == uid)
-        return body(product.ProductID,product.UID, product.Server, product.Price, disStatus, element.Discount, element.Sold)
+        return body(product.ProductID, product.UID, product.Server, product.Price, disStatus, element.Discount, element.Sold)
     }
 }
 
 //Render
-function body(id,uid, server, price, disStatus, discount = undefined, sold) {
+function body(id, uid, server, price, disStatus, discount = undefined, sold) {
     discount = Number(discount.replace('%', ''))
 
     if (discount !== undefined && disStatus) {
         var discountRatio = discount
-        discount = price - ((price * discount) / 100)
+        discount = price - ((price / 100) * discount)
     }
     else {
         discount = price

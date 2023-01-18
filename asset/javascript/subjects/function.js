@@ -160,9 +160,36 @@ export function simpleNoti(content, status = true, timeOutClear) {
         notificationOld.remove()
     }
 
-    $('#modal').appendChild(notification)
+    $('body').appendChild(notification)
     notification.outerHTML = html
     timeOutSimpleNotification = setTimeout(() => {
         $('.simple-noti').remove()
     }, 2000)
+}
+
+// Icon Shadow
+export function iconShadow(selectors) {
+
+    for (const selector of selectors) {
+        const parent = selector
+        const icon = selector.querySelector('img')
+        const shadow = document.createElement('img')
+
+        parent.style.position = 'relative'
+        parent.appendChild(shadow)
+        shadow.className = 'icon-shadow'
+        shadow.src = icon.src
+
+        Object.assign(shadow.style, {
+            'position': 'absolute',
+            'height': '100%',
+            'width': '80%',
+            'left': '10%',
+            'bottom': '-10%',
+            'opacity': '.5',
+            'filter': 'blur(5px)',
+            'border-radius': '20%',
+            'z-index': '-1',
+        })
+    }
 }

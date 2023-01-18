@@ -482,6 +482,16 @@ button {
     }
 }
 
+@keyframes show {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 @keyframes up-in {
     0% {
         opacity: 0;
@@ -735,6 +745,7 @@ button {
     justify-content: center;
     align-items: center;
     position: fixed;
+    z-index: 99;
     top: 68px;
     right: 6px;
     margin-top: 2px;

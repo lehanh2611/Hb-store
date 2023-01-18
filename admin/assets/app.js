@@ -519,7 +519,7 @@ const body = {
                                             this.Server = server
                                             this.Price = price
                                             this.Type = type
-                                            this.Discount = 'No'
+                                            this.Discount = '0%'
                                             this.Flashsale = 'No'
                                             this.Sold = 'No'
                                         }

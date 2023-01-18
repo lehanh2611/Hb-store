@@ -1733,16 +1733,6 @@
     box-shadow: 0 0 6px var(--box-shadow-dark);
 }
 
-@keyframes show {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
 .stall__filter-menu-clear {
     color: var(--color-dark-bland);
     font-size: 1.6rem;

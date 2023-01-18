@@ -650,6 +650,7 @@ function header() {
                                         this.MoneySpent = 0
                                         this.TotalDeposit = 0
                                         this.Cart = ''
+                                        this.Order = ''
                                         this.History = ''
                                         this.Block = false
                                         this.DateCreated = logHistory.getRealTime()

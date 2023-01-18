@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đặt đơn hàng</title>
+    <title>Thanh toán | Hb store</title>
     <link rel="icon" type="image/x-icon" href="../asset/icon/Hb-store_not-text.png">
     <link rel="stylesheet" href="../asset/font/fontawesome/css/all.css">
     <link rel="stylesheet" href="../asset/css/grid-sys.css">
@@ -78,22 +78,30 @@
                 </span>
                 <span class="content__payment-item">
                     <p class="content__payment discount-gift">Mã giảm giá:</p>
-                    <p class="content__payment discount-gift value">-3.000.000đ</p>
+                    <p class="content__payment discount-gift value">0đ</p>
+                </span>
+                <span class="content__payment-item">
+                    <p class="content__payment flash-sale">Chương trình giảm giá:</p>
+                    <p class="content__payment flash-sale value">0đ</p>
                 </span>
                 <span class="content__payment-item">
                     <p class="content__payment total-gift">Tổng cộng giảm giá:</p>
-                    <p class="content__payment total-gift value">-3.000.000đ</p>
+                    <p class="content__payment total-gift value">0đ</p>
                 </span>
                 <span class="content__payment-item total">
                     <p class="content__payment total">Tổng thanh toán:</p>
-                    <p class="content__payment total value">15.999.999đ</p>
+                    <p class="content__payment total value">0đ</p>
                 </span>
                 <div class="content__payment-giftcode-box">
                     <input type="text" class="content__payment-giftcode-input" placeholder="Nhập mã giảm giá">
-                    <button class="btn content__payment-giftcode-submit">Áp dụng</button>
+
+                    <button class="btn rippleBtn btn-loading disable content__payment-giftcode-submit">
+                        <p class="btn-loading__text">Áp dụng</p>
+                        <div class="btn-loading__icon"></div>
+                    </button>
                 </div>
 
-                <buttom class="btn rippleBtn content__payment pay">Thanh toán ngay</buttom>
+                <div class="btn rippleBtn content__payment pay">Thanh toán ngay</div>
             </div>
             <div class="payment-methods">
                 <h3 class="payment-methods-title">Hình thức thanh toán khác</h3>
@@ -127,17 +135,35 @@
                         Nhận tin tức về các chương trình khuyến mãi, mã giảm giá và sản phẩm mới nhất.
                     </h3>
                 </div>
-                    <form class="footer__get-new-box submitForm">
-                        <input type="email" class="footer__get-new-input-email" placeholder="Nhập email của bạn">
-                        <button class="footer__get-new-submit">Đăng ký</button>
-                        <message class="message"></message>
-                    </form>
+                <form class="footer__get-new-box submitForm">
+                    <input type="email" class="footer__get-new-input-email" placeholder="Nhập email của bạn">
+                    <button class="footer__get-new-submit">Đăng ký</button>
+                    <message class="message"></message>
+                </form>
             </div>
             <div class="footer__last">
                 <p class="footer__copyright">© 2023 - Hbstore | Đã đăng ký bản quyền.</p>
             </div>
         </div>
     </footer>
+    <modal id="modal">
+        <div class="notification">
+            <div class="notification__wrap">
+                <i class="notification__close fa-solid fa-xmark"></i>
+                <div class="notification__face-box">
+                    <i class="notification__face">
+                        <i class="notification__face-eye"></i>
+                        <i class="notification__face-eye"></i>
+                        <i class="notification__face__nose"></i>
+                    </i>
+                    <i class="notification__face-shadow"></i>
+                </div>
+                <p class="notification__title">Thất bại!</p>
+                <p class="notification__content">Vui lòng thử lại</p>
+                <button class="btn notification__btn">Thử lại</button>
+            </div>
+        </div>
+    </modal>
     <script type="module" src="./assets/app.js"></script>
 </body>
 

@@ -9,7 +9,8 @@ import {
     PUTelement,
     plateBlur,
     closeWithRule,
-    simpleNoti
+    simpleNoti,
+    processLoad
 } from "../end_point.js";
 export const cart = {
     cartData: JSON.parse(localStorage.getItem('cart')),
@@ -143,9 +144,17 @@ export const cart = {
         this.saveCart()
     },
     buyCart: function (id) {
-        console.log(id)
-        console.log(userActiveID)
-        window.location.href = window.location.origin + '/thanh-toan'
+        processLoad.run(2)
+        sessionStorage.setItem('order', JSON.stringify({
+            UserID: userActiveID,
+            ProductID: id
+        }))
+        setTimeout(() => {
+            processLoad.run(2)
+            setTimeout(() => {
+                window.location.href = window.location.origin + '/thanh-toan'
+            }, 500);
+        },200)
     },
     saveCart: function () {
         //login save data to server

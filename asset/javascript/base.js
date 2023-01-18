@@ -12,6 +12,9 @@ export let admin_accountApi = "https://hbstore26-default-rtdb.firebaseio.com/adm
 //Product storage//
 export const productAPi = "https://hbstore26-default-rtdb.firebaseio.com/products"
 
+//Gift code//
+export const gift_codeAPi = "https://hbstore26-default-rtdb.firebaseio.com/gift_code"
+
 //Get element/api
 export function GETelement(url, callback) {
     console.log(url)
@@ -63,6 +66,56 @@ export function DELETEelement(url, callback) {
         .then((element) => { return element.json() })
         .then(callback)
 }
+
+//Get element/api
+export function Get(url, callback) {
+    console.log(url)
+    return fetch(`${url}.json`)
+        .then((element) => { return element.json() })
+
+
+};
+//Post element/api
+export function Post(url, value, callback) {
+    console.log(url)
+    return fetch(`${url}.json`, {
+        method: "POST",
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(value)
+    })
+        .then((element) => { return element.json() })
+};
+//Put element/api
+export function Put(url, value, callback) {
+    console.log(url)
+    return fetch(`${url}.json`, {
+        method: "PUT",
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(value)
+    })
+        .then((element) => { return element.json() })
+};
+//Patch element/api
+export function Patch(url, value, callback) {
+    console.log(url)
+    return fetch(`${url}.json`, {
+        method: "PATCH",
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(value)
+    })
+        .then((element) => { return element.json() })
+};
+//Delete element/api
+export function Delete(url, callback) {
+    console.log(url)
+    return fetch(`${url}.json`, {
+        method: "DELETE",
+        headers: { 'Content-type': 'application/json' },
+    })
+        .then((element) => { return element.json() })
+}
+
+
 //Remove null api
 export function removeNull(url, callback) {
     fetch(`${url}.json`)
@@ -85,7 +138,7 @@ export function removeNull(url, callback) {
         })
 }
 
-let i = 0 
+let i = 0
 // GETelement(accountApi, v => {
 //     let i = -1
 //     const output = v.map((e) => {
