@@ -531,6 +531,136 @@ button {
 
 
 /* END button loading */
+/* Payment info */
+.payment-info {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.payment-info__wrap {
+    position: relative;
+    width: 456px;
+    padding: 30px;
+    background-color: hsl(0deg 0% 100%);
+    border-radius: 20px;
+    transform: translateY(-2vh);
+}
+
+.payment-info__close {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: -20px;
+    top: -20px;
+    font-size: 1.8rem;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    color: #ffffff;
+    font-weight: 300;
+    background-color: #dcdcdc;
+}
+
+.payment-info__close:hover {
+    cursor: pointer;
+    color: var(--light-red);
+}
+
+.payment-info__title {
+    font-size: 2rem;
+    font-weight: normal;
+    margin-bottom: 6px;
+}
+
+.payment-info__title-sub,
+.payment-info__title {
+    text-align: center;
+}
+
+.payment-info__title-sub {
+    color: var(--text-bland);
+}
+
+.payment-info__bank,
+.payment-info__qr {
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--gray);
+    margin-top: 10px;
+    background-color: #fff;
+}
+
+.payment-info__bank-title {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.payment-info__bank-list {
+    list-style: none;
+}
+
+.payment-info__bank-item {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    margin: 10px 0;
+    font-size: 1.6rem;
+}
+
+.payment-info__bank-item-title {
+    color: var(--text-bland);
+}
+
+.payment-info__bank-item-value {
+    display: flex;
+}
+
+.payment-info__bank-icon  {
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+.payment-info__qr {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px 0;
+}
+
+.payment-info__qr-text {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 1.8rem;
+    color: var(--text-bland);
+    width: 168px;
+}
+
+.payment-info__qr-img {
+    width: 168px;
+}
+
+.payment-info__submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 100%;
+    background-color: rgb(78 136 187);
+    border-radius: 5px
+}
+
+/*END Payment info */
 
 /* Background */
 .backgound {

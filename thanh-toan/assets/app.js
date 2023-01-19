@@ -27,19 +27,17 @@ const app = {
     giftCode: '',
 
     renderInfo: async function () {
-        // if (!this.info){ return}
-
         const [account, product] =
             await Promise.all([Get(`${accountApi}/${this.info.UserID}`),
             Get(`${productAPi}/${this.info.ProductID}`)])
 
         $('.content__info-product-text.uid.value').innerText = product.UID
         $('.content__info-product-text.server.value').innerText = product.Server
+        $('.payment-method-title.money').innerText = `Số dư: ${formatMoney(account.Money)}`
 
         this.account = account
         this.product = product
         this.handlePayment()
-
     },
     handlePayment: function () {
         const priceOld = Number(this.product.Price)
@@ -70,10 +68,9 @@ const app = {
         discountTotal = giftCode + flashSale
 
         $('.content__payment.price.value').innerText = formatMoney(priceOld)
-        $('.content__payment.flash-sale.value').innerText = `-${priceOld - price}`
-        $('.content__payment.discount-gift.value').innerText = formatMoney(giftCode)
-        $('.content__payment.flash-sale.value').innerText = formatMoney(flashSale)
-        $('.content__payment.total-gift.value').innerText = formatMoney(discountTotal)
+        $('.content__payment.discount-gift.value').innerText = `${giftCode === 0 ? '' : '-'} ${formatMoney(giftCode)}`
+        $('.content__payment.flash-sale.value').innerText = `${flashSale === 0 ? '' : '-'}  ${formatMoney(flashSale)}`
+        $('.content__payment.total-gift.value').innerText = `${discountTotal === 0 ? '' : '-'}  ${formatMoney(discountTotal)}`
         $('.content__payment.total.value').innerText = formatMoney(priceOld - discountTotal)
     },
 
@@ -142,3 +139,6 @@ app.start()
 //     Value: '10',
 //     Amount: '100'
 // })
+document.querySelector('body').addEventListener('click',  e => {
+    console.log(navigator.clipboard)
+})

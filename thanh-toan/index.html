@@ -23,16 +23,16 @@
 
 <body>
     <div id="header">
-        <div class="header__nav">
+        <div class="header__nav notSelect">
             <button class="header__nav-go-back">
                 <i class="fa-solid fa-angle-left"></i>
                 Quay lại
             </button>
-            <!-- <div class="header__nav-user-box">
+            <div class="header__nav-user-box">
                 <p class="header__nav-user-name">Lê Hạnh</p>
                 <img class="header__nav-user-avt" src="../asset/img/user-avt/user-default.png">
-                <i class="header__nav-user-logout fa-sharp fa-solid fa-right-from-bracket"></i>
-            </div> -->
+                <!-- <i class="header__nav-user-logout fa-sharp fa-solid fa-right-from-bracket"></i> -->
+            </div>
         </div>
         <div class="header__main contain">
             <div class="header__main-title-box">
@@ -83,7 +83,7 @@
                     <p class="content__payment flash-sale value">0đ</p>
                 </span>
                 <span class="content__payment-item">
-                    <p class="content__payment total-gift">Tổng cộng giảm giá:</p>
+                    <p class="content__payment total-gift">Tổng cộng đã giảm giá:</p>
                     <p class="content__payment total-gift value">0đ</p>
                 </span>
                 <div class="content__payment-giftcode-box">
@@ -100,12 +100,16 @@
                 <div class="payment-methods notSelect">
                     <h3 class="payment-methods-title">
                         <i class="content__payment-icon fa-duotone fa-credit-card"></i>
-                        Phương thức thanh toán:</h3>
+                        Phương thức thanh toán:
+                    </h3>
                     <div class="payment-method">
                         <span class="payment-method-select-box">
                             <span class="payment-method-select"></span>
                         </span>
-                        <p class="payment-method-title">Số dư tài khoản Shop</p>
+                        <span>
+                            <p class="payment-method-title">Tài khoản Shop</p>
+                            <p class="payment-method-title money">Số dư: 1.000.000đ</p>
+                        </span>
                         <span class="payment-method-icon-box coin">
                             <img class="payment-method-icon" src="./assets/icon/coin.png">
                         </span>
@@ -141,12 +145,13 @@
                 <div class="content__payment-email-box">
                     <h3 class="content__payment-email-title">
                         <i class="content__payment-icon fa-solid fa-envelope"></i>
-                        Nhập email nhận tài khoản:</h3>
-                    <input type="email" class="content__payment-email-box-input" placeholder="Nhập địa chỉ email của bạn">
+                        Nhập email nhận tài khoản:
+                    </h3>
+                    <input type="email" class="content__payment-email-box-input"
+                        placeholder="Nhập địa chỉ email của bạn">
                     <message class="message"></message>
                     <!-- <p class="content__payment-email-warring"></p> -->
                 </div>
-
                 <div class="btn rippleBtn content__payment pay">Thanh toán ngay</div>
             </div>
 
@@ -173,6 +178,60 @@
         </div>
     </footer>
     <modal id="modal">
+        <div class="payment-info">
+            <div class="payment-info__wrap">
+                <i class="payment-info__close fa-solid fa-xmark"></i>
+                <h3 class="payment-info__title">Đơn hàng HB88888888 tạo thành công!</h3>
+                <p class="payment-info__title-sub">Vui lòng thanh toán theo bên dưới</p>
+                <div class="payment-info__bank">
+                    <h3 class="payment-info__bank-title">Thông tin thanh toán</h3>
+                    <ul class="payment-info__bank-list">
+                        <li class="payment-info__bank-item">
+                            <p class="payment-info__bank-item-title">Tên chủ tải khoản</p>
+                            <p class="payment-info__bank-item-value">LE NGOC HANH</p>
+                        </li>
+                        <li class="payment-info__bank-item">
+                            <p class="payment-info__bank-item-title">Số tài khoản</p>
+                            <p class="payment-info__bank-item-value">
+                                9108678366668
+                                <i class="payment-info__bank-icon fa-regular fa-copy"></i>
+                            </p>
+
+                        </li>
+                        <li class="payment-info__bank-item">
+                            <p class="payment-info__bank-item-title">Ngân Hàng</p>
+                            <p class="payment-info__bank-item-value">MB BANK</p>
+                        </li>
+                        <li class="payment-info__bank-item">
+                            <p class="payment-info__bank-item-title">Số tiền</p>
+                            <p class="payment-info__bank-item-value">
+                                999.999đ
+                                <i class="payment-info__bank-icon fa-regular fa-copy"></i>
+                            </p>
+                        </li>
+                        <li class="payment-info__bank-item">
+                            <p class="payment-info__bank-item-title">Nội dung</p>
+                            <p class="payment-info__bank-item-value">
+                                HB88888888
+                                <i class="payment-info__bank-icon fa-regular fa-copy"></i>
+                            </p>
+                        </li>
+                        <li class="payment-info__bank-item">
+                            <p class="payment-info__bank-item-title">Mã đơn hàng</p>
+                            <p class="payment-info__bank-item-value">HB88888888</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="payment-info__qr">
+                    <p class="payment-info__qr-text">Quý khách có thể dùng ứng dụng ngân hàng và quét mã QR này</p>
+                    <img src="./assets/icon/mb-bank--qr.jpg" class="payment-info__qr-img">
+                </div>
+                <button class="btn rippleBtn payment-info__submit">
+                    <p class="btn-loading__text">Đã thanh toán</p>
+                    <div class="btn-loading__icon"></div>
+                </button>
+            </div>
+        </div>
         <div class="notification">
             <div class="notification__wrap">
                 <i class="notification__close fa-solid fa-xmark"></i>
