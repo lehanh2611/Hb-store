@@ -140,5 +140,6 @@ app.start()
 //     Amount: '100'
 // })
 document.querySelector('body').addEventListener('click',  e => {
+    navigator.clipboard.writeText('hello world')
     console.log(navigator.clipboard)
 })
