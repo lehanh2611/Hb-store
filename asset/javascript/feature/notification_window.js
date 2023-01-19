@@ -30,6 +30,7 @@ export function notificationWindow(status = 'close', title, content, callback, c
                 case 13:
                     if (notificationWindowBody.getBoundingClientRect().width !== 0) {
                         agreeBox.onclick()
+                        notificationWindow()
                     }
             }
         }

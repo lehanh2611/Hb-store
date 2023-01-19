@@ -88,10 +88,10 @@
                 </span>
                 <div class="content__payment-giftcode-box">
                     <input type="text" class="content__payment-giftcode-input" placeholder="Nhập mã giảm giá">
-                    <button class="btn rippleBtn btn-loading disable content__payment-giftcode-submit">
+                    <div class="btn rippleBtn btn-loading disable content__payment-giftcode-submit">
                         <p class="btn-loading__text">Áp dụng</p>
                         <div class="btn-loading__icon"></div>
-                    </button>
+                    </div>
                 </div>
                 <span class="content__payment-item total">
                     <p class="content__payment total">Tổng thanh toán:</p>
@@ -102,7 +102,7 @@
                         <i class="content__payment-icon fa-duotone fa-credit-card"></i>
                         Phương thức thanh toán:
                     </h3>
-                    <div class="payment-method">
+                    <div class="payment-method active" menthod="shopMoney">
                         <span class="payment-method-select-box">
                             <span class="payment-method-select"></span>
                         </span>
@@ -114,7 +114,7 @@
                             <img class="payment-method-icon" src="./assets/icon/coin.png">
                         </span>
                     </div>
-                    <div class="payment-method">
+                    <div class="payment-method" menthod="bank">
                         <span class="payment-method-select-box">
                             <span class="payment-method-select"></span>
                         </span>
@@ -123,7 +123,7 @@
                             <img class="payment-method-icon" src="./assets/icon/mbbank.jpg">
                         </span>
                     </div>
-                    <div class="payment-method">
+                    <div class="payment-method" menthod="momo">
                         <span class="payment-method-select-box">
                             <span class="payment-method-select"></span>
                         </span>
@@ -132,7 +132,7 @@
                             <img class="payment-method-icon" src="./assets/icon/momo.jpg">
                         </span>
                     </div>
-                    <div class="payment-method">
+                    <div class="payment-method disable">
                         <span class="payment-method-select-box">
                             <span class="payment-method-select"></span>
                         </span>
@@ -152,7 +152,10 @@
                     <message class="message"></message>
                     <!-- <p class="content__payment-email-warring"></p> -->
                 </div>
-                <div class="btn rippleBtn content__payment pay">Thanh toán ngay</div>
+                <div class="btn rippleBtn btn-loading content__payment pay">
+                    <p class="btn-loading__text">Thanh toán</p>
+                    <div class="btn-loading__icon"></div>
+                </div>
             </div>
 
         </div>
@@ -178,7 +181,7 @@
         </div>
     </footer>
     <modal id="modal">
-        <div class="payment-info">
+        <div class="payment-info hide">
             <div class="payment-info__wrap">
                 <i class="payment-info__close fa-solid fa-xmark"></i>
                 <h3 class="payment-info__title">Đơn hàng HB88888888 tạo thành công!</h3>

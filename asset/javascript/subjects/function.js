@@ -33,6 +33,7 @@ export function select(listElment, callback) {
     for (let element of listElment) {
 
         element.addEventListener('click', () => {
+            if (element.classList.value.includes('disable')) { return }
             removeActive()
 
             element.classList.add('active')

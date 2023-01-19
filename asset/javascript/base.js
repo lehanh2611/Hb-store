@@ -12,8 +12,11 @@ export let admin_accountApi = "https://hbstore26-default-rtdb.firebaseio.com/adm
 //Product storage//
 export const productAPi = "https://hbstore26-default-rtdb.firebaseio.com/products"
 
-//Gift code//
+//Gift storage//
 export const gift_codeAPi = "https://hbstore26-default-rtdb.firebaseio.com/gift_code"
+
+//Order storage//
+export const orderAPi = "https://hbstore26-default-rtdb.firebaseio.com/order"
 
 //Get element/api
 export function GETelement(url, callback) {
