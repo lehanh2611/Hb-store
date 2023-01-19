@@ -12,6 +12,7 @@ import {
     productAPi,
     Put,
     rippleBtn,
+    select,
     simpleNoti
 } from "../../asset/javascript/end_point.js"
 
@@ -32,7 +33,6 @@ const app = {
             await Promise.all([Get(`${accountApi}/${this.info.UserID}`),
             Get(`${productAPi}/${this.info.ProductID}`)])
 
-        $('.header__main-title.uid').innerText = `UID: ${product.UID}`
         $('.content__info-product-text.uid.value').innerText = product.UID
         $('.content__info-product-text.server.value').innerText = product.Server
 
@@ -121,10 +121,15 @@ const app = {
         processLoad.run(1)
     },
 
+    select: function () {
+        select($$('.payment-method'))
+    },
+
 
 
     start: function () {
         this.goBack()
+        this.select()
         this.renderInfo()
         rippleBtn($$('.rippleBtn'))
         iconShadow($$('.payment-method-icon-box'))

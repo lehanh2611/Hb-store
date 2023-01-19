@@ -36,10 +36,8 @@
         </div>
         <div class="header__main contain">
             <div class="header__main-title-box">
-                <img class="header__main-logo notSelect" src="../asset/icon/Hb-store_not-text_remove-bg.png">
-                <h3 class="header__main-brand">Hb store</h3>
-                <h3 class="header__main-title">#Đơn Hàng</h3>
-                <h3 class="header__main-title uid"> UID: 88888888</h3>
+                <img class="header__main-logo notSelect" src="../asset/img/logo-full--effect.png">
+                <h3 class="header__main-title">Thanh toán</h3>
             </div>
         </div>
     </div>
@@ -51,19 +49,19 @@
                 <img class="content__info-product-img" src="../asset/img/660000000.png">
 
                 <div class="content__info-product-content-wrap">
-                    <span>
+                    <span class="content__info-product-content-item">
                         <p class="content__info-product-text uid">UID:</p>
                         <p class="content__info-product-text uid value">88888888</p>
                     </span>
-                    <span>
+                    <span class="content__info-product-content-item">
                         <p class="content__info-product-text server">Server:</p>
                         <p class="content__info-product-text server value">Asia</p>
                     </span>
-                    <span>
+                    <span class="content__info-product-content-item">
                         <p class="content__info-product-text level">Hạng mạo hiểm:</p>
                         <p class="content__info-product-text level value">Ar 0 (chưa chọn nhân vật chính)</p>
                     </span>
-                    <span>
+                    <span class="content__info-product-content-item">
                         <p class="content__info-product-text username">Tên tài khoản:</p>
                         <p class="content__info-product-text username value">Chưa thiết lập</p>
                     </span>
@@ -88,42 +86,70 @@
                     <p class="content__payment total-gift">Tổng cộng giảm giá:</p>
                     <p class="content__payment total-gift value">0đ</p>
                 </span>
-                <span class="content__payment-item total">
-                    <p class="content__payment total">Tổng thanh toán:</p>
-                    <p class="content__payment total value">0đ</p>
-                </span>
                 <div class="content__payment-giftcode-box">
                     <input type="text" class="content__payment-giftcode-input" placeholder="Nhập mã giảm giá">
-
                     <button class="btn rippleBtn btn-loading disable content__payment-giftcode-submit">
                         <p class="btn-loading__text">Áp dụng</p>
                         <div class="btn-loading__icon"></div>
                     </button>
                 </div>
+                <span class="content__payment-item total">
+                    <p class="content__payment total">Tổng thanh toán:</p>
+                    <p class="content__payment total value">0đ</p>
+                </span>
+                <div class="payment-methods notSelect">
+                    <h3 class="payment-methods-title">
+                        <i class="content__payment-icon fa-duotone fa-credit-card"></i>
+                        Phương thức thanh toán:</h3>
+                    <div class="payment-method">
+                        <span class="payment-method-select-box">
+                            <span class="payment-method-select"></span>
+                        </span>
+                        <p class="payment-method-title">Số dư tài khoản Shop</p>
+                        <span class="payment-method-icon-box coin">
+                            <img class="payment-method-icon" src="./assets/icon/coin.png">
+                        </span>
+                    </div>
+                    <div class="payment-method">
+                        <span class="payment-method-select-box">
+                            <span class="payment-method-select"></span>
+                        </span>
+                        <p class="payment-method-title">Chuyển khoản ngân hàng</p>
+                        <span class="payment-method-icon-box">
+                            <img class="payment-method-icon" src="./assets/icon/mbbank.jpg">
+                        </span>
+                    </div>
+                    <div class="payment-method">
+                        <span class="payment-method-select-box">
+                            <span class="payment-method-select"></span>
+                        </span>
+                        <p class="payment-method-title">Chuyển tiền bằng ví Momo</p>
+                        <span class="payment-method-icon-box">
+                            <img class="payment-method-icon" src="./assets/icon/momo.jpg">
+                        </span>
+                    </div>
+                    <div class="payment-method">
+                        <span class="payment-method-select-box">
+                            <span class="payment-method-select"></span>
+                        </span>
+                        <p class="payment-method-title">Chuyển tiền bằng ví Paypal</p>
+                        <span class="payment-method-icon-box">
+                            <img class="payment-method-icon" src="./assets/icon/paypal.png">
+                        </span>
+                    </div>
+                </div>
+                <div class="content__payment-email-box">
+                    <h3 class="content__payment-email-title">
+                        <i class="content__payment-icon fa-solid fa-envelope"></i>
+                        Nhập email nhận tài khoản:</h3>
+                    <input type="email" class="content__payment-email-box-input" placeholder="Nhập địa chỉ email của bạn">
+                    <message class="message"></message>
+                    <!-- <p class="content__payment-email-warring"></p> -->
+                </div>
 
                 <div class="btn rippleBtn content__payment pay">Thanh toán ngay</div>
             </div>
-            <div class="payment-methods">
-                <h3 class="payment-methods-title">Hình thức thanh toán khác</h3>
-                <div class="payment-method">
-                    <p class="payment-method-title">Chuyển khoản ngân hàng</p>
-                    <span class="payment-method-icon-box">
-                        <img class="payment-method-icon" src="./assets/icon/mbbank.jpg">
-                    </span>
-                </div>
-                <div class="payment-method">
-                    <p class="payment-method-title">Chuyển tiền bằng ví Momo</p>
-                    <span class="payment-method-icon-box">
-                        <img class="payment-method-icon" src="./assets/icon/momo.jpg">
-                    </span>
-                </div>
-                <div class="payment-method">
-                    <p class="payment-method-title">Chuyển tiền bằng ví Paypal</p>
-                    <span class="payment-method-icon-box">
-                        <img class="payment-method-icon" src="./assets/icon/paypal.png">
-                    </span>
-                </div>
-            </div>
+
         </div>
     </div>
     <footer class="footer grid">
