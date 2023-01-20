@@ -43,7 +43,9 @@ export const cart = {
             const id = parent.getAttribute('item_id')
 
             switch (elmActive) {
-                case buyText: { this.buyCart(Number(id)) }
+                case buyText: { 
+                    if(parent.classList.value.includes('Yes')) {return}
+                    this.buyCart(Number(id), parent) }
                     break
 
                 case addText: { this.addCart(Number(id), elm, parent) }
@@ -154,7 +156,7 @@ export const cart = {
             setTimeout(() => {
                 window.location.href = window.location.origin + '/thanh-toan'
             }, 500);
-        },200)
+        }, 200)
     },
     saveCart: function () {
         //login save data to server

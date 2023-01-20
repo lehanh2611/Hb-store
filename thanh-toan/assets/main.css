@@ -39,6 +39,7 @@
 
 .header__nav-user-avt {
     width: 30px;
+    border-radius: 50%;
 }
 
 .header__nav-user-name {

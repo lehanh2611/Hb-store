@@ -1,7 +1,13 @@
 import { $ } from "../end_point.js"
 
 export function paymentInfo(title, value, callback) {
-    console.log(title, value)
+
+    //remove window
+    if (arguments.length <= 0) {
+        $('.payment-info').remove()
+        return
+    }
+    //create window
     const html = `<div class="payment-info">
     <div class="payment-info__wrap">
         <i class="payment-info__close fa-solid fa-xmark"></i>
@@ -47,7 +53,7 @@ export function paymentInfo(title, value, callback) {
         </div>
         <div class="payment-info__qr">
             <p class="payment-info__qr-text">Quý khách có thể dùng ứng dụng 
-            ${value.bankName === 'Momo'? value.bankName: title.bank} và quét mã QR này</p>
+            ${value.bankName === 'Momo' ? value.bankName : title.bank} và quét mã QR này</p>
             <img src="${value.qr}" class="payment-info__qr-img">
         </div>
         <button class="btn rippleBtn payment-info__submit">
@@ -61,4 +67,5 @@ export function paymentInfo(title, value, callback) {
     element.outerHTML = html
 
     // element = $('.payment-info')
+    $('.payment-info__submit').onclick = () => {callback()}
 }

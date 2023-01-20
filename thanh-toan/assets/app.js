@@ -10,6 +10,7 @@ import {
     orderAPi,
     Patch,
     paymentInfo,
+    plateBlur,
     processLoad,
     productAPi,
     Put,
@@ -38,6 +39,10 @@ const app = {
             await Promise.all([Get(`${accountApi}/${this.info.UserID}`),
             Get(`${productAPi}/${this.info.ProductID}`)])
 
+        let nickName = account.Nickname
+        let avatar = account.Avatar
+        $('.header__nav-user-name').innerText = nickName !== '' ? nickName : account.Username
+        $('.header__nav-user-avt').src = avatar !== '' ? '.' + avatar : '../asset/img/user-avt/user-default.png'
         $('.content__info-product-text.uid.value').innerText = product.UID
         $('.content__info-product-text.server.value').innerText = product.Server
         $('.payment-method-title.money').innerText = `Số dư: ${formatMoney(account.Money)}`
@@ -175,7 +180,6 @@ const app = {
         })
     },
     menthodShop: async function (paymentData) {
-        this.handle = true
         const url = `${accountApi}/${this.account.UserID}`
         const money = await Get(url + '/Money')
         const surplus = money - paymentData.Price
@@ -186,7 +190,6 @@ const app = {
                 'Vui lòng bổ sung hoặc thay đổi phương thức khác',
                 () => {
                     notificationWindow()
-                    this.handle = false
                 })
 
         }
@@ -201,6 +204,8 @@ const app = {
                 'Theo dõi trong phần đơn hàng'
                 , () => {
                     notificationWindow()
+                    this.goBack()
+                    $('.header__nav-go-back').click()
                 })
         }
 
@@ -209,7 +214,6 @@ const app = {
         this.submit.classList.remove('active')
     },
     monthodOther: async function (paymentData) {
-        this.handle = true
         await Promise.all([
             Patch(`${orderAPi}`, { [paymentData.Ordercode]: paymentData }),
             Patch(`${accountApi}/${paymentData.UserID}/Order/`,
@@ -217,45 +221,58 @@ const app = {
         ])
 
 
-        if (paymentData.Menthod !== 'shopMoney') {
-            let bankInfo
+        if (paymentData.Menthod === 'shopMoney') { return }
+        let bankInfo
 
-            if (paymentData.Menthod === 'bank') {
-                bankInfo = {
-                    title: { bank: 'Ngân hàng' },
-                    value: {
-                        bank: '9108678366668',
-                        bankName: 'MB BANK',
-                        qr: './assets/icon/mb-bank--qr.jpg'
-                    }
+        if (paymentData.Menthod === 'bank') {
+            bankInfo = {
+                title: { bank: 'Ngân hàng' },
+                value: {
+                    bank: '9108678366668',
+                    bankName: 'MB BANK',
+                    qr: './assets/icon/mb-bank--qr.jpg'
                 }
             }
-            else {
-                bankInfo = {
-                    title: { bank: 'Ví điện tử' },
-                    value: {
-                        bank: '0353489648',
-                        bankName: 'Momo',
-                        qr: './assets/icon/momo--qr.jpg'
-                    }
-                }
-            }
-            paymentInfo({ ...bankInfo.title }, {
-                ...bankInfo.value,
-                money: paymentData.Price,
-                content: paymentData.Ordercode,
-                code: paymentData.Ordercode
-            })
-            //hide btn loading
-            this.submit.classList.remove('active')
-            return
         }
+        else {
+            bankInfo = {
+                title: { bank: 'Ví điện tử' },
+                value: {
+                    bank: '0353489648',
+                    bankName: 'Momo',
+                    qr: './assets/icon/momo--qr.jpg'
+                }
+            }
+        }
+        paymentInfo({ ...bankInfo.title }, {
+            ...bankInfo.value,
+            money: paymentData.Price,
+            content: paymentData.Ordercode,
+            code: paymentData.Ordercode
+        }, () => {
+            notificationWindow(true,
+                'Hb store đang xử lý',
+                'Theo dõi trong phần đơn hàng',
+                () => {
+                    this.goBack()
+                    $('.header__nav-go-back').click()
+                })
+        })
+        plateBlur(true)
+        //close payment window
+        $('.payment-info__close').onclick = () => {
+            paymentInfo()
+            plateBlur(false)
+        }
+
+        //hide btn loading
+        this.submit.classList.remove('active')
 
 
     },
 
     goBack: function () {
-        processLoad.run(1)
+        processLoad.run(2)
         if (!this.info) {
             window.location.href = window.location.origin
         }
@@ -263,7 +280,10 @@ const app = {
             this.info = ''
             this.goBack()
         }
-        processLoad.run(1)
+        setTimeout(() => {
+            processLoad.run(2)
+            processLoad.run(2)
+        }, 200)
     },
 
     select: function () {
