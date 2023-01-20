@@ -174,8 +174,6 @@ const app = {
             cart.cartData = newCart
             cart.saveCart()
             
-            if (newCart.length === 0) { newCart = '' }
-
             if (paymentData.Menthod !== 'shopMoney') {
                 this.menthodOther(paymentData, newCart, urlUser)
             }
