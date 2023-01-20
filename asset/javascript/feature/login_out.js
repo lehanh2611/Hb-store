@@ -12,8 +12,10 @@ import {
     cart
 }
     from "../end_point.js"
-export let userActiveID = null,
-    userAvt = $('.header__user-avt')
+
+export let userActiveID = null
+export let logWaitingFunction = []
+export let userAvt = $('.header__user-avt')
 //Login user//
 export function userLogin(UserID, accounts) {
     let NotificationWelcome = $('.notification-welcome'),
@@ -60,13 +62,23 @@ export function userLogin(UserID, accounts) {
 
     moneyBox.innerHTML = formatMoney(User.Money);
     NotificationWelcome.classList.remove('on')
-    
+
     if (User.Cart?.length === 0 && cartLocal !== null) {
         PATCHelement(`${accountApi}/${UserID}`, { Cart: cartLocal })
     } else {
         cart.cartData = User.Cart
     }
     setTimeout(() => { NotificationWelcome.classList.add('on') }, 30)
+
+    //run all function
+    if (logWaitingFunction.length > 0) {
+        logWaitingFunction.forEach(e => {
+            e()
+
+        })
+    }
+    // clear
+    logWaitingFunction = []
 };
 
 //Login succsessful

@@ -360,6 +360,7 @@ function header() {
             setTimeout(() => {
                 modalLogReg.classList.add('opacity');
             }, 30);
+            $('modal').appendChild(notificationWindowBody);
         };
 
         // Close modal login/register

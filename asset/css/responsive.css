@@ -12,7 +12,6 @@
     }
 
     /* Footer */
-
     .footer__get-new-box:last-child {
         flex-direction: column;
     }
@@ -116,6 +115,15 @@
     .header__cart-item-img {
         height: 50px;
         border: 1px solid rgb(19 105 183);
+    }
+
+    .flash-sale .product-item__list {
+        padding: 6px;
+        padding-bottom: 10px;
+    }
+
+    .flash-sale__list-index {
+        margin: 5px 5px 0 5px;
     }
 
     /* Content */
@@ -533,7 +541,7 @@
 @media (max-width: 529.9px) {
     .stall .product-item {
         scale: 1.2;
-        margin: 50px auto;
+        margin: 10px auto;
     }
 
     .stall .product-item:hover {

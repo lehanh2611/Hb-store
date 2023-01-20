@@ -1,4 +1,4 @@
-import { $, $$ } from "../end_point.js"
+import { $, $$, simpleNoti } from "../end_point.js"
 
 export function paymentInfo(title, value, callback) {
 
@@ -66,13 +66,13 @@ export function paymentInfo(title, value, callback) {
     $('#modal').appendChild(element)
     element.outerHTML = html
 
-
     for (const copy of $$('.payment-info__bank-icon')) {
         copy.onclick = () => {
             const parent = copy.closest('.payment-info__bank-item')
             const value = parent.querySelector('.payment-info__bank-item-value').innerText
-            
+
             navigator.clipboard.writeText(value)
+            simpleNoti('Sao chép thành công', true)
         }
     }
 

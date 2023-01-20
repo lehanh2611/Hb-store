@@ -189,8 +189,8 @@
     padding: 10px;
 }
 
-.header__cart-list {.header__nav-go-back
-    list-style: none;
+.header__cart-list {
+    .header__nav-go-back list-style: none;
     flex-direction: column;
     overflow: hidden;
     overflow-y: scroll;
@@ -1474,18 +1474,22 @@
 
 .flash-sale__list-index-box {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 8px 0;
+    width: 100%;
 }
 
 .flash-sale__list-index {
     display: block;
-    height: 8px;
-    width: 8px;
+    min-height: 8px;
+    min-width: 8px;
     margin: 0 5px;
     border-radius: 50%;
     transition: linear .2s;
     background-color: var(--default-bland);
     opacity: 0.3;
+    margin-top: 3px;
 }
 
 .flash-sale__list-index.active {

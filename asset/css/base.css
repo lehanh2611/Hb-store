@@ -64,6 +64,10 @@ button {
     margin-right: auto;
 }
 
+.fixed {
+    position: fixed!important;
+}
+
 .hide {
     display: none !important;
 }
@@ -624,7 +628,9 @@ button {
     display: flex;
 }
 
-.payment-info__bank-icon  {
+.payment-info__bank-icon {
+    font-size: 2rem;
+    margin-top: -3px;
     margin-left: 6px;
     cursor: pointer;
 }
@@ -886,7 +892,7 @@ button {
     padding: 3px 6px;
     color: var(--default);
     border-radius: 3px;
-    box-shadow: 0 0 6px var(--box-shadow-dark);
+    box-shadow: 0 0 2px var(--box-shadow-dark);
     animation: show ease .2s forwards;
     background-image: linear-gradient(180deg, #7da8db 40%, #99d8db 100%);
 }

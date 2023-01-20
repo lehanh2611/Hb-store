@@ -10,7 +10,10 @@ import {
     plateBlur,
     closeWithRule,
     simpleNoti,
-    processLoad
+    processLoad,
+    notificationWindow,
+    notificationWindowBody,
+    logWaitingFunction
 } from "../end_point.js";
 export const cart = {
     cartData: JSON.parse(localStorage.getItem('cart')),
@@ -38,17 +41,42 @@ export const cart = {
 
             if (elmCN.includes(addText)) { elmActive = addText }
             if (elmCN.includes(buyText)) { elmActive = buyText }
-            
+
             if (!elmActive) { return }
-            if(parent.classList.value.includes('Yes')) {return}
+            if (parent.classList.value.includes('Yes')) { return }
             const id = parent.getAttribute('item_id')
 
             switch (elmActive) {
-                case buyText: { 
-                    this.buyCart(Number(id), parent) }
+                case buyText: {
+                    if (userActiveID === null) {
+                        console.log(elm)
+                        notificationWindowBody.classList.add('fixed')
+                        notificationWindow(
+                            false,
+                            'Bạn chưa đăng nhập',
+                            'Vui lòng đăng nhập và thử lại'
+                            , (isSuccess) => {
+                                notificationWindow()
+                                notificationWindowBody.classList.remove('fixed')
+                                
+                                //login success => go to payment page
+                                if (isSuccess) {
+                                    logWaitingFunction.push(() => {
+                                        this.buyCart(Number(id), parent)
+                                    })
+                                    $('.header__user-contain').click()
+                                }
+                            }, 'Đăng nhập')
+                        return
+                    }
+                    this.buyCart(Number(id), parent)
+                }
                     break
 
-                case addText: { this.addCart(Number(id), elm, parent) }
+                case addText: {
+
+                    this.addCart(Number(id), elm, parent)
+                }
             }
         })
 
@@ -119,6 +147,7 @@ export const cart = {
         }
 
         if (!this.cartData || this.cartData === '') { this.cartData = [] }
+        console.log(this.cartData)
         if (this.cartData.includes(id)) {
             setTimeout(() => { simpleNoti('Sản phẩm đã tồn tại', false) }, 0)
             return
