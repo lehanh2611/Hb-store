@@ -181,7 +181,6 @@
     border-radius: 10px;
     min-height: 720px;
     min-width: 368px;
-    /* background-color: rgb(202 213 246); */
     border: 1px solid var(--gray);
 }
 
