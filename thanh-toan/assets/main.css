@@ -159,7 +159,6 @@
     padding: 16px 10px;
     border-radius: 6px;
     background-color: rgb(202 213 246);
-    box-shadow: 10px 10px 30px rgb(86 159 225 / 35%);
 }
 
 .content__info-product-text {
@@ -176,6 +175,7 @@
 .content__payment-box {
     display: flex;
     flex-direction: column;
+    z-index: 1;
     grid-row: 1 / span 2;
     padding: 10px 12px;
     border-radius: 10px;
@@ -197,7 +197,6 @@
     font-weight: normal;
     font-size: 2.6rem;
     color: #0086a8;
-    padding-bottom: 8px;
     margin-bottom: 10px;
     border-bottom: 1px solid var(--gray);
 }
@@ -302,7 +301,7 @@
 }
 
 .payment-method.disable {
-    opacity: 0.8;
+    opacity: 0.6;
     cursor: default;
 }
 
@@ -315,6 +314,11 @@
 
 .payment-method-icon-box {
     margin-left: auto;
+}
+
+.payment-method-icon.coin {
+    width: 42px ;
+    height: unset !important;
 }
 
 .payment-method-select-box {

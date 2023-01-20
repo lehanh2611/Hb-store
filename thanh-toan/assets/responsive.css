@@ -28,6 +28,14 @@
         width: 60vw;
         max-width: 399px
     }
+
+    .content__info-product-content-wrap {
+        box-shadow: 0 0 13px rgb(128 144 159 / 35%);
+    }
+
+    .footer__last {
+        margin-top: 86px;
+    }
 }
 
 @media (max-width: 419.9px) {

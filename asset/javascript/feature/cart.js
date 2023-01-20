@@ -49,7 +49,6 @@ export const cart = {
             switch (elmActive) {
                 case buyText: {
                     if (userActiveID === null) {
-                        console.log(elm)
                         notificationWindowBody.classList.add('fixed')
                         notificationWindow(
                             false,

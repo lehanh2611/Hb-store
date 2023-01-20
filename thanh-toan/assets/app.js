@@ -18,12 +18,9 @@ import {
     rippleBtn,
     select,
     simpleNoti,
-    validate
+    validate,
+    cart
 } from "../../asset/javascript/end_point.js"
-
-
-
-
 
 const app = {
     info: JSON.parse(sessionStorage.getItem('order')),
@@ -134,7 +131,7 @@ const app = {
         selector.input.addEventListener('focusout', () => { validate.start(selector, rule) })
         this.submit.addEventListener('click', () => {
 
-            // if (!validate.start(selector, rule)) { return }
+            if (!validate.start(selector, rule)) { return }
 
             //show btn loading
             this.submit.classList.add('active')
@@ -171,18 +168,24 @@ const app = {
             }
 
             //handle request
+            let newCart = this.account.Cart?.filter(v => v != paymentData.ProductID)
+            const urlUser = `${accountApi}/${paymentData.UserID}`
+
+            cart.cartData = newCart
+            cart.saveCart()
+            
+            if (newCart.length === 0) { newCart = '' }
+
             if (paymentData.Menthod !== 'shopMoney') {
-                this.monthodOther(paymentData)
+                this.menthodOther(paymentData, newCart, urlUser)
             }
             else {
-                this.menthodShop(paymentData)
+                this.menthodShop(paymentData, newCart, urlUser)
             }
-            Patch(`${productAPi}/${paymentData.ProductID}`, { Sold: 'Yes' })
         })
     },
-    menthodShop: async function (paymentData) {
-        const url = `${accountApi}/${this.account.UserID}`
-        const money = await Get(url + '/Money')
+    menthodShop: async function (paymentData, newCart, urlUser) {
+        const money = await Get(urlUser + '/Money')
         const surplus = money - paymentData.Price
 
         if (surplus < 0) {
@@ -200,6 +203,13 @@ const app = {
                     { [paymentData.Ordercode]: { ...paymentData, Status: 'Paid' } }),
                 Patch(`${accountApi}/${paymentData.UserID}`, { Money: surplus })
             ])
+
+            // update cart and status product
+            await Promise.all([
+                Patch(`${productAPi}/${paymentData.ProductID}`, { Sold: 'Yes' }),
+                Patch(urlUser, { Cart: newCart })
+            ])
+
             notificationWindow(true,
                 'Thanh toán thành công',
                 'Theo dõi trong phần đơn hàng'
@@ -214,13 +224,12 @@ const app = {
         //hide btn loading
         this.submit.classList.remove('active')
     },
-    monthodOther: async function (paymentData) {
+    menthodOther: async function (paymentData, newCart, urlUser) {
         await Promise.all([
             Patch(`${orderAPi}`, { [paymentData.Ordercode]: paymentData }),
-            Patch(`${accountApi}/${paymentData.UserID}/Order/`,
+            Patch(`${urlUser}/Order/`,
                 { ...paymentData, Status: 'Unpaid' })
         ])
-
 
         if (paymentData.Menthod === 'shopMoney') { return }
         let bankInfo
@@ -250,7 +259,14 @@ const app = {
             money: paymentData.Price,
             content: paymentData.Ordercode,
             code: paymentData.Ordercode
-        }, () => {
+        }, async () => {
+
+            // update cart and status product
+            await Promise.all([
+                Patch(`${productAPi}/${paymentData.ProductID}`, { Sold: 'Yes' }),
+                Patch(urlUser, { Cart: newCart })
+            ])
+
             notificationWindow(true,
                 'Hb store đang xử lý',
                 'Theo dõi trong phần đơn hàng',
@@ -258,6 +274,7 @@ const app = {
                     this.goBack()
                     $('.header__nav-go-back').click()
                 })
+
         })
         plateBlur(true)
         //close payment window
