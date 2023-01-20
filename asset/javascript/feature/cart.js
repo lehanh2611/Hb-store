@@ -38,13 +38,13 @@ export const cart = {
 
             if (elmCN.includes(addText)) { elmActive = addText }
             if (elmCN.includes(buyText)) { elmActive = buyText }
-
+            
             if (!elmActive) { return }
+            if(parent.classList.value.includes('Yes')) {return}
             const id = parent.getAttribute('item_id')
 
             switch (elmActive) {
                 case buyText: { 
-                    if(parent.classList.value.includes('Yes')) {return}
                     this.buyCart(Number(id), parent) }
                     break
 

@@ -197,7 +197,8 @@ const app = {
             await Promise.all([
                 Patch(`${accountApi}/${paymentData.UserID}/Order/`,
                     { [paymentData.Ordercode]: { ...paymentData, Status: 'Paid' } }),
-                Patch(`${accountApi}/${paymentData.UserID}`, { Money: surplus })
+                Patch(`${accountApi}/${paymentData.UserID}`, { Money: surplus }),
+                Patch(`${accountApi}/${paymentData.UserID}/Cart`, { Money: surplus })
             ])
             notificationWindow(true,
                 'Thanh toán thành công',
