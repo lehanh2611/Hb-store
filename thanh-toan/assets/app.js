@@ -33,9 +33,15 @@ const app = {
     handle: false,
 
     renderInfo: async function () {
+        if (!this.info) { return }
         const [account, product] =
             await Promise.all([Get(`${accountApi}/${this.info.UserID}`),
             Get(`${productAPi}/${this.info.ProductID}`)])
+
+        if (product.Sold === 'Yes') {
+            this.goBack()
+            return
+        }
 
         let nickName = account.Nickname
         let avatar = account.Avatar
@@ -67,6 +73,8 @@ const app = {
 
         if (this.giftCode) {
             giftCode = this.giftCode
+
+            // type gift code
             if (giftCode.Type === 'percent') {
                 giftCode = Math.ceil(price - ((price / 100) * Number(giftCode.Value)))
             }
@@ -131,7 +139,7 @@ const app = {
         selector.input.addEventListener('focusout', () => { validate.start(selector, rule) })
         this.submit.addEventListener('click', () => {
 
-            if (!validate.start(selector, rule)) { return }
+            // if (!validate.start(selector, rule)) { return }
 
             //show btn loading
             this.submit.classList.add('active')
@@ -168,7 +176,11 @@ const app = {
             }
 
             //handle request
-            let newCart = this.account.Cart?.filter(v => v != paymentData.ProductID)
+            console.log(this.account.Cart)
+            let newCart = this.account.Cart
+            if (newCart) {
+                newCart = newCart.filter(v => v != paymentData.ProductID)
+            }
             const urlUser = `${accountApi}/${paymentData.UserID}`
 
             cart.cartData = newCart
@@ -196,35 +208,20 @@ const app = {
 
         }
         else {
-            await Promise.all([
-                Patch(`${accountApi}/${paymentData.UserID}/Order/`,
-                    { [paymentData.Ordercode]: { ...paymentData, Status: 'Paid' } }),
-                Patch(`${accountApi}/${paymentData.UserID}`, { Money: surplus })
-            ])
-
-            // update cart and status product
-            await Promise.all([
-                Patch(`${productAPi}/${paymentData.ProductID}`, { Sold: 'Yes' }),
-                Patch(urlUser, { Cart: newCart })
-            ])
+            await this.handleOrderApi(paymentData, newCart, urlUser, 'Paid')
+            Patch(urlUser, { Money: surplus })
 
             notificationWindow(true,
                 'Thanh toán thành công',
                 'Theo dõi trong phần đơn hàng'
-                , () => {
-                    notificationWindow()
-                    this.goBack()
-                    $('.header__nav-go-back').click()
-                })
-        }
+                , () => { this.goBack() })
 
+        }
 
         //hide btn loading
         this.submit.classList.remove('active')
     },
     menthodOther: async function (paymentData, newCart, urlUser) {
-
-
         let bankInfo
 
         if (paymentData.Menthod === 'bank') {
@@ -253,29 +250,16 @@ const app = {
             content: paymentData.Ordercode,
             code: paymentData.Ordercode
         }, async () => {
+            const submit = $('.payment-info__submit')
+            submit.classList.add('active')
 
-            await Promise.all([
-                //create order
-                Patch(`${orderAPi}`, { [paymentData.Ordercode]: paymentData }),
-                Patch(`${urlUser}/Order/`,
-                    { ...paymentData, Status: 'Unpaid' }),
+            await this.handleOrderApi(paymentData, newCart, urlUser, 'Unpaid')
 
-                // update cart and status product
-                Patch(`${productAPi}/${paymentData.ProductID}`, { Sold: 'Yes' }),
-                Patch(urlUser, { Cart: newCart })
-            ])
-
+            submit.classList.remove('active')
             notificationWindow(true,
                 'Hb store đang xử lý',
                 'Theo dõi trong phần đơn hàng',
-                () => {
-                    this.goBack()
-                    $('.header__nav-go-back').click()
-                })
-
-            //hide btn loading
-            this.submit.classList.remove('active')
-            
+                () => { this.goBack() })
         })
         plateBlur(true)
         //close payment window
@@ -283,21 +267,47 @@ const app = {
             paymentInfo()
             plateBlur(false)
         }
+        //hide btn loading
+        this.submit.classList.remove('active')
+    },
+
+    handleOrderApi: function (paymentData, newCart, urlUser, status) {
+        const order = { ...paymentData, Status: status }
+
+        //clear order
+        sessionStorage.removeItem('order')
+        this.info = null
+
+        return Promise.all([
+            //create order
+            Patch(`${orderAPi}`, { [paymentData.Ordercode]: order }),
+            Patch(`${urlUser}/Order/`, { [paymentData.Ordercode]: order }),
+
+            // update cart and status product
+            Patch(`${productAPi}/${paymentData.ProductID}`, { Sold: 'Yes' }),
+            Patch(urlUser, { Cart: newCart })
+
+        ])
     },
 
     goBack: function () {
         processLoad.run(2)
-        if (!this.info) {
-            window.location.href = window.location.origin
-        }
-        $('.header__nav-go-back').onclick = () => {
-            this.info = ''
-            this.goBack()
-        }
         setTimeout(() => {
             processLoad.run(2)
             processLoad.run(2)
-        }, 200)
+
+        }, 100)
+        setTimeout(() => {
+            if (!this.info) { window.location.href = window.location.origin }
+        }, 600);
+    },
+
+    atc: function () {
+        $('.header__nav-go-back').onclick = () => {
+            //clear order
+            sessionStorage.removeItem('order')
+            this.goBack()
+        }
     },
 
     select: function () {
@@ -308,6 +318,7 @@ const app = {
         this.goBack()
         this.select()
         this.renderInfo()
+        this.atc()
         rippleBtn($$('.rippleBtn'))
         iconShadow($$('.payment-method-icon-box'))
         this.submitGiftCode()

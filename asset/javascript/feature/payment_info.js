@@ -5,6 +5,7 @@ export function paymentInfo(title, value, callback) {
     //remove window
     if (arguments.length <= 0) {
         $('.payment-info').remove()
+        $('.payment-info__submit').classList.remove('active')
         return
     }
     //create window
@@ -56,7 +57,7 @@ export function paymentInfo(title, value, callback) {
             ${value.bankName === 'Momo' ? value.bankName : title.bank} và quét mã QR này</p>
             <img src="${value.qr}" class="payment-info__qr-img">
         </div>
-        <button class="btn rippleBtn payment-info__submit">
+        <button class="btn rippleBtn btn-loading payment-info__submit">
             <p class="btn-loading__text">Đã thanh toán</p>
             <div class="btn-loading__icon"></div>
         </button>
@@ -76,6 +77,5 @@ export function paymentInfo(title, value, callback) {
         }
     }
 
-    // element = $('.payment-info')
-    $('.payment-info__submit').onclick = () => { callback() }
+    $('.payment-info__submit').onclick = () => {callback()}
 }
