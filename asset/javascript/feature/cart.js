@@ -13,7 +13,8 @@ import {
     processLoad,
     notificationWindow,
     notificationWindowBody,
-    logWaitingFunction
+    logWaitingFunction,
+    Get
 } from "../end_point.js";
 export const cart = {
     cartData: JSON.parse(localStorage.getItem('cart')),
@@ -57,7 +58,7 @@ export const cart = {
                             , (isSuccess) => {
                                 notificationWindow()
                                 notificationWindowBody.classList.remove('fixed')
-                                
+
                                 //login success => go to payment page
                                 if (isSuccess) {
                                     logWaitingFunction.push(() => {
@@ -240,7 +241,13 @@ export const cart = {
 
     },
 
-    renderCart: function (products) {
+    renderCart: async function (products) {
+
+        // update cart 
+        if (userActiveID) {
+            this.cartData = await Get(`${accountApi}/${userActiveID}/Cart`)
+        }
+
         const productCart = products.filter(v => {
             return this.cartData.some(e => v.ProductID == e)
         })

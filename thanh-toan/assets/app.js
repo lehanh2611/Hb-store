@@ -7,7 +7,6 @@ import {
     gift_codeAPi,
     iconShadow,
     notificationWindow,
-    notificationWindowBody,
     orderAPi,
     Patch,
     paymentInfo,
@@ -90,7 +89,6 @@ const app = {
         $('.content__payment.flash-sale.value').innerText = `${flashSale === 0 ? '' : '-'}${formatMoney(flashSale)}`
         $('.content__payment.total-gift.value').innerText = `${discountTotal === 0 ? '' : '-'}${formatMoney(discountTotal)}`
         $('.content__payment.total.value').innerText = formatMoney(this.price)
-
     },
 
     submitGiftCode: function () {
@@ -139,7 +137,7 @@ const app = {
         selector.input.addEventListener('focusout', () => { validate.start(selector, rule) })
         this.submit.addEventListener('click', () => {
 
-            // if (!validate.start(selector, rule)) { return }
+            if (!validate.start(selector, rule)) { return }
 
             //show btn loading
             this.submit.classList.add('active')
@@ -176,12 +174,11 @@ const app = {
             }
 
             //handle request
-            console.log(this.account.Cart)
+            const urlUser = `${accountApi}/${paymentData.UserID}`
             let newCart = this.account.Cart
             if (newCart) {
                 newCart = newCart.filter(v => v != paymentData.ProductID)
             }
-            const urlUser = `${accountApi}/${paymentData.UserID}`
 
             cart.cartData = newCart
             cart.saveCart()
@@ -202,10 +199,7 @@ const app = {
             notificationWindow(false,
                 'Số dư không đủ',
                 'Vui lòng bổ sung hoặc thay đổi phương thức khác',
-                () => {
-                    notificationWindow()
-                })
-
+                () => {notificationWindow() })
         }
         else {
             await this.handleOrderApi(paymentData, newCart, urlUser, 'Paid')
@@ -213,11 +207,9 @@ const app = {
 
             notificationWindow(true,
                 'Thanh toán thành công',
-                'Theo dõi trong phần đơn hàng'
+                'Theo dõi trong phần thông báo'
                 , () => { this.goBack() })
-
         }
-
         //hide btn loading
         this.submit.classList.remove('active')
     },
@@ -251,14 +243,14 @@ const app = {
             code: paymentData.Ordercode
         }, async () => {
             const submit = $('.payment-info__submit')
-            submit.classList.add('active')
 
+            submit.classList.add('active')
             await this.handleOrderApi(paymentData, newCart, urlUser, 'Unpaid')
 
             submit.classList.remove('active')
             notificationWindow(true,
                 'Hb store đang xử lý',
-                'Theo dõi trong phần đơn hàng',
+                'Theo dõi trong phần thông báo',
                 () => { this.goBack() })
         })
         plateBlur(true)
@@ -295,7 +287,6 @@ const app = {
         setTimeout(() => {
             processLoad.run(2)
             processLoad.run(2)
-
         }, 100)
         setTimeout(() => {
             if (!this.info) { window.location.href = window.location.origin }
@@ -326,11 +317,3 @@ const app = {
     }
 }
 app.start()
-// Put(`https://hbstore26-default-rtdb.firebaseio.com/gift_code/GIFTCODE10`, {
-//     Type: 'percent',
-//     Value: '10',
-//     Amount: '100'
-// })
-// document.querySelector('body').addEventListener('click',  e => {
-//     navigator.clipboard.writeText('hello world')
-// })
