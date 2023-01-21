@@ -173,7 +173,7 @@ const app = {
 
             cart.cartData = newCart
             cart.saveCart()
-            
+
             if (paymentData.Menthod !== 'shopMoney') {
                 this.menthodOther(paymentData, newCart, urlUser)
             }
@@ -223,13 +223,8 @@ const app = {
         this.submit.classList.remove('active')
     },
     menthodOther: async function (paymentData, newCart, urlUser) {
-        await Promise.all([
-            Patch(`${orderAPi}`, { [paymentData.Ordercode]: paymentData }),
-            Patch(`${urlUser}/Order/`,
-                { ...paymentData, Status: 'Unpaid' })
-        ])
 
-        if (paymentData.Menthod === 'shopMoney') { return }
+
         let bankInfo
 
         if (paymentData.Menthod === 'bank') {
@@ -259,8 +254,13 @@ const app = {
             code: paymentData.Ordercode
         }, async () => {
 
-            // update cart and status product
             await Promise.all([
+                //create order
+                Patch(`${orderAPi}`, { [paymentData.Ordercode]: paymentData }),
+                Patch(`${urlUser}/Order/`,
+                    { ...paymentData, Status: 'Unpaid' }),
+
+                // update cart and status product
                 Patch(`${productAPi}/${paymentData.ProductID}`, { Sold: 'Yes' }),
                 Patch(urlUser, { Cart: newCart })
             ])
@@ -273,6 +273,9 @@ const app = {
                     $('.header__nav-go-back').click()
                 })
 
+            //hide btn loading
+            this.submit.classList.remove('active')
+            
         })
         plateBlur(true)
         //close payment window
@@ -280,11 +283,6 @@ const app = {
             paymentInfo()
             plateBlur(false)
         }
-
-        //hide btn loading
-        this.submit.classList.remove('active')
-
-
     },
 
     goBack: function () {
