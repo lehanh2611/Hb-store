@@ -25,22 +25,38 @@ const app = {
     info: JSON.parse(sessionStorage.getItem('order')),
     account: '',
     product: '',
+    orders: '',
     price: '',
     giftCode: '',
     giftCodeName: '',
     submit: $('.content__payment.pay'),
     handle: false,
 
+    error: function () {
+        sessionStorage.removeItem('order')
+        this.info = null
+        notificationWindow(
+            false,
+            'Có lỗi xảy ra',
+            'Sẳn phẩm không tồn tại hoặc đã bán',
+            () => {
+                notificationWindow()
+                this.goBack()
+            },
+            'Quay lại'
+        )
+    },
     renderInfo: async function () {
         if (!this.info) { return }
+
         const [account, product] =
             await Promise.all([Get(`${accountApi}/${this.info.UserID}`),
             Get(`${productAPi}/${this.info.ProductID}`)])
 
-        if (product.Sold === 'Yes') {
-            this.goBack()
-            return
-        }
+        // if (product.Sold === 'Yes') {
+        //     this.error()
+        //     return
+        // }
 
         let nickName = account.Nickname
         let avatar = account.Avatar
@@ -132,16 +148,14 @@ const app = {
             message: parent.querySelector('message')
         }
         const rule = ['email', 'required']
-
         selector.input.addEventListener('focusin', () => { selector.message.innerText = '' })
         selector.input.addEventListener('focusout', () => { validate.start(selector, rule) })
         this.submit.addEventListener('click', () => {
-
             if (!validate.start(selector, rule)) { return }
 
             //show btn loading
             this.submit.classList.add('active')
-            //create Orde code
+            //create Order code
             const menthod = $('.payment-method.active').getAttribute('menthod')
             let orderCode = ''
             switch (menthod) {
@@ -183,12 +197,20 @@ const app = {
             cart.cartData = newCart
             cart.saveCart()
 
-            if (paymentData.Menthod !== 'shopMoney') {
-                this.menthodOther(paymentData, newCart, urlUser)
-            }
-            else {
-                this.menthodShop(paymentData, newCart, urlUser)
-            }
+            //check order
+            GETelement(orderAPi, v => {
+                if (Object.keys(v).some(v => v.includes(app.product.UID))) {
+                    this.error()
+                }
+                else {
+                    if (paymentData.Menthod !== 'shopMoney') {
+                        this.menthodOther(paymentData, newCart, urlUser)
+                    }
+                    else {
+                        this.menthodShop(paymentData, newCart, urlUser)
+                    }
+                }
+            })
         })
     },
     menthodShop: async function (paymentData, newCart, urlUser) {
@@ -339,7 +361,8 @@ const app = {
         select($$('.payment-method'))
     },
 
-    start: function () {
+    start: async function () {
+        this.orders = await Get(orderAPi)
         this.goBack()
         this.select()
         this.renderInfo()

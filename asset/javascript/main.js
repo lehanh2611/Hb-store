@@ -872,6 +872,12 @@ const notication = {
                     plateBlur(false)
                 })
         })
+
+        this.btn.addEventListener('mouseenter', () => {
+            if (window.innerWidth >= 600) {
+                this.btn.appendChild(notiMenu)
+            }
+        })
     },
 
     callback: function () {

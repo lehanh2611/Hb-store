@@ -171,11 +171,14 @@
     display: flex;
 }
 
-.header__noti-item-list .header__cart-empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
+.header__noti-wrap {
+    height: 320px;
+    overflow-y: scroll;
+    padding-left: 10px;
+}
+
+.header__noti-wrap::-webkit-scrollbar {
+    display: none;
 }
 
 .header__noti-item-list {
@@ -183,6 +186,14 @@
     flex-direction: column-reverse !important;
     justify-content: start;
     padding: 0 !important;
+    flex: 1;
+    overflow: initial !important;
+    max-height: unset !important;
+}
+.header__noti-item-list .header__cart-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex: 1;
 }
 
