@@ -1,4 +1,4 @@
-import { $, $$, notificationWindow } from "../end_point.js"
+import { $, $$, notificationWindow, validate } from "../end_point.js"
 
 // Format money
 export function formatMoney(value) {
@@ -204,5 +204,36 @@ export function newNotiUser(newNoti = false) {
     }
     else {
         userContain.classList.remove('showNewNoti')
+    }
+}
+
+//Footer
+export const footer = {
+    submit: function () {
+        const form = $('.submitForm')
+        const submit = $('.footer__get-new-submit')
+        const selector = {
+            input: form.querySelector('input'),
+            message: form.querySelector('message'),
+        }
+        let result
+
+        form.addEventListener('submit', (e) => { e.preventDefault() })
+
+        selector.input.oninput = () => {
+            selector.message.innerText = ''
+        }
+
+        submit.onclick = () => {
+            result = validate.start(selector, ['required', 'email'])
+
+            if (result) {
+                simpleNoti('Đã đăng ký nhận tin')
+            }
+        }
+    },
+
+    start: function () {
+        this.submit()
     }
 }

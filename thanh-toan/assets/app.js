@@ -18,7 +18,8 @@ import {
     select,
     simpleNoti,
     validate,
-    cart
+    cart,
+    footer
 } from "../../asset/javascript/end_point.js"
 
 const app = {
@@ -371,6 +372,7 @@ const app = {
         iconShadow($$('.payment-method-icon-box'))
         this.submitGiftCode()
         this.paymentSubmit()
+        footer.start()
     }
 }
 app.start()

@@ -5,10 +5,12 @@ import {
     accountApi,
     GETelement,
     PATCHelement,
+    Put,
     DELETEelement,
     formatMoney,
     select,
     rippleBtn,
+    footer,
 
     /***** Constant *****/
     $,
@@ -41,7 +43,6 @@ import {
     closeWithRule,
     validate,
     simpleNoti,
-    Put,
     newNotiUser,
 
 
@@ -1701,36 +1702,6 @@ const stall = function () {
 }
 stall()
 
-const footer = {
-    submit: function () {
-        const form = $('.submitForm')
-        const submit = $('.footer__get-new-submit')
-        const selector = {
-            input: form.querySelector('input'),
-            message: form.querySelector('message'),
-        }
-        let result
-
-        form.addEventListener('submit', (e) => { e.preventDefault() })
-
-        selector.input.oninput = () => {
-            selector.message.innerText = ''
-        }
-
-        submit.onclick = () => {
-            result = validate.start(selector, ['required', 'email'])
-
-            if (result) {
-                simpleNoti('Đã đăng ký nhận tin')
-            }
-        }
-    },
-
-    start: function () {
-        this.submit()
-    }
-}
-footer.start()
 
 const app = {
     start: function () {
@@ -1738,6 +1709,7 @@ const app = {
         logHistory.start()
         rippleBtn($$('.rippleBtn'))
         cart.start()
+        footer.start()
     }
 }
 setTimeout(() => { app.start() }, 0);
