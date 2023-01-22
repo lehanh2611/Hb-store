@@ -688,8 +688,13 @@ button {
 
 /* New notification user */
 .header__user-contain::before {
-    top: 0 !important;
-    right: 0 !important;
+    position: absolute;
+    display: none;
+    top: 0;
+    right: 0;
+    content: '';
+    border: 5px solid var(--red);
+    border-radius: 50%;
 }
 
 .showNewNoti.header__user-contain::before {

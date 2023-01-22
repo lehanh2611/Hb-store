@@ -119,8 +119,8 @@
     box-shadow: 0 0 10px var(--box-shadow-dark);
 }
 
-.header__feature-box.noti::after,
-.header__user-contain::before {
+.header__user-menu-item.noti::before,
+.header__feature-box.noti::after {
     position: absolute;
     display: none;
     top: 0;
@@ -130,7 +130,13 @@
     border-radius: 50%;
 }
 
-.newNoti.header__feature-box.noti::after {
+.header__user-menu-item.noti::before {
+    right: unset;
+    left: 0;
+}
+
+.newNoti.header__feature-box.noti::after,
+.newNoti.header__user-menu-item.noti::before {
     display: block;
 }
 
@@ -831,6 +837,7 @@
 }
 
 .header__user-menu-item {
+    position: relative;
     display: flex;
     align-items: center;
     font-size: 2.5rem;

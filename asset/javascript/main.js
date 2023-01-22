@@ -824,11 +824,13 @@ const notication = {
         const result = this.account.Notification.some(v => v.Seen != 'Yes')
         if (result) {
             this.btn.classList.add('newNoti')
+            this.btnM.classList.add('newNoti')
             newNotiUser(true)
 
         }
         else {
             this.btn.classList.remove('newNoti')
+            this.btnM.classList.remove('newNoti')
             newNotiUser()
         }
     },
