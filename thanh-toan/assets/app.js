@@ -194,15 +194,26 @@ const app = {
     menthodShop: async function (paymentData, newCart, urlUser) {
         const money = await Get(urlUser + '/Money')
         const surplus = money - paymentData.Price
+        const notification = {
+            Type: 'Product',
+            Seen: 'No',
+            title: `Đơn hàng ${paymentData.Ordercode} đã đặt thành công`,
+            content: 'Theo dõi hòm thư của bạn để nhận tài khoản'
+        }
 
         if (surplus < 0) {
             notificationWindow(false,
                 'Số dư không đủ',
                 'Vui lòng bổ sung hoặc thay đổi phương thức khác',
-                () => {notificationWindow() })
+                () => { notificationWindow() })
         }
         else {
-            await this.handleOrderApi(paymentData, newCart, urlUser, 'Paid')
+            await this.handleOrderApi(
+                paymentData,
+                newCart,
+                urlUser,
+                'Paid',
+                notification)
             Patch(urlUser, { Money: surplus })
 
             notificationWindow(true,
@@ -243,9 +254,20 @@ const app = {
             code: paymentData.Ordercode
         }, async () => {
             const submit = $('.payment-info__submit')
+            const notification = {
+                Type: 'Product',
+                Seen: 'No',
+                title: `Đơn hàng ${paymentData.Ordercode} đã được tiếp nhận`,
+                content: 'Chúng tôi sẽ gửi thông báo khi có kết quả'
+            }
 
             submit.classList.add('active')
-            await this.handleOrderApi(paymentData, newCart, urlUser, 'Unpaid')
+            await this.handleOrderApi(
+                paymentData,
+                newCart,
+                urlUser,
+                'Unpaid',
+                notification)
 
             submit.classList.remove('active')
             notificationWindow(true,
@@ -263,8 +285,17 @@ const app = {
         this.submit.classList.remove('active')
     },
 
-    handleOrderApi: function (paymentData, newCart, urlUser, status) {
+    handleOrderApi: function (paymentData, newCart, urlUser, status, notication) {
         const order = { ...paymentData, Status: status }
+        let NotiLeng = this.account.Notification
+
+        if (NotiLeng) {
+            NotiLeng = this.account.Notification.length
+
+        }
+        else {
+            NotiLeng = 0
+        }
 
         //clear order
         sessionStorage.removeItem('order')
@@ -277,8 +308,10 @@ const app = {
 
             // update cart and status product
             Patch(`${productAPi}/${paymentData.ProductID}`, { Sold: 'Yes' }),
-            Patch(urlUser, { Cart: newCart })
+            Patch(urlUser, { Cart: newCart }),
 
+            //create notification
+            Patch(`${urlUser}/Notification`, { [NotiLeng]: notication })
         ])
     },
 
@@ -297,6 +330,7 @@ const app = {
         $('.header__nav-go-back').onclick = () => {
             //clear order
             sessionStorage.removeItem('order')
+            this.info = null
             this.goBack()
         }
     },

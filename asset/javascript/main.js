@@ -41,12 +41,14 @@ import {
     closeWithRule,
     validate,
     simpleNoti,
+    Put,
+    newNotiUser,
 
 
 } from "./end_point.js"
 //***** Global *****/
 let productsMain
-
+let accountsMain
 /***** Header *****/
 header();
 function header() {
@@ -253,7 +255,6 @@ function header() {
         // Open modal login/register and on/off menu user
 
         function showMenuUserML() {
-            console.log('run')
             if (window.innerWidth >= 600 && userActiveID !== null) {
                 menuUser.classList.add('show-ml')
                 menuUser.classList.remove('active')
@@ -652,6 +653,7 @@ function header() {
                                         this.TotalDeposit = 0
                                         this.Cart = ''
                                         this.Order = ''
+                                        this.Notification = ''
                                         this.History = ''
                                         this.Block = false
                                         this.DateCreated = logHistory.getRealTime()
@@ -783,8 +785,118 @@ function header() {
                 })
         };
     };
+
 };
 
+const notication = {
+    account: 0,
+    btn: $('.header__feature-box.noti'),
+    btnM: $('.header__user-menu-item.noti'),
+    render: function () {
+        const output = this.account.Notification.reduce((a, v) => {
+            let iconUrl = ''
+            switch (v.Type) {
+                case 'Product': {
+                    iconUrl = './asset/icon/cart.png'
+                }
+                    break
+                case 'Coin': {
+                    iconUrl = './thanh-toan/assets/icon/coin.png'
+                }
+                    break
+
+                case 'Other': {
+                    iconUrl = './asset/icon/message.png'
+                }
+                    break
+            }
+            return a += `
+            <li class="header__noti-item ${v.Seen === 'No' ? 'active' : ''}">
+             <img class="header__noti-item-icon" src="${iconUrl}">
+             <span><h3 class="header__noti-item-title">${v.title}</h3>
+             <span class="header__noti-item-content">${v.content}</span>`
+        }, '')
+
+        $('.header__noti-item-list').innerHTML = output
+    },
+
+    newNoti: function () {
+        const result = this.account.Notification.some(v => v.Seen != 'Yes')
+        if (result) {
+            this.btn.classList.add('newNoti')
+            newNotiUser(true)
+
+        }
+        else {
+            this.btn.classList.remove('newNoti')
+            newNotiUser()
+        }
+    },
+
+    seenUpdate: function () {
+        const closeBtnM = $('.header__noti-close')
+
+        function update() {
+            let newNoti = notication.account.Notification
+            newNoti = newNoti.map(v => {
+                return {
+                    ...v,
+                    Seen: 'Yes'
+                }
+            })
+
+            Put(`${accountApi}/${userActiveID}/Notification`, newNoti)
+            notication.account.Notification = newNoti
+            notication.render()
+            notication.newNoti()
+            notication.btn.removeEventListener('mouseleave', update)
+            closeBtnM.removeEventListener('click', update)
+        }
+        notication.btn.addEventListener('mouseleave', update)
+        closeBtnM.addEventListener('click', update)
+    },
+    atc: function () {
+        const notiMenu = $('.header__noti-box')
+
+        this.btnM.onclick = () => {
+            $('#header').appendChild(notiMenu)
+            notiMenu.classList.add('show-m')
+            plateBlur(true, notiMenu)
+        }
+        window.addEventListener('click', function closeNoti(e) {
+            closeWithRule.start(e, ['.header__user-menu-item.noti'],
+                () => {
+                    notiMenu.classList.remove('show-m')
+                    plateBlur(false)
+                })
+        })
+    },
+
+    callback: function () {
+        if (!this.account || userActiveID === null) {
+            setTimeout(() => {
+                this.account = accountsMain
+                this.callback()
+            }, 100);
+        }
+        else {
+            this.start()
+        }
+    },
+    start: function () {
+        if (!this.account) {
+            this.callback()
+            return
+        }
+        this.account = this.account[userActiveID]
+        if (!this.account.Notification) { return }
+        this.atc()
+        this.render()
+        this.newNoti()
+        this.seenUpdate()
+    }
+}
+notication.start()
 /***** Content *****/
 content()
 function content() {
@@ -796,6 +908,7 @@ function content() {
         balance: function () {
             let getBalance = new Promise((resolve) => {
                 GETelement(accountApi, (value) => {
+                    accountsMain = value
                     let money = value.map(element => element.Money)
                     resolve([money, value])
                 })
@@ -1597,7 +1710,7 @@ const footer = {
         }
 
         submit.onclick = () => {
-            result = validate.start(selector, ['required','email'])
+            result = validate.start(selector, ['required', 'email'])
 
             if (result) {
                 simpleNoti('Đã đăng ký nhận tin')

@@ -140,20 +140,3 @@ export function removeNull(url, callback) {
 
         })
 }
-
-let i = 0
-// GETelement(accountApi, v => {
-//     let i = -1
-//     const output = v.map((e) => {
-//         ++i
-//         return {
-//             ...e,
-//             UserID: i
-//         }
-//     })
-//     console.log(output)
-//     PUTelement(accountApi, output)
-// })
-
-
-

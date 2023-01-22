@@ -14,7 +14,11 @@ export function plateBlur(value = true, selectModal) {
         }, 30);
     }
     else {
-        if (modals.some(v => v.classList.value.includes('active'))) { return }
+        const result = modals.some(v => {
+            const value = v.classList.value
+            return value.includes('active') || value.includes('show')
+        })
+        if (result) { return }
         plateBlurBody.classList.add('hide', 'opacity');
         modals = []
     };

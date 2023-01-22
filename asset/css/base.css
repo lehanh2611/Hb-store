@@ -65,7 +65,7 @@ button {
 }
 
 .fixed {
-    position: fixed!important;
+    position: fixed !important;
 }
 
 .hide {
@@ -686,7 +686,17 @@ button {
 
 /*END Background */
 
+/* New notification user */
+.header__user-contain::before {
+    top: 0 !important;
+    right: 0 !important;
+}
 
+.showNewNoti.header__user-contain::before {
+    display: block !important;
+}
+
+/* END New notification user */
 
 /* Process load*/
 .process-load {

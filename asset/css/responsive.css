@@ -237,6 +237,10 @@
         opacity: 1;
     }
 
+    .header__noti-close {
+        display: block;
+    }
+
     /* Content */
     /* Content top */
     .content-top {

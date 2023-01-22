@@ -119,6 +119,7 @@
     width: 100%;
     grid-template-columns: auto auto;
     grid-template-rows: 70% 30%;
+    padding: 0 10px;
     padding-top: 20px;
 }
 

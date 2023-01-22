@@ -194,3 +194,15 @@ export function iconShadow(selectors) {
         })
     }
 }
+
+//New notification user
+export function newNotiUser(newNoti = false) {
+    const userContain = $('.header__user-contain')
+    if (newNoti) {
+        if(window.innerWidth >= 600){return}
+        userContain.classList.add('showNewNoti')
+    }
+    else {
+        userContain.classList.remove('showNewNoti')
+    }
+}
