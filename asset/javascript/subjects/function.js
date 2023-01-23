@@ -33,7 +33,10 @@ export function select(listElment, callback) {
     for (let element of listElment) {
 
         element.addEventListener('click', () => {
-            if (element.classList.value.includes('disable')) { return }
+            const value = element.classList.value
+            
+            if(value.includes('disable')) { return}
+            if (value.includes('disable')) { return }
             removeActive()
 
             element.classList.add('active')
@@ -186,7 +189,7 @@ export function iconShadow(selectors) {
             'height': '100%',
             'width': '80%',
             'left': '10%',
-            'bottom': '-10%',
+            'bottom': '-8%',
             'opacity': '.5',
             'filter': 'blur(5px)',
             'border-radius': '20%',

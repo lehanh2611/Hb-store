@@ -1,3 +1,5 @@
+import { formatMoney } from "../end_point.js"
+
 export const validate = {
 
     validator: {
@@ -32,6 +34,24 @@ export const validate = {
             }
             else { return true }
         },
+        maxMoney: function (selector, subType, messageTx) {
+            if ((selector.input.value > Number.parseInt(subType))) {
+                selector.message.innerText =
+                    `${messageTx} ${formatMoney(subType)}`
+                return false
+            }
+            else { return true }
+        },
+        money: function (selector, subType, messageTx) {
+
+
+            if ((selector.input.value < Number.parseInt(subType))) {
+                selector.message.innerText = 
+                `${messageTx} ${formatMoney(subType)}`
+                return false
+            }
+            else { return true }
+        },
 
         email: function (selector, subType, messageTx) {
 
@@ -41,7 +61,7 @@ export const validate = {
             }
             else { return true }
         }
-       
+
     },
 
     validateTypes: {
@@ -71,6 +91,19 @@ export const validate = {
                 return validate.validator.leng(selector, subType, this.message)
             }
         },
+        maxMoney: {
+            message: "Số tiền tối đa có thể nạp là:",
+            handle: function (selector, subType) {
+                return validate.validator.maxMoney(selector, subType, this.message)
+            }
+        },
+
+        money: {
+            message: "Số tiền nạp tối thiểu là:",
+            handle: function (selector, subType) {
+                return validate.validator.money(selector, subType, this.message)
+            }
+        },
         email: {
             message: "Email không hợp lệ",
             handle: function (selector, subType) {
@@ -92,6 +125,16 @@ export const validate = {
                 if (type.includes('leng')) {
                     subType = type.slice(type.indexOf('_') + 1)
                     type = 'leng'
+                }
+            }
+            if (type.includes('maxMoney')) {
+                subType = type.slice(type.indexOf('_') + 1)
+                type = 'maxMoney'
+            }
+            else {
+                if (type.includes('money')) {
+                    subType = type.slice(type.indexOf('_') + 1)
+                    type = 'money'
                 }
             }
 

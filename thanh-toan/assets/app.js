@@ -200,6 +200,7 @@ const app = {
 
             //check order
             GETelement(orderAPi, v => {
+                if (v?.length === 0 || !v) { v = [] }
                 if (Object.keys(v).some(v => v.includes(app.product.UID))) {
                     this.error()
                 }

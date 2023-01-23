@@ -1,19 +1,20 @@
-import { $, $$, simpleNoti } from "../end_point.js"
+import { $, $$, rippleBtn, simpleNoti } from "../end_point.js"
 
-export function paymentInfo(title, value, callback) {
+export function paymentInfo(title, value, callback, parent) {
 
     //remove window
     if (arguments.length <= 0) {
         $('.payment-info').remove()
-        $('.payment-info__submit').classList.remove('active')
+        // $('.payment-info__submit').classList.remove('active')
         return
     }
     //create window
+    const modalContent = `<i class="payment-info__close fa-solid fa-xmark"></i>
+    <h3 class="payment-info__title">Đơn hàng ${value?.code} tạo thành công!</h3>
+    <p class="payment-info__title-sub">Vui lòng thanh toán theo bên dưới</p>`
     const html = `<div class="payment-info">
     <div class="payment-info__wrap">
-        <i class="payment-info__close fa-solid fa-xmark"></i>
-        <h3 class="payment-info__title">Đơn hàng ${value.code} tạo thành công!</h3>
-        <p class="payment-info__title-sub">Vui lòng thanh toán theo bên dưới</p>
+            ${Boolean(parent) ? '' : modalContent}
         <div class="payment-info__bank">
             <h3 class="payment-info__bank-title">Thông tin thanh toán</h3>
             <ul class="payment-info__bank-list">
@@ -64,8 +65,13 @@ export function paymentInfo(title, value, callback) {
     </div>
 </div>`
     let element = document.createElement('div')
-    $('#modal').appendChild(element)
+    let contain = $('#modal')
+
+    if (parent) { contain = parent }
+
+    contain.appendChild(element)
     element.outerHTML = html
+    setTimeout(() => { rippleBtn($$('.rippleBtn')) }, 0)
 
     for (const copy of $$('.payment-info__bank-icon')) {
         copy.onclick = () => {
@@ -77,5 +83,9 @@ export function paymentInfo(title, value, callback) {
         }
     }
 
-    $('.payment-info__submit').onclick = () => {callback()}
+    const submitBtn = $('.payment-info__submit')
+    submitBtn.addEventListener('click', function submit() {
+        submitBtn.removeEventListener('click', submit)
+        callback()
+    })
 }

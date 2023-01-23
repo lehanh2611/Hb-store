@@ -906,6 +906,27 @@ const notication = {
     }
 }
 notication.start()
+
+const desposit = {
+    start: function () {
+        if (userActiveID !== null) {
+            $('.header__feature-box.desposit').onclick = () => {
+                processLoad.run(2)
+                setTimeout(() => {
+                    processLoad.run(2)
+                    sessionStorage.setItem('desposit', userActiveID)
+                }, 100)
+                setTimeout(() => {
+                    window.location.href = window.location.origin + '/nap-tien'
+                    processLoad.run(2)
+                }, 600)
+            }
+        }
+        else { setTimeout(() => { this.start() }, 100) }
+    }
+}
+desposit.start()
+
 /***** Content *****/
 content()
 function content() {
