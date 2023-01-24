@@ -127,12 +127,12 @@ const app = {
     },
     moneyOptions: function () {
         for (const op of $$('.desposit__input-option-item')) {
-            op.onclick = () => {
+            op.addEventListener('click', () => {
                 this.selector.input.value = op.getAttribute('option')
                 this.validate()
                 this.renderPi()
                 this.handleData()
-            }
+            })
         }
     },
     validate: function () {
@@ -144,12 +144,14 @@ const app = {
         else {
             this.result = false
         }
-        //show deposit warning messsage
+        //show deposit warning messsage & error input
         if (this.result) {
             Depwarning.classList.add('active')
+            this.selector.message.classList.remove('active')
         }
         else {
             Depwarning.classList.remove('active')
+            this.selector.message.classList.add('active')
         }
     },
     submit: async function () {

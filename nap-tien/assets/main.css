@@ -41,7 +41,7 @@ input[type=number] {
 }
 
 .desposit__input-wrap {
-    min-height: 115px;
+    min-height: 128px;
 }
 
 .desposit__input-box,
@@ -83,9 +83,15 @@ input[type=number] {
 
 .desposit__input-box .message {
     color: var(--light-red);
-    margin-top: 5px;
+    margin-top: 10px;
+    opacity: 0;
+    height: 20px;
+    transition: ease .2s;
 }
 
+.desposit__input-box .message.active {
+    opacity: 1;
+}
 
 .desposit__input-option-list,
 .desposit__input-option-item {
@@ -99,22 +105,22 @@ input[type=number] {
 }
 
 .desposit__input-option-list {
+    display: grid;
+    grid-template-columns: 186px 186px 186px 186px 186px;
     margin-top: auto;
-    justify-content: space-between;
-    flex-wrap: wrap;
 }
 
 .desposit__input-option-item {
     align-items: center;
     justify-content: center;
-    width: 180px;
+    width: 168px;
     height: 38px;
     margin-right: 10px;
     border-radius: 6px;
-    outline: 1px solid var(--gray);
+    outline: 1px solid rgb(86 130 225);
     font-size: 1.8rem;
     font-weight: 500;
-    color: #1f5d24;
+    color: rgb(86 130 225);
     margin: 6px 0;
 }
 
@@ -125,7 +131,7 @@ input[type=number] {
 .desposit__input-option-item.active,
 .desposit__input-option-item:hover {
     cursor: pointer;
-    background-color: #1e5a5e59;
+    background-color: #92b0e83d;
 }
 
 .desposit__input-option-icon {
@@ -158,6 +164,7 @@ input[type=number] {
     border-radius: 10px;
     border: 1px solid transparent;
     background-color: #a8b1d20f;
+    min-width: 246px;
 }
 
 .desposit__menthod-item.active,
@@ -198,7 +205,7 @@ input[type=number] {
     align-items: flex-end;
     font-size: 1.6rem;
     opacity: 0;
-    margin-top: 5px;
+    margin-top: 10px;
     margin-bottom: 30px;
     transition: ease .2s;
 }
@@ -268,14 +275,6 @@ input[type=number] {
 .payment-info__qr-text {
     width: 399px;
     margin-bottom: 20px;
-}
-
-.payment-info__qr::before {
-    position: absolute;
-    content: '';
-    height: 80%;
-    left: 0;
-    border-left: 1px solid var(--gray);
 }
 
 .payment-info__bank {

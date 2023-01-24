@@ -1,0 +1,122 @@
+@media (min-width: 1200px) {
+    .payment-info__qr::before {
+        position: absolute;
+        content: '';
+        height: 80%;
+        left: 0;
+        border-left: 1px solid var(--gray);
+    }
+}
+
+@media (max-width: 960px) {
+    .desposit__input-option-list {
+        grid-template-columns: 186px 186px 186px 186px
+    }
+}
+
+@media (max-width: 910px) {
+    .footer__get-news {
+        flex-direction: column;
+    }
+
+    .footer__get-new-box.submitForm {
+        margin: 0;
+        padding: 0;
+    }
+
+    .footer__get-new-input-email {
+        width: 60vw;
+        max-width: 399px
+    }
+
+    .content__info-product-content-wrap {
+        box-shadow: 0 0 13px rgb(128 144 159 / 35%);
+    }
+
+    .footer__last {
+        margin-top: 86px;
+    }
+}
+
+@media (max-width: 840px) {
+    .content {
+        padding: 0 20px;
+    }
+
+    .desposit__input-option-list {
+        grid-template-columns: 186px 186px 186px
+    }
+
+    .desposit__menthod-item {
+        min-width: 399px;
+        margin: 10px 0;
+    }
+
+    .desposit__menthod-item:hover,
+    .desposit__menthod-item.active {
+        transform: translateX(20px);
+    }
+
+    .payment-info__bank-item p {
+        font-size: 2.1rem;
+    }
+
+    .desposit__menthod-item-title {
+        max-width: 268px;
+    }
+
+    .payment-info__wrap {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .payment-info__qr {
+        /* flex-direction: column-reverse; */
+    }
+
+    .payment-info__qr-img,
+    .payment-info__submit {
+        width: 345px;
+        height: auto;
+    }
+
+    .payment-info__qr-text {
+        width: 60%;
+        /* margin-bottom: auto; */
+    }
+
+    .payment-info__submit {
+        height: 43px;
+    }
+}
+
+@media (max-width: 600px) {
+    .desposit__input-option-list {
+        grid-template-columns: 168px 168px
+    }
+
+    .desposit__input-option-item {
+        width: 160px;
+    }
+
+    .desposit__money-info-box {
+        flex-wrap: wrap;
+    }
+
+    .desposit__menthod-item {}
+
+
+    .desposit__menthod-item:hover,
+    .desposit__menthod-item.active {
+        transform: unset;
+    }
+    .desposit__menthod-item {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .desposit__menthod-item-title {
+        min-width: 60%;
+    }
+}
