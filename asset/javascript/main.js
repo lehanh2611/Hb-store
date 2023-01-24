@@ -801,7 +801,7 @@ const notication = {
                     iconUrl = './asset/icon/cart.png'
                 }
                     break
-                case 'Coin': {
+                case 'Money': {
                     iconUrl = './thanh-toan/assets/icon/coin.png'
                 }
                     break

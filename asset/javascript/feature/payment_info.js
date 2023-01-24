@@ -59,7 +59,9 @@ export function paymentInfo(title, value, callback, parent) {
             <img src="${value.qr}" class="payment-info__qr-img">
         </div>
         <button class="btn rippleBtn btn-loading payment-info__submit">
-            <p class="btn-loading__text">Đã thanh toán</p>
+            <p class="btn-loading__text">
+            <i class="fa-solid fa-check"></i>
+            Đã thanh toán</p>
             <div class="btn-loading__icon"></div>
         </button>
     </div>

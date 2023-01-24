@@ -72,6 +72,14 @@
                     </li>
                 </ul>
             </div>
+            <div class="desposit__money-info-box">
+                <p class="desposit__money-info-box-warring">Chú ý:</p>
+                <p class="desposit__money-info-content">Tài khoản</p>
+                <b class="desposit__money-info-user">User</b>
+                <p class="desposit__money-info-content">sẽ nhận được </p>
+                <b class="desposit__money-info-new-money">0 ₫</b>
+                <p class="desposit__money-info-content">vào số dư ví.</p>
+            </div>
             <h3 class="desposit__menthod-title">Chọn một phương thức giao dịch</h3>
             <ul class="desposit__menthod-list">
                 <li class="desposit__menthod-item active" menthod="MB">
@@ -115,7 +123,24 @@
             </div>
         </div>
     </footer>
-    <modal id="modal"></modal>
+    <modal id="modal">
+        <div class="notification">
+            <div class="notification__wrap">
+                <i class="notification__close fa-solid fa-xmark"></i>
+                <div class="notification__face-box">
+                    <i class="notification__face">
+                        <i class="notification__face-eye"></i>
+                        <i class="notification__face-eye"></i>
+                        <i class="notification__face__nose"></i>
+                    </i>
+                    <i class="notification__face-shadow"></i>
+                </div>
+                <p class="notification__title">Thất bại!</p>
+                <p class="notification__content">Vui lòng thử lại</p>
+                <button class="btn notification__btn">Thử lại</button>
+            </div>
+        </div>
+    </modal>
     <script type="module" src="./assets/app.js"></script>
 </body>
 

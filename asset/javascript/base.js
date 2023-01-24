@@ -18,6 +18,9 @@ export const gift_codeAPi = "https://hbstore26-default-rtdb.firebaseio.com/gift_
 //Order storage//
 export const orderAPi = "https://hbstore26-default-rtdb.firebaseio.com/order"
 
+//Desposit storage//
+export const depositAPi = "https://hbstore26-default-rtdb.firebaseio.com/deposit"
+
 //Get element/api
 export function GETelement(url, callback) {
     console.log(url)

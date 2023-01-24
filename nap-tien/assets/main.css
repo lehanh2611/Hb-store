@@ -1,3 +1,7 @@
+.notification {
+    position: fixed;
+}
+
 body {
     background-color: #f8fafe
 }
@@ -17,6 +21,7 @@ input[type=number] {
 
 #header {
     background-color: #FFFFFF;
+    padding: 0 6px;
 }
 
 .header__nav {
@@ -49,11 +54,12 @@ input[type=number] {
 .desposit__menthod-title,
 .desposit__input-title {
     width: fit-content;
-    font-weight: normal;
+    font-weight: 500;
     color: #0086a8;
     font-size: 2.6rem;
     border-bottom: 1px solid #0086a8;
     margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
 .desposit__input-box,
@@ -94,6 +100,7 @@ input[type=number] {
 
 .desposit__input-option-list {
     margin-top: auto;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
@@ -108,7 +115,7 @@ input[type=number] {
     font-size: 1.8rem;
     font-weight: 500;
     color: #1f5d24;
-    margin: 6px 10px;
+    margin: 6px 0;
 }
 
 .desposit__input-option-item:first-child {
@@ -127,7 +134,7 @@ input[type=number] {
 }
 
 .desposit__menthod-title {
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 .desposit__menthod-list {
@@ -154,7 +161,7 @@ input[type=number] {
 }
 
 .desposit__menthod-item.active,
-.desposit__menthod-item:hover:not(.disable){
+.desposit__menthod-item:hover:not(.disable) {
     background-color: #a8b1d23d;
     border-color: var(--blue);
     cursor: pointer;
@@ -185,6 +192,39 @@ input[type=number] {
     width: 100%;
     border-radius: 20%;
 }
+
+.desposit__money-info-box {
+    display: flex;
+    align-items: flex-end;
+    font-size: 1.6rem;
+    opacity: 0;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    transition: ease .2s;
+}
+
+.desposit__money-info-box.active {
+    opacity: 1;
+}
+
+.desposit__money-info-box b {
+    font-size: 1.8rem;
+    color: var(--blue);
+}
+
+.desposit__money-info-box-warring {
+    font-weight: 500;
+    color: var(--light-red);
+}
+
+.desposit__money-info-user {}
+
+.desposit__money-info-content {
+    margin: 0 3px;
+}
+
+.desposit__money-info-new-money {}
+
 
 .payment-info {
     position: initial;
@@ -257,15 +297,19 @@ input[type=number] {
 }
 
 .payment-info__submit {
-    width: 599px;
+    width: 299px;
     grid-column: 1 / span 2 !important;
     grid-row: 2 / span 2;
     height: 40px;
     font-size: 2rem;
-    margin-top: 30px;
+    margin-top: 50px;
     margin-right: auto;
     margin-left: auto;
     font-weight: 500;
+}
+
+.payment-info__submit i {
+    font-size: 2rem;
 }
 
 .footer {

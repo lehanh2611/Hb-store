@@ -1,9 +1,13 @@
 import {
     $, $$,
     accountApi,
+    depositAPi,
     footer,
+    formatMoney,
     Get,
     iconShadow,
+    notificationWindow,
+    Patch,
     paymentInfo,
     processLoad,
     select,
@@ -83,8 +87,7 @@ const app = {
         }
 
         if (infoOld) { infoOld.remove() }
-        console.log(this.result)
-        if(!this.result) {data = this.mbbankInfo}
+        if (!this.result) { data = this.mbbankInfo }
         paymentInfo(data.title, data.value, () => {
             this.handleData()
             this.submit()
@@ -98,6 +101,7 @@ const app = {
 
         $('.header__nav-user-avt').src = '.' + user.Avatar
         $('.header__nav-user-name').innerText = name
+        $('.desposit__money-info-user').innerText = name
     },
     handleData: function () {
         if (!this.result) { return }
@@ -111,12 +115,14 @@ const app = {
             title: { ...data.title },
             value: {
                 ...data.value,
+                bank: this.method === 'MB' ? '9108678366668' : '0353489648',
                 bankName: this.method === 'MB' ? 'MB BANK' : 'Momo',
                 money: value,
                 content: code,
                 code: code,
             }
         }
+        $('.desposit__money-info-new-money').innerText = formatMoney(value)
         this.renderPi()
     },
     moneyOptions: function () {
@@ -130,6 +136,7 @@ const app = {
         }
     },
     validate: function () {
+        const Depwarning = $('.desposit__money-info-box')
         this.selector.message.innerText = ''
         if (validate.start(this.selector, this.rules)) {
             this.result = true
@@ -137,18 +144,66 @@ const app = {
         else {
             this.result = false
         }
+        //show deposit warning messsage
+        if (this.result) {
+            Depwarning.classList.add('active')
+        }
+        else {
+            Depwarning.classList.remove('active')
+        }
     },
-    submit: function () {
-        const btn = $('.payment-info__submit')
-
+    submit: async function () {
         if (!this.result) { return }
+
+        const btn = $('.payment-info__submit')
+        btn.classList.add('active')
+
         let data = this.data.value
         data = {
+            code: data.code,
+            status: 'Unpaid',
             method: data.bankName,
             money: data.money,
             userId: this.user.UserID
         }
-        console.log(data)
+        const userDepApi = `${accountApi}/${data.userId}`
+        this.user = await Get(userDepApi)
+        //Get length
+        let leng = [
+            await Get(depositAPi),
+            this.user?.Deposit,
+            this.user?.Notification]
+
+        let [depLeng, userDepLeng, notiLeng] = leng.map(v => {
+            if (v) { return Object.keys(v).length }
+            else { return 0 }
+        })
+        // Push data
+        await Promise.all([
+            Patch(depositAPi, { [depLeng]: data }),
+            Patch(`${userDepApi}/Deposit`, { [userDepLeng]: data }),
+            Patch(`${userDepApi}/Notification`, {
+                [notiLeng]: {
+                    Seen: "No",
+                    Type: "Money",
+                    content: "Chúng tôi đang xử lý yêu cầu nạp tiền của bạn",
+                    title: `Đơn nạp ${formatMoney(data.money)} đang được xử lý`
+                }
+            })
+        ])
+
+        notificationWindow(
+            true,
+            'Gửi yêu cầu thành công',
+            'Chờ Hb store xử lý',
+            (isSuccess) => {
+                notificationWindow()
+                if (isSuccess) {
+                    this.goBack()
+                }
+            }, 'Trang chủ')
+
+        btn.classList.remove('active')
     },
     goBack: function () {
         processLoad.run(2)
