@@ -2131,19 +2131,33 @@
     display: none;
     align-items: center;
     justify-content: center;
-    left: 0;
     top: 0;
     bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+    transition: .6s ease;
     width: calc((100vw - 1200px) / 2);
 }
 
+.banner-sale.left {
+    transform: translateX(-38vw);
+    left: 0;
+}
+
 .banner-sale.right {
-    left: unset;
     right: 0;
+    transform: translateX(38vw);
+}
+
+.banner-sale.active {
+    transform: translateX(0);
+    opacity: 1;
 }
 
 .banner-sale__vid {
     width: 100%;
     max-width: 268px;
     border-radius: 6px;
+    border: 1px solid var(--violet);
+    box-shadow: 0 0 1px var(--box-shadow-dark);
 }

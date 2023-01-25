@@ -863,7 +863,7 @@ const notication = {
     atc: function () {
         const notiMenu = $('.header__noti-box')
         $('.header__user-menu-item.noti').addEventListener('click', () => { console.log('run') })
-        
+
         this.btnM.onclick = () => {
             $('#header').appendChild(notiMenu)
             notiMenu.classList.add('show-m')
@@ -1728,6 +1728,35 @@ const stall = function () {
 }
 stall()
 
+const saleBanner = {
+    vh: window.innerHeight,
+    footer: $('.footer'),
+    banners: $$('.banner-sale'),
+    run: function () {
+        const pst = this.footer.getBoundingClientRect().top
+        for(const banner of this.banners) {
+            if (this.vh - pst >= 0) {
+                banner.classList.remove('active')
+            }
+            else {
+                banner.classList.add('active')
+            }
+        }
+    },
+    copyCode: function () {
+        for (banner of this.banners) {
+            banner.click = () => {
+                const giftcode = banner.getAttribute('giftcode')
+                navigator.clipboard.writeText(giftcode)
+                simpleNoti('Sao chép mã thành công')
+            }
+        }
+    },
+    start: function () {
+        this.copyCode()
+        window.addEventListener('scroll', () => { this.run() })
+    }
+}
 
 const app = {
     start: function () {
@@ -1736,7 +1765,8 @@ const app = {
         rippleBtn($$('.rippleBtn'))
         cart.start()
         footer.start()
+        saleBanner.start()
     }
 }
-setTimeout(() => { app.start() }, 0);
+setTimeout(() => { app.start() }, 0)
 
