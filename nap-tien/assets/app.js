@@ -20,6 +20,7 @@ const app = {
     result: false,
     method: 'MB',
     data: $('.desposit__menthod-item.active')?.getAttribute('menthod'),
+    submitBtn: '',
     mbbankInfo: {
         title: {
             bank: 'Ngân hàng'
@@ -56,7 +57,6 @@ const app = {
             this.selector.message.innerText = ''
         })
         this.selector.input.addEventListener('focusout', () => {
-            this.validate()
             this.handleData()
         })
     },
@@ -72,9 +72,7 @@ const app = {
                     data = this.mbbankInfo
                     this.data = data
                     this.method = 'MB'
-
                 }
-
                     break;
 
                 case 'MM': {
@@ -85,25 +83,24 @@ const app = {
                     break;
             }
         }
-
         if (infoOld) { infoOld.remove() }
         if (!this.result) { data = this.mbbankInfo }
         paymentInfo(data.title, data.value, () => {
-            this.handleData()
             this.submit()
         }, $('.content'))
-
+        this.submitBtn = $('.payment-info__submit')
         this.user = user
+
         let name = user?.Nickname
 
         if (!name) { name = user.Username }
-
-
-        $('.header__nav-user-avt').src = '.' + user.Avatar
+        const avt = user?.Avatar
+        $('.header__nav-user-avt').src = Boolean(avt) == true ? '.' + avt : '../asset/img/user-avt/user-default.png'
         $('.header__nav-user-name').innerText = name
         $('.desposit__money-info-user').innerText = name
     },
     handleData: function () {
+        this.validate()
         if (!this.result) { return }
         this.method = $('.desposit__menthod-item.active')?.getAttribute('menthod')
 
@@ -129,14 +126,13 @@ const app = {
         for (const op of $$('.desposit__input-option-item')) {
             op.addEventListener('click', () => {
                 this.selector.input.value = op.getAttribute('option')
-                this.validate()
-                this.renderPi()
                 this.handleData()
             })
         }
     },
     validate: function () {
         const Depwarning = $('.desposit__money-info-box')
+        const submit = $('.payment-info__submit')
         this.selector.message.innerText = ''
         if (validate.start(this.selector, this.rules)) {
             this.result = true
@@ -148,17 +144,18 @@ const app = {
         if (this.result) {
             Depwarning.classList.add('active')
             this.selector.message.classList.remove('active')
+            submit.classList.remove('disable')
         }
         else {
             Depwarning.classList.remove('active')
             this.selector.message.classList.add('active')
+            submit.classList.add('disable')
         }
     },
     submit: async function () {
+        this.handleData()
         if (!this.result) { return }
-
-        const btn = $('.payment-info__submit')
-        btn.classList.add('active')
+        this.submitBtn.classList.add('active')
 
         let data = this.data.value
         data = {
@@ -205,7 +202,7 @@ const app = {
                 }
             }, 'Trang chủ')
 
-        btn.classList.remove('active')
+        this.submitBtn.classList.remove('active')
     },
     goBack: function () {
         processLoad.run(2)
@@ -240,8 +237,8 @@ const app = {
         this.inputHandle()
         this.moneyOptions()
         iconShadow($$('.desposit__menthod-item-icon-box'))
+        $('.payment-info__submit').classList.add('disable')
         select($$('.desposit__menthod-item'), (e) => {
-            this.validate()
             this.handleData()
         })
         this.atc()

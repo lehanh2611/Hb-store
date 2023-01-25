@@ -582,3 +582,9 @@
         grid-template-columns: 100%;
     }
 }
+
+@media (min-width: 1500px) {
+    .banner-sale {
+        display: flex;
+    }
+}

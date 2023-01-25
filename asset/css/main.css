@@ -170,6 +170,8 @@
 }
 
 .header__noti-wrap {
+    display: flex;
+    flex-direction: column;
     height: 320px;
     overflow-y: scroll;
 }
@@ -197,6 +199,7 @@
 
 .header__noti-item-list .empty-box-title {
     padding-top: 10px;
+    color: var(--default);
 }
 
 .header__noti-item {
@@ -2120,4 +2123,27 @@
 .stall__page-box span-more {
     color: #555555;
     cursor: default;
+}
+
+/* Banner sale */
+.banner-sale {
+    position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: calc((100vw - 1200px) / 2);
+}
+
+.banner-sale.right {
+    left: unset;
+    right: 0;
+}
+
+.banner-sale__vid {
+    width: 100%;
+    max-width: 268px;
+    border-radius: 6px;
 }

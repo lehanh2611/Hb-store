@@ -36,6 +36,10 @@
     .footer__last {
         margin-top: 86px;
     }
+
+    .submitForm .message {
+        top: 45px
+    }
 }
 
 @media (max-width: 840px) {
@@ -57,10 +61,6 @@
         transform: translateX(20px);
     }
 
-    .payment-info__bank-item p {
-        font-size: 2.1rem;
-    }
-
     .desposit__menthod-item-title {
         max-width: 268px;
     }
@@ -71,8 +71,8 @@
 
     }
 
-    .payment-info__qr {
-        /* flex-direction: column-reverse; */
+    .payment-info__bank-list {
+        padding-left: 0;
     }
 
     .payment-info__qr-img,
@@ -92,6 +92,10 @@
 }
 
 @media (max-width: 600px) {
+    .content {
+        padding: 0 6px;
+    }
+
     .desposit__input-option-list {
         grid-template-columns: 168px 168px
     }
@@ -104,13 +108,15 @@
         flex-wrap: wrap;
     }
 
-    .desposit__menthod-item {}
-
+    .payment-info__bank-list p {
+        font-size: 1.8rem;
+    }
 
     .desposit__menthod-item:hover,
     .desposit__menthod-item.active {
         transform: unset;
     }
+
     .desposit__menthod-item {
         min-width: unset;
         width: 100%;

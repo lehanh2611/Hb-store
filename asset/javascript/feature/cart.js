@@ -247,9 +247,9 @@ export const cart = {
         if (userActiveID) {
             this.cartData = await Get(`${accountApi}/${userActiveID}/Cart`)
         }
-
+        
         const productCart = products.filter(v => {
-            return this.cartData.some(e => v.ProductID == e)
+            return this.cartData?.some(e => v.ProductID == e)
         })
 
         this.cartContain.classList.remove('show')

@@ -307,6 +307,10 @@ input[type=number] {
     font-weight: 500;
 }
 
+.payment-info__submit.disable {
+    opacity: 0.6;
+}
+
 .payment-info__submit i {
     font-size: 2rem;
 }

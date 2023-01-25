@@ -794,6 +794,8 @@ const notication = {
     btn: $('.header__feature-box.noti'),
     btnM: $('.header__user-menu-item.noti'),
     render: function () {
+        const noti = this.account?.Notification
+        if (!noti) { return }
         const output = this.account.Notification.reduce((a, v) => {
             let iconUrl = ''
             switch (v.Type) {
@@ -860,7 +862,8 @@ const notication = {
     },
     atc: function () {
         const notiMenu = $('.header__noti-box')
-
+        $('.header__user-menu-item.noti').addEventListener('click', () => { console.log('run') })
+        
         this.btnM.onclick = () => {
             $('#header').appendChild(notiMenu)
             notiMenu.classList.add('show-m')
@@ -898,9 +901,9 @@ const notication = {
             return
         }
         this.account = this.account[userActiveID]
-        if (!this.account.Notification) { return }
         this.atc()
         this.render()
+        if (!this.account.Notification) { return }
         this.newNoti()
         this.seenUpdate()
     }
@@ -910,7 +913,7 @@ notication.start()
 const desposit = {
     start: function () {
         if (userActiveID !== null) {
-            $('.header__feature-box.desposit').onclick = () => {
+            function goDeposit() {
                 processLoad.run(2)
                 setTimeout(() => {
                     processLoad.run(2)
@@ -921,6 +924,8 @@ const desposit = {
                     processLoad.run(2)
                 }, 600)
             }
+            $('.header__feature-box.desposit').addEventListener('click', goDeposit)
+            $('.header__menu-bar-item.deposit').addEventListener('click', goDeposit)
         }
         else { setTimeout(() => { this.start() }, 100) }
     }

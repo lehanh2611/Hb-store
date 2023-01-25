@@ -299,7 +299,7 @@ button {
 .submitForm .message {
     position: absolute;
     left: 0;
-    bottom: 10px;
+    top: 45px;
     color: var(--light-red);
 }
 
