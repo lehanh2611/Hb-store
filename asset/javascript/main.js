@@ -1744,7 +1744,7 @@ const saleBanner = {
         }
     },
     copyCode: function () {
-        for (banner of this.banners) {
+        for (const banner of this.banners) {
             banner.onclick = () => {
                 const giftcode = banner.getAttribute('giftcode')
                 navigator.clipboard.writeText(giftcode)
