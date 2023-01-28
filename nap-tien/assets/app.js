@@ -6,6 +6,7 @@ import {
     formatMoney,
     Get,
     iconShadow,
+    logHistory,
     notificationWindow,
     Patch,
     paymentInfo,
@@ -116,7 +117,7 @@ const app = {
                 bankName: this.method === 'MB' ? 'MB BANK' : 'Momo',
                 money: value,
                 content: code,
-                code: code,
+                Ordercode: code,
             }
         }
         $('.desposit__money-info-new-money').innerText = formatMoney(value)
@@ -156,17 +157,19 @@ const app = {
         this.handleData()
         if (!this.result) { return }
         this.submitBtn.classList.add('active')
-
         let data = this.data.value
+        console.log(data)
         data = {
-            code: data.code,
+            orderCode: data.Ordercode,
             status: 'Unpaid',
             method: data.bankName,
             money: data.money,
-            userId: this.user.UserID
+            userId: this.user.UserID,
+            date: logHistory.getRealTime()
         }
         const userDepApi = `${accountApi}/${data.userId}`
         this.user = await Get(userDepApi)
+
         //Get length
         let leng = [
             await Get(depositAPi),

@@ -246,10 +246,11 @@ export const cart = {
         // update cart 
         if (userActiveID) {
             this.cartData = await Get(`${accountApi}/${userActiveID}/Cart`)
+            if (!this.cartData?.length) { this.cartData = [] }
         }
-        
+
         const productCart = products.filter(v => {
-            return this.cartData?.some(e => v.ProductID == e)
+            return this.cartData?.some(e => v?.ProductID == e)
         })
 
         this.cartContain.classList.remove('show')

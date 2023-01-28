@@ -19,7 +19,8 @@ import {
     simpleNoti,
     validate,
     cart,
-    footer
+    footer,
+    logHistory
 } from "../../asset/javascript/end_point.js"
 
 const app = {
@@ -54,7 +55,7 @@ const app = {
             await Promise.all([Get(`${accountApi}/${this.info.UserID}`),
             Get(`${productAPi}/${this.info.ProductID}`)])
 
-        // if (product.Sold === 'Yes') {
+        // if (product?.Sold === 'Yes') {
         //     this.error()
         //     return
         // }
@@ -63,8 +64,8 @@ const app = {
         let avatar = account.Avatar
         $('.header__nav-user-name').innerText = nickName !== '' ? nickName : account.Username
         $('.header__nav-user-avt').src = avatar !== '' ? '.' + avatar : '../asset/img/user-avt/user-default.png'
-        $('.content__info-product-text.uid.value').innerText = product.UID
-        $('.content__info-product-text.server.value').innerText = product.Server
+        $('.content__info-product-text.uid.value').innerText = product?.UID
+        $('.content__info-product-text.server.value').innerText = product?.Server
         $('.payment-method-title.money').innerText = `Số dư: ${formatMoney(account.Money)}`
 
         this.account = account
@@ -72,14 +73,14 @@ const app = {
         this.handlePaymentInfo()
     },
     handlePaymentInfo: function () {
-        const priceOld = Number(this.product.Price)
-        let price = this.product.Discount
+        const priceOld = Number(this.product?.Price)
+        let price = this.product?.Discount
         let giftCode = 0
         let discountTotal = 0
         let flashSale = 0
 
-        price = Number(price.replace('%', ''))
-        if (price !== undefined && this.product.Flashsale != 'No') {
+        price = Number(price?.replace('%', ''))
+        if (price !== undefined && this.product?.Flashsale != 'No') {
             price = Math.ceil(priceOld - ((priceOld / 100) * price))
             flashSale = priceOld - price
         }
@@ -161,17 +162,17 @@ const app = {
             let orderCode = ''
             switch (menthod) {
                 case 'shopMoney': {
-                    orderCode = `HB${this.product.UID}`
+                    orderCode = `HB${this.product?.UID}`
                 }
                     break
 
                 case 'bank': {
-                    orderCode = `BHB${this.product.UID}`
+                    orderCode = `BHB${this.product?.UID}`
                 }
                     break
 
                 case 'momo': {
-                    orderCode = `MHB${this.product.UID}`
+                    orderCode = `MHB${this.product?.UID}`
                 }
             }
 
@@ -180,12 +181,13 @@ const app = {
                 Ordercode: orderCode,
                 Status: '',
                 UserID: this.account.UserID,
-                ProductID: this.product.ProductID,
+                ProductID: this.product?.ProductID,
                 Price: this.price,
-                Flashsale: this.product.Flashsale,
+                Flashsale: this.product?.Flashsale,
                 Giftcode: this.giftCodeName,
                 Menthod: menthod,
                 Email: selector.input.value.trim(),
+                Date: logHistory.getRealTime()
             }
 
             //handle request
@@ -201,7 +203,7 @@ const app = {
             //check order
             GETelement(orderAPi, v => {
                 if (v?.length === 0 || !v) { v = [] }
-                if (Object.keys(v).some(v => v.includes(app.product.UID))) {
+                if (Object.keys(v).some(v => v.includes(app.product?.UID))) {
                     this.error()
                 }
                 else {
@@ -222,7 +224,7 @@ const app = {
             Type: 'Product',
             Seen: 'No',
             title: `Đơn hàng ${paymentData.Ordercode} đã đặt thành công`,
-            content: 'Theo dõi hòm thư của bạn để nhận tài khoản'
+            content: 'Chúng tôi sẽ gửi thông báo khi có kết quả'
         }
 
         if (surplus < 0) {

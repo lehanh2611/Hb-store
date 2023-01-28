@@ -34,8 +34,8 @@ export function select(listElment, callback) {
 
         element.addEventListener('click', () => {
             const value = element.classList.value
-            
-            if(value.includes('disable')) { return}
+
+            if (value.includes('disable')) { return }
             if (value.includes('disable')) { return }
             removeActive()
 
@@ -202,7 +202,7 @@ export function iconShadow(selectors) {
 export function newNotiUser(newNoti = false) {
     const userContain = $('.header__user-contain')
     if (newNoti) {
-        if(window.innerWidth >= 600){return}
+        if (window.innerWidth >= 600) { return }
         userContain.classList.add('showNewNoti')
     }
     else {
@@ -239,4 +239,49 @@ export const footer = {
     start: function () {
         this.submit()
     }
+}
+
+// Order form
+export function orderForm(data, callback) {
+    const bodyhtml =
+        `<div class="order-form">
+        <div class="order-form__wrap">
+        <i class="order-form__close fa-solid fa-xmark"></i>
+        <h3 class="order-form__title">Đơn hàng HB999999999</h3>
+        <ul class="order-form__info-list"></ul>
+        <div class="order-form__button-box">
+        <div class="order-form__button reject">Từ chối</div>
+        <div class="order-form__button resolve">Hoàn thành</div>
+        </div></div></div>`
+
+    // create form
+    let form = document.createElement('div')
+    $('modal').appendChild(form)
+
+    form.outerHTML = bodyhtml
+    form = $('.order-form')
+
+    $('.order-form__title').innerText = `${data.Title.title} ${data.Title.value}`
+    delete data.Title
+
+    const output = Object.values(data).reduce((acc, value) => {
+        return acc += `<li class="order-form__info-item">
+        <p class="order-form__info-item-title">${value.title}:</p>
+        <p class="order-form__info-item-value">${value.value}</p></li>`
+    }, '')
+    $('.order-form__info-list').innerHTML = output
+
+    //close
+    $('.order-form__close').onclick = () => { form.remove() }
+
+    // options
+    const btns = $$('.order-form__button')
+    for (const btn of btns) {
+        btn.onclick = () => {
+            const result = btn.classList.value.includes('resolve')
+            callback(result)
+            form.remove()
+        }
+    }
+
 }

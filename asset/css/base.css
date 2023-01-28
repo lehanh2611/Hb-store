@@ -814,7 +814,7 @@ button {
 /* Process load*/
 .process-load {
     position: fixed;
-    z-index: 10;
+    z-index: 999999;
     left: 0;
     right: 0;
     top: 0;
@@ -914,7 +914,7 @@ button {
 
 .notification-welcome {
     position: fixed;
-    z-index: 9;
+    z-index: 999999;
     display: none;
     align-items: center;
     justify-content: space-between;

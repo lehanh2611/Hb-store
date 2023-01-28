@@ -66,21 +66,21 @@ export function filter(dataFil, rulesFil, callback) {
         handle: {
             server: function (value, rule) {
                 return new Promise((resolve) => {
-                    const output = value.filter(data => data.Server === rule)
+                    const output = value.filter(data => data?.Server === rule)
                     resolve(output)
                 })
             },
 
             type: function (value, rule) {
                 return new Promise((resolve) => {
-                    resolve(value.filter(data => data.Type === rule))
+                    resolve(value.filter(data => data?.Type === rule))
                 })
             },
 
             sold: function (value, rule) {
                 return new Promise((resolve) => {
 
-                    resolve(value.filter(data => data.Sold == rule))
+                    resolve(value.filter(data => data?.Sold == rule))
                 })
             },
 
@@ -97,20 +97,20 @@ export function filter(dataFil, rulesFil, callback) {
 
             uid: function (value, rule) {
                 return new Promise((resolve) => {
-                    const output = value.filter(data => data.UID.includes(rule))
+                    const output = value.filter(data => data?.UID.includes(rule))
                     resolve(output)
                 })
             },
 
             flashSale: function (value, rule) {
                 return new Promise((resolve) => {
-                    resolve(value.filter(data => data.Flashsale == rule))
+                    resolve(value.filter(data => data?.Flashsale == rule))
                 })
             },
             all: function (value, rule) {
                 return new Promise((resolve) => {
                     const result = value.filter(data => {
-
+                        if (!data) return false
                         return (toLowerCaseNonAccentVietnamese(Object.values(data).toString())
                             .includes(toLowerCaseNonAccentVietnamese(rule.trim())))
                     })

@@ -23,6 +23,12 @@ import {
     filter,
     processLoad,
     logHistory,
+    Get,
+    orderAPi,
+    depositAPi,
+    orderForm,
+    Patch,
+    Delete,
 
 } from "../../asset/javascript/end_point.js"
 
@@ -44,32 +50,21 @@ const body = {
 
                 //get the account
                 new Promise((resolve) => {
-                    const accounts = JSON.parse(localStorage.getItem(keyBody))
-                    if (accounts) {
-                        resolve(accounts)
-                    }
-                    else {
-                        GETelement(apiBody, accounts => resolve(accounts))
-                    }
-
-                    // update localStorage data
-                    GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
-                    if ((new Date).getMinutes() != localStorage.getItem('latestUpdate')) {
-                    }
+                    GETelement(apiBody, accounts => resolve(accounts))
                 })
 
                     //Get product list
                     .then(accounts => {
-                        // update product 
                         localStorage.setItem(keyBody, JSON.stringify(accounts))
 
                         const manage = {
                             appBoradContain: $('.app-borad__contain'),
 
                             //Render the account
-                            render: function () {
+                            render: function (data = accounts) {
 
-                                const output = accounts.reduce((accmulate, account) => {
+                                const output = data.reduce((accmulate, account) => {
+                                    if (!account) { return accmulate }
                                     return accmulate += `<ul item_id="${account.UserID}" ${account.Block === "true" ? 'block = "true" ' : 'block = "false"'} class="app-board__data">
                                     <li class="app-board__data-item userId l-2 m-2 c-3">
                                     ${account.Block === "true" ? '<i class="app-board__data-lock fa-solid fa-lock"></i>' : ''}
@@ -115,7 +110,7 @@ const body = {
                                 }).then((accounts) => {
 
                                     accounts.forEach((account) => {
-                                        if (account.UserID == element.getAttribute('item_id')) {
+                                        if (account?.UserID == element.getAttribute('item_id')) {
                                             const date = account.DateCreated
                                             $('.app-bot__info-data.value.userid').innerText = account.UserID
                                             $('.app-bot__info-data.value.username').innerText = account.Username
@@ -143,6 +138,7 @@ const body = {
                             lock: function () {
                                 const lockBtn = $('.app__top-feature.block')
 
+                                if (!lockBtn) { return }
                                 lockBtn.addEventListener('click', lockHandle)
 
                                 function lockHandle() {
@@ -196,12 +192,6 @@ const body = {
                                                         lockBtn.addEventListener('click', lockHandle)
                                                     }, 0);
                                                 })
-
-                                                    //update data
-                                                    .then(() => {
-                                                        GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
-                                                    })
-
                                             })
                                     }
                                 }
@@ -295,9 +285,6 @@ const body = {
                                                             depositBox.querySelectorAll('input').forEach(element => {
                                                                 element.value = ''
                                                             });
-
-                                                            //update data
-                                                            GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
                                                         })
                                                     })
                                                 }
@@ -316,6 +303,18 @@ const body = {
                                 //remove default submit
                                 depositBox.querySelector('form').addEventListener
                                     ('submit', (e) => e.preventDefault())
+                            },
+                            search: function () {
+                                const input = $('.app__mid-nav-search')
+                                function search() {
+                                    input.removeEventListener('input', search)
+
+                                    filter(accounts, { all: input.value }, v => {
+                                        manage.render(v)
+                                        input.addEventListener('input', search)
+                                    })
+                                }
+                                input.addEventListener('input', search)
                             },
 
                             shared: {
@@ -343,6 +342,7 @@ const body = {
                                 this.render()
                                 this.lock()
                                 this.deposit()
+                                this.search()
                             }
                         }
 
@@ -363,18 +363,7 @@ const body = {
                 localStorage.setItem('categoryHistory', JSON.stringify(categoryKey))
 
                 new Promise((resolve) => {
-                    const products = JSON.parse(localStorage.getItem(keyBody))
-                    if (products) {
-                        resolve(products)
-                    }
-                    else {
-                        GETelement(apiBody, products => resolve(products))
-                    }
-
-                    // update localStorage data
-                    GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
-                    if ((new Date).getMinutes() != localStorage.getItem('latestUpdate')) {
-                    }
+                    GETelement(apiBody, products => resolve(products))
                 })
 
                     //Get product list
@@ -396,6 +385,7 @@ const body = {
                                 })
                                     .then((data) => {
                                         const output = data.reduce((accmulate, product) => {
+                                            if (!product) { return accmulate }
                                             return accmulate +=
                                                 `<ul item_id="${product.ProductID}"class="app-board__data">
                                     <li class="app-board__data-item productId l-2 m-2 c-4">
@@ -417,15 +407,15 @@ const body = {
 
                             renderInfoProduct: function (element) {
                                 products.forEach(product => {
-                                    if (product.ProductID == element.getAttribute('item_id')) {
-                                        $('.app-bot__info-data.value.productId').innerText = product.ProductID
-                                        $('.app-bot__info-data.value.uid').innerText = product.UID
-                                        $('.app-bot__info-data.value.type').innerText = product.Type
-                                        $('.app-bot__info-data.value.price').innerText = formatMoney(product.Price)
-                                        $('.app-bot__info-data.value.server').innerText = product.Server
-                                        $('.app-bot__info-data.value.discount').innerText = product.Discount
-                                        $('.app-bot__info-data.value.flashSale').innerText = product.Flashsale
-                                        $('.app-bot__info-data.value.sold').innerText = product.Sold
+                                    if (product?.ProductID == element.getAttribute('item_id')) {
+                                        $('.app-bot__info-data.value.productId').innerText = product?.ProductID
+                                        $('.app-bot__info-data.value.uid').innerText = product?.UID
+                                        $('.app-bot__info-data.value.type').innerText = product?.Type
+                                        $('.app-bot__info-data.value.price').innerText = formatMoney(product?.Price)
+                                        $('.app-bot__info-data.value.server').innerText = product?.Server
+                                        $('.app-bot__info-data.value.discount').innerText = product?.Discount
+                                        $('.app-bot__info-data.value.flashSale').innerText = product?.Flashsale
+                                        $('.app-bot__info-data.value.sold').innerText = product?.Sold
                                     }
                                 })
                             },
@@ -574,7 +564,6 @@ const body = {
                                             GETelement(apiBody, (value) => {
                                                 products = value
                                                 this.renderDone()
-                                                body.handle.shared.updateDataApi(keyBody, products)
                                             })
 
                                             //pull scroll
@@ -668,7 +657,6 @@ const body = {
                                             //update products
                                             GETelement(apiBody, (value) => {
                                                 products = value
-                                                body.handle.shared.updateDataApi(keyBody, products)
                                                 this.renderDone()
                                             })
 
@@ -717,18 +705,7 @@ const body = {
                 localStorage.setItem('categoryHistory', JSON.stringify(categoryKey))
 
                 new Promise((resolve) => {
-                    const products = JSON.parse(localStorage.getItem(keyBody))
-                    if (products) {
-                        resolve(products)
-                    }
-                    else {
-                        GETelement(apiBody, products => resolve(products))
-                    }
-
-                    // update localStorage data
-                    GETelement(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
-                    if ((new Date).getMinutes() != localStorage.getItem('latestUpdate')) {
-                    }
+                    GETelement(apiBody, products => resolve(products))
                 })
 
                     //Get product list
@@ -765,6 +742,7 @@ const body = {
                                                <li class="app__flashsale-product-item sold">${product.Sold}</li>
                                            </ul>`
                                     }, '')
+                                    if (!contain) { return }
                                     contain.innerHTML = output
 
                                     // render done
@@ -878,7 +856,6 @@ const body = {
                                                 for (const btnLoading of btnLoadings) { btnLoading.classList.remove('active') }
                                                 return GETelement(apiBody, v => {
                                                     products = v
-                                                    body.handle.shared.updateDataApi(keyBody, products)
                                                 })
                                             }
 
@@ -975,7 +952,6 @@ const body = {
                                             if (i === elmActive.length) {
                                                 return GETelement(apiBody, (v) => {
                                                     products = v
-                                                    body.handle.shared.updateDataApi(keyBody, products)
                                                 })
                                             }
 
@@ -1079,11 +1055,11 @@ const body = {
                             ui: function () {
                                 //set height contain
                                 const contains = $$('.app__flashsale-product-contain')
-                                const widthParent = $('.app__flashsale-page').getBoundingClientRect().height
+                                const widthParent = $('.app__flashsale-page')
 
-                                if (!widthParent) { return }
+                                if (!widthParent || !contains) { return }
                                 for (const contain of contains) {
-                                    contain.style.height = widthParent - 84 + 'px'
+                                    contain.style.height = widthParent.getBoundingClientRect().height - 84 + 'px'
                                 }
                             },
 
@@ -1100,15 +1076,288 @@ const body = {
                         }
                         flashSale.start()
                     })
+            },
+            ProcessOrders: async function (categoryKey) {
+                localStorage.setItem('categoryHistory', JSON.stringify(categoryKey))
+                const [orders, products, accounts] = await Promise.all([
+                    Get(orderAPi),
+                    Get(productAPi),
+                    Get(accountApi)
+                ])
+
+                const ProductsOrder = {
+                    renderOrder: function () {
+                        if (!orders) { return }
+                        const contain = $('.app__mid-item-wrap')
+                        const output = Object.values(orders).reduce((acc, order) => {
+                            if (!order) { return acc }
+                            const date = order.Date
+                            return acc += `<ul orderCode="${order.Ordercode}" class="app__mid-item-list content">
+                            <li class="app__mid-item code">${order.Ordercode}</li>
+                            <li class="app__mid-item product">${products[order.ProductID].UID}</li>
+                            <li class="app__mid-item price">${formatMoney(order.Price)}</li>
+                            <li class="app__mid-item date">${date.date}/${date.month}/${date.year}</li>
+                        </ul>`
+                        }, '')
+                        contain.innerHTML = output
+
+                        //total order 
+                        body.handle.shared.totalOrder()
+                        this.renderDone()
+                    },
+                    renderDone: function () {
+                        this.handleOrder()
+                    },
+                    handleOrder: function () {
+                        const elms = $$('.app__mid-item-list.content')
+
+                        for (const elm of elms) {
+                            elm.onclick = () => {
+                                let data = orders[elm.getAttribute('orderCode')]
+                                const urlUser = `${accountApi}/${data.UserID}`
+                                const orderCode = data.Ordercode
+                                const orderPrice = data.Price
+                                const productId = data.ProductID
+                                const userId = data.UserID
+                                const date = data.Date
+
+                                data = {
+                                    Title: {
+                                        title: 'Đơn hàng',
+                                        value: orderCode
+                                    },
+                                    User: {
+                                        title: 'Tên người dùng',
+                                        value: accounts[userId].Username
+                                    },
+                                    Product: {
+                                        title: 'UID',
+                                        value: products[productId].UID
+                                    },
+                                    Price: {
+                                        title: 'Giá trị đơn hàng',
+                                        value: formatMoney(orderPrice)
+                                    },
+                                    Status: {
+                                        title: 'Thanh toán',
+                                        value: data.Status == 'Paid' ? 'Đã thanh toán' : 'Chưa thanh toán'
+                                    },
+                                    Method: {
+                                        title: 'Phương thức',
+                                        value: data.Menthod
+                                    },
+                                    Email: {
+                                        title: 'Email nhận tài khoản',
+                                        value: data.Email
+                                    },
+                                    Date: {
+                                        title: 'Thời gian tạo đơn',
+                                        value: `${date.date}/${date.month}/${date.year}`
+                                    }
+                                }
+
+                                orderForm(data, result => orderHandle(result))
+
+                                async function orderHandle(result) {
+                                    //check order
+                                    if (await Get(`${orderAPi}/${orderCode}`) === null) { return }
+
+                                    let message = {
+                                        Seen: "No",
+                                        Type: "Product"
+                                    }
+
+                                    // remove from DOM
+                                    elm.remove()
+
+                                    // update status order
+                                    Patch(`${urlUser}/Order/${orderCode}`, { Status: Boolean(result) ? 'Resolve' : 'Reject' })
+
+                                    //remove order
+                                    Delete(`${orderAPi}/${orderCode}`)
+
+                                    if (!result) {
+                                        //update status product
+                                        Patch(`${productAPi}/${productId}`, { Sold: 'No' })
+
+                                        if (data.Method.value === 'shopMoney') {
+                                            //return money
+                                            Patch(urlUser, { Money: accounts[userId].Money + orderPrice })
+                                        }
+
+                                        // create message error
+                                        message = {
+                                            ...message,
+                                            content: "Chúng tôi rất tiếc đơn hàng của bạn đã bị từ chối",
+                                            title: `Đơn hàng ${orderCode} bị từ chối`,
+                                        }
+                                    }
+                                    else {
+                                        message = {
+                                            ...message,
+                                            content: "Tài khoản đã được gửi đến email bạn đã chọn",
+                                            title: `Đơn hàng ${orderCode} đã được xử lý thành công`,
+                                        }
+                                    }
+
+                                    //send message
+                                    Patch(`${urlUser}/Notification`, { [accounts[userId].Notification.length]: message })
+
+                                    // updata total order
+                                    body.handle.shared.totalOrder()
+                                }
+                            }
+                        }
+                    },
+
+                    ui: function () {
+                        // set height contain
+                        const parent = $('.app__mid-contain')
+                        if (!parent) { return }
+                        $('.app__mid-item-wrap').style.height = parent.getBoundingClientRect().height - 38 + 'px'
+                    },
+
+                    start: function () {
+                        this.ui()
+                        this.renderOrder()
+                        select($$('.app__mid-item-list.content'))
+                    }
+                }
+                ProductsOrder.start()
+            }
+        },
+        currency: {
+            manage: async function (categoryKey) {
+                localStorage.setItem('categoryHistory', JSON.stringify(categoryKey))
+                const [deposits, accounts] = await Promise.all([
+                    Get(depositAPi),
+                    Get(accountApi)
+                ])
+
+                const manage = {
+                    renderDeposit: function () {
+                        if (!deposits) { return }
+                        const contain = $('.app__mid-item-wrap')
+                        const output = deposits.reduce((acc, value, index) => {
+                            if (!value) { return acc }
+                            const date = value.date
+                            return acc +=
+                                ` <ul index="${index}" class="app__mid-item-list content">
+                                <li class="app__mid-item code">${value.orderCode}</li>
+                            <li class="app__mid-item userName">${accounts[value.userId].Username}</li>
+                            <li class="app__mid-item money">${value.money}</li>
+                            <li class="app__mid-item date">${date.date}/${date.month}/${date.year}</li></ul>`
+
+                        }, '')
+
+                        if (!contain) { return }
+                        contain.innerHTML = output
+
+                        //total order 
+                        body.handle.shared.totalOrder()
+
+                        this.renderDone()
+                    },
+                    handleDeposit: function () {
+                        const elms = $$('.app__mid-item-list.content')
+                        if (elms.length === 0) { return }
+
+                        for (const elm of elms) {
+                            elm.onclick = () => {
+                                const index = elm.getAttribute('index')
+                                let data = deposits[index]
+                                const userId = data.userId
+                                const urlUser = `${accountApi}/${userId}`
+                                const moneyDep = Number(data.money)
+                                const date = data.date
+
+                                data = {
+                                    Title: {
+                                        title: 'Đơn nạp',
+                                        value: data.orderCode
+                                    },
+                                    Username: {
+                                        title: 'Tên người dùng',
+                                        value: accounts[userId].Username
+                                    },
+                                    Money: {
+                                        title: 'Số tiền nạp',
+                                        value: formatMoney(moneyDep)
+                                    },
+                                    Method: {
+                                        title: 'Phương thức',
+                                        value: data.method
+                                    },
+                                    Data: {
+                                        title: 'Thời gian tạo đơn',
+                                        value: `${date.date}/${date.month}/${date.year}`
+                                    }
+                                }
+                                orderForm(data, async result => {
+                                    const dataUser = await Get(urlUser)
+                                    let message = {
+                                        Seen: "No",
+                                        Type: "Money"
+                                    }
+
+                                    //remove order from DOM
+                                    elm.remove()
+
+                                    if (result) {
+                                        // Depost...
+                                        Patch(urlUser, {
+                                            Money: dataUser.Money + moneyDep,
+                                            TotalDeposit: dataUser.TotalDeposit + moneyDep
+                                        })
+
+                                        message = {
+                                            ...message,
+                                            content: 'Số tiền đã được chuyển vào số dư của bạn',
+                                            title: `Đơn nạp ${formatMoney(moneyDep)} thành công`
+                                        }
+                                    }
+                                    else {
+                                        message = {
+                                            ...message,
+                                            content: 'Vui lòng thanh toán trước khi xác nhận đơn',
+                                            title: `Đơn nạp ${formatMoney(moneyDep)} thất bại`
+                                        }
+                                    }
+
+                                    //send message
+                                    Patch(`${urlUser}/Notification`, { [dataUser.Notification.length]: message })
+
+                                    //delete order
+                                    Delete(`${depositAPi}/${index}`)
+
+                                    // updata total order
+                                    body.handle.shared.totalOrder()
+                                })
+                            }
+                        }
+                    },
+
+                    renderDone: function () {
+                        this.handleDeposit()
+
+                    },
+                    ui: function () {
+                        // set height contain
+                        const parent = $('.app__mid-contain')
+                        if (!parent) { return }
+                        $('.app__mid-item-wrap').style.height = parent.getBoundingClientRect().height - 38 + 'px'
+                    },
+                    start: function () {
+                        this.ui()
+                        this.renderDeposit()
+                        select($$('.app__mid-item-list.content'))
+                    }
+                }
+                manage.start()
             }
         },
 
         shared: {
-            //update data stored on storage
-            updateDataApi: function (key, value) {
-                localStorage.setItem(key, JSON.stringify(value))
-                localStorage.setItem('latestUpdate', JSON.stringify((new Date).getMinutes()))
-            },
 
             //notification not select
             notSelect: function () {
@@ -1150,8 +1399,8 @@ const body = {
 
                                         //Delete data from api
                                         DELETEelement(`${apiBody}/${Id}`, () => {
-                                            //update data and remove null
-                                            removeNull(apiBody, v => { body.handle.shared.updateDataApi(keyBody, v) })
+                                            //remove null
+                                            // removeNull(apiBody)
                                         })
 
                                         //Delete from DOM
@@ -1215,6 +1464,64 @@ const body = {
 
 
             },
+
+            //Total order 
+            totalOrder: function () {
+                const totalOrders = $$('.app__mid-item-list.content').length
+                const totalBox = $('.app__mid-title-total')
+                if (totalOrders === 0) {
+                    totalBox.classList.remove('active')
+                }
+                else {
+                    totalBox.classList.add('active')
+                    totalBox.innerText = totalOrders
+                }
+            },
+
+            //Get new order realtime
+            getOrderRealtime: async function () {
+                const title = $('head title')
+                const options = [
+                    {
+                        api: orderAPi,
+                        elm: $('.nav__category-options.productOrder')
+                    },
+                    {
+                        api: depositAPi,
+                        elm: $('.nav__category-options.depositOrder')
+                    }
+                ]
+                const optionsLeng = options.length
+                let i = 0
+
+                async function updateData() {
+
+                    if (i < optionsLeng) {
+                        const option = options[i]
+                        const data = await Get(option.api)
+                        if (data !== null) {
+                            option.elm.classList.add('noti')
+
+                            title.innerText =
+                                `(${$$('.nav__category-options.noti').length})
+                            Mục chờ xử lý`
+                        }
+                        else {
+                            if(!$('.nav__category-options.noti')) {
+                                title.innerText = 'Admin | Hbstore'
+                            }
+                            option.elm.classList.remove('noti')
+                        }
+                        updateData()
+                    }
+                    i++
+                }
+                updateData()
+                setInterval(() => {
+                    i = 0
+                    updateData()
+                }, 5000);
+            }
         }
     },
 
@@ -1231,6 +1538,15 @@ const body = {
         },
         flashSale: function (key) {
             body.handle.product.flashSale(key)
+        },
+        ProcessOrders: function (key) {
+            body.handle.product.ProcessOrders(key)
+        },
+    },
+
+    currency: {
+        manage: function (key) {
+            body.handle.currency.manage(key)
         }
     },
 
@@ -1269,7 +1585,6 @@ const body = {
                 this.bodyMain.innerHTML = element.value
                 apiBody = element.url
                 element.start(key)
-
                 //Set height contain
                 const boardGrid = $('.app-board')
                 const boardContain = $('.app-borad__contain')
@@ -1512,7 +1827,7 @@ const body = {
         </div>`
         },
         {
-            url:productAPi,
+            url: productAPi,
             key: { parent: 'SẢN PHẨM', child: 'Flash sale' },
             start: (key) => {
                 body.product.flashSale(key)
@@ -1646,6 +1961,96 @@ const body = {
                         </ul>
                         <div class="app__flashsale-product-contain flashSale">
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>`
+        },
+        {
+            key: { parent: 'SẢN PHẨM', child: 'Process orders' },
+            start: (key) => {
+                body.product.ProcessOrders(key)
+            },
+            value: `<div class="body__app">
+            <div class="app__top">
+                <h3 class="app__top-title">Process order</h3>
+                <!-- <div class="app__top-feature-contain handleOrder">
+                    <div class="app__top-feature rippleBtn handle">
+                        <i class="app__top-feature-icon fa-solid fa-microchip"></i>
+                        <p class="app__top-feature-text">Xử lý đơn hàng</p>
+                    </div>
+                </div> -->
+            </div>
+            <div class="app__mid">
+                <div class="app__mid-title-box">
+                    <h3 class="app__mid-title">Các đơn hàng chưa xử lý</h3>
+                    <span class="app__mid-title-total">10</span>
+                </div>
+                <div class="app__mid-contain">
+                    <ul class="app__mid-item-list title">
+                        <li class="app__mid-item code">Code</li>
+                        <li class="app__mid-item product">Uid</li>
+                        <li class="app__mid-item price">Price</li>
+                        <li class="app__mid-item date">Date</li>
+                        <li class="app__mid-item app__mid-nav">
+                            <div class="app__mid-nav-search-box">
+                            <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm...">
+                            <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
+                            <i class="app__mid-nav-clear fa-solid fa-xmark"></i>
+                            </div>
+                            <div class="app__mid-nav-ft-box">
+                                <div class="app__mid-nav-ft">
+                                    <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="app__mid-item-wrap">
+                        <!-- <ul class="app__mid-item-list content">
+                            <li class="app__mid-item code">BHB881999999</li>
+                            <li class="app__mid-item product">881999999</li>
+                            <li class="app__mid-item price">500.500đ</li>
+                            <li class="app__mid-item date">26/01/2023</li>
+                        </ul> -->
+                    </div>
+                </div>
+            </div>
+        </div>`
+        },
+        {
+            key: { parent: 'TIỀN TỆ', child: 'Manage' },
+            start: (key) => {
+                body.currency.manage(key)
+            },
+            value: ` <div class="body__app">
+            <div class="app__top">
+                <h3 class="app__top-title">Manage</h3>
+            </div>
+            <div class="app__mid">
+                <div class="app__mid-title-box">
+                    <h3 class="app__mid-title">Các đơn nạp chưa xử lý</h3>
+                    <span class="app__mid-title-total">0</span>
+                </div>
+                <div class="app__mid-contain">
+                    <ul class="app__mid-item-list title">
+                        <li class="app__mid-item code">Code</li>
+                        <li class="app__mid-item product">Username</li>
+                        <li class="app__mid-item price">Money</li>
+                        <li class="app__mid-item date">Date</li>
+                        <li class="app__mid-item app__mid-nav">
+                            <div class="app__mid-nav-search-box">
+                                <input class="app__mid-nav-search" type="text" placeholder="Tìm kiếm...">
+                                <i class="app__mid-nav-icon search fa-solid fa-magnifying-glass"></i>
+                                <i class="app__mid-nav-clear fa-solid fa-xmark"></i>
+                            </div>
+                            <div class="app__mid-nav-ft-box">
+                                <div class="app__mid-nav-ft">
+                                    <i class="app__mid-nav-icon fa-regular fa-bars-filter"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="app__mid-item-wrap">
                     </div>
                 </div>
             </div>
@@ -1829,6 +2234,7 @@ const nav = {
         this.open()
         this.resize()
         this.logout()
+        body.handle.shared.getOrderRealtime()
     }
 }
 nav.start()

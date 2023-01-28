@@ -99,6 +99,11 @@ const login = {
     },
 
     start: function () {
+        window.addEventListener('keydown', (e) =>{
+            if(e.keyCode === 13) {
+                this.submitBtn.click()
+            }
+        })
         this.submitBtn.onclick = () => {
             this.submit()
             this.animateSumbit()

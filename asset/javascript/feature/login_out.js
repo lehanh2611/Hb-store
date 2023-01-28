@@ -74,7 +74,6 @@ export function userLogin(UserID, accounts) {
     if (logWaitingFunction.length > 0) {
         logWaitingFunction.forEach(e => {
             e()
-
         })
     }
     // clear
@@ -108,6 +107,19 @@ export const logout = {
             localStorage.removeItem('cart')
             cart.cartData = ''
             cart.renderCart([])
+            clearNoti()
         }
     }
 }
+function clearNoti() {
+    [$('.header__feature-box.noti'),
+    $('.header__user-menu-item.noti')].forEach(v => v.classList.remove('newNoti'))
+
+    $('.header__noti-item-list').innerHTML = `<li class="header__cart-empty">
+    <div class="empty-box">
+        <img class="empty-img" src="./asset/icon/bell-error.png">
+        <h3 class="empty-box-title">Chưa có thông báo nào!</h3>
+        <p class="empty-box-title-sub"></p>
+    </div>
+</li>`
+}   

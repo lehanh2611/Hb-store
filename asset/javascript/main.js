@@ -11,6 +11,7 @@ import {
     select,
     rippleBtn,
     footer,
+    logWaitingFunction,
 
     /***** Constant *****/
     $,
@@ -634,7 +635,7 @@ function header() {
 
                                 let inputResult = getValueInput(inputRegisters),
                                     existenceResult = accounts.every((account) => {
-                                        return account.Username !== inputResult.Username
+                                        return account?.Username !== inputResult.Username
                                     })
                                 //Register successful
                                 if (existenceResult) {
@@ -665,7 +666,6 @@ function header() {
                                         inputResult.Username,
                                         inputResult.Password,
                                         inputResult.Email)
-                                    console.log(createUser)
                                     PATCHelement(`${accountApi}/${createUser.UserID}`, createUser, (value) => {
 
                                         if (value.Username === createUser.Username) {
@@ -734,7 +734,7 @@ function header() {
                                 checkAccount = new Promise((resolve, reject) => {
                                     let getUser,
                                         username = accounts.find((account) => {
-                                            if (account.Username === inputResult.Username) {
+                                            if (account?.Username === inputResult.Username) {
                                                 getUser = account.UserID;
                                                 return true
                                             }
@@ -793,7 +793,9 @@ const notication = {
     account: 0,
     btn: $('.header__feature-box.noti'),
     btnM: $('.header__user-menu-item.noti'),
+
     render: function () {
+        const contain = $('.header__noti-item-list')
         const noti = this.account?.Notification
         if (!noti) { return }
         const output = this.account.Notification.reduce((a, v) => {
@@ -820,16 +822,22 @@ const notication = {
              <span class="header__noti-item-content">${v.content}</span>`
         }, '')
 
-        $('.header__noti-item-list').innerHTML = output
+        contain.innerHTML = output
     },
 
     newNoti: function () {
-        const result = this.account.Notification.some(v => v.Seen != 'Yes')
+        let result
+        const noti = notication.account?.Notification
+        if (!noti) {
+            result = false
+        }
+        else {
+            result = noti.some(v => v.Seen != 'Yes')
+        }
         if (result) {
             this.btn.classList.add('newNoti')
             this.btnM.classList.add('newNoti')
             newNotiUser(true)
-
         }
         else {
             this.btn.classList.remove('newNoti')
@@ -839,9 +847,9 @@ const notication = {
     },
 
     seenUpdate: function () {
-        const closeBtnM = $('.header__noti-close')
-
-        function update() {
+            const noti = notication.account?.Notification
+            
+            if (!noti) { return }
             let newNoti = notication.account.Notification
             newNoti = newNoti.map(v => {
                 return {
@@ -854,17 +862,14 @@ const notication = {
             notication.account.Notification = newNoti
             notication.render()
             notication.newNoti()
-            notication.btn.removeEventListener('mouseleave', update)
-            closeBtnM.removeEventListener('click', update)
-        }
-        notication.btn.addEventListener('mouseleave', update)
-        closeBtnM.addEventListener('click', update)
     },
     atc: function () {
         const notiMenu = $('.header__noti-box')
-        $('.header__user-menu-item.noti').addEventListener('click', () => { console.log('run') })
+        const closeBtnM = $('.header__noti-close')
+
 
         this.btnM.onclick = () => {
+            this.restart()
             $('#header').appendChild(notiMenu)
             notiMenu.classList.add('show-m')
             plateBlur(true, notiMenu)
@@ -878,10 +883,15 @@ const notication = {
         })
 
         this.btn.addEventListener('mouseenter', () => {
+            this.restart()
             if (window.innerWidth >= 600) {
                 this.btn.appendChild(notiMenu)
             }
         })
+        window.addEventListener('scroll', notication.restart)
+
+        notication.btn.addEventListener('mouseleave', this.seenUpdate)
+        closeBtnM.addEventListener('click', this.seenUpdate)
     },
 
     callback: function () {
@@ -895,39 +905,58 @@ const notication = {
             this.start()
         }
     },
+    restart: function () {
+        notication.account = accountsMain[userActiveID]
+        notication.render()
+        notication.newNoti()
+        // notication.seenUpdate()
+    },
     start: function () {
         if (!this.account) {
             this.callback()
             return
         }
-        this.account = this.account[userActiveID]
         this.atc()
-        this.render()
-        if (!this.account.Notification) { return }
-        this.newNoti()
-        this.seenUpdate()
+        this.restart()
     }
 }
 notication.start()
 
 const desposit = {
     start: function () {
-        if (userActiveID !== null) {
-            function goDeposit() {
-                processLoad.run(2)
-                setTimeout(() => {
-                    processLoad.run(2)
-                    sessionStorage.setItem('desposit', userActiveID)
-                }, 100)
-                setTimeout(() => {
-                    window.location.href = window.location.origin + '/nap-tien'
-                    processLoad.run(2)
-                }, 600)
+        function goDeposit() {
+            if (userActiveID === null) {
+                notificationWindowBody.classList.add('fixed')
+                notificationWindow(
+                    false,
+                    'Bạn chưa đăng nhập',
+                    'Vui lòng đăng nhập và thử lại'
+                    , (isSuccess) => {
+                        notificationWindow()
+                        notificationWindowBody.classList.remove('fixed')
+
+                        //login success => go to deposit page
+                        if (isSuccess) {
+                            logWaitingFunction.push(() => {
+                                goDeposit()
+                            })
+                            $('.header__user-contain').click()
+                        }
+                    }, 'Đăng nhập')
+                return
             }
-            $('.header__feature-box.desposit').addEventListener('click', goDeposit)
-            $('.header__menu-bar-item.deposit').addEventListener('click', goDeposit)
+            processLoad.run(2)
+            setTimeout(() => {
+                processLoad.run(2)
+                sessionStorage.setItem('desposit', userActiveID)
+            }, 100)
+            setTimeout(() => {
+                window.location.href = window.location.origin + '/nap-tien'
+                processLoad.run(2)
+            }, 600)
         }
-        else { setTimeout(() => { this.start() }, 100) }
+        $('.header__feature-box.desposit').addEventListener('click', goDeposit)
+        $('.header__menu-bar-item.deposit').addEventListener('click', goDeposit)
     }
 }
 desposit.start()
@@ -944,7 +973,7 @@ function content() {
             let getBalance = new Promise((resolve) => {
                 GETelement(accountApi, (value) => {
                     accountsMain = value
-                    let money = value.map(element => element.Money)
+                    let money = value.map(element => element?.Money)
                     resolve([money, value])
                 })
             })
@@ -962,7 +991,7 @@ function content() {
                 output = balanceList.reduce((accmulate, money) => {
                     if (oldMoney !== money) {
                         accounts.forEach((account) => {
-                            if (account.Money === money && i < 9) {
+                            if (account?.Money === money && i < 9) {
                                 let moneyFormat = new Intl.NumberFormat('vi-VN',
                                     { style: 'currency', currency: 'VND' })
                                     .format(account.Money)
@@ -1053,7 +1082,17 @@ const flashSale = {
     indexStart: 0,
     indexEnd: 0,
     iList: 0,
+    listLeng: 0,
     countdownTime: 10000,
+
+    //create list leng 
+    createListLeng: function (ProductsFS = []) {
+        const productFlashsale = JSON.parse(sessionStorage.getItem('productFlashsale'))
+        if (productFlashsale) {
+            ProductsFS = productFlashsale
+        }
+        this.listLeng = Math.ceil(ProductsFS.length / flashSale.slot)
+    },
 
     // Render product
     render: function (product, indexStart, indexEnd) {
@@ -1072,8 +1111,8 @@ const flashSale = {
 
             filter(Products, { flashSale: 'Yes' }, (newProduct) => {
                 Products = newProduct
-
-                let listLeng = Math.ceil(Products.length / flashSale.slot)
+                this.createListLeng(Products)
+                sessionStorage.setItem('productFlashsale', JSON.stringify(Products))
 
                 indexList(flashSale.iList)
                 this.process()
@@ -1105,7 +1144,7 @@ const flashSale = {
                     }
 
                     flashSale.iList += 1
-                    if (flashSale.iList < listLeng) {
+                    if (flashSale.iList < flashSale.listLeng) {
                         indexList(flashSale.iList)
                     }
                     else {
@@ -1147,7 +1186,7 @@ const flashSale = {
                         indexList(flashSale.iList)
                     }
                     else {
-                        flashSale.iList = listLeng - 1
+                        flashSale.iList = flashSale.listLeng - 1
                         indexList(flashSale.iList)
                     }
 
@@ -1180,7 +1219,7 @@ const flashSale = {
                             let i = 0
                             let accElement = ''
 
-                            while (i < listLeng) {
+                            while (i < flashSale.listLeng) {
                                 accElement += `<span class="flash-sale__list-index"></span>`
                                 i++
                             }
@@ -1188,7 +1227,7 @@ const flashSale = {
                         }
 
                         items = $$('.flash-sale__list-index')
-                        items[index].classList.add('active')
+                        items[index]?.classList.add('active')
                     }, 200);
                 }
                 window.addEventListener('scroll', showNoti)
@@ -1274,6 +1313,7 @@ const flashSale = {
             flashSale.iList = 0
             flashSale.btnLeft.click()
             flashSale.btnRight.click()
+            flashSale.createListLeng()
         }, 1200, Infinity, 'flashSale_slide')
 
         responsive.custom(() => {
@@ -1284,6 +1324,7 @@ const flashSale = {
             flashSale.countdownTime = 8000
             flashSale.btnLeft.click()
             flashSale.btnRight.click()
+            flashSale.createListLeng()
         }, 960, 1119.9, 'flashSale_slide')
 
         responsive.custom(() => {
@@ -1294,6 +1335,7 @@ const flashSale = {
             flashSale.countdownTime = 6000
             flashSale.btnLeft.click()
             flashSale.btnRight.click()
+            flashSale.createListLeng()
         }, 720, 959.9, 'flashSale_slide')
 
         responsive.custom(() => {
@@ -1304,6 +1346,7 @@ const flashSale = {
             flashSale.countdownTime = 3999
             flashSale.btnLeft.click()
             flashSale.btnRight.click()
+            flashSale.createListLeng()
         }, 480, 719.9, 'flashSale_slide')
 
         responsive.custom(() => {
@@ -1314,6 +1357,7 @@ const flashSale = {
             flashSale.countdownTime = 3999
             flashSale.btnLeft.click()
             flashSale.btnRight.click()
+            flashSale.createListLeng()
         }, 0, 480, 'flashSale_slide')
     },
 
@@ -1341,6 +1385,9 @@ flashSale.start()
 //Stall
 const stall = function () {
     GETelement(productAPi, products => {
+        products = products.filter(product => {
+            return Boolean(product)
+        })
         const stall = {
             productContain: $('.stall__product-contain'),
             filterBtn: $('.stall__filter-btn'),
@@ -1547,12 +1594,10 @@ const stall = function () {
                 function indexHandle(j) {
                     indexEnd.innerText = totalPageNum
                     // if (indexEnd.innerText <= 5) {
-                    //     console.log(indexEnd.innerText)
                     //     moreLast.style.display = 'none'
                     //     indexEnd.style.display = 'none'
                     // }
                     // else {
-                    //     console.log(indexEnd.innerText)
                     //     moreLast.style.display = 'flex'
                     //     indexEnd.style.display = 'flex'
                     // }
@@ -1660,6 +1705,7 @@ const stall = function () {
 
             renderPdtStall: function (iStart = this.iStart, iEnd = this.iEnd) {
                 processLoad.run(1)
+                console.log()
                 this.productContain.innerHTML = renderProduct(stall.productsFil.slice(iStart, iEnd), false)
 
                 sessionStorage.setItem('iSStallPage', this.iStart)
@@ -1711,6 +1757,7 @@ const stall = function () {
             ui: function () {
 
             },
+            updateProduct: function() {},
 
             start: function () {
                 this.activeBtn()
@@ -1734,7 +1781,7 @@ const saleBanner = {
     banners: $$('.banner-sale'),
     run: function () {
         const pst = this.footer.getBoundingClientRect().top
-        for(const banner of this.banners) {
+        for (const banner of this.banners) {
             if (this.vh - pst >= 0) {
                 banner.classList.remove('active')
             }
