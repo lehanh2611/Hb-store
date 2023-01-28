@@ -1090,11 +1090,13 @@ const body = {
                         if (!orders) { return }
                         const contain = $('.app__mid-item-wrap')
                         const output = Object.values(orders).reduce((acc, order) => {
-                            if (!order) { return acc }
+                            const productUid = products[order?.ProductID]?.UID
+
+                            if (!order || !productUid) { return acc }
                             const date = order.Date
                             return acc += `<ul orderCode="${order.Ordercode}" class="app__mid-item-list content">
                             <li class="app__mid-item code">${order.Ordercode}</li>
-                            <li class="app__mid-item product">${products[order.ProductID].UID}</li>
+                            <li class="app__mid-item product">${productUid}</li>
                             <li class="app__mid-item price">${formatMoney(order.Price)}</li>
                             <li class="app__mid-item date">${date.date}/${date.month}/${date.year}</li>
                         </ul>`
@@ -1161,6 +1163,7 @@ const body = {
                                 async function orderHandle(result) {
                                     //check order
                                     if (await Get(`${orderAPi}/${orderCode}`) === null) { return }
+                                    const userData = await Get(urlUser)
 
                                     let message = {
                                         Seen: "No",
@@ -1182,7 +1185,7 @@ const body = {
 
                                         if (data.Method.value === 'shopMoney') {
                                             //return money
-                                            Patch(urlUser, { Money: accounts[userId].Money + orderPrice })
+                                            Patch(urlUser, { Money: userData.Money + orderPrice })
                                         }
 
                                         // create message error
@@ -1193,6 +1196,7 @@ const body = {
                                         }
                                     }
                                     else {
+                                        Patch(`${urlUser}`, { MoneySpent: Number(userData.MoneySpent) + orderPrice })
                                         message = {
                                             ...message,
                                             content: "Tài khoản đã được gửi đến email bạn đã chọn",
@@ -1325,7 +1329,9 @@ const body = {
                                     }
 
                                     //send message
-                                    Patch(`${urlUser}/Notification`, { [dataUser.Notification.length]: message })
+                                    let notiLeng = dataUser?.Notification?.length
+                                    if (!notiLeng) { notiLeng = 0 }
+                                    Patch(`${urlUser}/Notification`, {[notiLeng]: message })
 
                                     //delete order
                                     Delete(`${depositAPi}/${index}`)
@@ -1507,18 +1513,24 @@ const body = {
                             Mục chờ xử lý`
                         }
                         else {
-                            if(!$('.nav__category-options.noti')) {
+                            if (!$('.nav__category-options.noti')) {
                                 title.innerText = 'Admin | Hbstore'
                             }
                             option.elm.classList.remove('noti')
                         }
-                        updateData()
+                    }
+                    else {
+                        i = -1
                     }
                     i++
                 }
-                updateData()
+
+                // first run
+                for (let i = 0; i < 2; i++) {
+                    setTimeout(() => { updateData() }, i * 1000)
+                }
+
                 setInterval(() => {
-                    i = 0
                     updateData()
                 }, 5000);
             }
@@ -1715,11 +1727,6 @@ const body = {
                             <p class="app-bot__info-data value date"></p>
                         </li>
                     </ul>
-                    <ul class="app-bot__info-list history">
-                        <li class="app-bot__info history">
-                            <p class="app-bot__info-data title history-title">Mua thành công:</p>
-                            <p class="app-bot__info-data value history"></p>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -2143,8 +2150,6 @@ const nav = {
             this.navTop.classList.toggle('resize')
             this.navMid.classList.toggle('resize')
 
-
-
             if (this.navTop.classList.value.match(/resize/) !== null) {
 
                 const handleText = (element, accmulate) => {
@@ -2157,7 +2162,7 @@ const nav = {
                 titleOld = []
                 contentOld = []
 
-                logo.src = "./assets/image/logo-mini.png"
+                logo.src = "../asset/icon/Hb-store_not-text_remove-bg.png"
 
                 for (let item of optTexts) {
                     item.style.opacity = 0
@@ -2176,7 +2181,7 @@ const nav = {
                 logOutText.style.display = 'none'
             }
             else {
-                logo.src = "./assets/image/logo.png"
+                logo.src = "../asset/img/logo-full.png"
 
                 setTimeout(() => {
 
@@ -2200,7 +2205,6 @@ const nav = {
                 }, 50);
 
             }
-
         }
 
         if (window.innerWidth < 960) {

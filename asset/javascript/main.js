@@ -45,6 +45,7 @@ import {
     validate,
     simpleNoti,
     newNotiUser,
+    Get,
 
 
 } from "./end_point.js"
@@ -825,9 +826,10 @@ const notication = {
         contain.innerHTML = output
     },
 
-    newNoti: function () {
+    newNoti: async function () {
         let result
         const noti = notication.account?.Notification
+
         if (!noti) {
             result = false
         }
@@ -846,27 +848,35 @@ const notication = {
         }
     },
 
-    seenUpdate: function () {
-            const noti = notication.account?.Notification
-            
-            if (!noti) { return }
-            let newNoti = notication.account.Notification
-            newNoti = newNoti.map(v => {
+    seenUpdate: async function () {
+        const noti = notication.account?.Notification
+        const urlNoti = `${accountApi}/${userActiveID}/Notification`
+        if (!noti) { return }
+
+        let newNoti = []
+        noti.forEach((v, i) => {
+            if (v.Seen != 'Yes') {
+                newNoti = [...newNoti, i]
+            }
+        })
+        newNoti = (await Get(urlNoti)).map((v, i) => {
+            if (newNoti.some(e => i === e)) {
                 return {
                     ...v,
                     Seen: 'Yes'
                 }
-            })
+            }
+            else { return v }
+        })
 
-            Put(`${accountApi}/${userActiveID}/Notification`, newNoti)
-            notication.account.Notification = newNoti
-            notication.render()
-            notication.newNoti()
+        if (newNoti.length !== 0) { Put(urlNoti, newNoti) }
+        notication.account.Notification = newNoti
+        notication.render()
+        notication.newNoti()
     },
     atc: function () {
         const notiMenu = $('.header__noti-box')
         const closeBtnM = $('.header__noti-close')
-
 
         this.btnM.onclick = () => {
             this.restart()
@@ -882,15 +892,26 @@ const notication = {
                 })
         })
 
-        this.btn.addEventListener('mouseenter', () => {
-            this.restart()
-            if (window.innerWidth >= 600) {
-                this.btn.appendChild(notiMenu)
-            }
-        })
-        window.addEventListener('scroll', notication.restart)
+        function mouseeStart() {
+            notication.btn.removeEventListener('mouseenter', mouseeStart)
 
-        notication.btn.addEventListener('mouseleave', this.seenUpdate)
+            notication.restart()
+            if (window.innerWidth >= 600) {
+                notication.btn.appendChild(notiMenu)
+            }
+        }
+        this.btn.addEventListener('mouseenter', mouseeStart)
+
+        window.addEventListener('scroll', function scrollStart() {
+            notication.restart
+            window.removeEventListener('scroll', scrollStart)
+        })
+
+        this.btn.addEventListener('mouseleave', () => {
+            this.btn.addEventListener('mouseenter', mouseeStart)
+            this.seenUpdate()
+        })
+
         closeBtnM.addEventListener('click', this.seenUpdate)
     },
 
@@ -905,11 +926,10 @@ const notication = {
             this.start()
         }
     },
-    restart: function () {
-        notication.account = accountsMain[userActiveID]
+    restart: async function () {
+        notication.account = await Get(`${accountApi}/${userActiveID}`)
         notication.render()
         notication.newNoti()
-        // notication.seenUpdate()
     },
     start: function () {
         if (!this.account) {
@@ -918,6 +938,11 @@ const notication = {
         }
         this.atc()
         this.restart()
+
+        //update data
+        setInterval(() => {
+            this.restart()
+        }, 5000)
     }
 }
 notication.start()
@@ -1757,7 +1782,7 @@ const stall = function () {
             ui: function () {
 
             },
-            updateProduct: function() {},
+            updateProduct: function () { },
 
             start: function () {
                 this.activeBtn()

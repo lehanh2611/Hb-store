@@ -147,7 +147,6 @@ export const cart = {
         }
 
         if (!this.cartData || this.cartData === '') { this.cartData = [] }
-        console.log(this.cartData)
         if (this.cartData.includes(id)) {
             setTimeout(() => { simpleNoti('Sản phẩm đã tồn tại', false) }, 0)
             return
@@ -226,9 +225,9 @@ export const cart = {
                     //update contain cart
                     elm.classList.add('remove')
                     elm.addEventListener('animationend', () => {
-                        const cartLeng = this.cartData.length
-
                         elm.remove()
+                        const cartLeng = $$('.header__cart-item').length
+                        
                         $('.header__cart-total').innerText = `Tất cả (${cartLeng})`
                         if (cartLeng === 0) {
                             this.cartContain.innerHTML = this.emptyHTML
@@ -255,7 +254,6 @@ export const cart = {
 
         this.cartContain.classList.remove('show')
 
-        $('.header__cart-total').innerText = `Tất cả (${this.cartData.length})`
 
         if (productCart.length === 0) {
             this.cartContain.innerHTML = this.emptyHTML
@@ -263,6 +261,7 @@ export const cart = {
         }
 
         this.cartContain.innerHTML = productCart.reduce((acc, item) => {
+            if (!item) { return acc }
             return acc += `<li item_id="${item.ProductID}" class="header__cart-item">
             <i class="header__cart-item-remove fa-solid fa-trash"></i>
         <img src="./asset/img/660000000.png" class="header__cart-item-img">
@@ -282,6 +281,7 @@ export const cart = {
         </span>
     </li>`
         }, '')
+        $('.header__cart-total').innerText = `Tất cả (${$$('.header__cart-item').length})`
 
         this.renderDone()
     },

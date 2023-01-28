@@ -158,7 +158,6 @@ const app = {
         if (!this.result) { return }
         this.submitBtn.classList.add('active')
         let data = this.data.value
-        console.log(data)
         data = {
             orderCode: data.Ordercode,
             status: 'Unpaid',

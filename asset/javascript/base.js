@@ -143,3 +143,35 @@ export function removeNull(url, callback) {
 
         })
 }
+
+
+function NewProduct(uid, price, type, server, i) {
+    this.ProductID = i
+    this.UID = uid
+    this.Server = server
+    this.Price = price
+    this.Type = type
+    this.Discount = '0%'
+    this.Flashsale = 'No'
+    this.Sold = 'No'
+}
+async function start(j = 0) {
+    let total = j + 10
+    let ouput = []
+    for (let i = j; i < total; i++) {
+        let random = Number.parseInt(Math.random() * 1000009).toString()
+        random = random.slice(0, 3)
+        const uid = Number(random + '789789')
+        const type = 'Đặc biệt'
+        const price = 500000
+        const sv = Number.parseInt(Math.random() * 10) >= 5 ? 'Asia' : 'America'
+        const newProduct = new NewProduct(uid, price, type, sv, i)
+        ouput = [...ouput, { ...newProduct }]
+    }
+    const newp = [...await Get(productAPi), ...ouput]
+    console.log(newp)
+    // Put(productAPi, newp)
+}
+
+
+// GETelement(productAPi, v => start(v.length))
