@@ -29,6 +29,7 @@ import {
     orderForm,
     Patch,
     Delete,
+    simpleNoti,
 
 } from "../../asset/javascript/end_point.js"
 
@@ -852,6 +853,7 @@ const body = {
                                         function update() {
                                             processLoad.run(datas.length)
                                             if (i === datas.length) {
+                                                simpleNoti('Thao tác hoàn thành')
                                                 flashSale.containLeng()
                                                 for (const btnLoading of btnLoadings) { btnLoading.classList.remove('active') }
                                                 return GETelement(apiBody, v => {
@@ -863,7 +865,7 @@ const body = {
                                                 () => { update() })
 
                                             containReceive.appendChild(elements[i])
-                                            containReceive.scrollTop = containReceive.scrollTop + 38
+                                            containReceive.scrollTop = containReceive.scrollTop + 99e9
 
                                             flashSale.selectProduct.selectAll('clear')
                                             for (const elm of $$('.app__flashsale-bars-checkAll')) {
