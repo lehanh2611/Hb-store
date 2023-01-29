@@ -547,8 +547,6 @@ function header() {
             })
         };
 
-
-
         //Register / Login account//
         let register = $('.menu-logReg__btn.register-btn'),
             login = $('.menu-logReg__btn');
@@ -1605,8 +1603,7 @@ const stall = function () {
                 //act select page
                 for (let index of indexs) {
                     index.onclick = () => {
-                        const iActive = Number(index.innerText)
-                        indexHandle(iActive)
+                        indexHandle(Number(index.innerText))
 
                         ++this.iCheck
 
@@ -1618,15 +1615,6 @@ const stall = function () {
                 indexHandle(indexCurrent)
                 function indexHandle(j) {
                     indexEnd.innerText = totalPageNum
-                    // if (indexEnd.innerText <= 5) {
-                    //     moreLast.style.display = 'none'
-                    //     indexEnd.style.display = 'none'
-                    // }
-                    // else {
-                    //     moreLast.style.display = 'flex'
-                    //     indexEnd.style.display = 'flex'
-                    // }
-
 
                     function removeActive() {
                         for (let elm of indexs) {
@@ -1830,6 +1818,28 @@ const saleBanner = {
     }
 }
 
+const navLeft = {
+
+    start: function () {
+        const options = Array.from($$('.stall__navbar-item'))
+
+        for (const btn of $$('.header__menu-bar-item')) {
+            btn.addEventListener('click', () => {
+                options.some(v => {
+
+                    if (v.innerText.includes(btn.innerText)) {
+                        v.click()
+                        window.scroll({ top: window.scrollY + $('.product-item__list').getBoundingClientRect().top + 300 })
+                        $('.stall__navbar_wrap').scrollLeft = v.getBoundingClientRect().left
+
+                        return true
+                    }
+                })
+            })
+        }
+    }
+}
+
 const app = {
     start: function () {
         logout.start()
@@ -1838,6 +1848,7 @@ const app = {
         cart.start()
         footer.start()
         saleBanner.start()
+        navLeft.start()
     }
 }
 setTimeout(() => { app.start() }, 0)

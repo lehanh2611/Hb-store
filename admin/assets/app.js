@@ -1242,6 +1242,7 @@ const body = {
                     renderDeposit: function () {
                         if (!deposits) { return }
                         const contain = $('.app__mid-item-wrap')
+                        console.log(deposits)
                         const output = deposits.reduce((acc, value, index) => {
                             if (!value) { return acc }
                             const date = value.date

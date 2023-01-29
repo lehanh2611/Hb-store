@@ -53,8 +53,16 @@
                         <ul class="header__menu-bar-tpye-account-list">
                             <h3 class="header__menu-bar-tpye-account-title">Tài khoản</h3>
                             <li class="header__menu-bar-item">
-                                <i class="header__menu-bar-icon fa-solid fa-fire"></i>
-                                <h3 class="header__menu-bar-item-title">Đề xuất</h3>
+                                <i class="header__menu-bar-icon fa-solid fa-diamond"></i>
+                                <h3 class="header__menu-bar-item-title">Đặc biệt</h3>
+                            </li>
+                            <li class="header__menu-bar-item">
+                                <i class="header__menu-bar-icon fa-solid fa-diamond"></i>
+                                <h3 class="header__menu-bar-item-title">Sảnh tiến</h3>
+                            </li>
+                            <li class="header__menu-bar-item">
+                                <i class="header__menu-bar-icon fa-solid fa-diamond"></i>
+                                <h3 class="header__menu-bar-item-title">Thất quý</h3>
                             </li>
                             <li class="header__menu-bar-item">
                                 <i class="header__menu-bar-icon fa-solid fa-diamond"></i>
@@ -64,14 +72,15 @@
                                 <i class="header__menu-bar-icon fa-solid fa-diamond"></i>
                                 <h3 class="header__menu-bar-item-title">Ngũ quý</h3>
                             </li>
-                            <li class="header__menu-bar-item">
+
+                            <!-- <li class="header__menu-bar-item">
                                 <i class="header__menu-bar-icon fa-solid fa-diamond"></i>
                                 <h3 class="header__menu-bar-item-title">Server Asia</h3>
                             </li>
                             <li class="header__menu-bar-item">
                                 <i class="header__menu-bar-icon fa-solid fa-diamond"></i>
                                 <h3 class="header__menu-bar-item-title">Server America</h3>
-                            </li>
+                            </li> -->
                         </ul>
                     </ul>
                 </div>
@@ -611,7 +620,11 @@
             </div>
         </div>
     </footer>
-
+    <!-- Messenger Chat Plugin Code -->
+    <div id="fb-root"></div>
+    <div id="fb-customer-chat" class="fb-customerchat"></div>
+    <script> var chatbox = document.getElementById('fb-customer-chat'); chatbox.setAttribute("page_id", "PAGE-ID"); chatbox.setAttribute("attribution", "biz_inbox"); </script>
+    <script> window.fbAsyncInit = function () { FB.init({ xfbml: true, version: 'API-VERSION' }); }; (function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js'; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); </script>
 </body>
 
 <modal id="modal">
