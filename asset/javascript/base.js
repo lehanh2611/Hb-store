@@ -23,7 +23,7 @@ export const depositAPi = "https://hbstore26-default-rtdb.firebaseio.com/deposit
 
 //Get element/api
 export function GETelement(url, callback) {
-    console.log(url)
+    // console.log(url)
     fetch(`${url}.json`)
         .then((element) => { return element.json() })
         .then(callback)
@@ -31,7 +31,7 @@ export function GETelement(url, callback) {
 };
 //Post element/api
 export function POSTelement(url, value, callback) {
-    console.log(url)
+    // console.log(url)
     fetch(`${url}.json`, {
         method: "POST",
         headers: { 'Content-type': 'application/json' },
@@ -42,7 +42,7 @@ export function POSTelement(url, value, callback) {
 };
 //Put element/api
 export function PUTelement(url, value, callback) {
-    console.log(url)
+    // console.log(url)
     fetch(`${url}.json`, {
         method: "PUT",
         headers: { 'Content-type': 'application/json' },
@@ -53,7 +53,7 @@ export function PUTelement(url, value, callback) {
 };
 //Patch element/api
 export function PATCHelement(url, value, callback) {
-    console.log(url)
+    // console.log(url)
     fetch(`${url}.json`, {
         method: "PATCH",
         headers: { 'Content-type': 'application/json' },
@@ -64,7 +64,7 @@ export function PATCHelement(url, value, callback) {
 };
 //Delete element/api
 export function DELETEelement(url, callback) {
-    console.log(url)
+    // console.log(url)
     fetch(`${url}.json`, {
         method: "DELETE",
         headers: { 'Content-type': 'application/json' },
@@ -75,7 +75,7 @@ export function DELETEelement(url, callback) {
 
 //Get element/api
 export function Get(url, callback) {
-    console.log(url)
+    // console.log(url)
     return fetch(`${url}.json`)
         .then((element) => { return element.json() })
 
@@ -83,7 +83,7 @@ export function Get(url, callback) {
 };
 //Post element/api
 export function Post(url, value, callback) {
-    console.log(url)
+    // console.log(url)
     return fetch(`${url}.json`, {
         method: "POST",
         headers: { 'Content-type': 'application/json' },
@@ -93,7 +93,7 @@ export function Post(url, value, callback) {
 };
 //Put element/api
 export function Put(url, value, callback) {
-    console.log(url)
+    // console.log(url)
     return fetch(`${url}.json`, {
         method: "PUT",
         headers: { 'Content-type': 'application/json' },
@@ -103,7 +103,7 @@ export function Put(url, value, callback) {
 };
 //Patch element/api
 export function Patch(url, value, callback) {
-    console.log(url)
+    // console.log(url)
     return fetch(`${url}.json`, {
         method: "PATCH",
         headers: { 'Content-type': 'application/json' },
@@ -113,7 +113,7 @@ export function Patch(url, value, callback) {
 };
 //Delete element/api
 export function Delete(url, callback) {
-    console.log(url)
+    // console.log(url)
     return fetch(`${url}.json`, {
         method: "DELETE",
         headers: { 'Content-type': 'application/json' },
@@ -169,7 +169,7 @@ async function start(j = 0) {
         ouput = [...ouput, { ...newProduct }]
     }
     const newp = [...await Get(productAPi), ...ouput]
-    console.log(newp)
+    // console.log(newp)
     // Put(productAPi, newp)
 }
 
@@ -177,7 +177,7 @@ async function start(j = 0) {
 // GETelement(productAPi, v => start(v.length))
 
 // GETelement(productAPi, v => {
-//     console.log(v)
+    // console.log(v)
 //     const data = v.filter(e => {
 //         return v.some(f => {
 //             if (e === null || f === null) {

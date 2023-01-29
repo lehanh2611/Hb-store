@@ -150,8 +150,7 @@ const app = {
         selector.input.addEventListener('focusout', () => { validate.start(selector, rule) })
         this.submit.addEventListener('click', () => {
             if (!validate.start(selector, rule)) { return }
-            console.log(this.account.Block)
-            if (this.account.Block === 'True') {
+            if (this.account.Block === 'true') {
                 notificationWindow(
                     false,
                     'Tài khoản bị khóa',

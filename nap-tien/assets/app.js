@@ -87,7 +87,7 @@ const app = {
         if (infoOld) { infoOld.remove() }
         if (!this.result) { data = this.mbbankInfo }
         paymentInfo(data.title, data.value, () => {
-            if (this.user.Block === 'True') {
+            if (this.user.Block == 'true') {
                 notificationWindow(
                     false,
                     'Tài khoản bị khóa',

@@ -1739,7 +1739,6 @@ const stall = function () {
 
             renderPdtStall: function (iStart = this.iStart, iEnd = this.iEnd) {
                 processLoad.run(1)
-                console.log()
                 this.productContain.innerHTML = renderProduct(stall.productsFil.slice(iStart, iEnd), false)
 
                 sessionStorage.setItem('iSStallPage', this.iStart)
