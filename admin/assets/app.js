@@ -666,7 +666,6 @@ const body = {
                                             processLoad.run(1)
                                         })
                                     }
-
                                 })
                             },
 
@@ -754,7 +753,6 @@ const body = {
                             },
                             renderProductFS: function () {
                                 this.renderProduct({ flashSale: 'Yes' })
-
                             },
 
                             selectsProducts: function (parents = $$('.app__flashsale-contain')) {
@@ -952,6 +950,7 @@ const body = {
                                             processLoad.run(elmActive.length)
 
                                             if (i === elmActive.length) {
+                                                simpleNoti('Thao tác hoàn thành')
                                                 return GETelement(apiBody, (v) => {
                                                     products = v
                                                 })
