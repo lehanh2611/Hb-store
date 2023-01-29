@@ -16,6 +16,9 @@ import {
 export let userActiveID = null
 export let logWaitingFunction = []
 export let userAvt = $('.header__user-avt')
+
+let localCart = localStorage.getItem('cart')
+localCart = localCart !== 'undefined' ? localCart : "[]"
 //Login user//
 export function userLogin(UserID, accounts) {
     let NotificationWelcome = $('.notification-welcome'),
@@ -25,8 +28,7 @@ export function userLogin(UserID, accounts) {
         welcomeAvt = $('.notification-welcome__user-avt'),
         moneyBox = $('.header__user-title'),
         User = accounts[Number(UserID)],
-        cartLocal = JSON.parse(localStorage.getItem('cart'))
-
+        cartLocal = JSON.parse(localCart)
 
     if (!User) { return }
     userActiveID = User.UserID;

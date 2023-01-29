@@ -16,8 +16,10 @@ import {
     logWaitingFunction,
     Get
 } from "../end_point.js";
+let localCart = localStorage.getItem('cart')
+localCart = localCart !== 'undefined' ? localCart : "[]"
 export const cart = {
-    cartData: JSON.parse(localStorage.getItem('cart')),
+    cartData: JSON.parse(localCart),
     products: '',
     meunuCart: $('.header__cart-box'),
     cartContain: $('.header__cart-list'),
@@ -227,7 +229,7 @@ export const cart = {
                     elm.addEventListener('animationend', () => {
                         elm.remove()
                         const cartLeng = $$('.header__cart-item').length
-                        
+
                         $('.header__cart-total').innerText = `Tất cả (${cartLeng})`
                         if (cartLeng === 0) {
                             this.cartContain.innerHTML = this.emptyHTML

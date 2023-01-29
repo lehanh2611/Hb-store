@@ -910,7 +910,9 @@ const notication = {
             this.seenUpdate()
         })
 
-        closeBtnM.addEventListener('click', this.seenUpdate)
+        $('.header__user-menu-item.noti').addEventListener('click', () => {
+            setTimeout(() => { this.seenUpdate() }, 500);
+        })
     },
 
     callback: function () {
@@ -978,6 +980,7 @@ const desposit = {
                 processLoad.run(2)
             }, 600)
         }
+        
         $('.header__feature-box.desposit').addEventListener('click', goDeposit)
         $('.header__menu-bar-item.deposit').addEventListener('click', goDeposit)
     }
@@ -1535,6 +1538,11 @@ const stall = function () {
                             products = productsOld
                         }
                     })
+
+                    //update index page
+                    stall.indexPage()
+                    stall.iStart = 0
+                    stall.iEnd = stall.slot
                 }
 
             },
@@ -1544,20 +1552,20 @@ const stall = function () {
                 const btnRight = $('.stall__page-next')
 
                 function iSearch() {
-                    let searchI = products.length - 1
+                    let searchI = stall.productsFil.length - 1
 
                     while (searchI % stall.slot !== 0) {
                         searchI--
                     }
                     stall.iStart = searchI
-                    stall.iEnd = products.length
+                    stall.iEnd = stall.productsFil.length
                 }
 
                 btnRight.onclick = () => {
                     this.iStart += this.slot
                     this.iEnd = this.iStart + this.slot
 
-                    if (this.iEnd > products.length) {
+                    if (this.iEnd > stall.productsFil.length) {
                         iSearch()
                         if (this.iCheck !== 0) {
                             this.iStart = 0
@@ -1589,13 +1597,17 @@ const stall = function () {
                 const indexEnd = $('.stall__page-index-last')
                 const moreFirst = $('.stall__page-index-more.first')
                 const moreLast = $('.stall__page-index-more.last')
-                const totalPageNum = Math.ceil(products.length / this.slot)
+                const totalPageNum = Math.ceil(this.productsFil.length / this.slot)
                 const indexCurrent = Math.ceil(this.iEnd / this.slot)
 
                 //update box index page
                 indexs.forEach((elm, i) => {
                     if (i >= totalPageNum) {
-                        elm.remove()
+                        // elm.remove()
+                        elm.classList.add('hide')
+                    }
+                    else {
+                        elm.classList.remove('hide')
                     }
                 })
                 indexs = Array.from($$('.stall__page-index'))
@@ -1621,7 +1633,6 @@ const stall = function () {
                             elm.classList.remove('active')
                         }
                     }
-
                     if (j <= 4) {
                         indexs.forEach((elm, i) => {
                             const index = ++i
@@ -1631,55 +1642,63 @@ const stall = function () {
                         })
                     }
                     else {
+                        const boolean = j >= 5
                         removeActive()
-                        indexs[2].classList.add('active')
-                        indexs[0].innerText = j - 2
-                        indexs[1].innerText = j - 1
-                        indexs[2].innerText = j
-                        indexs[3].innerText = j + 1
-                        indexs[4].innerText = j + 2
+                        indexs[2]?.classList.add('active')
+                        indexs[0].innerText = boolean ? j - 2 : j
+                        indexs[1].innerText = boolean ? j - 1 : j + 1
+                        if (indexs[2]) { indexs[2].innerText = j }
+                        if (indexs[3]) { indexs[3].innerText = j + 1 }
+                        if (indexs[4]) { indexs[4].innerText = j + 2 }
                     }
 
-                    if (j === totalPageNum) {
-                        let i = indexs.length - 1
-                        for (let e of indexs) {
-                            e.innerText = totalPageNum - i--
+                    if (j >= totalPageNum - 2) {
+                        if(totalPageNum > 6) {
+                            let i = indexs.length - 1
+                            for (let e of indexs) {
+                                e.innerText = totalPageNum - i--
+                            }
                         }
 
                         indexEnd.style.display = 'none'
                         moreLast.style.display = 'none'
 
                         removeActive()
-                        indexs[4].classList.add('active')
+                        indexs[4]?.classList.add('active')
                     }
                     else {
                         indexEnd.style.display = 'flex'
                     }
 
-                    if (indexs[3].innerText >= totalPageNum) {
-                        indexs[3].style.display = 'none'
-                    }
-                    else {
-                        indexs[3].style.display = 'flex'
-                    }
-
-                    if (indexs[4].innerText >= totalPageNum
-                        && indexEnd.style.display !== 'none') {
-
-                        indexs[4].style.display = 'none'
-                    }
-                    else {
-                        indexs[4].style.display = 'flex'
+                    if (indexs[3]) {
+                        if (indexs[3].innerText >= totalPageNum) {
+                            indexs[3].style.display = 'none'
+                        }
+                        else {
+                            indexs[3].style.display = 'flex'
+                        }
                     }
 
-                    if (indexs[4].innerText <= totalPageNum - 2) {
-                        moreLast.style.display = 'flex'
-                    }
-                    else {
-                        moreLast.style.display = 'none'
+                    if (indexs[4]) {
+                        if (indexs[4].innerText >= totalPageNum
+                            && indexEnd.style.display !== 'none') {
+
+                            indexs[4].style.display = 'none'
+                        }
+                        else {
+                            indexs[4].style.display = 'flex'
+                        }
+
+                        if (indexs[4].innerText <= totalPageNum - 2) {
+                            moreLast.style.display = 'flex'
+                        }
+                        else {
+                            moreLast.style.display = 'none'
+                        }
                     }
 
-                    if (j >= 6) {
+
+                    if (j >= 5) {
                         indexStart.classList.add('active')
                         moreFirst.classList.add('active')
                     }
@@ -1701,14 +1720,16 @@ const stall = function () {
                     stall.iEnd = j * stall.slot
                     stall.iStart = stall.iEnd - stall.slot
                 }
-                indexStart.onclick = () => {
-                    indexs[2].innerText = 3
-                    indexs[2].click()
-                }
+                if (indexs[2]) {
+                    indexStart.onclick = () => {
+                        indexs[2].innerText = 3
+                        indexs[2].click()
+                    }
 
-                indexEnd.onclick = () => {
-                    indexs[2].innerText = totalPageNum
-                    indexs[2].click()
+                    indexEnd.onclick = () => {
+                        indexs[2].innerText = totalPageNum
+                        indexs[2].click()
+                    }
                 }
 
             },

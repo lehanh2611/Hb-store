@@ -1233,7 +1233,7 @@ const body = {
         currency: {
             manage: async function (categoryKey) {
                 localStorage.setItem('categoryHistory', JSON.stringify(categoryKey))
-                const [deposits, accounts] = await Promise.all([
+                let [deposits, accounts] = await Promise.all([
                     Get(depositAPi),
                     Get(accountApi)
                 ])
@@ -1241,8 +1241,9 @@ const body = {
                 const manage = {
                     renderDeposit: function () {
                         if (!deposits) { return }
+                        // if(!Array.isArray(deposits)) {deposits = Object.values(deposits)}
+
                         const contain = $('.app__mid-item-wrap')
-                        console.log(deposits)
                         const output = deposits.reduce((acc, value, index) => {
                             if (!value) { return acc }
                             const date = value.date

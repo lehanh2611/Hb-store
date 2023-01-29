@@ -175,3 +175,25 @@ async function start(j = 0) {
 
 
 // GETelement(productAPi, v => start(v.length))
+
+// GETelement(productAPi, v => {
+//     console.log(v)
+//     const data = v.filter(e => {
+//         return v.some(f => {
+//             if (e === null || f === null) {
+//                 return false
+//             }
+//             return e.UID === f.UID && e.ProductID !== f.ProductID
+//         })
+//     })
+//     for (let i = 0; i < v.length; i++) {
+
+//         data.forEach(element => {
+//             if (v[i] === null) { return }
+//             if (v[i].UID === element.UID) {
+//                 v[i] = null
+//             }
+//         });
+//     }
+//     // Put(productAPi, v)
+// })

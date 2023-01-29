@@ -87,7 +87,18 @@ const app = {
         if (infoOld) { infoOld.remove() }
         if (!this.result) { data = this.mbbankInfo }
         paymentInfo(data.title, data.value, () => {
-            this.submit()
+            if (this.user.Block === 'True') {
+                notificationWindow(
+                    false,
+                    'Tài khoản bị khóa',
+                    'Chi tiết liên hệ quản trị viên',
+                    () => {
+                        notificationWindow()
+                        this.goBack()
+                    }, 'Đóng'
+                )
+            }
+            else {this.submit()}
         }, $('.content'))
         this.submitBtn = $('.payment-info__submit')
         this.user = user

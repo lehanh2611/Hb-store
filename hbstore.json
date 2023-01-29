@@ -1,0 +1,2923 @@
+{
+  "accounts": [
+    {
+      "Avatar": "./asset/img/user-avt/user-id0.jpg",
+      "Block": "true",
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "hbstore@gmail.com",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 16,
+            "hours": 12,
+            "minutes": 8,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 619362287
+        },
+        {
+          "ActiveTime": {
+            "date": 16,
+            "hours": 8,
+            "minutes": 29,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 947220137
+        },
+        {
+          "ActiveTime": {
+            "date": 6,
+            "hours": 17,
+            "minutes": 20,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 676911285
+        },
+        {
+          "ActiveTime": {
+            "date": 16,
+            "hours": 0,
+            "minutes": 1,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 689441085
+        },
+        {
+          "ActiveTime": {
+            "date": 15,
+            "hours": 23,
+            "minutes": 58,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 32170574
+        },
+        {
+          "ActiveTime": {
+            "date": 15,
+            "hours": 21,
+            "minutes": 35,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 567770383
+        },
+        {
+          "ActiveTime": {
+            "date": 15,
+            "hours": 18,
+            "minutes": 11,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 168785595
+        },
+        {
+          "ActiveTime": {
+            "date": 15,
+            "hours": 8,
+            "minutes": 55,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 604062829
+        },
+        {
+          "ActiveTime": {
+            "date": 14,
+            "hours": 22,
+            "minutes": 56,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 204530120
+        },
+        {
+          "ActiveTime": {
+            "date": 14,
+            "hours": 0,
+            "minutes": 13,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "iPhone",
+          "DeviceId": 428543138
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "Lê Hạnh",
+      "Notification": "",
+      "Password": "admin",
+      "TotalDeposit": 1000000,
+      "TrustedDevice": [
+        {
+          "ActiveTime": {
+            "date": 7,
+            "hours": 14,
+            "minutes": 14,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 951694386
+        },
+        {
+          "ActiveTime": {
+            "date": 8,
+            "hours": 16,
+            "minutes": 16,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 197086151
+        },
+        {
+          "ActiveTime": {
+            "date": 12,
+            "hours": 0,
+            "minutes": 52,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 982034148
+        },
+        {
+          "ActiveTime": {
+            "date": 31,
+            "hours": 10,
+            "minutes": 27,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "Android",
+          "DeviceId": 640771744
+        },
+        {
+          "ActiveTime": {
+            "date": 15,
+            "hours": 18,
+            "minutes": 11,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 168785595
+        },
+        {
+          "ActiveTime": {
+            "date": 15,
+            "hours": 21,
+            "minutes": 35,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 567770383
+        },
+        {
+          "ActiveTime": {
+            "date": 16,
+            "hours": 0,
+            "minutes": 1,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 689441085
+        },
+        {
+          "ActiveTime": {
+            "date": 6,
+            "hours": 17,
+            "minutes": 20,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 676911285
+        },
+        {
+          "ActiveTime": {
+            "date": 16,
+            "hours": 8,
+            "minutes": 29,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 947220137
+        },
+        {
+          "ActiveTime": {
+            "date": 16,
+            "hours": 12,
+            "minutes": 8,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 619362287
+        }
+      ],
+      "UserID": 0,
+      "Username": "admin",
+      "block": "false"
+    },
+    {
+      "Block": "false",
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "hbstore@gmail.com",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 18,
+            "hours": 20,
+            "minutes": 41,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "Windows",
+          "DeviceId": 602818275
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "Hạnh bá",
+      "Notification": "",
+      "Password": "admin",
+      "TotalDeposit": 1000000,
+      "TrustedDevice": [
+        {
+          "ActiveTime": {
+            "date": 18,
+            "hours": 20,
+            "minutes": 41,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "Windows",
+          "DeviceId": 602818275
+        }
+      ],
+      "UserID": 1,
+      "Username": "Hanhba",
+      "block": "false"
+    },
+    {
+      "Block": "false",
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "hbstore@gmail.com",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 18,
+            "hours": 20,
+            "minutes": 41,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "Windows",
+          "DeviceId": 602818275
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "Não cá vàng",
+      "Notification": "",
+      "Password": "admin",
+      "TotalDeposit": 1000000,
+      "TrustedDevice": [
+        {
+          "ActiveTime": {
+            "date": 18,
+            "hours": 20,
+            "minutes": 41,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "Windows",
+          "DeviceId": 602818275
+        }
+      ],
+      "UserID": 2,
+      "Username": "Naocavang",
+      "block": "false"
+    },
+    {
+      "Block": "false",
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "hbstore@gmail.com",
+      "History": "",
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "Chúa hề teyvat",
+      "Notification": "",
+      "Password": "admin",
+      "TotalDeposit": 1000000,
+      "UserID": 3,
+      "Username": "Chuahetayvat",
+      "block": "false"
+    },
+    {
+      "Block": "false",
+      "DateCreated": {
+        "date": 28,
+        "hours": 0,
+        "minutes": 1,
+        "month": 12,
+        "year": 2022
+      },
+      "Email": "tiensythien08@gmail.com",
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Notification": "",
+      "Password": "08112001",
+      "TotalDeposit": 1000000,
+      "UserID": 4,
+      "Username": "leo08",
+      "block": "false"
+    },
+    {
+      "Block": "false",
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "hbstore@gmail.com",
+      "History": "",
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "Em của ngày hôm qua",
+      "Notification": "",
+      "Password": "admin",
+      "TotalDeposit": 1000000,
+      "UserID": 5,
+      "Username": "Emcuangayhomqua",
+      "block": "false"
+    },
+    {
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "hbstore@gmail.com",
+      "History": "",
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "1hit về trời",
+      "Notification": "",
+      "Password": "admin",
+      "TotalDeposit": 1000000,
+      "UserID": 6,
+      "Username": "1hitvetroi",
+      "block": "false"
+    },
+    {
+      "Block": "false",
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "hbstore@gmail.com",
+      "History": "",
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "Playerzz",
+      "Notification": "",
+      "Password": "admin",
+      "TotalDeposit": 1000000,
+      "UserID": 7,
+      "Username": "Playerzz",
+      "block": "false"
+    },
+    {
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "hbstore@gmail.com",
+      "History": "",
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "Hải quay xe",
+      "Notification": "",
+      "Password": "admin",
+      "TotalDeposit": 1000000,
+      "UserID": 8,
+      "Username": "Haiquayxe",
+      "block": "false"
+    },
+    {
+      "DateCreated": {
+        "date": 28,
+        "hours": 0,
+        "minutes": 1,
+        "month": 12,
+        "year": 2022
+      },
+      "Email": "hbstore@gmail.com",
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "Bing chilling",
+      "Notification": "",
+      "Password": "admin",
+      "TotalDeposit": 1000000,
+      "UserID": 9,
+      "Username": "Bingchilling",
+      "block": "false"
+    },
+    {
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "zsdsdada4@asd.as",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 20,
+            "hours": 11,
+            "minutes": 34,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "Windows",
+          "DeviceId": 419866982
+        },
+        {
+          "ActiveTime": {
+            "date": 20,
+            "hours": 11,
+            "minutes": 33,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "Windows",
+          "DeviceId": 171281087
+        },
+        {
+          "ActiveTime": {
+            "date": 20,
+            "hours": 11,
+            "minutes": 24,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "Windows",
+          "DeviceId": 839826638
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Notification": "",
+      "Password": "zsdsdada4",
+      "TotalDeposit": 1000000,
+      "UserID": 10,
+      "Username": "zsdsdada4",
+      "block": "false"
+    },
+    {
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "zsdsdada4@asd.as",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 20,
+            "hours": 11,
+            "minutes": 34,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "Windows",
+          "DeviceId": 616609906
+        },
+        {
+          "ActiveTime": {
+            "date": 20,
+            "hours": 11,
+            "minutes": 34,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "Windows",
+          "DeviceId": 234423099
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Notification": "",
+      "Password": "zsdsdada4123",
+      "TotalDeposit": 1000000,
+      "UserID": 11,
+      "Username": "zsdsdada4123",
+      "block": "false"
+    },
+    {
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "asdasd@qwd.as",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 21,
+            "hours": 23,
+            "minutes": 41,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "Windows",
+          "DeviceId": 421115761
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Notification": "",
+      "Password": "asdasd",
+      "TotalDeposit": 1000000,
+      "UserID": 12,
+      "Username": "asdasd",
+      "block": "false"
+    },
+    {
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 0,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "hung1312005@gmail.com",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 22,
+            "hours": 11,
+            "minutes": 25,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "iPhone",
+          "DeviceId": 467462708
+        },
+        {
+          "ActiveTime": {
+            "date": 22,
+            "hours": 11,
+            "minutes": 24,
+            "month": 12,
+            "year": 2022
+          },
+          "Device": "iPhone",
+          "DeviceId": 772385521
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Notification": "",
+      "Password": "123456",
+      "TotalDeposit": 1000000,
+      "UserID": 13,
+      "Username": "Hungpham",
+      "block": "false"
+    },
+    {
+      "Avatar": "",
+      "Block": false,
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 5,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "testttt@as.asd",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 1,
+            "hours": 11,
+            "minutes": 3,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 975389085
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "",
+      "Notification": "",
+      "Password": "testttt",
+      "TotalDeposit": 1000000,
+      "UserID": 14,
+      "Username": "testttt"
+    },
+    {
+      "Avatar": "",
+      "Block": false,
+      "Cart": "",
+      "DateCreated": {
+        "date": 1,
+        "hours": 11,
+        "minutes": 8,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "happynewyear2023@gmail.com",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 1,
+            "hours": 11,
+            "minutes": 3,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 975389085
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "",
+      "Notification": "",
+      "Password": "happynewyear2023",
+      "TotalDeposit": 1000000,
+      "TrustedDevice": [
+        {
+          "ActiveTime": {
+            "date": 1,
+            "hours": 11,
+            "minutes": 3,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 975389085
+        }
+      ],
+      "UserID": 15,
+      "Username": "happynewyear2023"
+    },
+    {
+      "Avatar": "",
+      "Block": false,
+      "Cart": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "DateCreated": {
+        "date": 12,
+        "hours": 21,
+        "minutes": 38,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "testCart@as.asd",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 12,
+            "hours": 21,
+            "minutes": 54,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 257263371
+        },
+        {
+          "ActiveTime": {
+            "date": 12,
+            "hours": 21,
+            "minutes": 17,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 496209560
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "",
+      "Notification": "",
+      "Password": "testCart",
+      "TotalDeposit": 1000000,
+      "UserID": 16,
+      "Username": "testCart"
+    },
+    {
+      "Avatar": "",
+      "Block": false,
+      "Cart": "",
+      "DateCreated": {
+        "date": 16,
+        "hours": 11,
+        "minutes": 48,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "rtasds@s.asd",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 16,
+            "hours": 8,
+            "minutes": 29,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 947220137
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "",
+      "Notification": "",
+      "Password": "rtasds",
+      "TotalDeposit": 1000000,
+      "UserID": 17,
+      "Username": "rtasds"
+    },
+    {
+      "Avatar": "",
+      "Block": false,
+      "Cart": "",
+      "DateCreated": {
+        "date": 16,
+        "hours": 11,
+        "minutes": 57,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "adawawd@as.sd",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 16,
+            "hours": 8,
+            "minutes": 29,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 947220137
+        }
+      ],
+      "Money": 1000000,
+      "MoneySpent": 0,
+      "Nickname": "",
+      "Notification": "",
+      "Password": "adawawd",
+      "TotalDeposit": 1000000,
+      "UserID": 18,
+      "Username": "adawawd"
+    }
+  ],
+  "admin_accounts": [
+    {
+      "Avatar": "../asset/img/user-avt/user-id0.jpg",
+      "Nickname": "Lê Hạnh",
+      "Password": "admin",
+      "UserId": "0",
+      "Username": "admin"
+    }
+  ],
+  "gift_code": {
+    "LIXI50": {
+      "Amount": "100",
+      "Type": "money",
+      "Value": "50000"
+    },
+    "QUYMAO23": {
+      "Amount": "100",
+      "Type": "percent",
+      "Value": "10"
+    }
+  },
+  "products": [
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 0,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 872999999
+    },
+    null,
+    null,
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 4,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 489999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 5,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 268999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 6,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 592999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 7,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 862999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 8,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 965999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 9,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 557999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 10,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 727999999
+    },
+    null,
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 13,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 832999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 14,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 942999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 15,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 703999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 16,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 241999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 17,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 233999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 18,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 669999999
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 20,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 115999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 21,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 724888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 22,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 466888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 23,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 707888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 24,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 950888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 25,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 174888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 26,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 108888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 27,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 146888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 28,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 192888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 29,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 590888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 30,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 286888888
+    },
+    null,
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 22,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 327888888
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 23,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 473888888
+    },
+    null,
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 25,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 726888888
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 26,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 679888888
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 27,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 735888888
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 28,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 192888888
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 29,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 765888888
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 30,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 256888888
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "Yes",
+      "Price": 500000,
+      "ProductID": 41,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 635666666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 42,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 643666666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 43,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 842666666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 44,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 396666666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 45,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 314666666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 46,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 316666666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 47,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 163666666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 48,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 940666666
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 50,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Lục quý",
+      "UID": 788666666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 51,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 828123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 52,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 633123456
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 54,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 913123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 55,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 648123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 56,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 944123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 57,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 571123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 58,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 954123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 59,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 172123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 60,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 418123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 61,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 397123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 62,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 180123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 63,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 738123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 64,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 317123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 65,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 291123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 66,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 856123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 67,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 585123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 68,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 228123456
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 70,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 464123456
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 72,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 787123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 73,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 178123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 74,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 202123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 75,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 518123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 76,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 932123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 77,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 895123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 78,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 700123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 79,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 412123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 80,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Sảnh tiến",
+      "UID": 169123456
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 81,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 397300000
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 83,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 924200000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 84,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 343500000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 85,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 566100000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 86,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 713200000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 87,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 213300000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 88,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 390800000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 89,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 468800000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 90,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 957900000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 91,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 227366666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 92,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 859566666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 93,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 941466666
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 95,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 923266666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 96,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 881166666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 97,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 758566666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 98,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 185766666
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 100,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 787166666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 101,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 371188888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 102,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 277688888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 103,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 812988888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 104,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 526788888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 105,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 738988888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 106,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 658988888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 107,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 757788888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 108,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 132488888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 109,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 557288888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 110,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 228888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 111,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 845799999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 112,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 664399999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 113,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 837799999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 114,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 187899999
+    },
+    null,
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 117,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 238799999
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 119,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 367099999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 120,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 628699999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 121,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 910199999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 122,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 318099999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 123,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 435199999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 124,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 395699999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 125,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 245299999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 126,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 933099999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 127,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 529599999
+    },
+    null,
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 130,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 301099999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 131,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 922022222
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 132,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 786822222
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 133,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 881222222
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 134,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 263822222
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 135,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 646722222
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 136,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 300922222
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 138,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 846522222
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 139,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 219522222
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 200000,
+      "ProductID": 140,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Ngũ quý",
+      "UID": 221122222
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 141,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 830000000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 142,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 590000000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 143,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 870000000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 144,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 840000000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 145,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 990000000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 146,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 630000000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 147,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 550000000
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 148,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 450000000
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 150,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 160000000
+    },
+    null,
+    null,
+    {
+      "Discount": "20%"
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 154,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 766666666
+    },
+    null,
+    null,
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 158,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 976666666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 159,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 296666666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 160,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 406666666
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 151,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 796666666
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 152,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 376666666
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 153,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 336666666
+    },
+    null,
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 155,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 916666666
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 156,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 416666666
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 157,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 966666666
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 158,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 576666666
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 159,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 136666666
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 160,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 386666666
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 171,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 748888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 172,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 708888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 173,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 558888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 174,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 388888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 175,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 508888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 176,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 598888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 177,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 798888888
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 179,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 568888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 180,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 408888888
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 181,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 839999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 182,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 359999999
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 184,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 519999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 185,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 109999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 186,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 529999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 187,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 999999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 188,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 899999999
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 5000000,
+      "ProductID": 189,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Thất quý",
+      "UID": 829999999
+    },
+    null,
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 191,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 938112233
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 192,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 770112233
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 193,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 612112233
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 194,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 275112233
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 195,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 705112233
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 196,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 477112233
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 197,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 571112233
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 198,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 899112233
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 199,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 859112233
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 200,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 354112233
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 201,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 926123123
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 202,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 400123123
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 203,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 836123123
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 204,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 628123123
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 205,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 233123123
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 206,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 118123123
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 207,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 364123123
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 208,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 265123123
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 209,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 915123123
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 210,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 839123123
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 211,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 240678678
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 212,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 991678678
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 213,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 713678678
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 214,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 698678678
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 215,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 891678678
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 216,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 409678678
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 217,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 279678678
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 218,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 390678678
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 219,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 800678678
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 220,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 357678678
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 221,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 764789789
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 222,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 929789789
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 223,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 605789789
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 224,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 306789789
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 225,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 208789789
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 226,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 683789789
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 227,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 810789789
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 228,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 174789789
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 229,
+      "Server": "America",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 956789789
+    },
+    {
+      "Discount": "20%",
+      "Flashsale": "No",
+      "Price": 500000,
+      "ProductID": 230,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": 972789789
+    }
+  ]
+}

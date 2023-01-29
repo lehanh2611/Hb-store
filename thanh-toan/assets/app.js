@@ -55,11 +55,6 @@ const app = {
             await Promise.all([Get(`${accountApi}/${this.info.UserID}`),
             Get(`${productAPi}/${this.info.ProductID}`)])
 
-        // if (product?.Sold === 'Yes') {
-        //     this.error()
-        //     return
-        // }
-
         let nickName = account.Nickname
         let avatar = account.Avatar
         $('.header__nav-user-name').innerText = nickName !== '' ? nickName : account.Username
@@ -90,13 +85,14 @@ const app = {
 
         if (this.giftCode) {
             giftCode = this.giftCode
-
-            // type gift code
-            if (giftCode.Type === 'percent') {
-                giftCode = Math.ceil(price - ((price / 100) * Number(giftCode.Value)))
-            }
-            else {
-                // giftCode = 0
+            switch (giftCode.Type) {
+                case 'percent': {
+                    giftCode = Math.ceil(price - ((price / 100) * Number(giftCode.Value)))
+                }
+                    break
+                case 'money': {
+                    giftCode = price - Number(giftCode.Value)
+                }
             }
             giftCode = price - giftCode
         }
@@ -154,7 +150,24 @@ const app = {
         selector.input.addEventListener('focusout', () => { validate.start(selector, rule) })
         this.submit.addEventListener('click', () => {
             if (!validate.start(selector, rule)) { return }
-
+            console.log(this.account.Block)
+            if (this.account.Block === 'True') {
+                notificationWindow(
+                    false,
+                    'Tài khoản bị khóa',
+                    'Chi tiết liên hệ quản trị viên',
+                    (isSuccess) => {
+                        if (isSuccess) {
+                            //clear order
+                            sessionStorage.removeItem('order')
+                            this.info = null
+                            app.goBack()
+                        }
+                        notificationWindow()
+                    }, 'Trở về'
+                )
+                return
+            }
             //show btn loading
             this.submit.classList.add('active')
             //create Order code
@@ -192,7 +205,7 @@ const app = {
 
             //handle request
             const urlUser = `${accountApi}/${paymentData.UserID}`
-            let newCart = this.account.Cart
+            let newCart = this.account?.Cart
             if (newCart) {
                 newCart = newCart.filter(v => v != paymentData.ProductID)
             }
@@ -317,7 +330,6 @@ const app = {
 
         if (NotiLeng) {
             NotiLeng = this.account.Notification.length
-
         }
         else {
             NotiLeng = 0
