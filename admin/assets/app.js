@@ -1205,7 +1205,8 @@ const body = {
                                     }
 
                                     //send message
-                                    Patch(`${urlUser}/Notification`, { [accounts[userId].Notification.length]: message })
+                                    const urlNoti = `${urlUser}/Notification`
+                                    Patch(urlNoti, {[(await Get(urlNoti)).length]: message })
 
                                     // updata total order
                                     body.handle.shared.totalOrder()

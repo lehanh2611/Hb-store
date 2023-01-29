@@ -98,7 +98,7 @@ const app = {
                     }, 'Đóng'
                 )
             }
-            else {this.submit()}
+            else { this.submit() }
         }, $('.content'))
         this.submitBtn = $('.payment-info__submit')
         this.user = user
@@ -119,16 +119,17 @@ const app = {
         const value = this.selector.input.value
         const data = this.data
         const code = `${this.method}U${this.user.UserID}M${value}`
-
+        const methodBl = this.method === 'MB' ? true : false
         this.data = {
             title: { ...data.title },
             value: {
                 ...data.value,
-                bank: this.method === 'MB' ? '9108678366668' : '0353489648',
-                bankName: this.method === 'MB' ? 'MB BANK' : 'Momo',
+                bank: methodBl ? '9108678366668' : '0353489648',
+                bankName: methodBl ? 'MB BANK' : 'Momo',
                 money: value,
                 content: code,
                 Ordercode: code,
+                qr: methodBl ? '../thanh-toan/assets/icon/mb-bank--qr.jpg' : '../thanh-toan/assets/icon/momo--qr.jpg'
             }
         }
         $('.desposit__money-info-new-money').innerText = formatMoney(value)

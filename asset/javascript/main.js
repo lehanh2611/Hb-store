@@ -208,7 +208,26 @@ function header() {
         }, 0)
     };
 
-    //  Login/register menu
+
+    // Login/register menu
+    //keypress submit 
+    window.addEventListener('keydown', e => {
+        switch (e.keyCode) {
+            case 13: {
+                if ($('.menu-logReg-modal').getBoundingClientRect().width
+                    && bodyModalLoading.getBoundingClientRect().width === 0
+                    && notificationWindowBody.getBoundingClientRect().width === 0) {
+                    $('.menu-logReg__btn').click()
+                }
+            }
+
+                break
+            case 27: {$('.menu-logReg__close-btn').click()}
+
+
+        }
+
+    })
     LogRegMenu()
     function LogRegMenu() {
         let modalLogRegBtn = $('.header__user-contain'),
@@ -291,9 +310,6 @@ function header() {
                     plateBlur(false)
                 }
             }
-
-
-
         }
 
         window.addEventListener('click', function close(e) {
@@ -552,21 +568,6 @@ function header() {
             login = $('.menu-logReg__btn');
         login.addEventListener('click', registerLogin)
         register.addEventListener('click', registerLogin);
-
-        //Keyboard event//
-        document.onkeydown = (e) => {
-            if (modalLogReg.getBoundingClientRect().width !== 0
-                && bodyModalLoading.getBoundingClientRect().width === 0
-                && notificationWindowBody.getBoundingClientRect().width === 0
-            ) {
-                switch (e.which) {
-                    case 27: closemodalLogReg();
-                        break;
-                    case 13: registerLogin();
-                        break;
-                };
-            };
-        };
 
         //Get value input
         function getValueInput(inputs) {
@@ -980,7 +981,7 @@ const desposit = {
                 processLoad.run(2)
             }, 600)
         }
-        
+
         $('.header__feature-box.desposit').addEventListener('click', goDeposit)
         $('.header__menu-bar-item.deposit').addEventListener('click', goDeposit)
     }
@@ -1021,17 +1022,16 @@ function content() {
                                 let moneyFormat = new Intl.NumberFormat('vi-VN',
                                     { style: 'currency', currency: 'VND' })
                                     .format(account.Money)
-
                                 i++
-                                if (account?.Nickname !== undefined) {
+
+                                if (account?.Nickname) {
                                     name = account.Nickname
                                 }
                                 else {
                                     name = account.Username
                                 }
-                                if (account?.Avatar !== undefined) {
+                                if (account?.Avatar) {
                                     avt = account.Avatar
-
                                 }
                                 else {
                                     avt = defaultAvt
@@ -1653,7 +1653,7 @@ const stall = function () {
                     }
 
                     if (j >= totalPageNum - 2) {
-                        if(totalPageNum > 6) {
+                        if (totalPageNum > 6) {
                             let i = indexs.length - 1
                             for (let e of indexs) {
                                 e.innerText = totalPageNum - i--
