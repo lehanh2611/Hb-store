@@ -2,8 +2,10 @@
   "accounts": [
     {
       "Avatar": "./asset/img/user-avt/user-id0.jpg",
-      "Block": "true",
-      "Cart": "",
+      "Block": "false",
+      "Cart": [
+        18
+      ],
       "DateCreated": {
         "date": 1,
         "hours": 11,
@@ -14,6 +16,39 @@
       "Email": "hbstore@gmail.com",
       "History": "",
       "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 21,
+            "hours": 7,
+            "minutes": 56,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 423697390
+        },
+        {
+          "ActiveTime": {
+            "date": 29,
+            "hours": 23,
+            "minutes": 45,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 361291967
+        },
+        {
+          "ActiveTime": {
+            "date": 29,
+            "hours": 23,
+            "minutes": 13,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 863308305
+        },
         {
           "ActiveTime": {
             "date": 16,
@@ -90,39 +125,6 @@
           },
           "Device": "Windows",
           "DeviceId": 168785595
-        },
-        {
-          "ActiveTime": {
-            "date": 15,
-            "hours": 8,
-            "minutes": 55,
-            "month": 1,
-            "year": 2023
-          },
-          "Device": "Windows",
-          "DeviceId": 604062829
-        },
-        {
-          "ActiveTime": {
-            "date": 14,
-            "hours": 22,
-            "minutes": 56,
-            "month": 1,
-            "year": 2023
-          },
-          "Device": "Windows",
-          "DeviceId": 204530120
-        },
-        {
-          "ActiveTime": {
-            "date": 14,
-            "hours": 0,
-            "minutes": 13,
-            "month": 1,
-            "year": 2023
-          },
-          "Device": "iPhone",
-          "DeviceId": 428543138
         }
       ],
       "Money": 1000000,
@@ -241,6 +243,39 @@
           },
           "Device": "Android",
           "DeviceId": 619362287
+        },
+        {
+          "ActiveTime": {
+            "date": 29,
+            "hours": 23,
+            "minutes": 13,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 863308305
+        },
+        {
+          "ActiveTime": {
+            "date": 29,
+            "hours": 23,
+            "minutes": 45,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 361291967
+        },
+        {
+          "ActiveTime": {
+            "date": 21,
+            "hours": 7,
+            "minutes": 56,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 423697390
         }
       ],
       "UserID": 0,
@@ -871,6 +906,302 @@
       "TotalDeposit": 1000000,
       "UserID": 18,
       "Username": "adawawd"
+    },
+    {
+      "Avatar": "",
+      "Block": false,
+      "Cart": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        13,
+        14
+      ],
+      "DateCreated": {
+        "date": 29,
+        "hours": 23,
+        "minutes": 49,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "hieutadao@gmail.com",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 29,
+            "hours": 23,
+            "minutes": 45,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 361291967
+        }
+      ],
+      "Money": 1000000000000,
+      "MoneySpent": 0,
+      "Nickname": "",
+      "Notification": [
+        {
+          "Seen": "Yes",
+          "Type": "Product",
+          "content": "Chúng tôi sẽ gửi thông báo khi có kết quả",
+          "title": "Đơn hàng BHB872999999 đã được tiếp nhận"
+        },
+        {
+          "Seen": "Yes",
+          "Type": "Product",
+          "content": "Chúng tôi sẽ gửi thông báo khi có kết quả",
+          "title": "Đơn hàng HB489999999 đã đặt thành công"
+        },
+        {
+          "Seen": "Yes",
+          "Type": "Product",
+          "content": "Chúng tôi rất tiếc đơn hàng của bạn đã bị từ chối",
+          "title": "Đơn hàng BHB872999999 bị từ chối"
+        },
+        {
+          "Seen": "Yes",
+          "Type": "Product",
+          "content": "Chúng tôi rất tiếc đơn hàng của bạn đã bị từ chối",
+          "title": "Đơn hàng HB489999999 bị từ chối"
+        },
+        {
+          "Seen": "Yes",
+          "Type": "Product",
+          "content": "Chúng tôi sẽ gửi thông báo khi có kết quả",
+          "title": "Đơn hàng HB999999999 đã đặt thành công"
+        },
+        {
+          "Seen": "Yes",
+          "Type": "Product",
+          "content": "Chúng tôi rất tiếc đơn hàng của bạn đã bị từ chối",
+          "title": "Đơn hàng HB999999999 bị từ chối"
+        }
+      ],
+      "Order": {
+        "BHB872999999": {
+          "Date": {
+            "date": 29,
+            "hours": 23,
+            "minutes": 50,
+            "month": 1,
+            "year": 2023
+          },
+          "Email": "hieutadao@gmail.com",
+          "Flashsale": "Yes",
+          "Giftcode": "",
+          "Menthod": "bank",
+          "Ordercode": "BHB872999999",
+          "Price": 250000,
+          "ProductID": 0,
+          "Status": "Reject",
+          "UserID": 19
+        },
+        "HB489999999": {
+          "Date": {
+            "date": 29,
+            "hours": 23,
+            "minutes": 57,
+            "month": 1,
+            "year": 2023
+          },
+          "Email": "heheboyz@gmail.com",
+          "Flashsale": "Yes",
+          "Giftcode": "",
+          "Menthod": "shopMoney",
+          "Ordercode": "HB489999999",
+          "Price": 250000,
+          "ProductID": 4,
+          "Status": "Reject",
+          "UserID": 19
+        },
+        "HB999999999": {
+          "Date": {
+            "date": 30,
+            "hours": 0,
+            "minutes": 4,
+            "month": 1,
+            "year": 2023
+          },
+          "Email": "hahahhaah@gmail.com",
+          "Flashsale": "No",
+          "Giftcode": "",
+          "Menthod": "shopMoney",
+          "Ordercode": "HB999999999",
+          "Price": 999999999,
+          "ProductID": 231,
+          "Status": "Reject",
+          "UserID": 19
+        }
+      },
+      "Password": "1234xxxx",
+      "TotalDeposit": 1000000000000,
+      "TrustedDevice": [
+        {
+          "ActiveTime": {
+            "date": 29,
+            "hours": 23,
+            "minutes": 45,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 361291967
+        }
+      ],
+      "UserID": 19,
+      "Username": "Hieutadao"
+    },
+    {
+      "Avatar": "",
+      "Block": false,
+      "Cart": "",
+      "DateCreated": {
+        "date": 29,
+        "hours": 23,
+        "minutes": 53,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "hbstore@gmail.com",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 29,
+            "hours": 23,
+            "minutes": 53,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Android",
+          "DeviceId": 143650286
+        }
+      ],
+      "Money": 0,
+      "MoneySpent": 0,
+      "Nickname": "",
+      "Notification": "",
+      "Order": "",
+      "Password": "admin",
+      "TotalDeposit": 0,
+      "UserID": 20,
+      "Username": "Hbstore"
+    },
+    {
+      "Avatar": "",
+      "Block": false,
+      "Cart": [
+        226
+      ],
+      "DateCreated": {
+        "date": 30,
+        "hours": 7,
+        "minutes": 34,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "phantanbn31@gmail.com",
+      "History": "",
+      "LoginHistory": [
+        {
+          "ActiveTime": {
+            "date": 30,
+            "hours": 7,
+            "minutes": 48,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "iPhone",
+          "DeviceId": 808717584
+        },
+        {
+          "ActiveTime": {
+            "date": 30,
+            "hours": 7,
+            "minutes": 42,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "iPhone",
+          "DeviceId": 141237125
+        },
+        {
+          "ActiveTime": {
+            "date": 30,
+            "hours": 7,
+            "minutes": 34,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "Windows",
+          "DeviceId": 914167517
+        }
+      ],
+      "Money": 0,
+      "MoneySpent": 0,
+      "Nickname": "",
+      "Notification": [
+        {
+          "Seen": "Yes",
+          "Type": "Product",
+          "content": "Chúng tôi sẽ gửi thông báo khi có kết quả",
+          "title": "Đơn hàng MHB872999999 đã được tiếp nhận"
+        }
+      ],
+      "Order": {
+        "MHB872999999": {
+          "Date": {
+            "date": 30,
+            "hours": 7,
+            "minutes": 36,
+            "month": 1,
+            "year": 2023
+          },
+          "Email": "phantanbn31@gmail.com",
+          "Flashsale": "Yes",
+          "Giftcode": "",
+          "Menthod": "momo",
+          "Ordercode": "MHB872999999",
+          "Price": 250000,
+          "ProductID": 0,
+          "Status": "Unpaid",
+          "UserID": 21
+        }
+      },
+      "Password": "tanphan0101",
+      "TotalDeposit": 0,
+      "TrustedDevice": [
+        {
+          "ActiveTime": {
+            "date": 30,
+            "hours": 7,
+            "minutes": 42,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "iPhone",
+          "DeviceId": 141237125
+        },
+        {
+          "ActiveTime": {
+            "date": 30,
+            "hours": 7,
+            "minutes": 48,
+            "month": 1,
+            "year": 2023
+          },
+          "Device": "iPhone",
+          "DeviceId": 808717584
+        }
+      ],
+      "UserID": 21,
+      "Username": "tanphan0101"
     }
   ],
   "admin_accounts": [
@@ -894,14 +1225,34 @@
       "Value": "10"
     }
   },
+  "order": {
+    "MHB872999999": {
+      "Date": {
+        "date": 30,
+        "hours": 7,
+        "minutes": 36,
+        "month": 1,
+        "year": 2023
+      },
+      "Email": "phantanbn31@gmail.com",
+      "Flashsale": "Yes",
+      "Giftcode": "",
+      "Menthod": "momo",
+      "Ordercode": "MHB872999999",
+      "Price": 250000,
+      "ProductID": 0,
+      "Status": "Unpaid",
+      "UserID": 21
+    }
+  },
   "products": [
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 0,
       "Server": "America",
-      "Sold": "No",
+      "Sold": "Yes",
       "Type": "Lục quý",
       "UID": 872999999
     },
@@ -909,7 +1260,7 @@
     null,
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 4,
@@ -919,7 +1270,7 @@
       "UID": 489999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 5,
@@ -929,7 +1280,7 @@
       "UID": 268999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 6,
@@ -939,7 +1290,7 @@
       "UID": 592999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 7,
@@ -949,7 +1300,7 @@
       "UID": 862999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 8,
@@ -959,7 +1310,7 @@
       "UID": 965999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 9,
@@ -969,7 +1320,7 @@
       "UID": 557999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 10,
@@ -981,7 +1332,7 @@
     null,
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 13,
@@ -991,7 +1342,7 @@
       "UID": 832999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 14,
@@ -1001,7 +1352,7 @@
       "UID": 942999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 15,
@@ -1011,7 +1362,7 @@
       "UID": 703999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 16,
@@ -1021,7 +1372,7 @@
       "UID": 241999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 17,
@@ -1031,7 +1382,7 @@
       "UID": 233999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 18,
@@ -1042,7 +1393,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 20,
@@ -1052,7 +1403,7 @@
       "UID": 115999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 21,
@@ -1062,7 +1413,7 @@
       "UID": 724888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 22,
@@ -1072,7 +1423,7 @@
       "UID": 466888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 23,
@@ -1082,7 +1433,7 @@
       "UID": 707888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 24,
@@ -1092,7 +1443,7 @@
       "UID": 950888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 25,
@@ -1102,7 +1453,7 @@
       "UID": 174888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 26,
@@ -1112,7 +1463,7 @@
       "UID": 108888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 27,
@@ -1121,18 +1472,9 @@
       "Type": "Lục quý",
       "UID": 146888888
     },
+    null,
     {
-      "Discount": "20%",
-      "Flashsale": "Yes",
-      "Price": 500000,
-      "ProductID": 28,
-      "Server": "Asia",
-      "Sold": "No",
-      "Type": "Lục quý",
-      "UID": 192888888
-    },
-    {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 29,
@@ -1142,7 +1484,7 @@
       "UID": 590888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 30,
@@ -1152,89 +1494,17 @@
       "UID": 286888888
     },
     null,
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 500000,
-      "ProductID": 22,
-      "Server": "America",
-      "Sold": "No",
-      "Type": "Lục quý",
-      "UID": 327888888
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 500000,
-      "ProductID": 23,
-      "Server": "Asia",
-      "Sold": "No",
-      "Type": "Lục quý",
-      "UID": 473888888
-    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
     null,
     {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 500000,
-      "ProductID": 25,
-      "Server": "America",
-      "Sold": "No",
-      "Type": "Lục quý",
-      "UID": 726888888
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 500000,
-      "ProductID": 26,
-      "Server": "Asia",
-      "Sold": "No",
-      "Type": "Lục quý",
-      "UID": 679888888
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 500000,
-      "ProductID": 27,
-      "Server": "Asia",
-      "Sold": "No",
-      "Type": "Lục quý",
-      "UID": 735888888
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 500000,
-      "ProductID": 28,
-      "Server": "America",
-      "Sold": "No",
-      "Type": "Lục quý",
-      "UID": 192888888
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 500000,
-      "ProductID": 29,
-      "Server": "Asia",
-      "Sold": "No",
-      "Type": "Lục quý",
-      "UID": 765888888
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 500000,
-      "ProductID": 30,
-      "Server": "Asia",
-      "Sold": "No",
-      "Type": "Lục quý",
-      "UID": 256888888
-    },
-    {
-      "Discount": "0%",
+      "Discount": "50%",
       "Flashsale": "Yes",
       "Price": 500000,
       "ProductID": 41,
@@ -1244,7 +1514,7 @@
       "UID": 635666666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 42,
@@ -1254,7 +1524,7 @@
       "UID": 643666666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 43,
@@ -1264,7 +1534,7 @@
       "UID": 842666666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 44,
@@ -1274,7 +1544,7 @@
       "UID": 396666666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 45,
@@ -1284,7 +1554,7 @@
       "UID": 314666666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 46,
@@ -1294,7 +1564,7 @@
       "UID": 316666666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 47,
@@ -1304,7 +1574,7 @@
       "UID": 163666666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 48,
@@ -1315,7 +1585,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 50,
@@ -1325,7 +1595,7 @@
       "UID": 788666666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 51,
@@ -1335,7 +1605,7 @@
       "UID": 828123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 52,
@@ -1346,7 +1616,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 54,
@@ -1356,7 +1626,7 @@
       "UID": 913123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 55,
@@ -1366,7 +1636,7 @@
       "UID": 648123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 56,
@@ -1376,7 +1646,7 @@
       "UID": 944123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 57,
@@ -1386,7 +1656,7 @@
       "UID": 571123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 58,
@@ -1396,7 +1666,7 @@
       "UID": 954123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 59,
@@ -1406,7 +1676,7 @@
       "UID": 172123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 60,
@@ -1416,7 +1686,7 @@
       "UID": 418123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 61,
@@ -1426,7 +1696,7 @@
       "UID": 397123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 62,
@@ -1436,7 +1706,7 @@
       "UID": 180123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 63,
@@ -1446,7 +1716,7 @@
       "UID": 738123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 64,
@@ -1456,7 +1726,7 @@
       "UID": 317123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 65,
@@ -1466,7 +1736,7 @@
       "UID": 291123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 66,
@@ -1476,7 +1746,7 @@
       "UID": 856123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 67,
@@ -1486,7 +1756,7 @@
       "UID": 585123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 68,
@@ -1497,7 +1767,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 70,
@@ -1508,7 +1778,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 72,
@@ -1518,7 +1788,7 @@
       "UID": 787123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 73,
@@ -1528,7 +1798,7 @@
       "UID": 178123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 74,
@@ -1538,7 +1808,7 @@
       "UID": 202123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 75,
@@ -1548,7 +1818,7 @@
       "UID": 518123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 76,
@@ -1558,7 +1828,7 @@
       "UID": 932123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 77,
@@ -1568,7 +1838,7 @@
       "UID": 895123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 78,
@@ -1578,7 +1848,7 @@
       "UID": 700123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 79,
@@ -1588,7 +1858,7 @@
       "UID": 412123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 80,
@@ -1598,7 +1868,7 @@
       "UID": 169123456
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 81,
@@ -1609,7 +1879,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 83,
@@ -1619,7 +1889,7 @@
       "UID": 924200000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 84,
@@ -1629,7 +1899,7 @@
       "UID": 343500000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 85,
@@ -1639,7 +1909,7 @@
       "UID": 566100000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 86,
@@ -1649,7 +1919,7 @@
       "UID": 713200000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 87,
@@ -1659,7 +1929,7 @@
       "UID": 213300000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 88,
@@ -1669,7 +1939,7 @@
       "UID": 390800000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 89,
@@ -1679,7 +1949,7 @@
       "UID": 468800000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 90,
@@ -1689,7 +1959,7 @@
       "UID": 957900000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 91,
@@ -1699,7 +1969,7 @@
       "UID": 227366666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 92,
@@ -1709,7 +1979,7 @@
       "UID": 859566666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 93,
@@ -1720,7 +1990,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 95,
@@ -1730,7 +2000,7 @@
       "UID": 923266666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 96,
@@ -1740,7 +2010,7 @@
       "UID": 881166666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 97,
@@ -1750,7 +2020,7 @@
       "UID": 758566666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 98,
@@ -1761,7 +2031,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 100,
@@ -1771,7 +2041,7 @@
       "UID": 787166666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 101,
@@ -1781,7 +2051,7 @@
       "UID": 371188888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 102,
@@ -1791,7 +2061,7 @@
       "UID": 277688888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 103,
@@ -1801,7 +2071,7 @@
       "UID": 812988888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 104,
@@ -1811,7 +2081,7 @@
       "UID": 526788888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 105,
@@ -1821,7 +2091,7 @@
       "UID": 738988888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 106,
@@ -1831,7 +2101,7 @@
       "UID": 658988888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 107,
@@ -1841,7 +2111,7 @@
       "UID": 757788888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 108,
@@ -1851,7 +2121,7 @@
       "UID": 132488888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 109,
@@ -1861,7 +2131,7 @@
       "UID": 557288888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 110,
@@ -1871,7 +2141,7 @@
       "UID": 228888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 111,
@@ -1881,7 +2151,7 @@
       "UID": 845799999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 112,
@@ -1891,7 +2161,7 @@
       "UID": 664399999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 113,
@@ -1901,7 +2171,7 @@
       "UID": 837799999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 114,
@@ -1913,7 +2183,7 @@
     null,
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 117,
@@ -1924,7 +2194,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 119,
@@ -1934,7 +2204,7 @@
       "UID": 367099999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 120,
@@ -1944,7 +2214,7 @@
       "UID": 628699999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 121,
@@ -1954,7 +2224,7 @@
       "UID": 910199999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 122,
@@ -1964,7 +2234,7 @@
       "UID": 318099999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 123,
@@ -1974,7 +2244,7 @@
       "UID": 435199999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 124,
@@ -1984,7 +2254,7 @@
       "UID": 395699999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 125,
@@ -1994,7 +2264,7 @@
       "UID": 245299999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 126,
@@ -2004,7 +2274,7 @@
       "UID": 933099999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 127,
@@ -2016,7 +2286,7 @@
     null,
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 130,
@@ -2026,7 +2296,7 @@
       "UID": 301099999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 131,
@@ -2036,7 +2306,7 @@
       "UID": 922022222
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 132,
@@ -2046,7 +2316,7 @@
       "UID": 786822222
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 133,
@@ -2056,7 +2326,7 @@
       "UID": 881222222
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 134,
@@ -2066,7 +2336,7 @@
       "UID": 263822222
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 135,
@@ -2076,7 +2346,7 @@
       "UID": 646722222
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 136,
@@ -2087,7 +2357,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 138,
@@ -2097,7 +2367,7 @@
       "UID": 846522222
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 139,
@@ -2107,7 +2377,7 @@
       "UID": 219522222
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 200000,
       "ProductID": 140,
@@ -2117,7 +2387,7 @@
       "UID": 221122222
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 141,
@@ -2127,7 +2397,7 @@
       "UID": 830000000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 142,
@@ -2137,7 +2407,7 @@
       "UID": 590000000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 143,
@@ -2147,7 +2417,7 @@
       "UID": 870000000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 144,
@@ -2157,7 +2427,7 @@
       "UID": 840000000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 145,
@@ -2167,7 +2437,7 @@
       "UID": 990000000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 146,
@@ -2177,7 +2447,7 @@
       "UID": 630000000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 147,
@@ -2187,7 +2457,7 @@
       "UID": 550000000
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 148,
@@ -2198,7 +2468,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 150,
@@ -2209,11 +2479,9 @@
     },
     null,
     null,
+    null,
     {
-      "Discount": "20%"
-    },
-    {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 154,
@@ -2226,7 +2494,7 @@
     null,
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 158,
@@ -2236,7 +2504,7 @@
       "UID": 976666666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 159,
@@ -2246,7 +2514,7 @@
       "UID": 296666666
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 160,
@@ -2255,99 +2523,18 @@
       "Type": "Thất quý",
       "UID": 406666666
     },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 5000000,
-      "ProductID": 151,
-      "Server": "Asia",
-      "Sold": "No",
-      "Type": "Thất quý",
-      "UID": 796666666
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 5000000,
-      "ProductID": 152,
-      "Server": "America",
-      "Sold": "No",
-      "Type": "Thất quý",
-      "UID": 376666666
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 5000000,
-      "ProductID": 153,
-      "Server": "Asia",
-      "Sold": "No",
-      "Type": "Thất quý",
-      "UID": 336666666
-    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
     null,
     {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 5000000,
-      "ProductID": 155,
-      "Server": "Asia",
-      "Sold": "No",
-      "Type": "Thất quý",
-      "UID": 916666666
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 5000000,
-      "ProductID": 156,
-      "Server": "America",
-      "Sold": "No",
-      "Type": "Thất quý",
-      "UID": 416666666
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 5000000,
-      "ProductID": 157,
-      "Server": "America",
-      "Sold": "No",
-      "Type": "Thất quý",
-      "UID": 966666666
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 5000000,
-      "ProductID": 158,
-      "Server": "America",
-      "Sold": "No",
-      "Type": "Thất quý",
-      "UID": 576666666
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 5000000,
-      "ProductID": 159,
-      "Server": "America",
-      "Sold": "No",
-      "Type": "Thất quý",
-      "UID": 136666666
-    },
-    {
-      "Discount": "0%",
-      "Flashsale": "No",
-      "Price": 5000000,
-      "ProductID": 160,
-      "Server": "America",
-      "Sold": "No",
-      "Type": "Thất quý",
-      "UID": 386666666
-    },
-    {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 171,
@@ -2357,7 +2544,7 @@
       "UID": 748888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 172,
@@ -2367,7 +2554,7 @@
       "UID": 708888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 173,
@@ -2377,7 +2564,7 @@
       "UID": 558888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 174,
@@ -2387,7 +2574,7 @@
       "UID": 388888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 175,
@@ -2397,7 +2584,7 @@
       "UID": 508888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 176,
@@ -2407,7 +2594,7 @@
       "UID": 598888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 177,
@@ -2418,7 +2605,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 179,
@@ -2428,7 +2615,7 @@
       "UID": 568888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 180,
@@ -2438,7 +2625,7 @@
       "UID": 408888888
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 181,
@@ -2448,7 +2635,7 @@
       "UID": 839999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 182,
@@ -2459,7 +2646,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 184,
@@ -2469,7 +2656,7 @@
       "UID": 519999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 185,
@@ -2479,7 +2666,7 @@
       "UID": 109999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 186,
@@ -2489,7 +2676,7 @@
       "UID": 529999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 187,
@@ -2499,7 +2686,7 @@
       "UID": 999999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 188,
@@ -2509,7 +2696,7 @@
       "UID": 899999999
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 5000000,
       "ProductID": 189,
@@ -2520,7 +2707,7 @@
     },
     null,
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 191,
@@ -2530,7 +2717,7 @@
       "UID": 938112233
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 192,
@@ -2540,7 +2727,7 @@
       "UID": 770112233
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 193,
@@ -2550,7 +2737,7 @@
       "UID": 612112233
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 194,
@@ -2560,7 +2747,7 @@
       "UID": 275112233
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 195,
@@ -2570,7 +2757,7 @@
       "UID": 705112233
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 196,
@@ -2580,7 +2767,7 @@
       "UID": 477112233
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 197,
@@ -2590,7 +2777,7 @@
       "UID": 571112233
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 198,
@@ -2600,7 +2787,7 @@
       "UID": 899112233
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 199,
@@ -2610,7 +2797,7 @@
       "UID": 859112233
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 200,
@@ -2620,7 +2807,7 @@
       "UID": 354112233
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 201,
@@ -2630,7 +2817,7 @@
       "UID": 926123123
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 202,
@@ -2640,7 +2827,7 @@
       "UID": 400123123
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 203,
@@ -2650,7 +2837,7 @@
       "UID": 836123123
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 204,
@@ -2660,7 +2847,7 @@
       "UID": 628123123
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 205,
@@ -2670,7 +2857,7 @@
       "UID": 233123123
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 206,
@@ -2680,7 +2867,7 @@
       "UID": 118123123
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 207,
@@ -2690,7 +2877,7 @@
       "UID": 364123123
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 208,
@@ -2700,7 +2887,7 @@
       "UID": 265123123
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 209,
@@ -2710,7 +2897,7 @@
       "UID": 915123123
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 210,
@@ -2720,7 +2907,7 @@
       "UID": 839123123
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 211,
@@ -2730,7 +2917,7 @@
       "UID": 240678678
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 212,
@@ -2740,7 +2927,7 @@
       "UID": 991678678
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 213,
@@ -2750,7 +2937,7 @@
       "UID": 713678678
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 214,
@@ -2760,7 +2947,7 @@
       "UID": 698678678
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 215,
@@ -2770,7 +2957,7 @@
       "UID": 891678678
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 216,
@@ -2780,7 +2967,7 @@
       "UID": 409678678
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 217,
@@ -2790,7 +2977,7 @@
       "UID": 279678678
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 218,
@@ -2800,7 +2987,7 @@
       "UID": 390678678
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 219,
@@ -2810,7 +2997,7 @@
       "UID": 800678678
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 220,
@@ -2820,7 +3007,7 @@
       "UID": 357678678
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 221,
@@ -2830,7 +3017,7 @@
       "UID": 764789789
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 222,
@@ -2840,7 +3027,7 @@
       "UID": 929789789
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 223,
@@ -2850,7 +3037,7 @@
       "UID": 605789789
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 224,
@@ -2860,7 +3047,7 @@
       "UID": 306789789
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 225,
@@ -2870,7 +3057,7 @@
       "UID": 208789789
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 226,
@@ -2880,7 +3067,7 @@
       "UID": 683789789
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 227,
@@ -2890,7 +3077,7 @@
       "UID": 810789789
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 228,
@@ -2900,7 +3087,7 @@
       "UID": 174789789
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 229,
@@ -2910,7 +3097,7 @@
       "UID": 956789789
     },
     {
-      "Discount": "20%",
+      "Discount": "50%",
       "Flashsale": "No",
       "Price": 500000,
       "ProductID": 230,
@@ -2918,6 +3105,16 @@
       "Sold": "No",
       "Type": "Đặc biệt",
       "UID": 972789789
+    },
+    {
+      "Discount": "0%",
+      "Flashsale": "No",
+      "Price": "999999999",
+      "ProductID": 231,
+      "Server": "Asia",
+      "Sold": "No",
+      "Type": "Đặc biệt",
+      "UID": "999999999"
     }
   ]
 }

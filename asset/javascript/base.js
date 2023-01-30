@@ -121,7 +121,6 @@ export function Delete(url, callback) {
         .then((element) => { return element.json() })
 }
 
-
 //Remove null api
 export function removeNull(url, callback) {
     fetch(`${url}.json`)
@@ -176,24 +175,40 @@ async function start(j = 0) {
 
 // GETelement(productAPi, v => start(v.length))
 
-// GETelement(productAPi, v => {
-    // console.log(v)
-//     const data = v.filter(e => {
-//         return v.some(f => {
-//             if (e === null || f === null) {
-//                 return false
-//             }
-//             return e.UID === f.UID && e.ProductID !== f.ProductID
-//         })
-//     })
-//     for (let i = 0; i < v.length; i++) {
+GETelement(productAPi, v => {
+    const data = v.filter((e, i) => {
+        // return v.some(f => {
+            if (e === null ) {
+                return false
+            }
+        //     return e.UID === f.UID && e.ProductID !== f.ProductID
+        // })
+        return e.ProductID !== i
+    })
+    for (let i = 0; i < v.length; i++) {
 
-//         data.forEach(element => {
-//             if (v[i] === null) { return }
-//             if (v[i].UID === element.UID) {
-//                 v[i] = null
-//             }
-//         });
-//     }
-//     // Put(productAPi, v)
-// })
+        data.forEach(element => {
+            if (v[i] === null) { return }
+            if (v[i].UID === element.UID) {
+                v[i] = null
+            }
+        });
+    }
+    console.log(v)
+    // Put(productAPi, v)
+})
+
+GETelement(productAPi, (v) => {
+    v.map((element, i) => {
+        if (!element) { return }
+        if (element.ProductID !== i) {
+            console.log(element, i)
+            return {
+                ...element,
+                ProductID: i
+            }
+        }
+    })
+
+    // Put(productAPi, v)
+})

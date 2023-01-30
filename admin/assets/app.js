@@ -607,7 +607,6 @@ const body = {
 
                                     $('#product-form__input-uid').value = uid.innerText
 
-
                                     //convert currency to number
                                     let priceConvert = price.innerText
                                     while (priceConvert.includes('.')) {
@@ -648,9 +647,8 @@ const body = {
                                                     notificationWindow()
                                                     close.click()
                                                 })
-
                                             //update to dom 
-                                            productid.innerText = product.ProductID
+                                            // productid.innerText = product.ProductID
                                             uid.innerText = product.UID
                                             type.innerText = product.Type
                                             price.innerText = formatMoney(product.Price)
@@ -978,7 +976,6 @@ const body = {
                             },
                             selectProduct: {
                                 selectAll: function (isClear) {
-
                                     const selectors = $$('.app__flashsale-product-item-box')
 
                                     if (isClear) {
@@ -1207,7 +1204,7 @@ const body = {
 
                                     //send message
                                     const urlNoti = `${urlUser}/Notification`
-                                    Patch(urlNoti, {[(await Get(urlNoti)).length]: message })
+                                    Patch(urlNoti, { [(await Get(urlNoti)).length]: message })
 
                                     // updata total order
                                     body.handle.shared.totalOrder()
@@ -1335,7 +1332,7 @@ const body = {
                                     //send message
                                     let notiLeng = dataUser?.Notification?.length
                                     if (!notiLeng) { notiLeng = 0 }
-                                    Patch(`${urlUser}/Notification`, {[notiLeng]: message })
+                                    Patch(`${urlUser}/Notification`, { [notiLeng]: message })
 
                                     //delete order
                                     Delete(`${depositAPi}/${index}`)
