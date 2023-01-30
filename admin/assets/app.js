@@ -5,7 +5,6 @@ import {
     PATCHelement,
     DELETEelement,
     formatMoney,
-    removeNull,
     select,
 
     /***** Constant *****/
@@ -619,7 +618,6 @@ const body = {
 
                                     $('#product-form__select-type').value =
                                         $('.app-bot__info-data.value.type').innerText
-
 
                                     //act submit
                                     $('.product-form__contain').addEventListener('submit', (e) => e.preventDefault())

@@ -1,14 +1,9 @@
-// //Account storage//
-// export let accountApi = "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Accounts";
-// //Product storage//
-// export const productAPi = "https://6392b4a0ac688bbe4c6929fb.mockapi.io/Products"
-
 // // /firebase api
 //Account storage//
-export let accountApi = "https://hbstore26-default-rtdb.firebaseio.com/accounts";
+export const accountApi = "https://hbstore26-default-rtdb.firebaseio.com/accounts";
 
 //Admin account storage//
-export let admin_accountApi = "https://hbstore26-default-rtdb.firebaseio.com/admin_accounts";
+export const admin_accountApi = "https://hbstore26-default-rtdb.firebaseio.com/admin_accounts";
 //Product storage//
 export const productAPi = "https://hbstore26-default-rtdb.firebaseio.com/products"
 
