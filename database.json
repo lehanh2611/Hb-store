@@ -942,7 +942,7 @@
           "DeviceId": 361291967
         }
       ],
-      "Money": 1000000000000,
+      "Money": 10000000,
       "MoneySpent": 0,
       "Nickname": "",
       "Notification": [
@@ -1040,7 +1040,7 @@
         }
       },
       "Password": "1234xxxx",
-      "TotalDeposit": 1000000000000,
+      "TotalDeposit": 10000000,
       "TrustedDevice": [
         {
           "ActiveTime": {
