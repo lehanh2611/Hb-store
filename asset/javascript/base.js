@@ -122,93 +122,77 @@ export function Delete(url, callback) {
 }
 
 //Remove null api
-export function removeNull(url, callback) {
-    fetch(`${url}.json`)
-        .then((element) => { return element.json() })
-        .then(vl => {
-            const result = vl.reduce((acc, v) => {
-                if (v != null) {
-                    acc.push(v)
-                }
-                return acc
-            }, [])
-            fetch(`${url}.json`, {
-                method: "PUT",
-                headers: { 'Content-type': 'application/json' },
-                body: JSON.stringify(result)
-            })
-                .then((element) => { return element.json() })
-                .then(callback)
+// export function removeNull(url, callback) {
+//     fetch(`${url}.json`)
+//         .then((element) => { return element.json() })
+//         .then(vl => {
+//             const result = vl.reduce((acc, v) => {
+//                 if (v != null) {
+//                     acc.push(v)
+//                 }
+//                 return acc
+//             }, [])
+//             fetch(`${url}.json`, {
+//                 method: "PUT",
+//                 headers: { 'Content-type': 'application/json' },
+//                 body: JSON.stringify(result)
+//             })
+//                 .then((element) => { return element.json() })
+//                 .then(callback)
 
-        })
-}
+//         })
+// }
 
-
-function NewProduct(uid, price, type, server, i) {
-    this.ProductID = i
-    this.UID = uid
-    this.Server = server
-    this.Price = price
-    this.Type = type
-    this.Discount = '0%'
-    this.Flashsale = 'No'
-    this.Sold = 'No'
-}
-async function start(j = 0) {
-    let total = j + 10
-    let ouput = []
-    for (let i = j; i < total; i++) {
-        let random = Number.parseInt(Math.random() * 1000009).toString()
-        random = random.slice(0, 3)
-        const uid = Number(random + '789789')
-        const type = 'Đặc biệt'
-        const price = 500000
-        const sv = Number.parseInt(Math.random() * 10) >= 5 ? 'Asia' : 'America'
-        const newProduct = new NewProduct(uid, price, type, sv, i)
-        ouput = [...ouput, { ...newProduct }]
-    }
-    const newp = [...await Get(productAPi), ...ouput]
-    // console.log(newp)
-    // Put(productAPi, newp)
-}
+// function NewProduct(uid, price, type, server, i) {
+//     this.ProductID = i
+//     this.UID = uid
+//     this.Server = server
+//     this.Price = price
+//     this.Type = type
+//     this.Discount = '0%'
+//     this.Flashsale = 'No'
+//     this.Sold = 'No'
+// }
+// async function start(j = 0) {
+//     let total = j + 10
+//     let ouput = []
+//     for (let i = j; i < total; i++) {
+//         let random = Number.parseInt(Math.random() * 1000009).toString()
+//         random = random.slice(0, 3)
+//         const uid = Number(random + '789789')
+//         const type = 'Đặc biệt'
+//         const price = 500000
+//         const sv = Number.parseInt(Math.random() * 10) >= 5 ? 'Asia' : 'America'
+//         const newProduct = new NewProduct(uid, price, type, sv, i)
+//         ouput = [...ouput, { ...newProduct }]
+//     }
+//     const newp = [...await Get(productAPi), ...ouput]
+//     // console.log(newp)
+//     // Put(productAPi, newp)
+// }
 
 
 // GETelement(productAPi, v => start(v.length))
 
-GETelement(productAPi, v => {
-    const data = v.filter((e, i) => {
-        // return v.some(f => {
-            if (e === null ) {
-                return false
-            }
-        //     return e.UID === f.UID && e.ProductID !== f.ProductID
-        // })
-        return e.ProductID !== i
-    })
-    for (let i = 0; i < v.length; i++) {
+// GETelement(productAPi, v => {
+//     const data = v.filter((e, i) => {
+//         // return v.some(f => {
+//             if (e === null ) {
+//                 return false
+//             }
+//         //     return e.UID === f.UID && e.ProductID !== f.ProductID
+//         // })
+//         return e.ProductID !== i
+//     })
+//     for (let i = 0; i < v.length; i++) {
 
-        data.forEach(element => {
-            if (v[i] === null) { return }
-            if (v[i].UID === element.UID) {
-                v[i] = null
-            }
-        });
-    }
-    console.log(v)
-    // Put(productAPi, v)
-})
-
-GETelement(productAPi, (v) => {
-    v.map((element, i) => {
-        if (!element) { return }
-        if (element.ProductID !== i) {
-            console.log(element, i)
-            return {
-                ...element,
-                ProductID: i
-            }
-        }
-    })
-
-    // Put(productAPi, v)
-})
+//         data.forEach(element => {
+//             if (v[i] === null) { return }
+//             if (v[i].UID === element.UID) {
+//                 v[i] = null
+//             }
+//         });
+//     }
+//     // console.log(v)
+//     // Put(productAPi, v)
+// })
