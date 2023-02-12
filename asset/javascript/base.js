@@ -1,119 +1,137 @@
 // // /firebase api
 //Account storage//
-export const accountApi = "https://hbstore26-default-rtdb.firebaseio.com/accounts";
+export const accountApi =
+  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/accounts";
 
 //Admin account storage//
-export const admin_accountApi = "https://hbstore26-default-rtdb.firebaseio.com/admin_accounts";
+export const admin_accountApi =
+  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/admin_accounts";
 //Product storage//
-export const productAPi = "https://hbstore26-default-rtdb.firebaseio.com/products"
+export const productAPi =
+  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/products";
 
 //Gift storage//
-export const gift_codeAPi = "https://hbstore26-default-rtdb.firebaseio.com/gift_code"
+export const gift_codeAPi =
+  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/gift_code";
 
 //Order storage//
-export const orderAPi = "https://hbstore26-default-rtdb.firebaseio.com/order"
+export const orderAPi =
+  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/order";
 
 //Desposit storage//
-export const depositAPi = "https://hbstore26-default-rtdb.firebaseio.com/deposit"
+export const depositAPi =
+  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/deposit";
 
 //Get element/api
 export function GETelement(url, callback) {
-    // console.log(url)
-    fetch(`${url}.json`)
-        .then((element) => { return element.json() })
-        .then(callback)
-
-};
+  // console.log(url)
+  fetch(`${url}.json`)
+    .then((element) => {
+      return element.json();
+    })
+    .then(callback);
+}
 //Post element/api
 export function POSTelement(url, value, callback) {
-    // console.log(url)
-    fetch(`${url}.json`, {
-        method: "POST",
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(value)
+  // console.log(url)
+  fetch(`${url}.json`, {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(value),
+  })
+    .then((element) => {
+      return element.json();
     })
-        .then((element) => { return element.json() })
-        .then(callback)
-};
+    .then(callback);
+}
 //Put element/api
 export function PUTelement(url, value, callback) {
-    // console.log(url)
-    fetch(`${url}.json`, {
-        method: "PUT",
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(value)
+  // console.log(url)
+  fetch(`${url}.json`, {
+    method: "PUT",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(value),
+  })
+    .then((element) => {
+      return element.json();
     })
-        .then((element) => { return element.json() })
-        .then(callback)
-};
+    .then(callback);
+}
 //Patch element/api
 export function PATCHelement(url, value, callback) {
-    // console.log(url)
-    fetch(`${url}.json`, {
-        method: "PATCH",
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(value)
+  // console.log(url)
+  fetch(`${url}.json`, {
+    method: "PATCH",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(value),
+  })
+    .then((element) => {
+      return element.json();
     })
-        .then((element) => { return element.json() })
-        .then(callback)
-};
+    .then(callback);
+}
 //Delete element/api
 export function DELETEelement(url, callback) {
-    // console.log(url)
-    fetch(`${url}.json`, {
-        method: "DELETE",
-        headers: { 'Content-type': 'application/json' },
+  // console.log(url)
+  fetch(`${url}.json`, {
+    method: "DELETE",
+    headers: { "Content-type": "application/json" },
+  })
+    .then((element) => {
+      return element.json();
     })
-        .then((element) => { return element.json() })
-        .then(callback)
+    .then(callback);
 }
 
 //Get element/api
 export function Get(url, callback) {
-    // console.log(url)
-    return fetch(`${url}.json`)
-        .then((element) => { return element.json() })
-
-
-};
+  // console.log(url)
+  return fetch(`${url}.json`).then((element) => {
+    return element.json();
+  });
+}
 //Post element/api
 export function Post(url, value, callback) {
-    // console.log(url)
-    return fetch(`${url}.json`, {
-        method: "POST",
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(value)
-    })
-        .then((element) => { return element.json() })
-};
+  // console.log(url)
+  return fetch(`${url}.json`, {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(value),
+  }).then((element) => {
+    return element.json();
+  });
+}
 //Put element/api
 export function Put(url, value, callback) {
-    // console.log(url)
-    return fetch(`${url}.json`, {
-        method: "PUT",
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(value)
-    })
-        .then((element) => { return element.json() })
-};
+  // console.log(url)
+  return fetch(`${url}.json`, {
+    method: "PUT",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(value),
+  }).then((element) => {
+    return element.json();
+  });
+}
 //Patch element/api
 export function Patch(url, value, callback) {
-    // console.log(url)
-    return fetch(`${url}.json`, {
-        method: "PATCH",
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(value)
-    })
-        .then((element) => { return element.json() })
-};
+  // console.log(url)
+  return fetch(`${url}.json`, {
+    method: "PATCH",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(value),
+  }).then((element) => {
+    return element.json();
+  });
+}
 //Delete element/api
 export function Delete(url, callback) {
-    // console.log(url)
-    return fetch(`${url}.json`, {
-        method: "DELETE",
-        headers: { 'Content-type': 'application/json' },
-    })
-        .then((element) => { return element.json() })
+  // console.log(url)
+  return fetch(`${url}.json`, {
+    method: "DELETE",
+    headers: { "Content-type": "application/json" },
+  }).then((element) => {
+    return element.json();
+  });
 }
 
 //Remove null api
@@ -165,7 +183,6 @@ export function Delete(url, callback) {
 //     // console.log(newp)
 //     // Put(productAPi, newp)
 // }
-
 
 // GETelement(productAPi, v => start(v.length))
 
