@@ -2026,8 +2026,8 @@
 }
 
 .stall .product-item__title,
-.product-item__server,
-.product-item__price {
+.stall .product-item__server,
+.stall .product-item__price {
   color: #3b1313;
 }
 
