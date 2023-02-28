@@ -2028,7 +2028,7 @@
 .stall .product-item__title,
 .product-item__server,
 .product-item__price {
-  color: var(--default);
+  color: #3b1313;
 }
 
 .stall .product-item__add-cart {
@@ -2036,7 +2036,7 @@
 }
 
 .stall .product-item-uid {
-  color: var(--default);
+  color: #ff0000;
 }
 
 .stall .product-item__discounts,
