@@ -1,26 +1,25 @@
 // // /firebase api
 //Account storage//
 export const accountApi =
-  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/accounts";
+  "https://hbstore26-default-rtdb.firebaseio.com/accounts";
 
 //Admin account storage//
 export const admin_accountApi =
-  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/admin_accounts";
+  "https://hbstore26-default-rtdb.firebaseio.com/admin_accounts";
 //Product storage//
 export const productAPi =
-  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/products";
+  "https://hbstore26-default-rtdb.firebaseio.com/products";
 
 //Gift storage//
 export const gift_codeAPi =
-  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/gift_code";
+  "https://hbstore26-default-rtdb.firebaseio.com/gift_code";
 
 //Order storage//
-export const orderAPi =
-  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/order";
+export const orderAPi = "https://hbstore26-default-rtdb.firebaseio.com/order";
 
 //Desposit storage//
 export const depositAPi =
-  "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/deposit";
+  "https://hbstore26-default-rtdb.firebaseio.com/deposit";
 
 //Get element/api
 export function GETelement(url, callback) {
@@ -208,3 +207,16 @@ export function Delete(url, callback) {
 //     // console.log(v)
 //     // Put(productAPi, v)
 // })
+
+// PUTelement(productAPi, [
+//   {
+//     Discount: "1%",
+//     Flashsale: "Yes",
+//     Price: 200000,
+//     ProductID: 0,
+//     Server: "Asia",
+//     Sold: "No",
+//     Type: "Ngũ quý",
+//     UID: 877488888,
+//   },
+// ]);

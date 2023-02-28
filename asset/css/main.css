@@ -78,7 +78,7 @@
 
 .header__menu-bar-item:hover {
   border-radius: 10px;
-  background-color: var(--primary-dark-bland);
+  background-color: var(--violet);
   color: var(--default);
 }
 

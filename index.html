@@ -36,7 +36,7 @@
           <!-- <img class="header__logo hide-mt" src="./asset/img/logo.png"> -->
           <img
             class="header__logo hide-mt notSelect"
-            src="./asset/img/logo-full--effect.png"
+            src="./asset/img/logo-full.png"
           />
           <img
             class="header__logo hide-p notSelect"
@@ -57,14 +57,19 @@
           <div class="header__menu-bar hide-tp">
             <img class="header__logo" src="./asset/img/logo.png" />
             <ul class="header__menu-bar-list">
-              <li class="header__menu-bar-item">
+              <li class="header__menu-bar-item home">
                 <h3 class="header__menu-bar-item-title">Trang chủ</h3>
               </li>
               <li class="header__menu-bar-item deposit">
                 <h3 class="header__menu-bar-item-title">Nạp tiền</h3>
               </li>
               <li class="header__menu-bar-item">
-                <h3 class="header__menu-bar-item-title">Liên hệ</h3>
+                <a
+                  class="header__menu-bar-item-title"
+                  href="https://www.facebook.com/hbstore.uid"
+                  target="_blank"
+                  >Liên hệ</a
+                >
               </li>
               <ul class="header__menu-bar-tpye-account-list">
                 <h3 class="header__menu-bar-tpye-account-title">Tài khoản</h3>
@@ -299,7 +304,7 @@
                     class="menu-logReg__close-btn close-btn fa-solid fa-xmark"
                   ></i>
                   <div class="menu-logReg menu-logReg--login">
-                    <p class="menu-logReg__title">Đăng nhập vào Hb-store</p>
+                    <p class="menu-logReg__title">Đăng nhập vào Hb store</p>
                     <div class="menu-logReg-social">
                       <button class="btn menu-logReg__social-btn disable">
                         <i class="menu-logReg__social-icon gg"></i>
@@ -341,7 +346,7 @@
                         class="menu-logReg__memorize-text"
                         >Ghi nhớ tài khoản này</label
                       >
-                      <p class="menu-logReg__text2">Quên mật khẩu</p>
+                      <!-- <p class="menu-logReg__text2">Quên mật khẩu</p> -->
                       <button class="btn-dark menu-logReg__btn">
                         Đăng nhập
                       </button>
@@ -381,7 +386,7 @@
                     </div>
                   </div>
                   <div class="menu-logReg menu-logReg--register hide opacity">
-                    <p class="menu-logReg__title">Tham gia với Hb-store</p>
+                    <p class="menu-logReg__title">Tham gia với Hb store</p>
 
                     <div
                       class="menu-logReg__account menu-logReg__username register"
@@ -458,7 +463,7 @@
                 <p class="menu-logReg__sub-policy">
                   Khi tham gia Hb-store, tôi xác nhận rằng tôi đã đọc và đồng ý
                   với <a href="#">Điều khoản dịch vụ</a> &
-                  <a href="#">Chính sách quyền riêng tư</a> của Hb-store
+                  <a href="#">Chính sách quyền riêng tư</a> của Hb store
                 </p>
               </div>
             </div>
@@ -557,7 +562,7 @@
           <div class="stall__title-box">
             <h3 class="stall__title">
               <i class="fa-solid fa-star"></i>
-              Products
+              Accounts
             </h3>
             <span>
               <p class="stall__title-item">
@@ -696,7 +701,11 @@
               Theo dõi và liên hệ với chúng tôi
             </h3>
             <div class="footer__follow-social-box">
-              <span class="footer__follow-item">
+              <a
+                class="footer__follow-item"
+                href="https://www.facebook.com/hbstore.uid"
+                target="_blank"
+              >
                 <svg
                   class="footer__follow-icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -725,8 +734,12 @@
                   />
                 </svg>
                 Facebook
-              </span>
-              <span class="footer__follow-item">
+              </a>
+              <a
+                class="footer__follow-item"
+                href="https://www.youtube.com/@hbstore6438"
+                target="_blank"
+              >
                 <svg
                   class="footer__follow-icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -741,8 +754,11 @@
                   <path fill="#FFF" d="M20 31L20 17 32 24z" />
                 </svg>
                 Youtube
-              </span>
-              <span class="footer__follow-item">
+              </a>
+              <a
+                class="footer__follow-item"
+                href="mailto: shopgenshinuidchat@gmail.com"
+              >
                 <svg
                   class="footer__follow-icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -781,7 +797,7 @@
                   />
                 </svg>
                 Email
-              </span>
+              </a>
             </div>
           </div>
         </div>
@@ -824,12 +840,12 @@
         <button class="btn notification__btn">Thử lại</button>
       </div>
     </div>
-    <div class="banner-sale left active" giftcode="LIXI50">
+    <div class="banner-sale left active hide" giftcode="LIXI50">
       <video class="banner-sale__vid" preload autoplay loop muted>
         <source src="./asset/video/giftcode50k.mp4" />
       </video>
     </div>
-    <div class="banner-sale right active" giftcode="QUYMAO23">
+    <div class="banner-sale right active hide" giftcode="QUYMAO23">
       <video class="banner-sale__vid" preload autoplay loop muted>
         <source src="./asset/video/giftcode10.mp4" />
       </video>
