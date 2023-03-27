@@ -64,27 +64,23 @@ const body = {
                   if (!account) {
                     return accmulate;
                   }
-                  return (accmulate += `<ul item_id="${account.UserID}" ${
-                    account.Block === "true"
-                      ? 'block = "true" '
-                      : 'block = "false"'
-                  } class="app-board__data">
+                  return (accmulate += `<ul item_id="${account.UserID}" ${account.Block === "true"
+                    ? 'block = "true" '
+                    : 'block = "false"'
+                    } class="app-board__data">
                                     <li class="app-board__data-item userId l-2 m-2 c-3">
-                                    ${
-                                      account.Block === "true"
-                                        ? '<i class="app-board__data-lock fa-solid fa-lock"></i>'
-                                        : ""
-                                    }
+                                    ${account.Block === "true"
+                      ? '<i class="app-board__data-lock fa-solid fa-lock"></i>'
+                      : ""
+                    }
                                     ${account.UserID}
                                     </li>
-                                    <li class="app-board__data-item userName l-3 m-4 c-9">${
-                                      account.Username
-                                    }</li>
-                                    <li class="app-board__data-item email l-4 hide-mt">${
-                                      account.Email === undefined
-                                        ? "Emtpy"
-                                        : account.Email
-                                    }</li>
+                                    <li class="app-board__data-item userName l-3 m-4 c-9">${account.Username
+                    }</li>
+                                    <li class="app-board__data-item email l-4 hide-mt">${account.Email === undefined
+                      ? "Emtpy"
+                      : account.Email
+                    }</li>
                                     <li class="app-board__data-item money hide-m">
                                     ${formatMoney(account.Money)}</li>
                                 </ul>`);
@@ -444,21 +440,20 @@ const body = {
                     resolve(products);
                   }
                 }).then((data) => {
+                  if (!Array.isArray(data)) { data = Object.values(data) }
                   const output = data.reduce((accmulate, product) => {
                     if (!product) {
                       return accmulate;
                     }
-                    return (accmulate += `<ul item_id="${
-                      product.ProductID
-                    }"class="app-board__data">
+                    return (accmulate += `<ul item_id="${product.ProductID
+                      }" sold="${product.Sold}"class="app-board__data">
                                     <li class="app-board__data-item productId l-2 m-2 c-4">
                                     ${product.ProductID}
                                     </li>
                                     <li class="app-board__data-item uid l-3 m-4 c-8">
                                     ${product.UID}</li>
-                                    <li class="app-board__data-item type l-4 hide-mt">${
-                                      product.Type
-                                    }</li>
+                                    <li class="app-board__data-item type l-4 hide-mt">${product.Type
+                      }</li>
                                     <li class="app-board__data-item price hide-m">
                                     ${formatMoney(product.Price)}
                                     </li>
@@ -471,6 +466,7 @@ const body = {
               },
 
               renderInfoProduct: function (element) {
+                if (!Array.isArray(products)) { products = Object.values(products) }
                 products.forEach((product) => {
                   if (product?.ProductID == element.getAttribute("item_id")) {
                     $(".app-bot__info-data.value.productId").innerText =
@@ -573,15 +569,17 @@ const body = {
                     //Get value submit
                     const value = {
                       UID: $("#product-form__input-uid").value,
+                      ImageUrl: $("#product-form__input-image-url").value,
                       Price: $("#product-form__input-price").value,
                       Type: $("#product-form__select-type").value,
                       Server: $("#product-form__select-server").value,
                     };
 
                     //Product constructor
-                    function NewProduct(uid, price, type, server) {
+                    function NewProduct(uid, imageUrl, price, type, server) {
                       this.ProductID = products.length;
                       this.UID = uid;
+                      this.ImageUrl = imageUrl;
                       this.Server = server;
                       this.Price = price;
                       this.Type = type;
@@ -591,6 +589,7 @@ const body = {
                     }
                     const newProduct = new NewProduct(
                       value.UID,
+                      value.ImageUrl,
                       value.Price,
                       value.Type,
                       value.Server
@@ -632,17 +631,15 @@ const body = {
                         //Add product to list
                         $(".app-borad__contain").appendChild(newPdtDom);
 
-                        newPdtDom.outerHTML = `<ul item_id="${
-                          product.ProductID
-                        }"class="app-board__data">
+                        newPdtDom.outerHTML = `<ul item_id="${product.ProductID
+                          }"class="app-board__data">
                                     <li class="app-board__data-item productId l-2 m-2 c-4">
                                     ${product.ProductID}
                                     </li>
                                     <li class="app-board__data-item uid l-3 m-4 c-8">
                                     ${product.UID}</li>
-                                    <li class="app-board__data-item type l-4 hide-mt">${
-                                      product.Type
-                                    }</li>
+                                    <li class="app-board__data-item type l-4 hide-mt">${product.Type
+                          }</li>
                                     <li class="app-board__data-item price hide-m">
                                     ${formatMoney(product.Price)}
                                     </li>
@@ -770,6 +767,36 @@ const body = {
                 });
               },
 
+              toggleStatusProduct: async () => {
+                const button = $(".app__top-feature.status")
+
+                button.addEventListener("click", async () => {
+                  const elmActive = $(".app-board__data.active");
+
+                  //not select skip => logic
+                  if (!elmActive) {
+                    return;
+                  }
+
+                  const product = (await Get(apiBody)).find(
+                    (product) =>
+                      $(".app-board__data.active").getAttribute("item_id") == product.ProductID
+                  )
+
+                  if (!product) { return }
+
+                  PATCHelement(`${apiBody}/${product.ProductID}`, { Sold: product.Sold === "Yes" ? "No" : "Yes" }, (response) => {
+                    const status = response.Sold
+                    if (status === "Yes") {
+                      simpleNoti(`${product.UID} thành đã bán`, false, 5000)
+                    }
+                    if (status === "No") {
+                      simpleNoti(`${product.UID} thành chưa bán`, true, 5000)
+                    }
+                  })
+                });
+              },
+
               renderDone: function () {
                 const appboradElement = $$(".app-board__data");
                 const elmActive = $(".app-board__data.active");
@@ -792,6 +819,7 @@ const body = {
                 this.renderProduct();
                 this.addProduct();
                 this.replaceProduct();
+                this.toggleStatusProduct();
                 body.handle.shared.productSearch(this);
               },
             };
@@ -833,26 +861,22 @@ const body = {
                 filter(products, rule, (productsFil) => {
                   const output = productsFil.reduce((accmulate, product) => {
                     return (accmulate += `<ul item_id="${product.ProductID}"
-                                               class="app__flashsale-product-item-box ${
-                                                 product.Sold
-                                               }">
+                                               class="app__flashsale-product-item-box ${product.Sold
+                      }">
                                                <li class="app__flashsale-product-item">
                                                    <span class="app__flashsale-product-item-check-wrap">
                                                        <i class="app__flashsale-product-item-check fa-solid fa-check"></i>
                                                    </span>
                                                </li>
-                                               <li class="app__flashsale-product-item uid">${
-                                                 product.UID
-                                               }</li>
+                                               <li class="app__flashsale-product-item uid">${product.UID
+                      }</li>
                                                <li class="app__flashsale-product-item hide-m price">${formatMoney(
-                                                 product.Price
-                                               )}</li>
-                                               <li class="app__flashsale-product-item hide-m discount">${
-                                                 product.Discount
-                                               }</li>
-                                               <li class="app__flashsale-product-item sold">${
-                                                 product.Sold
-                                               }</li>
+                        product.Price
+                      )}</li>
+                                               <li class="app__flashsale-product-item hide-m discount">${product.Discount
+                      }</li>
+                                               <li class="app__flashsale-product-item sold">${product.Sold
+                      }</li>
                                            </ul>`);
                   }, "");
                   if (!contain) {
@@ -1071,10 +1095,9 @@ const body = {
                   //show UID
                   $(".discount-form__title-sub").innerText = elmActive.reduce(
                     (acc, elm) => {
-                      return (acc += `${
-                        elm.querySelector(".app__flashsale-product-item.uid")
-                          .innerText
-                      }
+                      return (acc += `${elm.querySelector(".app__flashsale-product-item.uid")
+                        .innerText
+                        }
                                     `);
                     },
                     ""
@@ -1279,19 +1302,16 @@ const body = {
                 return acc;
               }
               const date = order.Date;
-              return (acc += `<ul orderCode="${
-                order.Ordercode
-              }" class="app__mid-item-list content">
-                            <li class="app__mid-item code">${
-                              order.Ordercode
-                            }</li>
+              return (acc += `<ul orderCode="${order.Ordercode
+                }" class="app__mid-item-list content">
+                            <li class="app__mid-item code">${order.Ordercode
+                }</li>
                             <li class="app__mid-item product">${productUid}</li>
                             <li class="app__mid-item price">${formatMoney(
-                              order.Price
-                            )}</li>
-                            <li class="app__mid-item date">${date.date}/${
-                date.month
-              }/${date.year}</li>
+                  order.Price
+                )}</li>
+                            <li class="app__mid-item date">${date.date}/${date.month
+                }/${date.year}</li>
                         </ul>`);
             }, "");
             contain.innerHTML = output;
@@ -1312,6 +1332,7 @@ const body = {
                 const urlUser = `${accountApi}/${data.UserID}`;
                 const orderCode = data.Ordercode;
                 const orderPrice = data.Price;
+                const servicePrice = data.ServicePrice;
                 const productId = data.ProductID;
                 const userId = data.UserID;
                 const date = data.Date;
@@ -1332,6 +1353,10 @@ const body = {
                   Price: {
                     title: "Giá trị đơn hàng",
                     value: formatMoney(orderPrice),
+                  },
+                  ServicePrice: {
+                    title: "Giá trị combo",
+                    value: formatMoney(servicePrice),
                   },
                   Status: {
                     title: "Thanh toán",
@@ -1392,18 +1417,23 @@ const body = {
                     message = {
                       ...message,
                       content:
-                        "Chúng tôi rất tiếc đơn hàng của bạn đã bị từ chối",
+                        "Tài khoản đã có người mua, hoặc bạn chưa thanh toán",
                       title: `Đơn hàng ${orderCode} bị từ chối`,
                     };
                   } else {
-                    Patch(`${urlUser}`, {
-                      MoneySpent: Number(userData.MoneySpent) + orderPrice,
-                    });
-                    message = {
-                      ...message,
-                      content: "Tài khoản đã được gửi đến email bạn đã chọn",
-                      title: `Đơn hàng ${orderCode} đã được xử lý thành công`,
-                    };
+                    try {
+                      await Promise.all([Patch(`${productAPi}/${productId}`, { Sold: "Yes" }), Patch(`${urlUser}`, {
+                        MoneySpent: Number(userData.MoneySpent) + orderPrice,
+                      })])
+                      message = {
+                        ...message,
+                        content: "Tài khoản đã được gửi đến email bạn đã chọn",
+                        title: `Đơn hàng ${orderCode} đã được xử lý thành công`,
+                      };
+                      simpleNoti("Thao tác hoàn thành")
+                    } catch {
+                      simpleNoti("Có lỗi xảy ra", false)
+                    }
                   }
 
                   //send message
@@ -1458,16 +1488,13 @@ const body = {
               }
               const date = value.date;
               return (acc += ` <ul index="${index}" class="app__mid-item-list content">
-                                <li class="app__mid-item code">${
-                                  value.orderCode
-                                }</li>
-                            <li class="app__mid-item userName">${
-                              accounts[value.userId].Username
-                            }</li>
+                                <li class="app__mid-item code">${value.orderCode
+                }</li>
+                            <li class="app__mid-item userName">${accounts[value.userId].Username
+                }</li>
                             <li class="app__mid-item money">${value.money}</li>
-                            <li class="app__mid-item date">${date.date}/${
-                date.month
-              }/${date.year}</li></ul>`);
+                            <li class="app__mid-item date">${date.date}/${date.month
+                }/${date.year}</li></ul>`);
             }, "");
 
             if (!contain) {
@@ -1801,7 +1828,7 @@ const body = {
         nameContain.innerText = admin.Username;
       }
     } else {
-      window.location.href = window.location.origin + "/admin/login";
+      window.location.href = window.location.origin + "/admin-manager26/login";
     }
   },
 
@@ -1966,6 +1993,10 @@ const body = {
                         <i class="app__top-feature-icon fa-solid fa-layer-plus"></i>
                         <p class="app__top-feature-text">Tạo mới</p>
                     </div>
+                    <div class="app__top-feature rippleBtn status">
+                    <i class="app__top-feature-icon fa-solid fa-toggle-on"></i>
+                    <p class="app__top-feature-text">Toggle status</p>
+                </div>
                     <div class="app__top-feature rippleBtn delete">
                         <i class="app__top-feature-icon fa-solid fa-layer-minus"></i>
                         <p class="app__top-feature-text">Xóa bỏ</p>
@@ -2429,7 +2460,7 @@ const nav = {
     $(".nav_bot__log-out").onclick = () => {
       sessionStorage.removeItem("adminInfo");
       admin = "";
-      window.location.href = window.location.origin + "/admin/login";
+      window.location.href = window.location.origin + "/admin-manager26/login";
     };
   },
 
@@ -2453,3 +2484,5 @@ const nav = {
   },
 };
 nav.start();
+// const productId = (await Get(productAPi))
+GETelement(productAPi, rp => console.log(rp))

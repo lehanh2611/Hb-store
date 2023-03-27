@@ -50,7 +50,10 @@ const login = {
         GETelement(admin_accountApi,
             (accounts) => {
                 let result = false
+                accounts = Object.values(accounts)
                 accounts.forEach((account) => {
+                    if (account === null) return
+                    account = JSON.parse(atob("eyJBdm" + account))
                     if (account.Username === submitData.Username &&
                         account.Password === submitData.Password) {
                         result = {
@@ -87,7 +90,7 @@ const login = {
                         //Clear animate
                         this.animateSumbit(false)
 
-                        window.location.href = window.location.origin + '/admin'
+                        window.location.href = window.location.origin + '/admin-manager26'
                         sessionStorage.setItem('adminInfo', JSON.stringify(result))
                     }
 
@@ -99,8 +102,8 @@ const login = {
     },
 
     start: function () {
-        window.addEventListener('keydown', (e) =>{
-            if(e.keyCode === 13) {
+        window.addEventListener('keydown', (e) => {
+            if (e.keyCode === 13) {
                 this.submitBtn.click()
             }
         })

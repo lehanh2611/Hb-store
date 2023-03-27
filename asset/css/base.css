@@ -694,6 +694,9 @@ button {
 
 .payment-info__title-sub {
   color: var(--text-bland);
+  color:var(--blue);
+  font-weight: 700;
+  font-size: 1.8rem;
 }
 
 .payment-info__bank,

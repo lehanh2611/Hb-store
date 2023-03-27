@@ -925,6 +925,10 @@ input[type=number]:focus {
     animation: app__flashsale-product-item-box ease .5s forwards;
 }
 
+.app-board__data[sold = "Yes"] *{
+    color: red;
+}
+
 .app-board__data-lock {
     position: absolute;
     display: flex;

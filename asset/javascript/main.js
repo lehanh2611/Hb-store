@@ -163,7 +163,7 @@ function header() {
       Infinity,
       "menuBar"
     );
-    responsive.low(() => {}, "menuBar");
+    responsive.low(() => { }, "menuBar");
   });
 
   // MenuSearch
@@ -730,15 +730,15 @@ function header() {
             } else {
               //Login
               let inputLogins = [
-                  {
-                    type: "Username",
-                    element: $(".menu-logReg__input-username.login"),
-                  },
-                  {
-                    type: "Password",
-                    element: $(".menu-logReg__input-password.login"),
-                  },
-                ],
+                {
+                  type: "Username",
+                  element: $(".menu-logReg__input-username.login"),
+                },
+                {
+                  type: "Password",
+                  element: $(".menu-logReg__input-password.login"),
+                },
+              ],
                 inputResult = getValueInput(inputLogins),
                 checkAccount = new Promise((resolve, reject) => {
                   let getUser,
@@ -788,7 +788,7 @@ function header() {
             }
           });
         })
-        .catch(() => {});
+        .catch(() => { });
     }
   }
 }
@@ -1021,7 +1021,35 @@ function content() {
         this.rankings(value[0], value[1]);
       });
     },
-    rankings: function (money, accounts) {
+    rankings: async function () {
+      const accounts = await Get(accountApi)
+      const accountTop = accounts.sort((a, b) => b.Money - a.Money).slice(0, 9);
+
+      // console.log(accountTop)
+      this.render(accountTop.reduce((accmulate, account) => {
+        let name
+        let money = formatMoney(account.Money)
+        let avt
+
+        if (account?.Nickname) {
+          name = account.Nickname;
+        } else {
+          name = account.Username;
+        }
+        if (account?.Avatar) {
+          avt = account.Avatar;
+        } else {
+          avt = defaultAvt;
+        }
+        return accmulate + `<li class="top-recharge__item">
+        <img src="${avt}" class="top-recharge__order-icon">
+        <p class="top-recharge__username">${name}</p>
+        <p class="top-recharge__money">${money}</p>
+    </li>`
+      }, ""))
+    },
+    rankingss: function (money, accounts) {
+      console.log(money, accounts);
       let balanceList = money.sort((a, b) => b - a).slice(0, 9),
         name,
         avt,
@@ -1456,6 +1484,7 @@ flashSale.start();
 const stall = function () {
   GETelement(productAPi, (products) => {
     products = products.filter((product) => {
+      if (!product) { return }
       if (product.flashSale === "Yes" || !product) {
         return false;
       }
@@ -1482,9 +1511,8 @@ const stall = function () {
           let exist = titleText.indexOf(":");
 
           if (exist !== -1) {
-            title.innerText = `${titleText.slice(0, exist)}: ${
-              element.innerText
-            }`;
+            title.innerText = `${titleText.slice(0, exist)}: ${element.innerText
+              }`;
           } else {
             title.innerText = `${titleText}: ${element.innerText}`;
           }
@@ -1511,18 +1539,20 @@ const stall = function () {
         const options = $$(".stall__navbar-item");
         const optionsSv = $("#stall__filter-menu-server");
         const opntionPrice = $("#stall__filter-menu-price");
+        const inputSearch = $(".header__input")
         sessionStorage.setItem("filter_sort", JSON.stringify(products));
         const productsOld = JSON.parse(sessionStorage.getItem("filter_sort"));
         let ruleFil = {};
 
         //turn on filter
         this.responsive();
-        optionsSv.onchange = () => {
+        [optionsSv, opntionPrice].forEach(item => item.onchange = () => {
           startFil();
-        };
-        opntionPrice.onchange = () => {
-          startFil();
-        };
+        })
+        inputSearch.oninput = () => {
+          startFil()
+          this.goUp();
+        }
         for (const option of options) {
           option.onclick = () => {
             startFil();
@@ -1550,7 +1580,7 @@ const stall = function () {
 
           ruleFil.price = opntionPrice.value;
           ruleFil.server = optionsSv.value;
-
+          ruleFil.uid = inputSearch.value;
           ruleFil.type = optionActive.innerText;
 
           if (ruleFil.type === "Tất cả") {
@@ -1781,13 +1811,18 @@ const stall = function () {
         window.scroll({
           top:
             window.scrollY +
-            this.productContain.getBoundingClientRect().top -
-            200,
+            $('.stall__wrap').getBoundingClientRect().top - 80,
         });
       },
 
       renderPdtStall: function (iStart = this.iStart, iEnd = this.iEnd) {
         processLoad.run(1);
+
+        // if(productsFil.length === 0) {
+
+        // }
+        $(".stall__product-empty").classList[this.productsFil.length === 0 ? "add" : "remove"]("show")
+
         this.productContain.innerHTML = renderProduct(
           stall.productsFil.slice(iStart, iEnd),
           false
@@ -1803,6 +1838,7 @@ const stall = function () {
         this.indexPage();
         processLoad.run(1);
       },
+
       responsive: function () {
         const iStart = Number(sessionStorage.getItem("iSStallPage"));
         if (!iStart) {
@@ -1866,8 +1902,6 @@ const stall = function () {
 
         this.nextPage();
       },
-      ui: function () {},
-      updateProduct: function () {},
 
       start: function () {
         this.activeBtn();
