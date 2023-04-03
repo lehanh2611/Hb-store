@@ -232,12 +232,15 @@
     color: var(--blue);
 }
 
+.content__payment-introduce-box,
 .content__payment-giftcode-box {
     display: flex;
     height: 38px;
     margin: 6px 0;
 }
 
+
+.content__payment-introduce-input,
 .content__payment-giftcode-input {
     border-radius: 3px;
     padding: 0 3px;
@@ -247,10 +250,17 @@
     font-size: 1.8rem;
 }
 
+.content__payment-introduce-input.success,
+.content__payment-giftcode-input.success {
+    color: var(--blue);
+}
+
+.content__payment-introduce-submit:focus,
 .content__payment-giftcode-input:focus {
     outline-color: var(--blue);
 }
 
+.content__payment-introduce-submit,
 .content__payment-giftcode-submit {
     width: 100px;
     height: 100%;
@@ -264,10 +274,13 @@
     opacity: 1 !important;
 }
 
+.content__payment-introduce-submit.disable,
 .content__payment-giftcode-submit.disable {
     opacity: .6 !important;
 }
 
+
+.content__payment-introduce-submit,
 .content__payment-giftcode-submit,
 .content__payment.pay {
     background-color: rgb(78 136 187);
@@ -280,9 +293,9 @@
     width: 100%;
     height: 38px;
     border-radius: 5px;
-    margin-top: auto;
+    margin-top: 20px;
+    margin-bottom: 6px;
     overflow: hidden;
-    margin-top: auto;
 }
 
 .content__service-container {

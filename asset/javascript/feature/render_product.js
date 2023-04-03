@@ -14,7 +14,8 @@ export function renderProduct(products, disStatus = true, uid) {
         element?.Price,
         disStatus,
         element?.Discount,
-        element?.Sold
+        element?.Sold,
+        element?.Type
       ));
     }, "");
     return output;
@@ -35,7 +36,7 @@ export function renderProduct(products, disStatus = true, uid) {
 }
 
 //Render
-function body(id, uid, server, price, disStatus, discount = undefined, sold) {
+function body(id, uid, server, price, disStatus, discount = undefined, sold, type) {
   discount = Number(discount?.replace("%", ""));
 
   if (discount !== undefined && disStatus) {
@@ -62,6 +63,10 @@ function body(id, uid, server, price, disStatus, discount = undefined, sold) {
         <div class="box">
             <div class="product-item__title">UID:</div>
             <p class="product-item-uid">${uid}</p>
+        </div>
+        <div class="box">
+            <div class="product-item__title">Loại:</div>
+            <p type="${type}" class="product-item-type">${type}</p>
         </div>
         <div class="box">
             <div class="product-item__title">Khu vực:</div>

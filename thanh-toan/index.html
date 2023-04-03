@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thanh toán | Hb store</title>
-  <link rel="icon" type="image/x-icon" href="../asset/icon/Hb-store_not-text.png" />
+  <link rel="icon" type="image/x-icon" href="../asset/icon/Hb-store_not-text.jpg" />
   <link rel="stylesheet" href="../asset/font/fontawesome/css/all.css" />
   <link rel="stylesheet" href="../asset/css/grid-sys.css" />
   <link rel="stylesheet" href="../asset/css/base.css" />
@@ -19,6 +19,15 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11134110345"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'AW-11134110345');
+  </script>
 </head>
 
 <body>
@@ -50,6 +59,10 @@
           <span class="content__info-product-content-item">
             <p class="content__info-product-text uid">UID:</p>
             <p class="content__info-product-text uid value"></p>
+          </span>
+          <span class="content__info-product-content-item">
+            <p class="content__info-product-text type">Loại:</p>
+            <p class="content__info-product-text type value"></p>
           </span>
           <span class="content__info-product-content-item">
             <p class="content__info-product-text server">Server:</p>
@@ -388,6 +401,13 @@
       <div class="content__payment-giftcode-box">
         <input type="text" class="content__payment-giftcode-input" placeholder="Nhập mã giảm giá" />
         <div class="btn rippleBtn btn-loading disable content__payment-giftcode-submit">
+          <p class="btn-loading__text">Áp dụng</p>
+          <div class="btn-loading__icon"></div>
+        </div>
+      </div>
+      <div class="content__payment-introduce-box">
+        <input type="text" class="content__payment-introduce-input" placeholder="Nhập mã giới thiệu" />
+        <div class="btn rippleBtn btn-loading disable content__payment-introduce-submit">
           <p class="btn-loading__text">Áp dụng</p>
           <div class="btn-loading__icon"></div>
         </div>

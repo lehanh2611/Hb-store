@@ -1,7 +1,0 @@
-- Thông báo shop đang thử nghiệm khi truy cập trang web
-- Thêm chức năng thay đổi tình trạng đã bán cho sản phẩm - ok
-- Thêm ảnh có sản phẩm -ok
-- Viết mẫu thư gửi cho khách hàng khi mua acc thành công - ok
-- Thêm phần ưu đãi combo khởi đầu - ok
-- fix bugs - ok
-- Mã hóa api web admin - ok

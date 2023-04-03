@@ -160,6 +160,7 @@ button {
   font-weight: 600;
   rotate: 360deg;
 }
+
 /* Header */
 .notification {
   position: fixed;
@@ -694,7 +695,7 @@ button {
 
 .payment-info__title-sub {
   color: var(--text-bland);
-  color:var(--blue);
+  color: var(--blue);
   font-weight: 700;
   font-size: 1.8rem;
 }
@@ -922,11 +923,9 @@ button {
   border-radius: 10px;
   grid-template-rows: 40% 60%;
   grid-template-columns: auto 60px;
-  background-image: linear-gradient(
-    270deg,
-    var(--light-red),
-    var(--primary-dark)
-  );
+  background-image: linear-gradient(270deg,
+      var(--light-red),
+      var(--primary-dark));
   box-shadow: 0 0 10px var(--box-shadow-dark);
 }
 
@@ -1048,8 +1047,7 @@ button {
   font-size: 2rem;
 }
 
-.empty-box-title-sub {
-}
+.empty-box-title-sub {}
 
 /* ENDEmpty box */
 
@@ -1125,11 +1123,12 @@ button {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  width: 250px;
-  height: 250px;
+  width: 268px;
+  height: 268px;
   background: var(--default);
   border-radius: 20px;
   box-shadow: 0 0 16px var(--box-shadow-dark);
+  padding: 10px;
 }
 
 .on .notification__wrap {
@@ -1316,9 +1315,10 @@ button {
 }
 
 .notification__content {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #777777;
   margin-bottom: 16px;
+  text-transform: none;
 }
 
 .notification__btn {
@@ -1425,7 +1425,7 @@ button {
   display: flex;
   flex-direction: column;
   width: 224px;
-  height: 268px;
+  height: 286px;
   background-color: #000;
   margin-bottom: 40px;
   border-radius: 2px;
@@ -1581,6 +1581,7 @@ button {
   font-weight: 500;
 }
 
+.product-item-type,
 .product-item-uid,
 .product-item__server,
 .product-item__price {
@@ -1591,9 +1592,39 @@ button {
 
 .product-item-uid {
   font-weight: 600;
-  color: rgb(255, 0, 0);
   color: rgb(157 255 0);
 }
+
+.product-item-type {
+  font-weight: 700;
+  background-color: #ffffff2d;
+  border-radius: 3px;
+  padding: 0 6px;
+}
+
+.product-item-type[type="Đặc biệt"] {
+  color: #0047AB;
+}
+
+.product-item-type[type="Ngũ quý"] {
+  color: #2E8B57;
+}
+
+.product-item-type[type="Sảnh tiến"] {
+  color: #E6AF2E;
+}
+
+
+.product-item-type[type="Lục quý"] {
+  color: #B7410E;
+}
+
+.product-item-type[type="Thất quý"] {
+  color: #ff0015;
+}
+
+
+
 
 .product-item__price-old {
   text-decoration: line-through;

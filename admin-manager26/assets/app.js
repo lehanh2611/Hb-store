@@ -29,6 +29,7 @@ import {
   Patch,
   Delete,
   simpleNoti,
+  orderDoneAPi,
 } from "../../asset/javascript/end_point.js";
 
 let admin;
@@ -660,7 +661,7 @@ const body = {
               },
 
               replaceProduct: function () {
-                $(".app__top-feature.replace").addEventListener("click", () => {
+                $(".app__top-feature.replace").addEventListener("click", async () => {
                   const elmActive = $(".app-board__data.active");
 
                   //not select skip => logic
@@ -668,13 +669,14 @@ const body = {
                     return;
                   }
 
+                  const productData = (await Get(`${apiBody}/${elmActive.getAttribute("item_id")}`)) ?? {}
+
                   const close = $(".product-form__close");
-                  let productid = elmActive.querySelector(
-                    ".app-board__data-item.productId"
-                  );
+                  const { UID, ImageUrl, Server, Type, Price } = productData
+
                   let uid = elmActive.querySelector(
                     ".app-board__data-item.uid"
-                  );
+                  )
                   let type = elmActive.querySelector(
                     ".app-board__data-item.type"
                   );
@@ -694,25 +696,12 @@ const body = {
                   form.classList.remove("createForm");
                   formTitle.innerHTML = "Chỉnh sửa UID:";
 
-                  formTitleSub.innerHTML = uid.innerText;
-
-                  $("#product-form__input-uid").value = uid.innerText;
-
-                  //convert currency to number
-                  let priceConvert = price.innerText;
-                  while (priceConvert.includes(".")) {
-                    priceConvert = priceConvert.replace(".", "");
-                  }
-                  $("#product-form__input-price").value =
-                    Number.parseFloat(priceConvert);
-
-                  $("#product-form__select-server").value = $(
-                    ".app-bot__info-data.value.server"
-                  ).innerText;
-
-                  $("#product-form__select-type").value = $(
-                    ".app-bot__info-data.value.type"
-                  ).innerText;
+                  formTitleSub.innerHTML = UID;
+                  $("#product-form__input-uid").value = UID;
+                  $("#product-form__input-image-url").value = ImageUrl;
+                  $("#product-form__input-price").value = Price
+                  $("#product-form__select-server").value = Server
+                  $("#product-form__select-type").value = Type
 
                   //act submit
                   $(".product-form__contain").addEventListener("submit", (e) =>
@@ -727,6 +716,7 @@ const body = {
                     //get value submit
                     let newValue = {
                       UID: $("#product-form__input-uid").value,
+                      ImageUrl: $("#product-form__input-image-url").value,
                       Price: $("#product-form__input-price").value,
                       Type: $("#product-form__select-type").value,
                       Server: $("#product-form__select-server").value,
@@ -746,6 +736,7 @@ const body = {
                             close.click();
                           }
                         );
+
                         //update to dom
                         // productid.innerText = product.ProductID
                         uid.innerText = product.UID;
@@ -779,8 +770,10 @@ const body = {
                   }
 
                   const product = (await Get(apiBody)).find(
-                    (product) =>
-                      $(".app-board__data.active").getAttribute("item_id") == product.ProductID
+                    (product) => {
+                      if (!product) { return }
+                      return $(".app-board__data.active").getAttribute("item_id") == product.ProductID
+                    }
                   )
 
                   if (!product) { return }
@@ -1333,6 +1326,7 @@ const body = {
                 const orderCode = data.Ordercode;
                 const orderPrice = data.Price;
                 const servicePrice = data.ServicePrice;
+                const nitroduceCode = data.NitroduceCode ?? "";
                 const productId = data.ProductID;
                 const userId = data.UserID;
                 const date = data.Date;
@@ -1358,13 +1352,17 @@ const body = {
                     title: "Giá trị combo",
                     value: formatMoney(servicePrice),
                   },
-                  Status: {
-                    title: "Thanh toán",
-                    value:
-                      data.Status == "Paid"
-                        ? "Đã thanh toán"
-                        : "Chưa thanh toán",
+                  NitroduceCode: {
+                    title: "Mã giới thiệu",
+                    value: nitroduceCode,
                   },
+                  // Status: {
+                  //   title: "Thanh toán",
+                  //   value:
+                  //     data.Status == "Paid"
+                  //       ? "Đã thanh toán"
+                  //       : "Chưa thanh toán",
+                  // },
                   Method: {
                     title: "Phương thức",
                     value: data.Menthod,
@@ -1379,11 +1377,12 @@ const body = {
                   },
                 };
 
-                orderForm(data, (result) => orderHandle(result));
+                orderForm("order", data, (result) => orderHandle(result));
 
                 async function orderHandle(result) {
-                  //check order
-                  if ((await Get(`${orderAPi}/${orderCode}`)) === null) {
+                  const order = await Get(`${orderAPi}/${orderCode}`)
+
+                  if (order === null) {
                     return;
                   }
                   const userData = await Get(urlUser);
@@ -1398,47 +1397,59 @@ const body = {
 
                   // update status order
                   Patch(`${urlUser}/Order/${orderCode}`, {
-                    Status: Boolean(result) ? "Resolve" : "Reject",
+                    Status: result === "Resolve" ? "Resolve" : "Reject",
                   });
 
                   //remove order
                   Delete(`${orderAPi}/${orderCode}`);
 
-                  if (!result) {
-                    //update status product
-                    Patch(`${productAPi}/${productId}`, { Sold: "No" });
-
-                    if (data.Method.value === "shopMoney") {
-                      //return money
-                      Patch(urlUser, { Money: userData.Money + orderPrice });
-                    }
-
-                    // create message error
+                  if (result === 'Not-payment') {
                     message = {
                       ...message,
                       content:
-                        "Tài khoản đã có người mua, hoặc bạn chưa thanh toán",
-                      title: `Đơn hàng ${orderCode} bị từ chối`,
+                        "Liên hệ với chúng tôi để được hỗ trợ nếu bạn đã thanh toán",
+                      title: `Đơn hàng ${orderCode} bị hủy do chưa thanh toán`,
                     };
                   } else {
-                    try {
-                      await Promise.all([Patch(`${productAPi}/${productId}`, { Sold: "Yes" }), Patch(`${urlUser}`, {
-                        MoneySpent: Number(userData.MoneySpent) + orderPrice,
-                      })])
+                    if (result === "Reject") {
+                      //update status product
+                      // Patch(`${productAPi}/${productId}`, { Sold: "No" });
+
+                      if (data.Method.value === "shopMoney") {
+                        //return money
+                        Patch(urlUser, { Money: userData.Money + orderPrice });
+                      }
+
+                      // create message error
                       message = {
                         ...message,
-                        content: "Tài khoản đã được gửi đến email bạn đã chọn",
-                        title: `Đơn hàng ${orderCode} đã được xử lý thành công`,
+                        content:
+                          "Đặt mua lại một tài khoản khác ngay thôi nào",
+                        title: `Rất tiếc đơn hàng ${orderCode} đã có người mua`,
                       };
-                      simpleNoti("Thao tác hoàn thành")
-                    } catch {
-                      simpleNoti("Có lỗi xảy ra", false)
+                    } else {
+                      try {
+                        await Promise.all([
+                          Patch(`${productAPi}/${productId}`, { Sold: "Yes" }),
+                          Patch(`${orderDoneAPi}/${order.Ordercode}`, order),
+                          Patch(`${urlUser}`, {
+                            MoneySpent: Number(userData.MoneySpent) + orderPrice,
+                          })])
+                        message = {
+                          ...message,
+                          content: "Tài khoản đã được gửi đến email bạn đã điền",
+                          title: `Đơn hàng ${orderCode} đã được xử lý thành công`,
+                        };
+                        simpleNoti("Thao tác hoàn thành")
+                      } catch (error) {
+                        simpleNoti(error, false)
+                      }
                     }
                   }
 
                   //send message
                   const urlNoti = `${urlUser}/Notification`;
-                  Patch(urlNoti, { [(await Get(urlNoti)).length]: message });
+                  Patch(urlNoti, { [(await Get(urlNoti) ?? []).length]: message });
 
                   // updata total order
                   body.handle.shared.totalOrder();
@@ -1544,7 +1555,7 @@ const body = {
                     value: `${date.date}/${date.month}/${date.year}`,
                   },
                 };
-                orderForm(data, async (result) => {
+                orderForm("deposit", data, async (result) => {
                   const dataUser = await Get(urlUser);
                   let message = {
                     Seen: "No",
@@ -2484,5 +2495,3 @@ const nav = {
   },
 };
 nav.start();
-// const productId = (await Get(productAPi))
-GETelement(productAPi, rp => console.log(rp))

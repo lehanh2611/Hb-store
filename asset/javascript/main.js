@@ -100,6 +100,7 @@ function header() {
   cartBtn.onmouseleave = (e) => {
     e.target.classList.remove("active");
     renderCart();
+    $(".header__cart-btn.buy").classList.add("disable")
   };
 
   $(".header__user-menu-item.cart").addEventListener("click", renderCart);
@@ -861,26 +862,18 @@ const notication = {
       return;
     }
 
-    let newNoti = [];
-    noti.forEach((v, i) => {
-      if (v.Seen != "Yes") {
-        newNoti = [...newNoti, i];
-      }
-    });
-    newNoti = (await Get(urlNoti)).map((v, i) => {
-      if (newNoti.some((e) => i === e)) {
-        return {
-          ...v,
-          Seen: "Yes",
-        };
-      } else {
-        return v;
-      }
-    });
+    let newNoti = noti.filter(noti => noti.Seen === "No")
 
     if (newNoti.length !== 0) {
+      newNoti = (await Get(urlNoti) ?? []).map(noti => {
+        if (noti.Seen === "No") {
+          return { ...noti, Seen: "Yes" }
+        }
+        return noti
+      })
       Put(urlNoti, newNoti);
     }
+
     notication.account.Notification = newNoti;
     notication.render();
     notication.newNoti();
@@ -963,6 +956,14 @@ notication.start();
 const desposit = {
   start: function () {
     function goDeposit() {
+      notificationWindowBody.classList.add("fixed")
+      notificationWindow(false,
+        "Chức năng đang nâng cấp",
+        "Chưa thể sử dụng lúc này quay lại sau nhé!",
+        () => notificationWindow(
+          notificationWindowBody.classList.remove("fixed")
+        ), "Đã hiểu")
+      return
       if (userActiveID === null) {
         notificationWindowBody.classList.add("fixed");
         notificationWindow(
@@ -1544,11 +1545,27 @@ const stall = function () {
         const productsOld = JSON.parse(sessionStorage.getItem("filter_sort"));
         let ruleFil = {};
 
+
+        //turn off filter
+        const clearFil = () => {
+          console.log("run")
+          const menuFils = $$(".stall__filter-menu select");
+          startFil(true);
+          //reset default select
+          for (const menuFil of menuFils) {
+            menuFil.querySelector("option").selected = true;
+          }
+          $(".stall__navbar-item").click();
+        }
+
         //turn on filter
         this.responsive();
         [optionsSv, opntionPrice].forEach(item => item.onchange = () => {
           startFil();
         })
+
+        inputSearch.onfocus = () => clearFil()
+
         inputSearch.oninput = () => {
           startFil()
           this.goUp();
@@ -1559,17 +1576,8 @@ const stall = function () {
           };
         }
 
-        //turn off filter
         $(".stall__filter-menu-clear").onclick = () => {
-          const menuFils = $$(".stall__filter-menu select");
-
-          startFil(true);
-          //reset default select
-          for (const menuFil of menuFils) {
-            menuFil.querySelector("option").selected = true;
-          }
-          $(".stall__navbar-item").click();
-
+          clearFil()
           //hide menu filter
           this.filterBtn.classList.remove("active");
         };
@@ -1591,6 +1599,10 @@ const stall = function () {
           }
           if (ruleFil.price === "default") {
             delete ruleFil.price;
+          }
+
+          if (ruleFil.uid) {
+            ruleFil = { uid: ruleFil.uid }
           }
 
           if (clear) {

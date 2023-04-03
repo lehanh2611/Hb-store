@@ -188,20 +188,6 @@ const app = {
     }
   },
   submit: async function () {
-    notificationWindow(
-      false,
-      "Chức năng đang bảo trì",
-      "Chưa thể sử dụng lúc này",
-      () => {
-        notificationWindow();
-        this.goBack();
-        return;
-      },
-      "Trở về"
-    );
-
-    return;
-
     this.handleData();
     if (!this.result) {
       return;
@@ -286,7 +272,7 @@ const app = {
     paymentInfo(
       this.mbbankInfo.title,
       this.mbbankInfo.value,
-      () => {},
+      () => { },
       $(".content")
     );
 

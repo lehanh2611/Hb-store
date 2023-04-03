@@ -1,25 +1,36 @@
 // // /firebase api
+
+const BASE_URL = "https://hbstore26-default-rtdb.firebaseio.com"
 //Account storage//
 export const accountApi =
-  "https://hbstore26-default-rtdb.firebaseio.com/accounts";
+  `${BASE_URL}/accounts`
 
 //Admin account storage//
 export const admin_accountApi =
-  "https://hbstore26-default-rtdb.firebaseio.com/admin_accounts";
+  `${BASE_URL}/admin_accounts`
 //Product storage//
 export const productAPi =
-  "https://hbstore26-default-rtdb.firebaseio.com/products";
+  `${BASE_URL}/products`
 
 //Gift storage//
 export const gift_codeAPi =
-  "https://hbstore26-default-rtdb.firebaseio.com/gift_code";
+  `${BASE_URL}/gift_code`
+
+//Gift storage//
+export const introduce_codeAPi =
+  `${BASE_URL}/nitroduce_code`
 
 //Order storage//
-export const orderAPi = "https://hbstore26-default-rtdb.firebaseio.com/order";
+export const orderAPi =
+  `${BASE_URL}/order`
+
+//Order done storage//
+export const orderDoneAPi =
+  `${BASE_URL}/orderDone`
 
 //Desposit storage//
 export const depositAPi =
-  "https://hbstore26-default-rtdb.firebaseio.com/deposit";
+  `${BASE_URL}/deposit`
 
 //Get element/api
 export function GETelement(url, callback) {

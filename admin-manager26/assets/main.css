@@ -925,7 +925,7 @@ input[type=number]:focus {
     animation: app__flashsale-product-item-box ease .5s forwards;
 }
 
-.app-board__data[sold = "Yes"] *{
+.app-board__data[sold="Yes"] * {
     color: red;
 }
 
@@ -1485,8 +1485,8 @@ input[type=number]:focus {
 
 .content .app__mid-item {
     font-size: 1.8rem;
-    height:30px;
-    line-height:30px;
+    height: 30px;
+    line-height: 30px;
     overflow: hidden;
     display: -webkit-box;
     text-overflow: ellipsis;
@@ -1601,8 +1601,12 @@ input[type=number]:focus {
     background-color: var(--light-red);
 }
 
-.order-form__button.resolve {
+.order-form__button[type="Resolve"] {
     background-color: var(--blue);
+}
+
+.order-form__button[type="Reject"] {
+    background-color: var(--violet);
 }
 
 .order-form__button:hover {

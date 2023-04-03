@@ -20,7 +20,9 @@ import {
     validate,
     cart,
     footer,
-    logHistory
+    logHistory,
+    introduce_codeAPi,
+    fastAtc
 } from "../../asset/javascript/end_point.js"
 
 const app = {
@@ -31,6 +33,7 @@ const app = {
     price: '',
     giftCode: '',
     giftCodeName: '',
+    introduceCode: null,
     servicePrice: null,
     submit: $('.content__payment.pay'),
     handle: false,
@@ -61,6 +64,7 @@ const app = {
         $('.header__nav-user-name').innerText = nickName !== '' ? nickName : account.Username
         $('.header__nav-user-avt').src = avatar !== '' ? '.' + avatar : '../asset/img/user-avt/user-default.png'
         $('.content__info-product-text.uid.value').innerText = product?.UID
+        $('.content__info-product-text.type.value').innerText = product?.Type
         $('.content__info-product-text.server.value').innerText = product?.Server
         $('.payment-method-title.money').innerText = `Số dư: ${formatMoney(account.Money)}`
 
@@ -132,9 +136,11 @@ const app = {
                     this.giftCode = v
                     simpleNoti('Mã giảm giá đã được áp dụng', true)
                     this.handlePaymentInfo()
+                    input.classList.add("success")
                 }
                 else {
                     simpleNoti('Mã giảm giá không chính xác', false)
+                    input.classList.remove("success")
                 }
                 //hide btn loading
                 btn.classList.remove('active')
@@ -149,6 +155,44 @@ const app = {
             }
         }
     },
+    submitIntroduceCode: function () {
+        const input = $(".content__payment-introduce-input")
+        const submitButton = $(".content__payment-introduce-submit")
+        let inputCode
+
+        input.addEventListener('input', ({ target }) => {
+            inputCode = target.value
+            inputCode !== "" ? submitButton.classList.remove('disable')
+                : submitButton.classList.add('disable')
+        })
+
+        submitButton.onclick = async () => {
+            if (inputCode === "") return
+
+            submitButton.classList.add("active")
+
+            Patch(introduce_codeAPi, { "VariCK": "success" })
+            try {
+                const dataIntroCode = await Get(introduce_codeAPi)
+
+                if (dataIntroCode === null) throw new Error
+
+                if (dataIntroCode[inputCode]) {
+                    simpleNoti("Nhập mã giới thiệu thành công")
+                    this.introduceCode = inputCode
+                    input.classList.add("success")
+                }
+                else {
+                    simpleNoti("Mã giới thiệu không chính xác", false)
+                    // input.classList.remove("success")
+                }
+            }
+            catch {
+                simpleNoti("Có lỗi xảy ra!", false)
+            }
+            submitButton.classList.remove("active")
+        }
+    },
     paymentSubmit: async function () {
         const parent = $('.content__payment-email-box')
         const selector = {
@@ -158,8 +202,9 @@ const app = {
         const rule = ['email', 'required']
         selector.input.addEventListener('focusin', () => { selector.message.innerText = '' })
         selector.input.addEventListener('focusout', () => { validate.start(selector, rule) })
-        this.submit.addEventListener('click', async () => {
-            if (!validate.start(selector, rule)) { return }
+
+        const submitHandler = async () => {
+            if (!await validate.start(selector, rule)) { return }
             if (this.account.Block === 'true') {
                 notificationWindow(
                     false,
@@ -177,6 +222,7 @@ const app = {
                 )
                 return
             }
+            this.submit.removeEventListener('click', submitHandler)
             //show btn loading
             this.submit.classList.add('active')
             //create Order code
@@ -217,6 +263,7 @@ const app = {
                 ServicePrice: this.servicePrice,
                 Flashsale: this.product?.Flashsale,
                 Giftcode: this.giftCodeName,
+                NitroduceCode: this.introduceCode,
                 Menthod: menthod,
                 Email: selector.input.value.trim(),
                 Date: logHistory.getRealTime()
@@ -253,7 +300,8 @@ const app = {
                     this.menthodShop(paymentData, newCart, urlUser)
                 }
             })
-        })
+        }
+        this.submit.addEventListener('click', submitHandler)
     },
     menthodShop: async function (paymentData, newCart, urlUser) {
         const money = await Get(urlUser + '/Money')
@@ -443,6 +491,7 @@ const app = {
         iconShadow($$('.payment-method-icon-box'))
         this.submitGiftCode()
         this.paymentSubmit()
+        this.submitIntroduceCode()
         this.selectService()
         footer.start()
     }

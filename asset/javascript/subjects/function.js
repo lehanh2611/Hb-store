@@ -36,7 +36,6 @@ export function select(listElment, callback) {
             const value = element.classList.value
 
             if (value.includes('disable')) { return }
-            if (value.includes('disable')) { return }
             removeActive()
 
             element.classList.add('active')
@@ -242,7 +241,7 @@ export const footer = {
 }
 
 // Order form
-export function orderForm(data, callback) {
+export function orderForm(type, data, callback) {
     const bodyhtml =
         `<div class="order-form">
         <div class="order-form__wrap">
@@ -250,8 +249,9 @@ export function orderForm(data, callback) {
         <h3 class="order-form__title">Đơn hàng HB999999999</h3>
         <ul class="order-form__info-list"></ul>
         <div class="order-form__button-box">
-        <div class="order-form__button reject">Từ chối</div>
-        <div class="order-form__button resolve">Hoàn thành</div>
+        <div type="Not-payment" class="order-form__button">Chưa thanh toán</div>
+        ${type === 'order' ? '<div type="Reject" class="order-form__button">Hết hàng</div>' : ' '}
+        <div type="Resolve" class="order-form__button">Hoàn thành</div>
         </div></div></div>`
 
     // create form
@@ -278,10 +278,8 @@ export function orderForm(data, callback) {
     const btns = $$('.order-form__button')
     for (const btn of btns) {
         btn.onclick = () => {
-            const result = btn.classList.value.includes('resolve')
-            callback(result)
+            callback(btn.getAttribute("type"))
             form.remove()
         }
     }
-
 }

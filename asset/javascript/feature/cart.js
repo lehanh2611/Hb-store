@@ -329,19 +329,27 @@ export const cart = {
         <span class="header__cart-info price">
             <p class="header__cart-info-title price">Giá bán:</p>
             <p class="header__cart-info-value price">${formatMoney(
-              item.Price
-            )}</p>
+        item.Price
+      )}</p>
         </span>
     </li>`);
     }, "");
-    $(".header__cart-total").innerText = `Tất cả (${
-      $$(".header__cart-item").length
-    })`;
+    $(".header__cart-total").innerText = `Tất cả (${$$(".header__cart-item").length
+      })`;
 
     this.renderDone();
   },
   renderDone: function () {
-    select($$(".header__cart-item"));
+    const orderBtn = $(".header__cart-btn.buy")
+
+    select($$(".header__cart-item"), () => {
+      if ($(".header__cart-item.active")) {
+        orderBtn.classList.remove('disable')
+      }
+      else {
+        orderBtn.classList.add('disable')
+      }
+    });
     this.removeCart();
   },
   ui: {},
