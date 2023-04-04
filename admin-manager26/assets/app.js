@@ -30,6 +30,8 @@ import {
   Delete,
   simpleNoti,
   orderDoneAPi,
+  introduce_codeAPi,
+  Put,
 } from "../../asset/javascript/end_point.js";
 
 let admin;
@@ -1429,9 +1431,11 @@ const body = {
                       };
                     } else {
                       try {
+                        const nitroduceValue = await Get(`${introduce_codeAPi}/${nitroduceCode}`)
                         await Promise.all([
                           Patch(`${productAPi}/${productId}`, { Sold: "Yes" }),
                           Patch(`${orderDoneAPi}/${order.Ordercode}`, order),
+                          Put(`${introduce_codeAPi}/${nitroduceCode}`, nitroduceValue + 1),
                           Patch(`${urlUser}`, {
                             MoneySpent: Number(userData.MoneySpent) + orderPrice,
                           })])

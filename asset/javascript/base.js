@@ -1,6 +1,8 @@
 // // /firebase api
 
-const BASE_URL = "https://hbstore26-default-rtdb.firebaseio.com"
+// const BASE_URL = "https://hbstore26-default-rtdb.firebaseio.com"
+const BASE_URL = "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com"
+
 //Account storage//
 export const accountApi =
   `${BASE_URL}/accounts`
@@ -19,6 +21,13 @@ export const gift_codeAPi =
 //Gift storage//
 export const introduce_codeAPi =
   `${BASE_URL}/nitroduce_code`
+
+const abc = {
+  "VARICK-DT96": 0,
+  "VARICK-AK36": 0,
+  "VARICK-LA04": 0,
+  "VARICK-TA10": 0,
+}
 
 //Order storage//
 export const orderAPi =

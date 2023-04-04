@@ -1347,6 +1347,10 @@ input[type=number]:focus {
     color: var(--text-dark);
 }
 
+.app__flashsale-product-item-box.Yes .app__flashsale-product-item.sold {
+    color: var(--red);
+}
+
 .app__flashsale-product-item-check-wrap {
     justify-content: center;
     width: 19px;

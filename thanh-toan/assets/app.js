@@ -171,13 +171,12 @@ const app = {
 
             submitButton.classList.add("active")
 
-            Patch(introduce_codeAPi, { "VariCK": "success" })
             try {
                 const dataIntroCode = await Get(introduce_codeAPi)
 
                 if (dataIntroCode === null) throw new Error
 
-                if (dataIntroCode[inputCode]) {
+                if (dataIntroCode[inputCode] || dataIntroCode[inputCode] === 0) {
                     simpleNoti("Nhập mã giới thiệu thành công")
                     this.introduceCode = inputCode
                     input.classList.add("success")

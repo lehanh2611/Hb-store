@@ -1026,7 +1026,6 @@ function content() {
       const accounts = await Get(accountApi)
       const accountTop = accounts.sort((a, b) => b.Money - a.Money).slice(0, 9);
 
-      // console.log(accountTop)
       this.render(accountTop.reduce((accmulate, account) => {
         let name
         let money = formatMoney(account.Money)
@@ -1050,7 +1049,6 @@ function content() {
       }, ""))
     },
     rankingss: function (money, accounts) {
-      console.log(money, accounts);
       let balanceList = money.sort((a, b) => b - a).slice(0, 9),
         name,
         avt,
@@ -1548,7 +1546,6 @@ const stall = function () {
 
         //turn off filter
         const clearFil = () => {
-          console.log("run")
           const menuFils = $$(".stall__filter-menu select");
           startFil(true);
           //reset default select
