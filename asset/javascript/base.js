@@ -1,7 +1,7 @@
 // // /firebase api
 
-// const BASE_URL = "https://hbstore26-default-rtdb.firebaseio.com"
-const BASE_URL = "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com"
+const BASE_URL = "https://hbstore26-default-rtdb.firebaseio.com"
+// const BASE_URL = "https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com"
 
 //Account storage//
 export const accountApi =
