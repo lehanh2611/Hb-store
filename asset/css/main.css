@@ -1255,12 +1255,16 @@
 }
 
 .menu-logReg__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 40px;
   font-size: 1.8rem;
-  font-weight: 600;
+  /* font-weight: 600; */
   margin: 16px auto;
   border-radius: 2px;
+  background-color: #c6d1db;
 }
 
 .menu-logReg__box-btn-register {
