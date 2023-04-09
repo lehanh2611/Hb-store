@@ -1,4 +1,4 @@
-import { $, $$, notificationWindow, validate } from "../end_point.js"
+import { $, $$, Get, Patch, notificationWindow, subscribeReceiveNewsAPi, validate } from "../end_point.js"
 
 // Format money
 export function formatMoney(value) {
@@ -226,11 +226,17 @@ export const footer = {
             selector.message.innerText = ''
         }
 
-        submit.onclick = () => {
+        submit.onclick = async () => {
             result = validate.start(selector, ['required', 'email'])
 
             if (result) {
-                simpleNoti('Đã đăng ký nhận tin')
+                const subscribeReceiveNews = await Get(subscribeReceiveNewsAPi) ?? []
+                if (!Object.values(subscribeReceiveNews).some(email => email === selector.input.value)) {
+                    simpleNoti('Đã đăng ký nhận tin tức thành công')
+                    Patch(subscribeReceiveNewsAPi, { [subscribeReceiveNews.length]: selector.input.value })
+                } else {
+                    simpleNoti('Email đã tồn tại', false)
+                }
             }
         }
     },

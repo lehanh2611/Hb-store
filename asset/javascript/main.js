@@ -1539,6 +1539,7 @@ const stall = function () {
         const optionsSv = $("#stall__filter-menu-server");
         const opntionPrice = $("#stall__filter-menu-price");
         const inputSearch = $(".header__input")
+        let searchCountdown
         sessionStorage.setItem("filter_sort", JSON.stringify(products));
         const productsOld = JSON.parse(sessionStorage.getItem("filter_sort"));
         let ruleFil = {};
@@ -1564,8 +1565,11 @@ const stall = function () {
         inputSearch.onfocus = () => clearFil()
 
         inputSearch.oninput = () => {
-          startFil()
-          this.goUp();
+          clearTimeout(searchCountdown)
+          searchCountdown = setTimeout(() => {
+            startFil()
+            this.goUp();
+          }, 300)
         }
         for (const option of options) {
           option.onclick = () => {

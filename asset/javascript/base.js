@@ -10,6 +10,7 @@ export const accountApi =
 //Admin account storage//
 export const admin_accountApi =
   `${BASE_URL}/admin_accounts`
+
 //Product storage//
 export const productAPi =
   `${BASE_URL}/products`
@@ -22,12 +23,10 @@ export const gift_codeAPi =
 export const introduce_codeAPi =
   `${BASE_URL}/nitroduce_code`
 
-const abc = {
-  "VARICK-DT96": 0,
-  "VARICK-AK36": 0,
-  "VARICK-LA04": 0,
-  "VARICK-TA10": 0,
-}
+//Gift storage//
+export const subscribeReceiveNewsAPi =
+  `${BASE_URL}/subscribe_receive_news`
+
 
 //Order storage//
 export const orderAPi =

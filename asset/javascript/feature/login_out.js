@@ -52,7 +52,7 @@ export function userLogin(UserID, accounts) {
         welcomeName.innerHTML = username;
     };
 
-    if (User?.Avatar !== '') {
+    if (User?.Avatar !== '' && User?.Avatar !== undefined) {
         let avatar = User.Avatar;
         userAvt.src = avatar;
         welcomeAvt.src = avatar;

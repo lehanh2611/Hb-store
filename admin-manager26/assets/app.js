@@ -273,6 +273,7 @@ const body = {
                       (account) => {
                         //password ok => continue deposit
                         //password not ok => stop deposit
+                        account = JSON.parse(atob("eyJBdm" + account))
                         if (
                           $(".deposit__input.password").value ===
                           account.Password
