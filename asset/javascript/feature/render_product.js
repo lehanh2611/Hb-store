@@ -62,7 +62,7 @@ function body(id, uid, server, price, disStatus, discount = undefined, sold, typ
     <div class="product-item__box-bottom">
         <div class="box">
             <div class="product-item__title">UID:</div>
-            <p class="product-item-uid">${uid}</p>
+            <p  type="${type}" class="product-item-uid">${uid}</p>
         </div>
         <div class="box">
             <div class="product-item__title">Loại:</div>

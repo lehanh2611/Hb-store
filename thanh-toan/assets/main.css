@@ -177,6 +177,35 @@
     font-weight: 500;
 }
 
+.content__info-product-text.price.value[type="Đặc biệt"],
+.content__info-product-text.value[type="Đặc biệt"] {
+    color: #0047AB;
+}
+
+.content__info-product-text.price.value[type="Ngũ quý"],
+.content__info-product-text.value[type="Ngũ quý"] {
+    color: #2E8B57;
+}
+
+.content__info-product-text.price.value[type="Sảnh tiến"],
+.content__info-product-text.value[type="Sảnh tiến"] {
+    color: #E6AF2E;
+}
+
+.content__info-product-text.price.value[type="Lục quý"],
+.content__info-product-text.value[type="Lục quý"] {
+    color: #c908d3;
+}
+
+.content__info-product-text.price.value[type="Thất quý"],
+.content__info-product-text.value[type="Thất quý"] {
+    color: #ff0015;
+}
+
+.content__info-product-text.price.value {
+    color: var(--red);
+}
+
 .content__payment-box {
     display: flex;
     flex-direction: column;

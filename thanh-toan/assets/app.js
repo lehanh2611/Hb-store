@@ -64,7 +64,10 @@ const app = {
         $('.header__nav-user-name').innerText = nickName !== '' ? nickName : account.Username
         $('.header__nav-user-avt').src = avatar !== '' ? '.' + avatar : '../asset/img/user-avt/user-default.png'
         $('.content__info-product-text.uid.value').innerText = product?.UID
+        $('.content__info-product-text.uid.value').setAttribute("type", product?.Type)
+        $('.content__info-product-text.type.value').setAttribute("type", product?.Type)
         $('.content__info-product-text.type.value').innerText = product?.Type
+        $('.content__info-product-text.price.value').innerText = formatMoney(product?.Price)
         $('.content__info-product-text.server.value').innerText = product?.Server
         $('.payment-method-title.money').innerText = `Số dư: ${formatMoney(account.Money)}`
 
