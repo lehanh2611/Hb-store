@@ -2,202 +2,529 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thanh toán | Hb store</title>
-    <link rel="icon" type="image/x-icon" href="../asset/icon/Hb-store_not-text.png">
-    <link rel="stylesheet" href="../asset/font/fontawesome/css/all.css">
-    <link rel="stylesheet" href="../asset/css/grid-sys.css">
-    <link rel="stylesheet" href="../asset/css/base.css">
-    <link rel="stylesheet" href="./assets/main.css">
-    <link rel="stylesheet" href="./assets/responsive.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thanh toán | Hb store</title>
+  <link rel="icon" type="image/x-icon" href="../asset/img/logo-round.jpg" />
+  <link rel="stylesheet" href="../asset/font/fontawesome/css/all.css" />
+  <link rel="stylesheet" href="../asset/css/grid-sys.css" />
+  <link rel="stylesheet" href="../asset/css/base.css" />
+  <link rel="stylesheet" href="./assets/main.css" />
+  <link rel="stylesheet" href="./assets/responsive.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11134110345"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'AW-11134110345');
+  </script>
 </head>
 
 <body>
-    <div id="header">
-        <div class="header__nav notSelect">
-            <button class="header__nav-go-back">
-                <i class="fa-solid fa-angle-left"></i>
-                Quay lại
-            </button>
-            <div class="header__nav-user-box">
-                <p class="header__nav-user-name"></p>
-                <img class="header__nav-user-avt" src="../asset/img/user-avt/user-default.png">
-                <!-- <i class="header__nav-user-logout fa-sharp fa-solid fa-right-from-bracket"></i> -->
-            </div>
-        </div>
-        <div class="header__main contain">
-            <div class="header__main-title-box">
-                <img class="header__main-logo notSelect" src="../asset/img/logo-full--effect.png">
-                <h3 class="header__main-title">Thanh toán</h3>
-            </div>
-        </div>
+  <div id="header">
+    <div class="header__nav notSelect">
+      <button class="header__nav-go-back">
+        <i class="fa-solid fa-angle-left"></i>
+        Quay lại
+      </button>
+      <div class="header__nav-user-box">
+        <p class="header__nav-user-name"></p>
+        <img class="header__nav-user-avt" src="../asset/img/user-avt/user-default.png" />
+      </div>
     </div>
-
-    <div id="content">
-        <div class="content-wrap contain">
-            <div class="content__info-product-box">
-                <h3 class="content__info-product-title">Thông tin sản phẩm</h3>
-                <img class="content__info-product-img" src="../asset/img/660000000.png">
-
-                <div class="content__info-product-content-wrap">
-                    <span class="content__info-product-content-item">
-                        <p class="content__info-product-text uid">UID:</p>
-                        <p class="content__info-product-text uid value"></p>
-                    </span>
-                    <span class="content__info-product-content-item">
-                        <p class="content__info-product-text server">Server:</p>
-                        <p class="content__info-product-text server value"></p>
-                    </span>
-                    <span class="content__info-product-content-item">
-                        <p class="content__info-product-text level">Hạng mạo hiểm:</p>
-                        <p class="content__info-product-text level value">Ar 1</p>
-                    </span>
-                    <span class="content__info-product-content-item">
-                        <p class="content__info-product-text username">Tên tài khoản:</p>
-                        <p class="content__info-product-text username value">Chưa thiết lập</p>
-                    </span>
-                </div>
-
-            </div>
-            <div class="content__payment-box">
-                <h3 class="content__payment-title">Thông tin thanh toán</h3>
-                <span class="content__payment-item">
-                    <p class="content__payment price">Giá sản phẩm:</p>
-                    <p class="content__payment price value">0đ</p>
-                </span>
-                <span class="content__payment-item">
-                    <p class="content__payment discount-gift">Mã giảm giá:</p>
-                    <p class="content__payment discount-gift value">0đ</p>
-                </span>
-                <span class="content__payment-item">
-                    <p class="content__payment flash-sale">Chương trình giảm giá:</p>
-                    <p class="content__payment flash-sale value">0đ</p>
-                </span>
-                <span class="content__payment-item">
-                    <p class="content__payment total-gift">Tổng cộng đã giảm giá:</p>
-                    <p class="content__payment total-gift value">0đ</p>
-                </span>
-                <div class="content__payment-giftcode-box">
-                    <input type="text" class="content__payment-giftcode-input" placeholder="Nhập mã giảm giá">
-                    <div class="btn rippleBtn btn-loading disable content__payment-giftcode-submit">
-                        <p class="btn-loading__text">Áp dụng</p>
-                        <div class="btn-loading__icon"></div>
-                    </div>
-                </div>
-                <span class="content__payment-item total">
-                    <p class="content__payment total">Tổng thanh toán:</p>
-                    <p class="content__payment total value">0đ</p>
-                </span>
-                <div class="payment-methods notSelect">
-                    <h3 class="payment-methods-title">
-                        <i class="content__payment-icon fa-duotone fa-credit-card"></i>
-                        Phương thức thanh toán:
-                    </h3>
-                    <div class="payment-method active" menthod="shopMoney">
-                        <span class="payment-method-select-box">
-                            <span class="payment-method-select"></span>
-                        </span>
-                        <span>
-                            <p class="payment-method-title">Tài khoản Shop</p>
-                            <p class="payment-method-title money">Số dư: 0đ</p>
-                        </span>
-                        <span class="payment-method-icon-box coin">
-                            <img class="payment-method-icon coin" src="./assets/icon/coin1.png">
-                        </span>
-                    </div>
-                    <div class="payment-method" menthod="bank">
-                        <span class="payment-method-select-box">
-                            <span class="payment-method-select"></span>
-                        </span>
-                        <p class="payment-method-title">Chuyển khoản ngân hàng</p>
-                        <span class="payment-method-icon-box">
-                            <img class="payment-method-icon" src="./assets/icon/mbbank.jpg">
-                        </span>
-                    </div>
-                    <div class="payment-method" menthod="momo">
-                        <span class="payment-method-select-box">
-                            <span class="payment-method-select"></span>
-                        </span>
-                        <p class="payment-method-title">Chuyển tiền bằng ví Momo</p>
-                        <span class="payment-method-icon-box">
-                            <img class="payment-method-icon" src="./assets/icon/momo.jpg">
-                        </span>
-                    </div>
-                    <div class="payment-method disable">
-                        <span class="payment-method-select-box">
-                            <span class="payment-method-select"></span>
-                        </span>
-                        <p class="payment-method-title">Chuyển tiền bằng ví Paypal</p>
-                        <span class="payment-method-icon-box">
-                            <img class="payment-method-icon" src="./assets/icon/paypal.png">
-                        </span>
-                    </div>
-                </div>
-                <div class="content__payment-email-box">
-                    <h3 class="content__payment-email-title">
-                        <i class="content__payment-icon fa-solid fa-envelope"></i>
-                        Nhập email nhận tài khoản:
-                    </h3>
-                    <input type="email" class="content__payment-email-box-input"
-                        placeholder="Nhập địa chỉ email của bạn">
-                    <message class="message"></message>
-                </div>
-                <div class="btn rippleBtn btn-loading content__payment pay">
-                    <p class="btn-loading__text">Thanh toán</p>
-                    <div class="btn-loading__icon"></div>
-                </div>
-            </div>
-        </div>
+    <div class="header__main contain">
+      <div class="header__main-title-box">
+        <img class="header__main-logo notSelect" src="../asset/img/logo-full.png" />
+        <h3 class="header__main-title">Thanh toán</h3>
+      </div>
     </div>
-    <footer class="footer grid">
-        <div class="footer__wrap contain">
-            <div class="footer__get-news">
-                <div class="footer__get-new-box">
-                    <h3 class="footer__get-news-title">Đăng ký nhận tin mới</h3>
-                    <h3 class="footer__get-news-sub-title">
-                        Nhận tin tức về các chương trình khuyến mãi, mã giảm giá và sản phẩm mới nhất.
-                    </h3>
-                </div>
-                <form class="footer__get-new-box submitForm">
-                    <input type="email" class="footer__get-new-input-email" placeholder="Nhập email của bạn">
-                    <button class="footer__get-new-submit">Đăng ký</button>
-                    <message class="message"></message>
-                </form>
-            </div>
-            <div class="footer__last">
-                <p class="footer__copyright">© 2023 - Hbstore | Đã đăng ký bản quyền.</p>
-            </div>
+  </div>
+
+  <div id="content">
+    <div class="content-wrap contain">
+      <div class="content__info-product-box">
+        <h3 class="content__info-product-title">Thông tin tài khoản</h3>
+        <img class="content__info-product-img" src="../asset/img/660000000.png" />
+        <div class="content__info-product-content-wrap">
+          <span class="content__info-product-content-item">
+            <p class="content__info-product-text uid">UID:</p>
+            <p class="content__info-product-text uid value"></p>
+          </span>
+          <span class="content__info-product-content-item">
+            <p class="content__info-product-text type">Loại:</p>
+            <p class="content__info-product-text type value"></p>
+          </span>
+          <span class="content__info-product-content-item">
+            <p class="content__info-product-text server">Server:</p>
+            <p class="content__info-product-text server value"></p>
+          </span>
+          <span class="content__info-product-content-item">
+            <p class="content__info-product-text level">Hạng mạo hiểm:</p>
+            <p class="content__info-product-text level value">Ar 1</p>
+          </span>
+          <span class="content__info-product-content-item">
+            <p class="content__info-product-text username">Tên tài khoản:</p>
+            <p class="content__info-product-text username value">
+              Chưa thiết lập
+            </p>
+          </span>
+          <span class="content__info-product-content-item">
+            <p class="content__info-product-text price">Giá bán:</p>
+            <p class="content__info-product-text price value">0đ</p>
+          </span>
         </div>
-    </footer>
-    <modal id="modal">
-        <div class="plateBlur hide opacity"></div>
-        <div class="notification">
-            <div class="notification__wrap">
-                <i class="notification__close fa-solid fa-xmark"></i>
-                <div class="notification__face-box">
-                    <i class="notification__face">
-                        <i class="notification__face-eye"></i>
-                        <i class="notification__face-eye"></i>
-                        <i class="notification__face__nose"></i>
-                    </i>
-                    <i class="notification__face-shadow"></i>
-                </div>
-                <p class="notification__title">Thất bại!</p>
-                <p class="notification__content">Vui lòng thử lại</p>
-                <button class="btn notification__btn">Thử lại</button>
+        <div class="content__service-container">
+          <h3 class="content__service-title">🎁Ưu đãi combo khởi đầu thuận lợi</h3>
+          <div class="content__service-wrap">
+            <div type="basic" class="content__service-box">
+              <i class="fa-solid fa-circle-check content__service-select-icon"></i>
+              <h3 class="content__service-label">Gói Basic</h3>
+              <div class="content__service-discount-wrap">
+                <p class="content__service-discount-price">250.000</p>
+                <p class="content__service-discount-currency">VND</p>
+                <p class="content__service-discount">Giảm 60%</p>
+              </div>
+              <div class="content__service-price-wrap">
+                <p class="content__service-price">99.000</p>
+                <p class="content__service-price-currency">VND</p>
+              </div>
+              <div class="content__service-button-wrap">
+                <button class="content__service-button rippleBtn">
+                  Lựa chọn
+                </button>
+              </div>
+              <ul class="content__service-content-list">
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/lv-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Đạt cấp độ 18 ✅</h3>
+                  </div>
+                </li>
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/statue-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Nhặt toàn bộ</h3>
+                  </div>
+                  <div class="content__service-content-item-wrap">
+                    <div class="content__service-content-item-box">
+                      <img src="../asset/icon/ptd-icon.png" class="content__service-content-icon">
+                      <p class="content__service-content-text">Phong thần đồng</p>
+                    </div>
+                  </div>
+                </li>
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/tele-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Mở hết điểm dịch chyển</h3>
+                  </div>
+                  <div class="content__service-content-item-wrap">
+                    <div class="content__service-content-item-box">
+                      <img src="../asset/icon/phong-icon.png" class="content__service-content-icon">
+                      <p class="content__service-content-text">Mondstadt</p>
+                    </div>
+                  </div>
+                </li>
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/nguyen-thach-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Chăm sóc tài khoản</h3>
+                  </div>
+                  <div class="content__service-content-item-wrap">
+                    <div class="content__service-content-item-box">
+                      <img src="../asset/icon/chest2-icon.png" class="content__service-content-icon">
+                      <p class="content__service-content-text">Chăm trong vòng 7 ngày</p>
+                    </div>
+                    <div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/uy-thac-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Làm ủy thác</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/nnt-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Xả nhựa</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/ayaka-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Build nhân vật</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/nkht-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Làm nhật ký hành trình</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
             </div>
+            <div type="plus" class="content__service-box">
+              <i class="fa-solid fa-circle-check content__service-select-icon"></i>
+              <h3 class="content__service-label">Gói Plus</h3>
+              <div class="content__service-discount-wrap">
+                <p class="content__service-discount-price">500.000</p>
+                <p class="content__service-discount-currency">VND</p>
+                <p class="content__service-discount">Giảm 60%</p>
+              </div>
+              <div class="content__service-price-wrap">
+                <p class="content__service-price">199.000</p>
+                <p class="content__service-price-currency">VND</p>
+              </div>
+              <div class="content__service-button-wrap">
+                <button class="content__service-button rippleBtn">
+                  Lựa chọn
+                </button>
+              </div>
+              <ul class="content__service-content-list">
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/lv-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Đạt cấp độ 25 ✅</h3>
+                  </div>
+                </li>
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/statue-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Nhặt toàn bộ</h3>
+                  </div>
+                  <div class="content__service-content-item-wrap">
+                    <div class="content__service-content-item-box">
+                      <img src="../asset/icon/ptd-icon.png" class="content__service-content-icon">
+                      <p class="content__service-content-text">Phong thần đồng</p>
+                    </div>
+                    <div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/ntd-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Nham thần đồng</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/mn-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Mã não</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/tele-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Mở hết điểm dịch chyển</h3>
+                  </div>
+                  <div class="content__service-content-item-wrap">
+                    <div class="content__service-content-item-box">
+                      <img src="../asset/icon/phong-icon.png" class="content__service-content-icon">
+                      <p class="content__service-content-text">Mondstadt</p>
+                    </div>
+                    <div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/nham-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Liyue</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/long-tich-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Long tích tuyết sơn</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/nguyen-thach-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Chăm sóc tài khoản</h3>
+                  </div>
+                  <div class="content__service-content-item-wrap">
+                    <div class="content__service-content-item-box">
+                      <img src="../asset/icon/chest2-icon.png" class="content__service-content-icon">
+                      <p class="content__service-content-text">Chăm trong vòng 15 ngày</p>
+                    </div>
+                    <div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/uy-thac-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Làm ủy thác</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/nnt-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Xả nhựa</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/ayaka-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Build nhân vật</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/nkht-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Làm nhật ký hành trình</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+            </div>
+            <div type="premium" class="content__service-box">
+              <h3 class="content__service-label">Gói Premium</h3>
+              <i class="fa-solid fa-circle-check content__service-select-icon"></i>
+              <div class="content__service-discount-wrap">
+                <p class="content__service-discount-price">700.000</p>
+                <p class="content__service-discount-currency">VND</p>
+                <p class="content__service-discount">Giảm 58%</p>
+              </div>
+              <div class="content__service-price-wrap">
+                <p class="content__service-price">299.000</p>
+                <p class="content__service-price-currency">VND</p>
+              </div>
+              <div class="content__service-button-wrap">
+                <button class="content__service-button rippleBtn">
+                  Lựa chọn
+                </button>
+              </div>
+              <ul class="content__service-content-list">
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/lv-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Đạt cấp độ 35 ✅</h3>
+                  </div>
+                </li>
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/statue-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Nhặt toàn bộ</h3>
+                  </div>
+                  <div class="content__service-content-item-wrap">
+                    <div class="content__service-content-item-box">
+                      <img src="../asset/icon/ptd-icon.png" class="content__service-content-icon">
+                      <p class="content__service-content-text">Phong thần đồng</p>
+                    </div>
+                    <div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/ntd-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Nham thần đồng</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/mn-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Mã não</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/tele-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Mở hết điểm dịch chyển</h3>
+                  </div>
+                  <div class="content__service-content-item-wrap">
+                    <div class="content__service-content-item-box">
+                      <img src="../asset/icon/phong-icon.png" class="content__service-content-icon">
+                      <p class="content__service-content-text">Mondstadt</p>
+                    </div>
+                    <div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/nham-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Liyue</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/long-tich-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Long tích tuyết sơn</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/loi-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Inazuma</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="content__service-content-item">
+                  <div class="content__service-content-item-title-box">
+                    <img src="../asset/icon/nguyen-thach-icon.png" class="content__service-content-icon">
+                    <h3 class="content__service-content-title">Chăm sóc tài khoản</h3>
+                  </div>
+                  <div class="content__service-content-item-wrap">
+                    <div class="content__service-content-item-box">
+                      <img src="../asset/icon/chest2-icon.png" class="content__service-content-icon">
+                      <p class="content__service-content-text">Chăm trong vòng 30 ngày</p>
+                    </div>
+                    <div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/uy-thac-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Làm ủy thác</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/nnt-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Xả nhựa</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/ayaka-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Build nhân vật</p>
+                      </div>
+                      <div class="content__service-content-item-box">
+                        <img src="../asset/icon/nkht-icon.png" class="content__service-content-icon">
+                        <p class="content__service-content-text">Làm nhật ký hành trình</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+            </div>
+          </div>
+          <div class="content__service-voucher">
+            <p class="content__service-voucher-text">
+              🧧Tặng voucher giảm giá 10% trọn đời sử dụng dịch vụ tại <a target="_blank" class="content__service-link"
+                href="https://www.facebook.com/VariCKcaythue/">VariCK</a> 👈
+            </p>
+            <p class="content__service-voucher-text">👨‍⚖️ Dịch vụ được cung cấp bởi VariCK – Đội ngũ cày Genshin uy tín
+              chất
+              lượng hàng đầu Việt nam 👍</p>
+          </div>
         </div>
-    </modal>
-    <script type="module" src="./assets/app.js"></script>
+      </div>
+    </div>
+    <div class="content__payment-box">
+      <h3 class="content__payment-title">Thông tin thanh toán</h3>
+      <span class="content__payment-item">
+        <p class="content__payment price">Giá sản phẩm:</p>
+        <p class="content__payment price value">0đ</p>
+      </span>
+      <span class="content__payment-item">
+        <p class="content__payment service">Giá combo khởi đầu:</p>
+        <p class="content__payment service value">0đ</p>
+      </span>
+      <span class="content__payment-item">
+        <p class="content__payment discount-gift">Mã giảm giá:</p>
+        <p class="content__payment discount-gift value">0đ</p>
+      </span>
+      <span class="content__payment-item">
+        <p class="content__payment flash-sale">Chương trình giảm giá:</p>
+        <p class="content__payment flash-sale value">0đ</p>
+      </span>
+      <span class="content__payment-item">
+        <p class="content__payment total-gift">Tổng cộng đã giảm giá:</p>
+        <p class="content__payment total-gift value">0đ</p>
+      </span>
+      <div class="content__payment-giftcode-box">
+        <input type="text" class="content__payment-giftcode-input" placeholder="Nhập mã giảm giá" />
+        <div class="btn rippleBtn btn-loading disable content__payment-giftcode-submit">
+          <p class="btn-loading__text">Áp dụng</p>
+          <div class="btn-loading__icon"></div>
+        </div>
+      </div>
+      <div class="content__payment-introduce-box">
+        <input type="text" class="content__payment-introduce-input" placeholder="Nhập mã giới thiệu" />
+        <div class="btn rippleBtn btn-loading disable content__payment-introduce-submit">
+          <p class="btn-loading__text">Áp dụng</p>
+          <div class="btn-loading__icon"></div>
+        </div>
+      </div>
+      <span class="content__payment-item total">
+        <p class="content__payment total">Tổng thanh toán:</p>
+        <p class="content__payment total value">0đ</p>
+      </span>
+      <div class="payment-methods notSelect">
+        <h3 class="payment-methods-title">
+          <i class="content__payment-icon fa-duotone fa-credit-card"></i>
+          Phương thức thanh toán:
+        </h3>
+        <div class="payment-method disable" menthod="shopMoney">
+          <span class="payment-method-select-box">
+            <span class="payment-method-select"></span>
+          </span>
+          <span>
+            <p class="payment-method-title">Tài khoản Shop</p>
+            <p class="payment-method-title money">Số dư: 0đ</p>
+          </span>
+          <span class="payment-method-icon-box coin">
+            <img class="payment-method-icon coin" src="./assets/icon/coin1.png" />
+          </span>
+        </div>
+        <div class="payment-method active" menthod="bank">
+          <span class="payment-method-select-box">
+            <span class="payment-method-select"></span>
+          </span>
+          <p class="payment-method-title">Chuyển khoản ngân hàng</p>
+          <span class="payment-method-icon-box">
+            <img class="payment-method-icon" src="./assets/icon/mbbank.jpg" />
+          </span>
+        </div>
+        <div class="payment-method" menthod="momo">
+          <span class="payment-method-select-box">
+            <span class="payment-method-select"></span>
+          </span>
+          <p class="payment-method-title">Chuyển tiền bằng ví Momo</p>
+          <span class="payment-method-icon-box">
+            <img class="payment-method-icon" src="./assets/icon/momo.jpg" />
+          </span>
+        </div>
+        <div class="payment-method disable">
+          <span class="payment-method-select-box">
+            <span class="payment-method-select"></span>
+          </span>
+          <p class="payment-method-title">Chuyển tiền bằng ví Paypal</p>
+          <span class="payment-method-icon-box">
+            <img class="payment-method-icon" src="./assets/icon/paypal.png" />
+          </span>
+        </div>
+      </div>
+      <div class="content__payment-email-box">
+        <h3 class="content__payment-email-title">
+          <i class="content__payment-icon fa-solid fa-envelope"></i>
+          Nhập email nhận tài khoản:
+        </h3>
+        <input type="email" class="content__payment-email-box-input" placeholder="Nhập địa chỉ email của bạn" />
+        <message class="message"></message>
+      </div>
+      <div class="btn rippleBtn btn-loading content__payment pay">
+        <p class="btn-loading__text">Thanh toán</p>
+        <div class="btn-loading__icon"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <footer class="footer grid">
+    <div class="footer__wrap contain">
+      <div class="footer__get-news">
+        <div class="footer__get-new-box">
+          <h3 class="footer__get-news-title">Đăng ký nhận tin mới</h3>
+          <h3 class="footer__get-news-sub-title">
+            Nhận tin tức về các chương trình khuyến mãi, mã giảm giá và sản
+            phẩm mới nhất.
+          </h3>
+        </div>
+        <form class="footer__get-new-box submitForm">
+          <input type="email" class="footer__get-new-input-email" placeholder="Nhập email của bạn" />
+          <button class="footer__get-new-submit">Đăng ký</button>
+          <message class="message"></message>
+        </form>
+      </div>
+      <div class="footer__last">
+        <p class="footer__copyright">
+          © 2023 - Hbstore | Đã đăng ký bản quyền.
+        </p>
+      </div>
+    </div>
+  </footer>
+  <modal id="modal">
+    <div class="plateBlur hide opacity"></div>
+    <div class="notification">
+      <div class="notification__wrap">
+        <i class="notification__close fa-solid fa-xmark"></i>
+        <div class="notification__face-box">
+          <i class="notification__face">
+            <i class="notification__face-eye"></i>
+            <i class="notification__face-eye"></i>
+            <i class="notification__face__nose"></i>
+          </i>
+          <i class="notification__face-shadow"></i>
+        </div>
+        <p class="notification__title">Thất bại!</p>
+        <p class="notification__content">Vui lòng thử lại</p>
+        <button class="btn notification__btn">Thử lại</button>
+      </div>
+    </div>
+  </modal>
+  <script type="module" src="./assets/app.js"></script>
 </body>
 
 </html>

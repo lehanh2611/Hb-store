@@ -20,7 +20,9 @@ import {
     validate,
     cart,
     footer,
-    logHistory
+    logHistory,
+    introduce_codeAPi,
+    fastAtc
 } from "../../asset/javascript/end_point.js"
 
 const app = {
@@ -31,6 +33,8 @@ const app = {
     price: '',
     giftCode: '',
     giftCodeName: '',
+    introduceCode: null,
+    servicePrice: null,
     submit: $('.content__payment.pay'),
     handle: false,
 
@@ -60,15 +64,23 @@ const app = {
         $('.header__nav-user-name').innerText = nickName !== '' ? nickName : account.Username
         $('.header__nav-user-avt').src = avatar !== '' ? '.' + avatar : '../asset/img/user-avt/user-default.png'
         $('.content__info-product-text.uid.value').innerText = product?.UID
+        $('.content__info-product-text.uid.value').setAttribute("type", product?.Type)
+        $('.content__info-product-text.type.value').setAttribute("type", product?.Type)
+        $('.content__info-product-text.type.value').innerText = product?.Type
+        $('.content__info-product-text.price.value').innerText = formatMoney(product?.Price)
         $('.content__info-product-text.server.value').innerText = product?.Server
         $('.payment-method-title.money').innerText = `Số dư: ${formatMoney(account.Money)}`
 
         this.account = account
         this.product = product
+        if (product.Sold === "Yes") {
+            this.error()
+        }
         this.handlePaymentInfo()
     },
     handlePaymentInfo: function () {
         const priceOld = Number(this.product?.Price)
+        const image = $(".content__info-product-img")
         let price = this.product?.Discount
         let giftCode = 0
         let discountTotal = 0
@@ -97,8 +109,13 @@ const app = {
             giftCode = price - giftCode
         }
         discountTotal = giftCode + flashSale
-        this.price = priceOld - discountTotal
+        this.price = priceOld - discountTotal + this.servicePrice
+
+
+        image.src = this.product.ImageUrl
+        image.addEventListener('error', () => image.src = "../asset/img/660000000.png")
         $('.content__payment.price.value').innerText = formatMoney(priceOld)
+        $('.content__payment.service.value').innerText = formatMoney(this.servicePrice)
         $('.content__payment.discount-gift.value').innerText = `${giftCode === 0 ? '' : '-'}${formatMoney(giftCode)}`
         $('.content__payment.flash-sale.value').innerText = `${flashSale === 0 ? '' : '-'}${formatMoney(flashSale)}`
         $('.content__payment.total-gift.value').innerText = `${discountTotal === 0 ? '' : '-'}${formatMoney(discountTotal)}`
@@ -122,9 +139,11 @@ const app = {
                     this.giftCode = v
                     simpleNoti('Mã giảm giá đã được áp dụng', true)
                     this.handlePaymentInfo()
+                    input.classList.add("success")
                 }
                 else {
                     simpleNoti('Mã giảm giá không chính xác', false)
+                    input.classList.remove("success")
                 }
                 //hide btn loading
                 btn.classList.remove('active')
@@ -139,6 +158,43 @@ const app = {
             }
         }
     },
+    submitIntroduceCode: function () {
+        const input = $(".content__payment-introduce-input")
+        const submitButton = $(".content__payment-introduce-submit")
+        let inputCode
+
+        input.addEventListener('input', ({ target }) => {
+            inputCode = target.value
+            inputCode !== "" ? submitButton.classList.remove('disable')
+                : submitButton.classList.add('disable')
+        })
+
+        submitButton.onclick = async () => {
+            if (inputCode === "") return
+
+            submitButton.classList.add("active")
+
+            try {
+                const dataIntroCode = await Get(introduce_codeAPi)
+
+                if (dataIntroCode === null) throw new Error
+
+                if (dataIntroCode[inputCode] || dataIntroCode[inputCode] === 0) {
+                    simpleNoti("Nhập mã giới thiệu thành công")
+                    this.introduceCode = inputCode
+                    input.classList.add("success")
+                }
+                else {
+                    simpleNoti("Mã giới thiệu không chính xác", false)
+                    // input.classList.remove("success")
+                }
+            }
+            catch {
+                simpleNoti("Có lỗi xảy ra!", false)
+            }
+            submitButton.classList.remove("active")
+        }
+    },
     paymentSubmit: async function () {
         const parent = $('.content__payment-email-box')
         const selector = {
@@ -148,8 +204,9 @@ const app = {
         const rule = ['email', 'required']
         selector.input.addEventListener('focusin', () => { selector.message.innerText = '' })
         selector.input.addEventListener('focusout', () => { validate.start(selector, rule) })
-        this.submit.addEventListener('click', () => {
-            if (!validate.start(selector, rule)) { return }
+
+        const submitHandler = async () => {
+            if (!await validate.start(selector, rule)) { return }
             if (this.account.Block === 'true') {
                 notificationWindow(
                     false,
@@ -167,6 +224,7 @@ const app = {
                 )
                 return
             }
+            this.submit.removeEventListener('click', submitHandler)
             //show btn loading
             this.submit.classList.add('active')
             //create Order code
@@ -188,15 +246,26 @@ const app = {
                 }
             }
 
+            const fetchOrder = await Get(orderAPi)
+            let orderCodeGenerator = orderCode
+
+            if (fetchOrder !== null) {
+                while (fetchOrder[orderCodeGenerator]) {
+                    orderCodeGenerator = orderCode + "S" + Math.floor(Math.random() * 100)
+                }
+            }
+
             //create payment data
             const paymentData = {
-                Ordercode: orderCode,
+                Ordercode: orderCodeGenerator,
                 Status: '',
                 UserID: this.account.UserID,
                 ProductID: this.product?.ProductID,
                 Price: this.price,
+                ServicePrice: this.servicePrice,
                 Flashsale: this.product?.Flashsale,
                 Giftcode: this.giftCodeName,
+                NitroduceCode: this.introduceCode,
                 Menthod: menthod,
                 Email: selector.input.value.trim(),
                 Date: logHistory.getRealTime()
@@ -214,20 +283,27 @@ const app = {
 
             //check order
             GETelement(orderAPi, v => {
-                if (v?.length === 0 || !v) { v = [] }
-                if (Object.keys(v).some(v => v.includes(app.product?.UID))) {
-                    this.error()
+                // if (v?.length === 0 || !v) { v = [] }
+                // if (Object.keys(v).some(v => v.includes(app.product?.UID))) {
+                //     this.error()
+                // }
+                // else {
+                //     if (paymentData.Menthod !== 'shopMoney') {
+                //         this.menthodOther(paymentData, newCart, urlUser)
+                //     }
+                //     else {
+                //         this.menthodShop(paymentData, newCart, urlUser)
+                //     }
+                // }
+                if (paymentData.Menthod !== 'shopMoney') {
+                    this.menthodOther(paymentData, newCart, urlUser)
                 }
                 else {
-                    if (paymentData.Menthod !== 'shopMoney') {
-                        this.menthodOther(paymentData, newCart, urlUser)
-                    }
-                    else {
-                        this.menthodShop(paymentData, newCart, urlUser)
-                    }
+                    this.menthodShop(paymentData, newCart, urlUser)
                 }
             })
-        })
+        }
+        this.submit.addEventListener('click', submitHandler)
     },
     menthodShop: async function (paymentData, newCart, urlUser) {
         const money = await Get(urlUser + '/Money')
@@ -344,7 +420,7 @@ const app = {
             Patch(`${urlUser}/Order/`, { [paymentData.Ordercode]: order }),
 
             // update cart and status product
-            Patch(`${productAPi}/${paymentData.ProductID}`, { Sold: 'Yes' }),
+            // Patch(`${productAPi}/${paymentData.ProductID}`, { Sold: 'Yes' }),
             Patch(urlUser, { Cart: newCart }),
 
             //create notification
@@ -375,6 +451,37 @@ const app = {
     select: function () {
         select($$('.payment-method'))
     },
+    selectService: function () {
+        const options = $$('.content__service-box')
+        for (const option of options) {
+            const button = option.querySelector('button')
+            button.onclick = () => {
+                option.classList.toggle("select")
+                for (const newOption of options) {
+                    const newButton = newOption.querySelector('button')
+                    if (newButton !== button) {
+                        newOption.classList.remove("select")
+                        newButton.innerText = "Lựa chọn"
+                    }
+                }
+                if (Array.from(option.classList).includes("select")) {
+                    switch (option.getAttribute("type")) {
+                        case "basic": this.servicePrice = 99000
+                            break
+                        case "plus": this.servicePrice = 199000
+                            break
+                        case "premium": this.servicePrice = 299000
+                    }
+                    button.innerText = "Bỏ chọn"
+                }
+                else {
+                    this.servicePrice = 0
+                    button.innerText = "Lựa chọn"
+                }
+                this.handlePaymentInfo()
+            }
+        }
+    },
 
     start: async function () {
         this.orders = await Get(orderAPi)
@@ -386,6 +493,8 @@ const app = {
         iconShadow($$('.payment-method-icon-box'))
         this.submitGiftCode()
         this.paymentSubmit()
+        this.submitIntroduceCode()
+        this.selectService()
         footer.start()
     }
 }
