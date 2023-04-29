@@ -1485,6 +1485,7 @@ flashSale.start();
 //Stall
 const stall = function () {
   GETelement(productAPi, (products) => {
+    const productsRandom = []
     products = products.filter((product) => {
       if (!product) { return }
       if (product.flashSale === "Yes" || !product) {
@@ -1492,6 +1493,13 @@ const stall = function () {
       }
       return true;
     });
+
+    products.forEach(v => {
+      productsRandom[(Math.ceil(Math.random() * 10) >= 5 ? "push" : "unshift")](v)
+    })
+
+    products = productsRandom
+
     const stall = {
       productContain: $(".stall__product-contain"),
       filterBtn: $(".stall__filter-btn"),
