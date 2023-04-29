@@ -94,6 +94,8 @@ function header() {
   const cartBtn = $(".header__feature-box.cart");
 
   cartBtn.onmouseenter = (e) => {
+    console.log(userActiveID)
+    if (userActiveID === null) return
     e.target.classList.add("active");
     renderCart();
   };
@@ -133,6 +135,7 @@ function header() {
   menuBarBtn.addEventListener("click", menuBar);
 
   function menuBar() {
+    if (userActiveID === null) return
     menuBarBody.classList.toggle("active");
 
     if (menuBarBody.classList.value.includes("active")) {
@@ -871,10 +874,10 @@ const notication = {
         }
         return noti
       })
-      Put(urlNoti, newNoti);
+      await Put(urlNoti, newNoti);
     }
 
-    notication.account.Notification = newNoti;
+    notication.account.Notification = await Get(urlNoti) ?? [];
     notication.render();
     notication.newNoti();
   },
@@ -883,11 +886,16 @@ const notication = {
     const closeBtnM = $(".header__noti-close");
 
     this.btnM.onclick = () => {
-      this.restart();
       $("#header").appendChild(notiMenu);
       notiMenu.classList.add("show-m");
+      notication.restart();
       plateBlur(true, notiMenu);
     };
+
+    closeBtnM.onclick = () => {
+      this.seenUpdate();
+    }
+
     window.addEventListener("click", function closeNoti(e) {
       closeWithRule.start(e, [".header__user-menu-item.noti"], () => {
         notiMenu.classList.remove("show-m");
@@ -903,6 +911,7 @@ const notication = {
         notication.btn.appendChild(notiMenu);
       }
     }
+
     this.btn.addEventListener("mouseenter", mouseeStart);
 
     window.addEventListener("scroll", function scrollStart() {
@@ -913,12 +922,6 @@ const notication = {
     this.btn.addEventListener("mouseleave", () => {
       this.btn.addEventListener("mouseenter", mouseeStart);
       this.seenUpdate();
-    });
-
-    $(".header__user-menu-item.noti").addEventListener("click", () => {
-      setTimeout(() => {
-        this.seenUpdate();
-      }, 500);
     });
   },
 
