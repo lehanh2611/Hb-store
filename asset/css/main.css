@@ -590,8 +590,9 @@
 
 .header__feature-title {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin-top: 5px;
+  font-weight: 500;
 }
 
 .header__feature-title:active {
@@ -1458,7 +1459,7 @@
   width: 100%;
   line-height: 1.4;
   text-shadow: 0 0 6px rgb(0, 34, 255);
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   text-align: left;
 }
 
@@ -1773,6 +1774,7 @@
   color: var(--red-dark);
   margin: 0 10px;
   margin-bottom: -3px;
+  font-weight: 500;
 }
 
 .stall__title-icon {
@@ -1825,6 +1827,7 @@
   justify-content: center;
   padding: 0 10px;
   height: 100%;
+  font-weight: 500;
 }
 
 .stall__navbar-item {
@@ -1906,6 +1909,7 @@
 
 .stall__filter-btn p {
   font-size: 1.6rem;
+  font-weight: 500;
   padding-right: 5px;
 }
 
@@ -2062,7 +2066,6 @@
 }
 
 .product-item__price {
-  font-weight: 400;
   color: var(--red);
 }
 

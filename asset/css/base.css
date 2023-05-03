@@ -1602,22 +1602,22 @@ button {
 
 .product-item-uid[type="Đặc biệt"],
 .product-item-type[type="Đặc biệt"] {
-  color: #0047AB;
+  color: #f52699;
 }
 
 .product-item-uid[type="Ngũ quý"],
 .product-item-type[type="Ngũ quý"] {
-  color: #2E8B57;
+  color: #315ee5;
 }
 
 .product-item-uid[type="Sảnh tiến"],
 .product-item-type[type="Sảnh tiến"] {
-  color: #E6AF2E;
+  color: #00fffb;
 }
 
 .product-item-uid[type="Lục quý"],
 .product-item-type[type="Lục quý"] {
-  color: #c908d3;
+  color: #f200ff;
 }
 
 .product-item-uid[type="Thất quý"],
@@ -1636,7 +1636,8 @@ button {
 
 .product-item__buy {
   border-radius: 16px;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1.5rem;
   color: var(--default);
   border-radius: 2px;
   user-select: none;
