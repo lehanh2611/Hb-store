@@ -111,7 +111,6 @@ export const cart = {
 
       this.meunuCart.classList.remove("show-m", "active");
       meunuCartH.appendChild(this.meunuCart);
-      plateBlur(false);
     });
 
     $(".header__user-menu-item.cart").onclick = () => {

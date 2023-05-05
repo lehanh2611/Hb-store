@@ -94,7 +94,6 @@ function header() {
   const cartBtn = $(".header__feature-box.cart");
 
   cartBtn.onmouseenter = (e) => {
-    console.log(userActiveID)
     if (userActiveID === null) return
     e.target.classList.add("active");
     renderCart();
@@ -135,7 +134,6 @@ function header() {
   menuBarBtn.addEventListener("click", menuBar);
 
   function menuBar() {
-    if (userActiveID === null) return
     menuBarBody.classList.toggle("active");
 
     if (menuBarBody.classList.value.includes("active")) {
