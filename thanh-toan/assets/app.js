@@ -206,7 +206,7 @@ const app = {
         selector.input.addEventListener('focusout', () => { validate.start(selector, rule) })
 
         const submitHandler = async () => {
-            if (!await validate.start(selector, rule)) { return }
+            if (!await validate.start(selector, rule) || this.submit.classList.value.includes("active")) { return }
             if (this.account.Block === 'true') {
                 notificationWindow(
                     false,
@@ -224,7 +224,6 @@ const app = {
                 )
                 return
             }
-            this.submit.removeEventListener('click', submitHandler)
             //show btn loading
             this.submit.classList.add('active')
             //create Order code
