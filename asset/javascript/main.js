@@ -1309,18 +1309,6 @@ const flashSale = {
             items[index]?.classList.add("active");
           }, 200);
         }
-        window.addEventListener("scroll", showNoti);
-
-        function showNoti() {
-          let notifi = $(".flash-sale__notification");
-          if (window.scrollY >= 260) {
-            notifi.classList.add("active");
-            setTimeout(() => {
-              notifi.classList.remove("active");
-            }, 5000);
-            window.removeEventListener("scroll", showNoti);
-          }
-        }
       });
     });
   },
@@ -1338,20 +1326,23 @@ const flashSale = {
       this.btnRight.click();
     };
 
-    this.productContain.addEventListener("mouseover", () => {
-      const products = $$(".flash-sale .product-item");
-      for (let product of products) {
-        //Pause
-        product.addEventListener("mouseenter", () => {
-          animate.pause();
-        });
+    if (window.innerWidth >= 960) {
+      this.productContain.addEventListener("mouseover", () => {
+        const products = $$(".flash-sale .product-item");
+        for (let product of products) {
+          //Pause
+          product.addEventListener("mouseenter", () => {
+            animate.pause();
 
-        //Play
-        product.addEventListener("mouseleave", () => {
-          animate.play();
-        });
-      }
-    });
+          });
+
+          //Play
+          product.addEventListener("mouseleave", () => {
+            animate.play();
+          });
+        }
+      });
+    }
 
     //Cancel
     if (animate.currentTime > 100) {

@@ -113,7 +113,7 @@ const app = {
 
 
         image.src = this.product.ImageUrl
-        image.addEventListener('error', () => image.src = "../asset/img/660000000.png")
+        image.addEventListener('error', () => image.src = "../asset/img/background-account.png")
         $('.content__payment.price.value').innerText = formatMoney(priceOld)
         $('.content__payment.service.value').innerText = formatMoney(this.servicePrice)
         $('.content__payment.discount-gift.value').innerText = `${giftCode === 0 ? '' : '-'}${formatMoney(giftCode)}`

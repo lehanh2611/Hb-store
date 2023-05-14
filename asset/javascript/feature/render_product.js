@@ -48,8 +48,14 @@ function body(id, uid, server, price, disStatus, discount = undefined, sold, typ
 
   return `<div item_id="${id}" class="product-item ${sold}">
     <div class="product-item__box-top">
+        <div class="product-item__img-box-wrap">
         <div class="product-item__img-box">
-        <img class="product-item__img" src="./asset/img/660000000.png">
+        <span class="product-item__img-label-box">
+        <p class="product-item__img-label-type">${type} UID</p>
+        <p class="product-item__img-label-uid">${uid}</p>
+        </span>
+        <img class="product-item__img" alt="acc genshin uid đẹp" src="./asset/img/background-account.png">
+        </div>
         </div>
         <span class="product-item__discounts-wrap">
             <p class="product-item__discounts">-${discountRatio}%</p>
