@@ -384,7 +384,7 @@ const app = {
 
             submit.classList.remove('active')
             notificationWindow(true,
-                'Hb store đang xử lý',
+                'HB store đang xử lý',
                 'Theo dõi trong phần thông báo',
                 () => { this.goBack() })
         })
@@ -435,7 +435,7 @@ const app = {
         }, 100)
         setTimeout(() => {
             if (!this.info) { window.location.href = window.location.origin }
-        }, 600);
+        }, 600)
     },
 
     atc: function () {

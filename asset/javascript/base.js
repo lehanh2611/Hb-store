@@ -27,7 +27,6 @@ export const introduce_codeAPi =
 export const subscribeReceiveNewsAPi =
   `${BASE_URL}/subscribe_receive_news`
 
-
 //Order storage//
 export const orderAPi =
   `${BASE_URL}/order`
@@ -40,14 +39,18 @@ export const orderDoneAPi =
 export const depositAPi =
   `${BASE_URL}/deposit`
 
+//Traffic storage//
+export const trafficAPi =
+  `${BASE_URL}/traffic`
+
 //Get element/api
 export function GETelement(url, callback) {
   // console.log(url)
   fetch(`${url}.json`)
     .then((element) => {
-      return element.json();
+      return element.json()
     })
-    .then(callback);
+    .then(callback)
 }
 //Post element/api
 export function POSTelement(url, value, callback) {
@@ -58,9 +61,9 @@ export function POSTelement(url, value, callback) {
     body: JSON.stringify(value),
   })
     .then((element) => {
-      return element.json();
+      return element.json()
     })
-    .then(callback);
+    .then(callback)
 }
 //Put element/api
 export function PUTelement(url, value, callback) {
@@ -71,9 +74,9 @@ export function PUTelement(url, value, callback) {
     body: JSON.stringify(value),
   })
     .then((element) => {
-      return element.json();
+      return element.json()
     })
-    .then(callback);
+    .then(callback)
 }
 //Patch element/api
 export function PATCHelement(url, value, callback) {
@@ -84,9 +87,9 @@ export function PATCHelement(url, value, callback) {
     body: JSON.stringify(value),
   })
     .then((element) => {
-      return element.json();
+      return element.json()
     })
-    .then(callback);
+    .then(callback)
 }
 //Delete element/api
 export function DELETEelement(url, callback) {
@@ -96,17 +99,17 @@ export function DELETEelement(url, callback) {
     headers: { "Content-type": "application/json" },
   })
     .then((element) => {
-      return element.json();
+      return element.json()
     })
-    .then(callback);
+    .then(callback)
 }
 
 //Get element/api
 export function Get(url, callback) {
   // console.log(url)
   return fetch(`${url}.json`).then((element) => {
-    return element.json();
-  });
+    return element.json()
+  })
 }
 //Post element/api
 export function Post(url, value, callback) {
@@ -116,8 +119,8 @@ export function Post(url, value, callback) {
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(value),
   }).then((element) => {
-    return element.json();
-  });
+    return element.json()
+  })
 }
 //Put element/api
 export function Put(url, value, callback) {
@@ -127,8 +130,8 @@ export function Put(url, value, callback) {
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(value),
   }).then((element) => {
-    return element.json();
-  });
+    return element.json()
+  })
 }
 //Patch element/api
 export function Patch(url, value, callback) {
@@ -138,8 +141,8 @@ export function Patch(url, value, callback) {
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(value),
   }).then((element) => {
-    return element.json();
-  });
+    return element.json()
+  })
 }
 //Delete element/api
 export function Delete(url, callback) {
@@ -148,8 +151,8 @@ export function Delete(url, callback) {
     method: "DELETE",
     headers: { "Content-type": "application/json" },
   }).then((element) => {
-    return element.json();
-  });
+    return element.json()
+  })
 }
 
 //Remove null api
