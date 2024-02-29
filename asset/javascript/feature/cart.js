@@ -42,6 +42,10 @@ export const cart = {
       const buyText = "product-item__buy";
       let elmActive;
 
+      if (parent && !elm.classList.value.includes("product-item__add-cart")) {
+        parent.querySelector(".product-item__buy").click?.()
+      }
+
       if (elmCN.includes(addText)) {
         elmActive = addText;
       }
@@ -111,7 +115,6 @@ export const cart = {
 
       this.meunuCart.classList.remove("show-m", "active");
       meunuCartH.appendChild(this.meunuCart);
-      plateBlur(false);
     });
 
     $(".header__user-menu-item.cart").onclick = () => {
@@ -315,7 +318,7 @@ export const cart = {
       }
       return (acc += `<li item_id="${item.ProductID}" class="header__cart-item">
             <i class="header__cart-item-remove fa-solid fa-trash"></i>
-        <img src="./asset/img/660000000.png" class="header__cart-item-img">
+        <img src="./asset/img/image-account-loading.png" class="header__cart-item-img">
         <div class="header__cart-info-box">
             <span class="header__cart-info">
                 <p class="header__cart-info-title uid">UID:</p>

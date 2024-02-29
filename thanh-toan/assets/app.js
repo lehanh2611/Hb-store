@@ -113,7 +113,7 @@ const app = {
 
 
         image.src = this.product.ImageUrl
-        image.addEventListener('error', () => image.src = "../asset/img/660000000.png")
+        image.addEventListener('error', () => image.src = "../asset/img/background-account.png")
         $('.content__payment.price.value').innerText = formatMoney(priceOld)
         $('.content__payment.service.value').innerText = formatMoney(this.servicePrice)
         $('.content__payment.discount-gift.value').innerText = `${giftCode === 0 ? '' : '-'}${formatMoney(giftCode)}`
@@ -206,7 +206,7 @@ const app = {
         selector.input.addEventListener('focusout', () => { validate.start(selector, rule) })
 
         const submitHandler = async () => {
-            if (!await validate.start(selector, rule)) { return }
+            if (!await validate.start(selector, rule) || this.submit.classList.value.includes("active")) { return }
             if (this.account.Block === 'true') {
                 notificationWindow(
                     false,
@@ -224,7 +224,6 @@ const app = {
                 )
                 return
             }
-            this.submit.removeEventListener('click', submitHandler)
             //show btn loading
             this.submit.classList.add('active')
             //create Order code
@@ -385,7 +384,7 @@ const app = {
 
             submit.classList.remove('active')
             notificationWindow(true,
-                'Hb store đang xử lý',
+                'HB store đang xử lý',
                 'Theo dõi trong phần thông báo',
                 () => { this.goBack() })
         })
@@ -436,7 +435,7 @@ const app = {
         }, 100)
         setTimeout(() => {
             if (!this.info) { window.location.href = window.location.origin }
-        }, 600);
+        }, 600)
     },
 
     atc: function () {

@@ -32,10 +32,11 @@ import {
   orderDoneAPi,
   introduce_codeAPi,
   Put,
-} from "../../asset/javascript/end_point.js";
+  trafficAPi,
+} from "../../asset/javascript/end_point.js"
 
-let admin;
-let apiBody;
+let admin
+let apiBody
 
 /***** Body *****/
 const body = {
@@ -45,27 +46,32 @@ const body = {
   handle: {
     account: {
       manage: function (categoryKey) {
-        const keyBody = "Account.Manage";
-        const apiBody = accountApi;
-        localStorage.setItem("categoryHistory", JSON.stringify(categoryKey));
+        const keyBody = "Account.Manage"
+        const apiBody = accountApi
+        localStorage.setItem("categoryHistory", JSON.stringify(categoryKey))
 
         //get the account
         new Promise((resolve) => {
-          GETelement(apiBody, (accounts) => resolve(accounts));
+          GETelement(apiBody, (accounts) => resolve(accounts))
         })
 
           //Get product list
           .then((accounts) => {
-            localStorage.setItem(keyBody, JSON.stringify(accounts));
+            localStorage.setItem(keyBody, JSON.stringify(accounts))
 
             const manage = {
               appBoradContain: $(".app-borad__contain"),
 
+              trafficUser: async () => {
+                const textContainer = $(".traffic_value")
+                const trafficData = await Get(trafficAPi)
+                textContainer.innerText = trafficData
+              },
               //Render the account
               render: function (data = accounts) {
                 const output = data.reduce((accmulate, account) => {
                   if (!account) {
-                    return accmulate;
+                    return accmulate
                   }
                   return (accmulate += `<ul item_id="${account.UserID}" ${account.Block === "true"
                     ? 'block = "true" '
@@ -86,22 +92,22 @@ const body = {
                     }</li>
                                     <li class="app-board__data-item money hide-m">
                                     ${formatMoney(account.Money)}</li>
-                                </ul>`);
-                }, "");
+                                </ul>`)
+                }, "")
 
-                this.appBoradContain.innerHTML = output;
+                this.appBoradContain.innerHTML = output
 
-                const appboradElement = $$(".app-board__data");
+                const appboradElement = $$(".app-board__data")
 
                 //Callback return element in process active
                 select(appboradElement, (element) => {
-                  this.fullInfoRender(element);
-                });
+                  this.fullInfoRender(element)
+                })
 
                 // render done
                 setTimeout(() => {
-                  this.renderDone();
-                }, 0);
+                  this.renderDone()
+                }, 0)
               },
 
               fullInfoRender: function (element, reload = false) {
@@ -110,73 +116,73 @@ const body = {
                   //get new data account
                   if (reload) {
                     GETelement(apiBody, (newAccounts) => {
-                      resolve(newAccounts);
-                    });
+                      resolve(newAccounts)
+                    })
                   } else {
-                    resolve(accounts);
+                    resolve(accounts)
                   }
                 }).then((accounts) => {
                   accounts.forEach((account) => {
                     if (account?.UserID == element.getAttribute("item_id")) {
-                      const date = account.DateCreated;
+                      const date = account.DateCreated
                       $(".app-bot__info-data.value.userid").innerText =
-                        account.UserID;
+                        account.UserID
                       $(".app-bot__info-data.value.username").innerText =
-                        account.Username;
+                        account.Username
                       $(".app-bot__info-data.value.nickname").innerText =
                         account.Nickname === undefined
                           ? "N/A"
-                          : account.Nickname;
+                          : account.Nickname
                       $(".app-bot__info-data.value.email").innerText =
-                        account.Email;
+                        account.Email
                       $(".app-bot__info-data.value.money").innerText =
-                        formatMoney(account.Money);
+                        formatMoney(account.Money)
                       $(".app-bot__info-data.value.moneySpent").innerText =
                         account.MoneySpent === undefined
                           ? "N/A"
-                          : formatMoney(account.MoneySpent);
+                          : formatMoney(account.MoneySpent)
                       $(".app-bot__info-data.value.totalDeposit").innerText =
-                        formatMoney(account.TotalDeposit);
+                        formatMoney(account.TotalDeposit)
                       $(
                         ".app-bot__info-data.value.date"
-                      ).innerText = `${date.date}/${date.month}/${date.year}`;
+                      ).innerText = `${date.date}/${date.month}/${date.year}`
                     }
-                  });
+                  })
 
                   // Check lock status
-                  const parentIcon = $(".app__top-feature.block");
+                  const parentIcon = $(".app__top-feature.block")
 
                   if (element.getAttribute("block") === "true") {
-                    parentIcon.classList.add("unlock");
+                    parentIcon.classList.add("unlock")
                   } else {
-                    parentIcon.classList.remove("unlock");
+                    parentIcon.classList.remove("unlock")
                   }
-                });
+                })
               },
 
               lock: function () {
-                const lockBtn = $(".app__top-feature.block");
+                const lockBtn = $(".app__top-feature.block")
 
                 if (!lockBtn) {
-                  return;
+                  return
                 }
-                lockBtn.addEventListener("click", lockHandle);
+                lockBtn.addEventListener("click", lockHandle)
 
                 function lockHandle() {
-                  const elementActive = $(".app-board__data.active");
+                  const elementActive = $(".app-board__data.active")
 
                   // Check select, not select => skip logic
                   if (!elementActive) {
-                    return;
+                    return
                   }
-                  lockBtn.removeEventListener("click", lockHandle);
+                  lockBtn.removeEventListener("click", lockHandle)
 
                   const containId = elementActive
                     .closest(".app-board__data")
-                    .getAttribute("item_id");
+                    .getAttribute("item_id")
                   const lockBox = elementActive.querySelector(
                     ".app-board__data-item.userId"
-                  );
+                  )
 
                   if (elementActive) {
                     GETelement(`${accountApi}/${containId}`, (account) => {
@@ -188,15 +194,15 @@ const body = {
                               Block: "true",
                             },
                             () => {
-                              resolve();
+                              resolve()
                             }
-                          );
+                          )
 
                           //add icon lock
-                          lockBox.innerHTML = `<i class="app-board__data-lock fa-solid fa-lock"></i>${lockBox.innerHTML}`;
+                          lockBox.innerHTML = `<i class="app-board__data-lock fa-solid fa-lock"></i>${lockBox.innerHTML}`
 
                           //change icon button lock
-                          lockBtn.classList.add("unlock");
+                          lockBtn.classList.add("unlock")
                         } else {
                           PATCHelement(
                             `${accountApi}/${containId}`,
@@ -204,68 +210,68 @@ const body = {
                               Block: "false",
                             },
                             () => {
-                              resolve();
+                              resolve()
                             }
-                          );
+                          )
 
                           //remove icon lock
                           const lockIcon = elementActive.querySelector(
                             ".app-board__data-lock"
-                          );
+                          )
 
                           if (lockIcon) {
-                            lockIcon.remove();
+                            lockIcon.remove()
                           }
 
                           //change icon button lock
-                          lockBtn.classList.remove("unlock");
+                          lockBtn.classList.remove("unlock")
                         }
                         setTimeout(() => {
-                          lockBtn.addEventListener("click", lockHandle);
-                        }, 0);
-                      });
-                    });
+                          lockBtn.addEventListener("click", lockHandle)
+                        }, 0)
+                      })
+                    })
                   }
                 }
               },
 
               deposit: function () {
-                const depositBtn = $(".app__top-feature.depositBtn");
-                const depositBox = $(".deposit");
-                const depositClose = $(".deposit__close");
-                const nameContain = $(".deposit__title-sub");
-                const depositSubmit = $(".deposit__button");
+                const depositBtn = $(".app__top-feature.depositBtn")
+                const depositBox = $(".deposit")
+                const depositClose = $(".deposit__close")
+                const nameContain = $(".deposit__title-sub")
+                const depositSubmit = $(".deposit__button")
 
                 depositBtn.onclick = () => {
-                  const elementActive = $(".app-board__data.active");
+                  const elementActive = $(".app-board__data.active")
 
                   // Check select, not select => skip logic
                   if (!elementActive) {
-                    return;
+                    return
                   }
 
                   //show deposit box
-                  depositBox.style.display = "flex";
+                  depositBox.style.display = "flex"
 
                   //close deposit box
                   depositClose.onclick = () => {
-                    depositBox.style.display = "none";
-                  };
+                    depositBox.style.display = "none"
+                  }
 
-                  $(".deposit__contain").onclick = (e) => e.stopPropagation();
+                  $(".deposit__contain").onclick = (e) => e.stopPropagation()
 
                   depositBox.onclick = () => {
-                    depositBox.style.display = "none";
-                  };
+                    depositBox.style.display = "none"
+                  }
 
                   //show username deposit
                   nameContain.innerText =
-                    elementActive.querySelector(".userName").innerText;
+                    elementActive.querySelector(".userName").innerText
 
                   // send request deposit
                   depositSubmit.onclick = () => {
                     //activated animate button
-                    depositSubmit.classList.add("active");
+                    depositSubmit.classList.add("active")
 
                     //check password admin
                     GETelement(
@@ -281,23 +287,23 @@ const body = {
                           //Get value deposit
                           const depositValue = Number(
                             $(".deposit__input.money").value
-                          );
+                          )
 
                           // not value => exit deposit request
                           if (depositValue === 0 || depositValue === NaN) {
                             //stop animate button
-                            depositSubmit.classList.remove("active");
-                            return;
+                            depositSubmit.classList.remove("active")
+                            return
                           }
 
                           const url = `${accountApi}/${elementActive.getAttribute(
                             "item_id"
-                          )}`;
+                          )}`
 
                           //deposit...
                           GETelement(url, (account) => {
-                            const currentMoney = account.Money;
-                            const newMoney = currentMoney + depositValue;
+                            const currentMoney = account.Money
+                            const newMoney = currentMoney + depositValue
 
                             //deposit successful
                             PATCHelement(
@@ -311,35 +317,35 @@ const body = {
                                 //show new money
                                 elementActive.querySelector(
                                   ".app-board__data-item.money"
-                                ).innerText = formatMoney(newMoney);
+                                ).innerText = formatMoney(newMoney)
 
                                 notificationWindow(
                                   true,
                                   "Nạp tiền hoàn tất",
                                   "",
                                   () => {
-                                    notificationWindow();
-                                    depositBox.style.display = "none";
+                                    notificationWindow()
+                                    depositBox.style.display = "none"
                                   }
-                                );
+                                )
 
-                                depositBox.click();
+                                depositBox.click()
 
                                 //update full info
-                                this.fullInfoRender(elementActive, true);
+                                this.fullInfoRender(elementActive, true)
 
                                 //stop animate button
-                                depositSubmit.classList.remove("active");
+                                depositSubmit.classList.remove("active")
 
                                 // clear value
                                 depositBox
                                   .querySelectorAll("input")
                                   .forEach((element) => {
-                                    element.value = "";
-                                  });
+                                    element.value = ""
+                                  })
                               }
-                            );
-                          });
+                            )
+                          })
                         } else {
                           notificationWindow(
                             false,
@@ -347,33 +353,33 @@ const body = {
                             "Vui lòng thử lại",
                             () => {
                               //stop animate button
-                              depositSubmit.classList.remove("active");
-                              notificationWindow();
+                              depositSubmit.classList.remove("active")
+                              notificationWindow()
                             },
                             "Thử lại"
-                          );
+                          )
                         }
                       }
-                    );
-                  };
-                };
+                    )
+                  }
+                }
 
                 //remove default submit
                 depositBox
                   .querySelector("form")
-                  .addEventListener("submit", (e) => e.preventDefault());
+                  .addEventListener("submit", (e) => e.preventDefault())
               },
               search: function () {
-                const input = $(".app__mid-nav-search");
+                const input = $(".app__mid-nav-search")
                 function search() {
-                  input.removeEventListener("input", search);
+                  input.removeEventListener("input", search)
 
                   filter(accounts, { all: input.value }, (v) => {
-                    manage.render(v);
-                    input.addEventListener("input", search);
-                  });
+                    manage.render(v)
+                    input.addEventListener("input", search)
+                  })
                 }
-                input.addEventListener("input", search);
+                input.addEventListener("input", search)
               },
 
               shared: {
@@ -385,52 +391,53 @@ const body = {
                         "Chức năng chưa sẵn sàng",
                         "vẫn đang trong quá trình phát triển, vui lòng thử lại sau",
                         () => {
-                          notificationWindow();
+                          notificationWindow()
                         },
                         "Quay lại"
-                      );
-                    });
-                  });
+                      )
+                    })
+                  })
                 },
               },
 
               renderDone: function () {
-                body.handle.shared.notSelect();
-                body.handle.shared.delete(keyBody);
-                this.shared.featureNotAvailable();
+                body.handle.shared.notSelect()
+                body.handle.shared.delete(keyBody)
+                this.shared.featureNotAvailable()
               },
 
               start: function () {
-                this.render();
-                this.lock();
-                this.deposit();
-                this.search();
+                this.trafficUser()
+                this.render()
+                this.lock()
+                this.deposit()
+                this.search()
               },
-            };
+            }
 
-            manage.start();
-          });
+            manage.start()
+          })
       },
     },
     product: {
       manage: function (categoryKey) {
-        const keyBody = "Product.Manage";
-        const productContain = $(".app-borad__contain");
-        const form = $(".product-form");
-        const submit = $(".product-form__submit");
-        const formTitle = $(".product-form__title");
-        const formTitleSub = $(".product-form__title-sub");
+        const keyBody = "Product.Manage"
+        const productContain = $(".app-borad__contain")
+        const form = $(".product-form")
+        const submit = $(".product-form__submit")
+        const formTitle = $(".product-form__title")
+        const formTitleSub = $(".product-form__title-sub")
 
-        localStorage.setItem("categoryHistory", JSON.stringify(categoryKey));
+        localStorage.setItem("categoryHistory", JSON.stringify(categoryKey))
 
         new Promise((resolve) => {
-          GETelement(apiBody, (products) => resolve(products));
+          GETelement(apiBody, (products) => resolve(products))
         })
 
           //Get product list
           .then((products) => {
             //update product
-            localStorage.setItem(keyBody, JSON.stringify(products));
+            localStorage.setItem(keyBody, JSON.stringify(products))
 
             const manage = {
               //Render products
@@ -438,16 +445,16 @@ const body = {
                 new Promise((resolve) => {
                   if (arguments.length >= 1) {
                     filter(products, rule, (productsFil) => {
-                      resolve(productsFil);
-                    });
+                      resolve(productsFil)
+                    })
                   } else {
-                    resolve(products);
+                    resolve(products)
                   }
                 }).then((data) => {
                   if (!Array.isArray(data)) { data = Object.values(data) }
                   const output = data.reduce((accmulate, product) => {
                     if (!product) {
-                      return accmulate;
+                      return accmulate
                     }
                     return (accmulate += `<ul item_id="${product.ProductID
                       }" sold="${product.Sold}"class="app-board__data">
@@ -461,12 +468,12 @@ const body = {
                                     <li class="app-board__data-item price hide-m">
                                     ${formatMoney(product.Price)}
                                     </li>
-                                </ul>`);
-                  }, "");
+                                </ul>`)
+                  }, "")
 
-                  productContain.innerHTML = output;
-                  this.renderDone();
-                });
+                  productContain.innerHTML = output
+                  this.renderDone()
+                })
               },
 
               renderInfoProduct: function (element) {
@@ -474,22 +481,22 @@ const body = {
                 products.forEach((product) => {
                   if (product?.ProductID == element.getAttribute("item_id")) {
                     $(".app-bot__info-data.value.productId").innerText =
-                      product?.ProductID;
-                    $(".app-bot__info-data.value.uid").innerText = product?.UID;
+                      product?.ProductID
+                    $(".app-bot__info-data.value.uid").innerText = product?.UID
                     $(".app-bot__info-data.value.type").innerText =
-                      product?.Type;
+                      product?.Type
                     $(".app-bot__info-data.value.price").innerText =
-                      formatMoney(product?.Price);
+                      formatMoney(product?.Price)
                     $(".app-bot__info-data.value.server").innerText =
-                      product?.Server;
+                      product?.Server
                     $(".app-bot__info-data.value.discount").innerText =
-                      product?.Discount;
+                      product?.Discount
                     $(".app-bot__info-data.value.flashSale").innerText =
-                      product?.Flashsale;
+                      product?.Flashsale
                     $(".app-bot__info-data.value.sold").innerText =
-                      product?.Sold;
+                      product?.Sold
                   }
-                });
+                })
               },
 
               addProduct: function () {
@@ -498,24 +505,24 @@ const body = {
                   //reset form
                   if (!form.classList.value.includes("createForm")) {
                     for (let input of form.querySelectorAll("input")) {
-                      input.value = "";
+                      input.value = ""
                     }
 
-                    formTitle.innerText = "Thêm sản phẩm";
-                    formTitleSub.innerText = "";
+                    formTitle.innerText = "Thêm sản phẩm"
+                    formTitleSub.innerText = ""
                   }
 
-                  form.classList.add("show");
+                  form.classList.add("show")
 
                   //Hide form add product
                   $(".product-form__close").onclick = () => {
-                    form.classList.remove("show");
-                  };
+                    form.classList.remove("show")
+                  }
 
                   //stop submit default
                   $(".product-form__contain").addEventListener("submit", (e) =>
                     e.preventDefault()
-                  );
+                  )
 
                   //Validate
                   const inputs = [
@@ -527,49 +534,49 @@ const body = {
                       selector: $(".product-form__input-box.price"),
                       options: ["required", "number"],
                     },
-                  ];
+                  ]
 
                   function validateRequest(selector, validateType) {
-                    const parent = selector.closest(".product-form__input-box");
+                    const parent = selector.closest(".product-form__input-box")
                     const selectorElm = {
                       parent: parent,
                       input: parent.querySelector("input"),
                       message: parent.querySelector("message"),
-                    };
+                    }
 
                     selector.addEventListener("input", () => {
-                      selectorElm.message.innerText = "";
-                    });
-                    validate.start(selectorElm, validateType);
+                      selectorElm.message.innerText = ""
+                    })
+                    validate.start(selectorElm, validateType)
                   }
 
                   //act focusout
                   inputs[0].selector.addEventListener("focusout", (e) => {
-                    validateRequest(e.target, ["required", "leng_9"]);
-                  });
+                    validateRequest(e.target, ["required", "leng_9"])
+                  })
                   inputs[1].selector.addEventListener("focusout", (e) => {
-                    validateRequest(e.target, ["required"]);
-                  });
+                    validateRequest(e.target, ["required"])
+                  })
 
                   //act submit
                   submit.onclick = (e) => {
                     inputs.forEach((input) => {
-                      validateRequest(input.selector, input.options);
-                    });
+                      validateRequest(input.selector, input.options)
+                    })
 
                     //All no more error messages
                     const result = Array.from(
                       form.querySelectorAll("message")
                     ).every((element) => {
-                      return element.innerText === "";
-                    });
+                      return element.innerText === ""
+                    })
                     //Exist error messages => skip
                     if (!result) {
-                      return;
+                      return
                     }
 
                     // show button loading
-                    form.classList.add("active");
+                    form.classList.add("active")
                     //Get value submit
                     const value = {
                       UID: $("#product-form__input-uid").value,
@@ -577,19 +584,19 @@ const body = {
                       Price: $("#product-form__input-price").value,
                       Type: $("#product-form__select-type").value,
                       Server: $("#product-form__select-server").value,
-                    };
+                    }
 
                     //Product constructor
                     function NewProduct(uid, imageUrl, price, type, server) {
-                      this.ProductID = products.length;
-                      this.UID = uid;
-                      this.ImageUrl = imageUrl;
-                      this.Server = server;
-                      this.Price = price;
-                      this.Type = type;
-                      this.Discount = "0%";
-                      this.Flashsale = "No";
-                      this.Sold = "No";
+                      this.ProductID = products.length
+                      this.UID = uid
+                      this.ImageUrl = imageUrl
+                      this.Server = server
+                      this.Price = price
+                      this.Type = type
+                      this.Discount = "0%"
+                      this.Flashsale = "No"
+                      this.Sold = "No"
                     }
                     const newProduct = new NewProduct(
                       value.UID,
@@ -597,7 +604,7 @@ const body = {
                       value.Price,
                       value.Type,
                       value.Server
-                    );
+                    )
 
                     //Push product to api
                     PATCHelement(
@@ -605,7 +612,7 @@ const body = {
                       newProduct,
                       (product) => {
                         // hide button loading
-                        form.classList.remove("active");
+                        form.classList.remove("active")
 
                         //show notification
                         notificationWindow(
@@ -615,25 +622,25 @@ const body = {
                           (isSuccess) => {
                             //reset form
                             for (let input of form.querySelectorAll("input")) {
-                              input.value = "";
+                              input.value = ""
                             }
 
                             if (isSuccess) {
-                              notificationWindow();
+                              notificationWindow()
                             } else {
                               //close form add product
-                              notificationWindow();
-                              $(".product-form__close").click();
+                              notificationWindow()
+                              $(".product-form__close").click()
                             }
                           },
                           "Tiếp tục"
-                        );
+                        )
 
                         //Add product to DOM
-                        let newPdtDom = document.createElement("ul");
+                        let newPdtDom = document.createElement("ul")
 
                         //Add product to list
-                        $(".app-borad__contain").appendChild(newPdtDom);
+                        $(".app-borad__contain").appendChild(newPdtDom)
 
                         newPdtDom.outerHTML = `<ul item_id="${product.ProductID
                           }"class="app-board__data">
@@ -647,34 +654,34 @@ const body = {
                                     <li class="app-board__data-item price hide-m">
                                     ${formatMoney(product.Price)}
                                     </li>
-                                </ul>`;
+                                </ul>`
                         //update products
                         GETelement(apiBody, (value) => {
-                          products = value;
-                          this.renderDone();
-                        });
+                          products = value
+                          this.renderDone()
+                        })
 
                         //pull scroll
-                        const contain = $(".app-borad__contain");
-                        contain.scrollTop += contain.scrollTop + 38;
+                        const contain = $(".app-borad__contain")
+                        contain.scrollTop += contain.scrollTop + 38
                       }
-                    );
-                  };
-                });
+                    )
+                  }
+                })
               },
 
               replaceProduct: function () {
                 $(".app__top-feature.replace").addEventListener("click", async () => {
-                  const elmActive = $(".app-board__data.active");
+                  const elmActive = $(".app-board__data.active")
 
                   //not select skip => logic
                   if (!elmActive) {
-                    return;
+                    return
                   }
 
                   const productData = (await Get(`${apiBody}/${elmActive.getAttribute("item_id")}`)) ?? {}
 
-                  const close = $(".product-form__close");
+                  const close = $(".product-form__close")
                   const { UID, ImageUrl, Server, Type, Price } = productData
 
                   let uid = elmActive.querySelector(
@@ -682,26 +689,26 @@ const body = {
                   )
                   let type = elmActive.querySelector(
                     ".app-board__data-item.type"
-                  );
+                  )
                   let price = elmActive.querySelector(
                     ".app-board__data-item.price"
-                  );
+                  )
 
                   //show form
-                  form.classList.add("show");
+                  form.classList.add("show")
 
                   //hide form
                   close.onclick = () => {
-                    form.classList.remove("show");
-                  };
+                    form.classList.remove("show")
+                  }
 
                   //change content form
-                  form.classList.remove("createForm");
-                  formTitle.innerHTML = "Chỉnh sửa UID:";
+                  form.classList.remove("createForm")
+                  formTitle.innerHTML = "Chỉnh sửa UID:"
 
-                  formTitleSub.innerHTML = UID;
-                  $("#product-form__input-uid").value = UID;
-                  $("#product-form__input-image-url").value = ImageUrl;
+                  formTitleSub.innerHTML = UID
+                  $("#product-form__input-uid").value = UID
+                  $("#product-form__input-image-url").value = ImageUrl
                   $("#product-form__input-price").value = Price
                   $("#product-form__select-server").value = Server
                   $("#product-form__select-type").value = Type
@@ -709,12 +716,12 @@ const body = {
                   //act submit
                   $(".product-form__contain").addEventListener("submit", (e) =>
                     e.preventDefault()
-                  );
+                  )
 
                   submit.onclick = () => {
                     // show buttom loading
-                    submit.classList.add("active");
-                    processLoad.run(1);
+                    submit.classList.add("active")
+                    processLoad.run(1)
 
                     //get value submit
                     let newValue = {
@@ -723,7 +730,7 @@ const body = {
                       Price: $("#product-form__input-price").value,
                       Type: $("#product-form__select-type").value,
                       Server: $("#product-form__select-server").value,
-                    };
+                    }
 
                     //update to api
                     PATCHelement(
@@ -735,41 +742,41 @@ const body = {
                           "Chỉnh sửa thông tin thành công",
                           "Thông tin mới đã được áp dụng",
                           () => {
-                            notificationWindow();
-                            close.click();
+                            notificationWindow()
+                            close.click()
                           }
-                        );
+                        )
 
                         //update to dom
                         // productid.innerText = product.ProductID
-                        uid.innerText = product.UID;
-                        type.innerText = product.Type;
-                        price.innerText = formatMoney(product.Price);
+                        uid.innerText = product.UID
+                        type.innerText = product.Type
+                        price.innerText = formatMoney(product.Price)
 
                         //update products
                         GETelement(apiBody, (value) => {
-                          products = value;
-                          this.renderDone();
-                        });
+                          products = value
+                          this.renderDone()
+                        })
 
                         // hide buttom loading
-                        submit.classList.remove("active");
-                        processLoad.run(1);
+                        submit.classList.remove("active")
+                        processLoad.run(1)
                       }
-                    );
-                  };
-                });
+                    )
+                  }
+                })
               },
 
               toggleStatusProduct: async () => {
                 const button = $(".app__top-feature.status")
 
                 button.addEventListener("click", async () => {
-                  const elmActive = $(".app-board__data.active");
+                  const elmActive = $(".app-board__data.active")
 
                   //not select skip => logic
                   if (!elmActive) {
-                    return;
+                    return
                   }
 
                   const product = (await Get(apiBody)).find(
@@ -790,68 +797,68 @@ const body = {
                       simpleNoti(`${product.UID} thành chưa bán`, true, 5000)
                     }
                   })
-                });
+                })
               },
 
               renderDone: function () {
-                const appboradElement = $$(".app-board__data");
-                const elmActive = $(".app-board__data.active");
+                const appboradElement = $$(".app-board__data")
+                const elmActive = $(".app-board__data.active")
 
-                body.handle.shared.notSelect();
-                body.handle.shared.delete();
+                body.handle.shared.notSelect()
+                body.handle.shared.delete()
 
                 //update info product
                 if (elmActive) {
-                  this.renderInfoProduct(elmActive);
+                  this.renderInfoProduct(elmActive)
                 }
 
                 //Callback return element in process active
                 select(appboradElement, (element) => {
-                  this.renderInfoProduct(element);
-                });
+                  this.renderInfoProduct(element)
+                })
               },
 
               start: function () {
-                this.renderProduct();
-                this.addProduct();
-                this.replaceProduct();
-                this.toggleStatusProduct();
-                body.handle.shared.productSearch(this);
+                this.renderProduct()
+                this.addProduct()
+                this.replaceProduct()
+                this.toggleStatusProduct()
+                body.handle.shared.productSearch(this)
               },
-            };
-            manage.start();
-          });
+            }
+            manage.start()
+          })
       },
       flashSale: function (categoryKey) {
-        const keyBody = "Product.FlashSale";
-        const createBtn = $(".app__top-feature.create");
-        const deleteBtn = $(".app__top-feature.delete");
+        const keyBody = "Product.FlashSale"
+        const createBtn = $(".app__top-feature.create")
+        const deleteBtn = $(".app__top-feature.delete")
 
-        localStorage.setItem("categoryHistory", JSON.stringify(categoryKey));
+        localStorage.setItem("categoryHistory", JSON.stringify(categoryKey))
 
         new Promise((resolve) => {
-          GETelement(apiBody, (products) => resolve(products));
+          GETelement(apiBody, (products) => resolve(products))
         })
 
           //Get product list
           .then((products) => {
             // update product
-            localStorage.setItem(keyBody, JSON.stringify(products));
+            localStorage.setItem(keyBody, JSON.stringify(products))
 
             const productNFScontain = $(
               ".app__flashsale-product-contain.notFlashSale"
-            );
+            )
             const productFScontain = $(
               ".app__flashsale-product-contain.flashSale"
-            );
+            )
 
             const flashSale = {
               //Render the products
               renderProduct: function (rule = { flashSale: "No" }) {
-                let contain = productNFScontain;
+                let contain = productNFScontain
 
                 if (rule.flashSale !== "No") {
-                  contain = productFScontain;
+                  contain = productFScontain
                 }
 
                 filter(products, rule, (productsFil) => {
@@ -873,90 +880,90 @@ const body = {
                       }</li>
                                                <li class="app__flashsale-product-item sold">${product.Sold
                       }</li>
-                                           </ul>`);
-                  }, "");
+                                           </ul>`)
+                  }, "")
                   if (!contain) {
-                    return;
+                    return
                   }
-                  contain.innerHTML = output;
+                  contain.innerHTML = output
 
                   // render done
                   setTimeout(() => {
-                    this.renderDone();
-                  }, 0);
-                });
+                    this.renderDone()
+                  }, 0)
+                })
               },
               renderProductFS: function () {
-                this.renderProduct({ flashSale: "Yes" });
+                this.renderProduct({ flashSale: "Yes" })
               },
 
               selectsProducts: function (
                 parents = $$(".app__flashsale-contain")
               ) {
-                const btn = $(".app__top-feature.selects");
+                const btn = $(".app__top-feature.selects")
 
                 btn.onclick = () => {
                   for (let parent of parents) {
-                    btn.classList.toggle("active");
-                    parent.classList.toggle("show");
-                    this.selectProduct.selectAll();
+                    btn.classList.toggle("active")
+                    parent.classList.toggle("show")
+                    this.selectProduct.selectAll()
 
                     if (!parent.classList.value.includes("show")) {
-                      this.selectProduct.selectAll("clear");
-                      this.selectProduct.selectOne();
+                      this.selectProduct.selectAll("clear")
+                      this.selectProduct.selectOne()
                     }
                   }
-                };
+                }
               },
               disableFeature: function (isCheck = false) {
                 for (let elm of $$(".app__flashsale-product-item-box")) {
                   // elm.removeEventListener('click', checkType)
 
-                  elm.addEventListener("click", checkType);
+                  elm.addEventListener("click", checkType)
                 }
 
                 if (isCheck) {
-                  checkType();
+                  checkType()
                 }
 
                 function checkType() {
                   const elmActive = $(
                     ".app__flashsale-product-item-box.active"
-                  );
+                  )
 
                   if (!elmActive) {
-                    deleteBtn.classList.remove("disable");
-                    createBtn.classList.remove("disable");
-                    return;
+                    deleteBtn.classList.remove("disable")
+                    createBtn.classList.remove("disable")
+                    return
                   }
 
                   const parent = elmActive.closest(
                     ".app__flashsale-product-contain"
-                  );
+                  )
 
                   //Select Flash sale => disable list all
                   if (parent.classList.value.includes("flashSale")) {
-                    createBtn.classList.add("disable");
-                    deleteBtn.classList.remove("disable");
+                    createBtn.classList.add("disable")
+                    deleteBtn.classList.remove("disable")
                   }
                   //Select list all => disable Flash sale
                   else {
-                    createBtn.classList.remove("disable");
-                    deleteBtn.classList.add("disable");
+                    createBtn.classList.remove("disable")
+                    deleteBtn.classList.add("disable")
                   }
 
                   //Select list all and Flash sale => disable flash sale and list all
                   const containAll = $(
                     ".app__flashsale-product-contain.notFlashSale"
-                  ).querySelector(".app__flashsale-product-item-box.active");
+                  ).querySelector(".app__flashsale-product-item-box.active")
 
                   const containFS = $(
                     ".app__flashsale-product-contain.flashSale"
-                  ).querySelector(".app__flashsale-product-item-box.active");
+                  ).querySelector(".app__flashsale-product-item-box.active")
 
                   if (containAll && containFS) {
-                    createBtn.classList.add("disable");
-                    deleteBtn.classList.add("disable");
+                    createBtn.classList.add("disable")
+                    deleteBtn.classList.add("disable")
                   }
                 }
               },
@@ -964,78 +971,78 @@ const body = {
                 const btns = [
                   $(".app__top-feature.delete"),
                   $(".app__top-feature.create"),
-                ];
+                ]
                 const containFS = $(
                   ".app__flashsale-product-contain.flashSale"
-                );
+                )
                 const containNFS = $(
                   ".app__flashsale-product-contain.notFlashSale"
-                );
-                const btnLoadings = $$(".app__flashsale-page .btn-loading");
+                )
+                const btnLoadings = $$(".app__flashsale-page .btn-loading")
 
                 for (const btn of btns) {
                   btn.onclick = function () {
-                    let containReceive = containNFS;
-                    let contain = containFS;
-                    let rule = "No";
-                    let i = 0;
+                    let containReceive = containNFS
+                    let contain = containFS
+                    let rule = "No"
+                    let i = 0
 
                     if (btn.classList.value.includes("create")) {
-                      containReceive = containFS;
-                      contain = containNFS;
-                      rule = "Yes";
+                      containReceive = containFS
+                      contain = containNFS
+                      rule = "Yes"
                     }
 
                     let elements = Array.from(
                       contain.querySelectorAll(
                         ".app__flashsale-product-item-box.active"
                       )
-                    );
+                    )
 
                     //Feature disable => skip logic
                     if (
                       btn.classList.value.includes("disable") ||
                       elements.length === 0
                     ) {
-                      return;
+                      return
                     }
 
                     const datas = elements.map((element) =>
                       element.getAttribute("item_id")
-                    );
+                    )
 
                     //show loading
                     for (const btnLoading of btnLoadings) {
-                      btnLoading.classList.add("active");
+                      btnLoading.classList.add("active")
                     }
                     function update() {
-                      processLoad.run(datas.length);
+                      processLoad.run(datas.length)
                       if (i === datas.length) {
-                        simpleNoti("Thao tác hoàn thành");
-                        flashSale.containLeng();
+                        simpleNoti("Thao tác hoàn thành")
+                        flashSale.containLeng()
                         for (const btnLoading of btnLoadings) {
-                          btnLoading.classList.remove("active");
+                          btnLoading.classList.remove("active")
                         }
                         return GETelement(apiBody, (v) => {
-                          products = v;
-                        });
+                          products = v
+                        })
                       }
 
                       PATCHelement(
                         `${apiBody}/${datas[i]}`,
                         { Flashsale: rule },
                         () => {
-                          update();
+                          update()
                         }
-                      );
+                      )
 
-                      containReceive.appendChild(elements[i]);
+                      containReceive.appendChild(elements[i])
                       containReceive.scrollTop =
-                        containReceive.scrollTop + 99e9;
+                        containReceive.scrollTop + 99e9
 
-                      flashSale.selectProduct.selectAll("clear");
+                      flashSale.selectProduct.selectAll("clear")
                       for (const elm of $$(".app__flashsale-bars-checkAll")) {
-                        elm.classList.remove("all");
+                        elm.classList.remove("all")
                       }
 
                       if (
@@ -1043,50 +1050,50 @@ const body = {
                           "show"
                         )
                       ) {
-                        flashSale.selectProduct.selectAll();
+                        flashSale.selectProduct.selectAll()
                       } else {
-                        flashSale.selectProduct.selectOne();
+                        flashSale.selectProduct.selectOne()
                       }
-                      flashSale.disableFeature();
+                      flashSale.disableFeature()
 
-                      i++;
+                      i++
                     }
-                    update();
-                  };
+                    update()
+                  }
                 }
               },
               replaceDiscount: function () {
-                const contain = $(".discount-form");
-                const btn = $(".app__top-feature.replace");
-                const submit = $(".discount-form__submit");
-                const close = $(".discount-form__close");
-                const input = $(".discount-form__input");
+                const contain = $(".discount-form")
+                const btn = $(".app__top-feature.replace")
+                const submit = $(".discount-form__submit")
+                const close = $(".discount-form__close")
+                const input = $(".discount-form__input")
                 const selectorElm = {
                   input: input,
                   message: contain.querySelector("message"),
-                };
-                const rule = ["required", "maxLeng_2", "number"];
+                }
+                const rule = ["required", "maxLeng_2", "number"]
 
                 btn.onclick = () => {
                   const elmActive = Array.from(
                     $$(".app__flashsale-product-item-box.active")
-                  );
+                  )
 
                   if (elmActive.length === 0) {
-                    return;
+                    return
                   }
 
                   //show form
-                  contain.classList.add("active");
+                  contain.classList.add("active")
                   contain
                     .querySelector("form")
-                    .addEventListener("submit", (e) => e.preventDefault());
-                  selectorElm.message.innerText = "";
+                    .addEventListener("submit", (e) => e.preventDefault())
+                  selectorElm.message.innerText = ""
 
                   //hide form
                   close.onclick = () => {
-                    contain.classList.remove("active");
-                  };
+                    contain.classList.remove("active")
+                  }
 
                   //show UID
                   $(".discount-form__title-sub").innerText = elmActive.reduce(
@@ -1094,55 +1101,55 @@ const body = {
                       return (acc += `${elm.querySelector(".app__flashsale-product-item.uid")
                         .innerText
                         }
-                                    `);
+                                    `)
                     },
                     ""
-                  );
+                  )
 
                   //atc focusout
                   input.addEventListener("focusout", () => {
-                    validate.start(selectorElm, rule);
-                  });
+                    validate.start(selectorElm, rule)
+                  })
 
                   //atc submit
                   submit.onclick = () => {
-                    const data = input.value;
-                    let i = 0;
+                    const data = input.value
+                    let i = 0
 
                     //exist error message stop => submit
                     if (!validate.start(selectorElm, rule)) {
-                      return;
+                      return
                     }
                     //sumbmit => done
-                    close.click();
-                    input.value = "";
+                    close.click()
+                    input.value = ""
 
                     notificationWindow(
                       true,
                       "Thay đổi đã được áp dụng",
                       "Đang xử lý yêu cầu",
                       () => {
-                        this.selectProduct.selectAll("clear");
+                        this.selectProduct.selectAll("clear")
                         for (const item of $$(
                           ".app__flashsale-bars-checkAll"
                         )) {
-                          item.classList.remove("all");
+                          item.classList.remove("all")
                         }
-                        notificationWindow();
+                        notificationWindow()
                       }
-                    );
+                    )
 
-                    updateDiscount();
+                    updateDiscount()
                     function updateDiscount() {
-                      const item = elmActive[i];
+                      const item = elmActive[i]
 
-                      processLoad.run(elmActive.length);
+                      processLoad.run(elmActive.length)
 
                       if (i === elmActive.length) {
-                        simpleNoti("Thao tác hoàn thành");
+                        simpleNoti("Thao tác hoàn thành")
                         return GETelement(apiBody, (v) => {
-                          products = v;
-                        });
+                          products = v
+                        })
                       }
 
                       //update data => server
@@ -1150,154 +1157,154 @@ const body = {
                         `${apiBody}/${item.getAttribute("item_id")}`,
                         { Discount: data + "%" },
                         () => {
-                          updateDiscount();
+                          updateDiscount()
                         }
-                      );
+                      )
                       //update data => dom
                       item.querySelector(
                         ".app__flashsale-product-item.discount"
-                      ).innerText = data + "%";
-                      i++;
+                      ).innerText = data + "%"
+                      i++
                     }
-                  };
-                };
+                  }
+                }
               },
               containLeng: function () {
-                const contains = $$(".app__flashsale-page");
+                const contains = $$(".app__flashsale-page")
 
                 for (const contain of contains) {
                   const getLeng = contain.querySelectorAll(
                     ".app__flashsale-product-item-box"
-                  ).length;
+                  ).length
                   contain.querySelector(
                     ".btn-loading__text-value"
-                  ).innerText = `(${getLeng})`;
+                  ).innerText = `(${getLeng})`
                 }
               },
               selectProduct: {
                 selectAll: function (isClear) {
-                  const selectors = $$(".app__flashsale-product-item-box");
+                  const selectors = $$(".app__flashsale-product-item-box")
 
                   if (isClear) {
                     for (let selector of selectors) {
-                      deleteBtn.classList.remove("disable");
-                      createBtn.classList.remove("disable");
-                      selector.classList.remove("active");
+                      deleteBtn.classList.remove("disable")
+                      createBtn.classList.remove("disable")
+                      selector.classList.remove("active")
                     }
                   } else {
                     for (let selector of selectors) {
                       selector.onclick = () => {
-                        selector.classList.toggle("active");
-                      };
+                        selector.classList.toggle("active")
+                      }
                     }
                   }
                 },
                 selectOne: function () {
-                  const selectors = $$(".app__flashsale-product-item-box");
+                  const selectors = $$(".app__flashsale-product-item-box")
                   for (let selector of selectors) {
                     selector.onclick = () => {
                       for (let selector2 of selectors) {
                         if (selector2 != selector) {
-                          selector2.classList.remove("active");
+                          selector2.classList.remove("active")
                         }
                       }
 
-                      selector.classList.toggle("active");
-                    };
+                      selector.classList.toggle("active")
+                    }
                   }
                 },
               },
               selectAllProduct: function () {
-                const btns = $$(".app__flashsale-bars-checkAll");
+                const btns = $$(".app__flashsale-bars-checkAll")
 
                 for (let btn of btns) {
                   btn.onclick = () => {
-                    const parent = btn.closest(".app__flashsale-page");
+                    const parent = btn.closest(".app__flashsale-page")
                     const elmNFS = $$(
                       ".app__flashsale-page.notFlashSale .app__flashsale-product-item-box "
-                    );
+                    )
                     const elmFS = $$(
                       ".app__flashsale-page.flashSale .app__flashsale-product-item-box "
-                    );
-                    let elmHandle;
+                    )
+                    let elmHandle
 
-                    btn.classList.toggle("all");
+                    btn.classList.toggle("all")
 
                     if (parent.classList.value.includes("flashSale")) {
-                      elmHandle = elmFS;
+                      elmHandle = elmFS
                     } else {
-                      elmHandle = elmNFS;
+                      elmHandle = elmNFS
                     }
 
                     if (btn.classList.value.includes("all")) {
                       for (const elm of elmHandle) {
-                        elm.classList.add("active");
+                        elm.classList.add("active")
                       }
                     } else {
                       for (const elm of elmHandle) {
-                        elm.classList.remove("active");
+                        elm.classList.remove("active")
                       }
                     }
 
-                    this.disableFeature(true);
-                  };
+                    this.disableFeature(true)
+                  }
                 }
               },
               renderDone: function () {
-                this.selectProduct.selectOne();
-                this.selectsProducts();
-                this.disableFeature();
-                this.moveProductFS();
-                this.containLeng();
-                this.replaceDiscount();
+                this.selectProduct.selectOne()
+                this.selectsProducts()
+                this.disableFeature()
+                this.moveProductFS()
+                this.containLeng()
+                this.replaceDiscount()
               },
               ui: function () {
                 //set height contain
-                const contains = $$(".app__flashsale-product-contain");
-                const widthParent = $(".app__flashsale-page");
+                const contains = $$(".app__flashsale-product-contain")
+                const widthParent = $(".app__flashsale-page")
 
                 if (!widthParent || !contains) {
-                  return;
+                  return
                 }
                 for (const contain of contains) {
                   contain.style.height =
-                    widthParent.getBoundingClientRect().height - 84 + "px";
+                    widthParent.getBoundingClientRect().height - 84 + "px"
                 }
               },
 
               start: function () {
-                this.ui();
-                this.renderProduct();
-                this.renderProductFS();
-                this.selectAllProduct();
-                body.handle.shared.notSelect();
-                body.handle.shared.productSearch(this);
+                this.ui()
+                this.renderProduct()
+                this.renderProductFS()
+                this.selectAllProduct()
+                body.handle.shared.notSelect()
+                body.handle.shared.productSearch(this)
               },
-            };
-            flashSale.start();
-          });
+            }
+            flashSale.start()
+          })
       },
       ProcessOrders: async function (categoryKey) {
-        localStorage.setItem("categoryHistory", JSON.stringify(categoryKey));
+        localStorage.setItem("categoryHistory", JSON.stringify(categoryKey))
         const [orders, products, accounts] = await Promise.all([
           Get(orderAPi),
           Get(productAPi),
           Get(accountApi),
-        ]);
+        ])
 
         const ProductsOrder = {
           renderOrder: function () {
             if (!orders) {
-              return;
+              return
             }
-            const contain = $(".app__mid-item-wrap");
+            const contain = $(".app__mid-item-wrap")
             const output = Object.values(orders).reduce((acc, order) => {
-              const productUid = products[order?.ProductID]?.UID;
+              const productUid = products[order?.ProductID]?.UID
 
               if (!order || !productUid) {
-                return acc;
+                return acc
               }
-              const date = order.Date;
+              const date = order.Date
               return (acc += `<ul orderCode="${order.Ordercode
                 }" class="app__mid-item-list content">
                             <li class="app__mid-item code">${order.Ordercode
@@ -1308,31 +1315,31 @@ const body = {
                 )}</li>
                             <li class="app__mid-item date">${date.date}/${date.month
                 }/${date.year}</li>
-                        </ul>`);
-            }, "");
-            contain.innerHTML = output;
+                        </ul>`)
+            }, "")
+            contain.innerHTML = output
 
             //total order
-            body.handle.shared.totalOrder();
-            this.renderDone();
+            body.handle.shared.totalOrder()
+            this.renderDone()
           },
           renderDone: function () {
-            this.handleOrder();
+            this.handleOrder()
           },
           handleOrder: function () {
-            const elms = $$(".app__mid-item-list.content");
+            const elms = $$(".app__mid-item-list.content")
 
             for (const elm of elms) {
               elm.onclick = () => {
-                let data = orders[elm.getAttribute("orderCode")];
-                const urlUser = `${accountApi}/${data.UserID}`;
-                const orderCode = data.Ordercode;
-                const orderPrice = data.Price;
-                const servicePrice = data.ServicePrice;
-                const nitroduceCode = data.NitroduceCode ?? "";
-                const productId = data.ProductID;
-                const userId = data.UserID;
-                const date = data.Date;
+                let data = orders[elm.getAttribute("orderCode")]
+                const urlUser = `${accountApi}/${data.UserID}`
+                const orderCode = data.Ordercode
+                const orderPrice = data.Price
+                const servicePrice = data.ServicePrice
+                const nitroduceCode = data.NitroduceCode ?? ""
+                const productId = data.ProductID
+                const userId = data.UserID
+                const date = data.Date
 
                 data = {
                   Title: {
@@ -1378,33 +1385,33 @@ const body = {
                     title: "Thời gian tạo đơn",
                     value: `${date.date}/${date.month}/${date.year}`,
                   },
-                };
+                }
 
-                orderForm("order", data, (result) => orderHandle(result));
+                orderForm("order", data, (result) => orderHandle(result))
 
                 async function orderHandle(result) {
                   const order = await Get(`${orderAPi}/${orderCode}`)
 
                   if (order === null) {
-                    return;
+                    return
                   }
-                  const userData = await Get(urlUser);
+                  const userData = await Get(urlUser)
 
                   let message = {
                     Seen: "No",
                     Type: "Product",
-                  };
+                  }
 
                   // remove from DOM
-                  elm.remove();
+                  elm.remove()
 
                   // update status order
                   Patch(`${urlUser}/Order/${orderCode}`, {
                     Status: result === "Resolve" ? "Resolve" : "Reject",
-                  });
+                  })
 
                   //remove order
-                  Delete(`${orderAPi}/${orderCode}`);
+                  Delete(`${orderAPi}/${orderCode}`)
 
                   if (result === 'Not-payment') {
                     message = {
@@ -1412,7 +1419,7 @@ const body = {
                       content:
                         "Liên hệ với chúng tôi để được hỗ trợ nếu bạn đã thanh toán",
                       title: `Đơn hàng ${orderCode} bị hủy do chưa thanh toán`,
-                    };
+                    }
                   } else {
                     if (result === "Reject") {
                       //update status product
@@ -1420,7 +1427,7 @@ const body = {
 
                       if (data.Method.value === "shopMoney") {
                         //return money
-                        Patch(urlUser, { Money: userData.Money + orderPrice });
+                        Patch(urlUser, { Money: userData.Money + orderPrice })
                       }
 
                       // create message error
@@ -1429,7 +1436,7 @@ const body = {
                         content:
                           "Đặt mua lại một tài khoản khác ngay thôi nào",
                         title: `Rất tiếc đơn hàng ${orderCode} đã có người mua`,
-                      };
+                      }
                     } else {
                       try {
                         const nitroduceValue = await Get(`${introduce_codeAPi}/${nitroduceCode}`)
@@ -1444,7 +1451,7 @@ const body = {
                           ...message,
                           content: "Tài khoản đã được gửi đến email bạn đã điền",
                           title: `Đơn hàng ${orderCode} đã được xử lý thành công`,
-                        };
+                        }
                         simpleNoti("Thao tác hoàn thành")
                       } catch (error) {
                         simpleNoti(error, false)
@@ -1453,56 +1460,56 @@ const body = {
                   }
 
                   //send message
-                  const urlNoti = `${urlUser}/Notification`;
-                  Patch(urlNoti, { [(await Get(urlNoti) ?? []).length]: message });
+                  const urlNoti = `${urlUser}/Notification`
+                  Patch(urlNoti, { [(await Get(urlNoti) ?? []).length]: message })
 
                   // updata total order
-                  body.handle.shared.totalOrder();
+                  body.handle.shared.totalOrder()
                 }
-              };
+              }
             }
           },
 
           ui: function () {
             // set height contain
-            const parent = $(".app__mid-contain");
+            const parent = $(".app__mid-contain")
             if (!parent) {
-              return;
+              return
             }
             $(".app__mid-item-wrap").style.height =
-              parent.getBoundingClientRect().height - 38 + "px";
+              parent.getBoundingClientRect().height - 38 + "px"
           },
 
           start: function () {
-            this.ui();
-            this.renderOrder();
-            select($$(".app__mid-item-list.content"));
+            this.ui()
+            this.renderOrder()
+            select($$(".app__mid-item-list.content"))
           },
-        };
-        ProductsOrder.start();
+        }
+        ProductsOrder.start()
       },
     },
     currency: {
       manage: async function (categoryKey) {
-        localStorage.setItem("categoryHistory", JSON.stringify(categoryKey));
+        localStorage.setItem("categoryHistory", JSON.stringify(categoryKey))
         let [deposits, accounts] = await Promise.all([
           Get(depositAPi),
           Get(accountApi),
-        ]);
+        ])
 
         const manage = {
           renderDeposit: function () {
             if (!deposits) {
-              return;
+              return
             }
             // if(!Array.isArray(deposits)) {deposits = Object.values(deposits)}
 
-            const contain = $(".app__mid-item-wrap");
+            const contain = $(".app__mid-item-wrap")
             const output = deposits.reduce((acc, value, index) => {
               if (!value) {
-                return acc;
+                return acc
               }
-              const date = value.date;
+              const date = value.date
               return (acc += ` <ul index="${index}" class="app__mid-item-list content">
                                 <li class="app__mid-item code">${value.orderCode
                 }</li>
@@ -1510,33 +1517,33 @@ const body = {
                 }</li>
                             <li class="app__mid-item money">${value.money}</li>
                             <li class="app__mid-item date">${date.date}/${date.month
-                }/${date.year}</li></ul>`);
-            }, "");
+                }/${date.year}</li></ul>`)
+            }, "")
 
             if (!contain) {
-              return;
+              return
             }
-            contain.innerHTML = output;
+            contain.innerHTML = output
 
             //total order
-            body.handle.shared.totalOrder();
+            body.handle.shared.totalOrder()
 
-            this.renderDone();
+            this.renderDone()
           },
           handleDeposit: function () {
-            const elms = $$(".app__mid-item-list.content");
+            const elms = $$(".app__mid-item-list.content")
             if (elms.length === 0) {
-              return;
+              return
             }
 
             for (const elm of elms) {
               elm.onclick = () => {
-                const index = elm.getAttribute("index");
-                let data = deposits[index];
-                const userId = data.userId;
-                const urlUser = `${accountApi}/${userId}`;
-                const moneyDep = Number(data.money);
-                const date = data.date;
+                const index = elm.getAttribute("index")
+                let data = deposits[index]
+                const userId = data.userId
+                const urlUser = `${accountApi}/${userId}`
+                const moneyDep = Number(data.money)
+                const date = data.date
 
                 data = {
                   Title: {
@@ -1559,73 +1566,73 @@ const body = {
                     title: "Thời gian tạo đơn",
                     value: `${date.date}/${date.month}/${date.year}`,
                   },
-                };
+                }
                 orderForm("deposit", data, async (result) => {
-                  const dataUser = await Get(urlUser);
+                  const dataUser = await Get(urlUser)
                   let message = {
                     Seen: "No",
                     Type: "Money",
-                  };
+                  }
 
                   //remove order from DOM
-                  elm.remove();
+                  elm.remove()
 
                   if (result) {
                     // Depost...
                     Patch(urlUser, {
                       Money: dataUser.Money + moneyDep,
                       TotalDeposit: dataUser.TotalDeposit + moneyDep,
-                    });
+                    })
 
                     message = {
                       ...message,
                       content: "Số tiền đã được chuyển vào số dư của bạn",
                       title: `Đơn nạp ${formatMoney(moneyDep)} thành công`,
-                    };
+                    }
                   } else {
                     message = {
                       ...message,
                       content: "Vui lòng thanh toán trước khi xác nhận đơn",
                       title: `Đơn nạp ${formatMoney(moneyDep)} thất bại`,
-                    };
+                    }
                   }
 
                   //send message
-                  let notiLeng = dataUser?.Notification?.length;
+                  let notiLeng = dataUser?.Notification?.length
                   if (!notiLeng) {
-                    notiLeng = 0;
+                    notiLeng = 0
                   }
-                  Patch(`${urlUser}/Notification`, { [notiLeng]: message });
+                  Patch(`${urlUser}/Notification`, { [notiLeng]: message })
 
                   //delete order
-                  Delete(`${depositAPi}/${index}`);
+                  Delete(`${depositAPi}/${index}`)
 
                   // updata total order
-                  body.handle.shared.totalOrder();
-                });
-              };
+                  body.handle.shared.totalOrder()
+                })
+              }
             }
           },
 
           renderDone: function () {
-            this.handleDeposit();
+            this.handleDeposit()
           },
           ui: function () {
             // set height contain
-            const parent = $(".app__mid-contain");
+            const parent = $(".app__mid-contain")
             if (!parent) {
-              return;
+              return
             }
             $(".app__mid-item-wrap").style.height =
-              parent.getBoundingClientRect().height - 38 + "px";
+              parent.getBoundingClientRect().height - 38 + "px"
           },
           start: function () {
-            this.ui();
-            this.renderDeposit();
-            select($$(".app__mid-item-list.content"));
+            this.ui()
+            this.renderDeposit()
+            select($$(".app__mid-item-list.content"))
           },
-        };
-        manage.start();
+        }
+        manage.start()
       },
     },
 
@@ -1646,20 +1653,20 @@ const body = {
                 "Bạn chưa chọn mục tiêu để thực hiện",
                 "vui lòng chọn một mục và thử lại",
                 () => {
-                  notificationWindow();
+                  notificationWindow()
                 },
                 "Thử lại"
-              );
+              )
             }
-          });
-        });
+          })
+        })
       },
 
       //feature delete
       //Delete data from app-borad
       delete: function (keyBody) {
         $(".app__top-feature.delete").onclick = function () {
-          const elementActive = $(".app-board__data.active");
+          const elementActive = $(".app-board__data.active")
 
           if (elementActive) {
             notificationWindow(
@@ -1668,91 +1675,91 @@ const body = {
               "Sẽ không thể khôi phục lại",
               (isSuccess) => {
                 if (isSuccess) {
-                  const Id = elementActive.getAttribute("item_id");
+                  const Id = elementActive.getAttribute("item_id")
 
                   //Delete data from api
                   DELETEelement(`${apiBody}/${Id}`, () => {
                     //remove null
                     // removeNull(apiBody)
-                  });
+                  })
 
                   //Delete from DOM
-                  elementActive.outerHTML = "";
-                  notificationWindow();
+                  elementActive.outerHTML = ""
+                  notificationWindow()
                 } else {
-                  notificationWindow();
+                  notificationWindow()
                 }
               },
               "Tiếp tục"
-            );
+            )
           }
-        };
+        }
       },
 
       productSearch: function (category) {
-        const inputs = $$(".app__mid-nav-search");
+        const inputs = $$(".app__mid-nav-search")
         for (const input of inputs) {
           input.oninput = () => {
-            let parent = input.closest(".app__flashsale-page");
-            let flashSale = "No";
+            let parent = input.closest(".app__flashsale-page")
+            let flashSale = "No"
             if (inputs.length === 1) {
-              parent = $(".app__mid");
-              flashSale = "";
+              parent = $(".app__mid")
+              flashSale = ""
             }
 
-            const clear = parent.querySelector(".app__mid-nav-clear");
-            const value = input.value;
+            const clear = parent.querySelector(".app__mid-nav-clear")
+            const value = input.value
 
             // Clear value
-            clear.classList.add("active");
+            clear.classList.add("active")
             parent.querySelector(".app__mid-nav-search").style.paddingRight =
-              "26px";
+              "26px"
 
             clear.onclick = () => {
-              input.value = "";
+              input.value = ""
               category.renderProduct({
                 flashSale,
                 all: input.value,
-              });
+              })
 
-              clear.classList.remove("active");
+              clear.classList.remove("active")
               parent.querySelector(".app__mid-nav-search").style.paddingRight =
-                "0";
-            };
+                "0"
+            }
 
             if (parent.classList.value.includes("flashSale")) {
-              flashSale = "Yes";
+              flashSale = "Yes"
             }
 
             category.renderProduct({
               flashSale,
               all: value,
-            });
+            })
 
             if (value.length == 0) {
-              clear.classList.remove("active");
+              clear.classList.remove("active")
               parent.querySelector(".app__mid-nav-search").style.paddingRight =
-                "0";
+                "0"
             }
-          };
+          }
         }
       },
 
       //Total order
       totalOrder: function () {
-        const totalOrders = $$(".app__mid-item-list.content").length;
-        const totalBox = $(".app__mid-title-total");
+        const totalOrders = $$(".app__mid-item-list.content").length
+        const totalBox = $(".app__mid-title-total")
         if (totalOrders === 0) {
-          totalBox.classList.remove("active");
+          totalBox.classList.remove("active")
         } else {
-          totalBox.classList.add("active");
-          totalBox.innerText = totalOrders;
+          totalBox.classList.add("active")
+          totalBox.innerText = totalOrders
         }
       },
 
       //Get new order realtime
       getOrderRealtime: async function () {
-        const title = $("head title");
+        const title = $("head title")
         const options = [
           {
             api: orderAPi,
@@ -1762,41 +1769,41 @@ const body = {
             api: depositAPi,
             elm: $(".nav__category-options.depositOrder"),
           },
-        ];
-        const optionsLeng = options.length;
-        let i = 0;
+        ]
+        const optionsLeng = options.length
+        let i = 0
 
         async function updateData() {
           if (i < optionsLeng) {
-            const option = options[i];
-            const data = await Get(option.api);
+            const option = options[i]
+            const data = await Get(option.api)
             if (data !== null) {
-              option.elm.classList.add("noti");
+              option.elm.classList.add("noti")
 
               title.innerText = `(${$$(".nav__category-options.noti").length})
-                            Mục chờ xử lý`;
+                            Mục chờ xử lý`
             } else {
               if (!$(".nav__category-options.noti")) {
-                title.innerText = "Admin | Hbstore";
+                title.innerText = "Admin | HB store"
               }
-              option.elm.classList.remove("noti");
+              option.elm.classList.remove("noti")
             }
           } else {
-            i = -1;
+            i = -1
           }
-          i++;
+          i++
         }
 
         // first run
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0;i < 2;i++) {
           setTimeout(() => {
-            updateData();
-          }, i * 1000);
+            updateData()
+          }, i * 1000)
         }
 
         setInterval(() => {
-          updateData();
-        }, 5000);
+          updateData()
+        }, 5000)
       },
     },
   },
@@ -1804,47 +1811,47 @@ const body = {
   //Branching structure
   account: {
     manage: function (key) {
-      body.handle.account.manage(key);
+      body.handle.account.manage(key)
     },
   },
 
   product: {
     manage: function (key) {
-      body.handle.product.manage(key);
+      body.handle.product.manage(key)
     },
     flashSale: function (key) {
-      body.handle.product.flashSale(key);
+      body.handle.product.flashSale(key)
     },
     ProcessOrders: function (key) {
-      body.handle.product.ProcessOrders(key);
+      body.handle.product.ProcessOrders(key)
     },
   },
 
   currency: {
     manage: function (key) {
-      body.handle.currency.manage(key);
+      body.handle.currency.manage(key)
     },
   },
 
   login: function () {
-    admin = JSON.parse(sessionStorage.getItem("adminInfo"));
+    admin = JSON.parse(sessionStorage.getItem("adminInfo"))
     if (admin !== null) {
-      const avtContain = $(".user__avt");
-      const nameContain = $(".user__name");
+      const avtContain = $(".user__avt")
+      const nameContain = $(".user__name")
 
       if (admin.Avatar) {
-        avtContain.src = admin.Avatar;
+        // avtContain.src = admin.Avatar
       } else {
-        avtContain.src = "../asset/img/user-avt/user-default.png";
+        avtContain.src = "../asset/img/user-avt/user-default.png"
       }
 
       if (admin.Nickname) {
-        nameContain.innerText = admin.Nickname;
+        nameContain.innerText = admin.Nickname
       } else {
-        nameContain.innerText = admin.Username;
+        nameContain.innerText = admin.Username
       }
     } else {
-      window.location.href = window.location.origin + "/admin-manager26/login";
+      window.location.href = window.location.origin + "/admin-manager26/login"
     }
   },
 
@@ -1852,19 +1859,19 @@ const body = {
   renderHTML: function (key) {
     this.bodyHTML.forEach((element) => {
       if (element.key.parent == key.parent && element.key.child == key.child) {
-        this.bodyMain.innerHTML = element.value;
-        apiBody = element.url;
-        element.start(key);
+        this.bodyMain.innerHTML = element.value
+        apiBody = element.url
+        element.start(key)
         //Set height contain
-        const boardGrid = $(".app-board");
-        const boardContain = $(".app-borad__contain");
+        const boardGrid = $(".app-board")
+        const boardContain = $(".app-borad__contain")
 
         if (boardContain) {
           boardContain.style.height =
-            boardGrid.getBoundingClientRect().height - 30 + "px";
+            boardGrid.getBoundingClientRect().height - 30 + "px"
         }
       }
-    });
+    })
   },
 
   // Body Handle
@@ -1873,9 +1880,13 @@ const body = {
       url: accountApi,
       key: { parent: "TÀI KHOẢN", child: "Manage" },
       start: (key) => {
-        body.account.manage(key);
+        body.account.manage(key)
       },
       value: `<div class="body__app">
+      <div class="traffic_container">
+      <p class="traffic_title">Lượng truy cập:</p>
+      <p class="traffic_value">-</p>
+      </div>
             <div class="app__top">
                 <h3 class="app__top-title">Manage</h3>
                 <div class="app__top-feature-contain">
@@ -1995,7 +2006,7 @@ const body = {
       url: productAPi,
       key: { parent: "SẢN PHẨM", child: "Manage" },
       start: (key) => {
-        body.product.manage(key);
+        body.product.manage(key)
       },
       value: ` <div class="body__app">
             <div class="app__top">
@@ -2100,7 +2111,7 @@ const body = {
       url: productAPi,
       key: { parent: "SẢN PHẨM", child: "Flash sale" },
       start: (key) => {
-        body.product.flashSale(key);
+        body.product.flashSale(key)
       },
       value: `<div class="body__app">
             <div class="app__top">
@@ -2239,7 +2250,7 @@ const body = {
     {
       key: { parent: "SẢN PHẨM", child: "Process orders" },
       start: (key) => {
-        body.product.ProcessOrders(key);
+        body.product.ProcessOrders(key)
       },
       value: `<div class="body__app">
             <div class="app__top">
@@ -2290,7 +2301,7 @@ const body = {
     {
       key: { parent: "TIỀN TỆ", child: "Manage" },
       start: (key) => {
-        body.currency.manage(key);
+        body.currency.manage(key)
       },
       value: ` <div class="body__app">
             <div class="app__top">
@@ -2328,25 +2339,25 @@ const body = {
     },
   ],
   categoryHistory: function () {
-    const key = JSON.parse(localStorage.getItem("categoryHistory"));
+    const key = JSON.parse(localStorage.getItem("categoryHistory"))
 
     //Render the category history
     if (!key) {
-      this.renderHTML(body.bodyHTML[0].key);
-      $(".nav__category-options").classList.add("active");
+      this.renderHTML(body.bodyHTML[0].key)
+      $(".nav__category-options").classList.add("active")
     } else {
-      this.renderHTML(key);
+      this.renderHTML(key)
 
       //Active category
       for (let parent of $$(".nav__category-title")) {
         if (parent.innerText.includes(key.parent)) {
-          parent = parent.closest(".nav__category");
+          parent = parent.closest(".nav__category")
 
           for (const child of parent.querySelectorAll(
             ".nav__category-options-tx"
           )) {
             if (child.innerText.includes(key.child)) {
-              child.closest(".nav__category-options").classList.add("active");
+              child.closest(".nav__category-options").classList.add("active")
             }
           }
         }
@@ -2355,11 +2366,11 @@ const body = {
   },
 
   start: function () {
-    this.login();
-    this.categoryHistory();
+    this.login()
+    this.categoryHistory()
   },
-};
-body.start();
+}
+body.start()
 
 //Handle from branching structure
 
@@ -2368,10 +2379,10 @@ const appTop = {
   feature: $$(".app__top-feature"),
 
   start: function () {
-    select(this.feature);
+    select(this.feature)
   },
-};
-appTop.start();
+}
+appTop.start()
 
 //Mid
 /***** Nav *****/
@@ -2388,96 +2399,96 @@ const nav = {
         const key = {
           parent: element.closest(".nav__category").getAttribute("Name"),
           child: element.querySelector(".nav__category-options-tx").innerText,
-        };
-        body.renderHTML(key);
-      };
-    });
+        }
+        body.renderHTML(key)
+      }
+    })
   },
 
   resize: function () {
-    let titleOld = [];
-    let contentOld = [];
-    let userInfo = $(".user__info");
-    let logOutText = $(".log-out__text");
-    const button = $(".nav-top-resize");
+    let titleOld = []
+    let contentOld = []
+    let userInfo = $(".user__info")
+    let logOutText = $(".log-out__text")
+    const button = $(".nav-top-resize")
 
     //Zoom out
     const resize = () => {
-      const titles = $$(".nav__category-title");
-      const optTexts = $$(".nav__category-options-tx");
-      const logo = $(".nav-logo");
+      const titles = $$(".nav__category-title")
+      const optTexts = $$(".nav__category-options-tx")
+      const logo = $(".nav-logo")
 
-      this.navMain.classList.toggle("resize");
-      this.navTop.classList.toggle("resize");
-      this.navMid.classList.toggle("resize");
+      this.navMain.classList.toggle("resize")
+      this.navTop.classList.toggle("resize")
+      this.navMid.classList.toggle("resize")
 
       if (this.navTop.classList.value.match(/resize/) !== null) {
         const handleText = (element, accmulate) => {
-          let current = element.innerText;
+          let current = element.innerText
 
-          accmulate.push(current);
-          return current;
-        };
+          accmulate.push(current)
+          return current
+        }
 
-        titleOld = [];
-        contentOld = [];
+        titleOld = []
+        contentOld = []
 
-        logo.src = "../asset/icon/Hb-store_not-text_remove-bg.png";
+        logo.src = "../asset/icon/Hb-store_not-text_remove-bg.png"
 
         for (let item of optTexts) {
-          item.style.opacity = 0;
-          item.style.display = "none";
-          handleText(item, contentOld);
+          item.style.opacity = 0
+          item.style.display = "none"
+          handleText(item, contentOld)
         }
 
         for (let item of titles) {
-          item.innerText = handleText(item, titleOld).slice(0, 1);
+          item.innerText = handleText(item, titleOld).slice(0, 1)
         }
 
-        userInfo.style.opacity = 0;
-        userInfo.style.display = "none";
+        userInfo.style.opacity = 0
+        userInfo.style.display = "none"
 
-        logOutText.style.opacity = 0;
-        logOutText.style.display = "none";
+        logOutText.style.opacity = 0
+        logOutText.style.display = "none"
       } else {
-        logo.src = "../asset/img/logo-full.png";
+        logo.src = "../asset/img/logo-full.png"
 
         setTimeout(() => {
-          for (let i = 0; i < titleOld.length; i++) {
-            titles[i].innerText = titleOld[i];
+          for (let i = 0;i < titleOld.length;i++) {
+            titles[i].innerText = titleOld[i]
           }
 
-          for (let i = 0; i < contentOld.length; i++) {
-            optTexts[i].innerText = contentOld[i];
+          for (let i = 0;i < contentOld.length;i++) {
+            optTexts[i].innerText = contentOld[i]
 
-            userInfo.style.display = "block";
-            logOutText.style.display = "block";
-            optTexts[i].style.display = "block";
+            userInfo.style.display = "block"
+            logOutText.style.display = "block"
+            optTexts[i].style.display = "block"
             setTimeout(() => {
-              userInfo.style.opacity = 1;
-              logOutText.style.opacity = 1;
-              optTexts[i].style.opacity = 1;
-            }, 30);
+              userInfo.style.opacity = 1
+              logOutText.style.opacity = 1
+              optTexts[i].style.opacity = 1
+            }, 30)
           }
-        }, 50);
+        }, 50)
       }
-    };
+    }
 
     if (window.innerWidth < 960) {
       setTimeout(() => {
-        button.click();
-      }, 500);
+        button.click()
+      }, 500)
     }
-    button.addEventListener("click", resize);
+    button.addEventListener("click", resize)
   },
 
   logout: function () {
     //remove data and navigation to login page
     $(".nav_bot__log-out").onclick = () => {
-      sessionStorage.removeItem("adminInfo");
-      admin = "";
-      window.location.href = window.location.origin + "/admin-manager26/login";
-    };
+      sessionStorage.removeItem("adminInfo")
+      admin = ""
+      window.location.href = window.location.origin + "/admin-manager26/login"
+    }
   },
 
   //Set name category
@@ -2485,18 +2496,18 @@ const nav = {
     $$(".nav__category").forEach((element) => {
       const categoryName = element.querySelector(
         ".nav__category-title"
-      ).innerText;
-      element.setAttribute("Name", categoryName);
-    });
+      ).innerText
+      element.setAttribute("Name", categoryName)
+    })
   },
 
   start: function () {
-    this.setNameCategory();
-    select(this.optElement);
-    this.open();
-    this.resize();
-    this.logout();
-    body.handle.shared.getOrderRealtime();
+    this.setNameCategory()
+    select(this.optElement)
+    this.open()
+    this.resize()
+    this.logout()
+    body.handle.shared.getOrderRealtime()
   },
-};
-nav.start();
+}
+nav.start()

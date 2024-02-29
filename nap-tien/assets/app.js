@@ -14,7 +14,7 @@ import {
   processLoad,
   select,
   validate,
-} from "../../asset/javascript/end_point.js";
+} from "../../asset/javascript/end_point.js"
 
 const app = {
   user: sessionStorage.getItem("desposit")?.toString(),
@@ -55,44 +55,44 @@ const app = {
   rules: ["required", "number", "money_50000", "maxMoney_100000000"],
   inputHandle: function () {
     this.selector.input.addEventListener("focus", () => {
-      this.selector.message.innerText = "";
-    });
+      this.selector.message.innerText = ""
+    })
     this.selector.input.addEventListener("focusout", () => {
-      this.handleData();
-    });
+      this.handleData()
+    })
   },
   renderPi: async function () {
-    const user = this.user;
-    const infoOld = $(".payment-info");
-    let data = this.data;
+    const user = this.user
+    const infoOld = $(".payment-info")
+    let data = this.data
 
     if (!data) {
-      return;
+      return
     }
     if (data.money !== 0) {
       switch (data) {
         case "MB":
           {
-            data = this.mbbankInfo;
-            this.data = data;
-            this.method = "MB";
+            data = this.mbbankInfo
+            this.data = data
+            this.method = "MB"
           }
-          break;
+          break
 
         case "MM":
           {
-            data = this.momoInfo;
-            this.data = data;
-            this.method = "MM";
+            data = this.momoInfo
+            this.data = data
+            this.method = "MM"
           }
-          break;
+          break
       }
     }
     if (infoOld) {
-      infoOld.remove();
+      infoOld.remove()
     }
     if (!this.result) {
-      data = this.mbbankInfo;
+      data = this.mbbankInfo
     }
     paymentInfo(
       data.title,
@@ -104,44 +104,44 @@ const app = {
             "Tài khoản bị khóa",
             "Chi tiết liên hệ quản trị viên",
             () => {
-              notificationWindow();
-              this.goBack();
+              notificationWindow()
+              this.goBack()
             },
             "Đóng"
-          );
+          )
         } else {
-          this.submit();
+          this.submit()
         }
       },
       $(".content")
-    );
-    this.submitBtn = $(".payment-info__submit");
-    this.user = user;
+    )
+    this.submitBtn = $(".payment-info__submit")
+    this.user = user
 
-    let name = user?.Nickname;
+    let name = user?.Nickname
 
     if (!name) {
-      name = user.Username;
+      name = user.Username
     }
-    const avt = user?.Avatar;
+    const avt = user?.Avatar
     $(".header__nav-user-avt").src =
       Boolean(avt) == true
         ? "." + avt
-        : "../asset/img/user-avt/user-default.png";
-    $(".header__nav-user-name").innerText = name;
-    $(".desposit__money-info-user").innerText = name;
+        : "../asset/img/user-avt/user-default.png"
+    $(".header__nav-user-name").innerText = name
+    $(".desposit__money-info-user").innerText = name
   },
   handleData: function () {
-    this.validate();
+    this.validate()
     if (!this.result) {
-      return;
+      return
     }
-    this.method = $(".desposit__menthod-item.active")?.getAttribute("menthod");
+    this.method = $(".desposit__menthod-item.active")?.getAttribute("menthod")
 
-    const value = this.selector.input.value;
-    const data = this.data;
-    const code = `${this.method}U${this.user.UserID}M${value}`;
-    const methodBl = this.method === "MB" ? true : false;
+    const value = this.selector.input.value
+    const data = this.data
+    const code = `${this.method}U${this.user.UserID}M${value}`
+    const methodBl = this.method === "MB" ? true : false
     this.data = {
       title: { ...data.title },
       value: {
@@ -155,45 +155,45 @@ const app = {
           ? "../thanh-toan/assets/icon/mb-bank--qr.jpg"
           : "../thanh-toan/assets/icon/momo--qr.jpg",
       },
-    };
-    $(".desposit__money-info-new-money").innerText = formatMoney(value);
-    this.renderPi();
+    }
+    $(".desposit__money-info-new-money").innerText = formatMoney(value)
+    this.renderPi()
   },
   moneyOptions: function () {
     for (const op of $$(".desposit__input-option-item")) {
       op.addEventListener("click", () => {
-        this.selector.input.value = op.getAttribute("option");
-        this.handleData();
-      });
+        this.selector.input.value = op.getAttribute("option")
+        this.handleData()
+      })
     }
   },
   validate: function () {
-    const Depwarning = $(".desposit__money-info-box");
-    const submit = $(".payment-info__submit");
-    this.selector.message.innerText = "";
+    const Depwarning = $(".desposit__money-info-box")
+    const submit = $(".payment-info__submit")
+    this.selector.message.innerText = ""
     if (validate.start(this.selector, this.rules)) {
-      this.result = true;
+      this.result = true
     } else {
-      this.result = false;
+      this.result = false
     }
     //show deposit warning messsage & error input
     if (this.result) {
-      Depwarning.classList.add("active");
-      this.selector.message.classList.remove("active");
-      submit.classList.remove("disable");
+      Depwarning.classList.add("active")
+      this.selector.message.classList.remove("active")
+      submit.classList.remove("disable")
     } else {
-      Depwarning.classList.remove("active");
-      this.selector.message.classList.add("active");
-      submit.classList.add("disable");
+      Depwarning.classList.remove("active")
+      this.selector.message.classList.add("active")
+      submit.classList.add("disable")
     }
   },
   submit: async function () {
-    this.handleData();
+    this.handleData()
     if (!this.result) {
-      return;
+      return
     }
-    this.submitBtn.classList.add("active");
-    let data = this.data.value;
+    this.submitBtn.classList.add("active")
+    let data = this.data.value
     data = {
       orderCode: data.Ordercode,
       status: "Unpaid",
@@ -201,24 +201,24 @@ const app = {
       money: data.money,
       userId: this.user.UserID,
       date: logHistory.getRealTime(),
-    };
-    const userDepApi = `${accountApi}/${data.userId}`;
-    this.user = await Get(userDepApi);
+    }
+    const userDepApi = `${accountApi}/${data.userId}`
+    this.user = await Get(userDepApi)
 
     //Get length
     let leng = [
       await Get(depositAPi),
       this.user?.Deposit,
       this.user?.Notification,
-    ];
+    ]
 
     let [depLeng, userDepLeng, notiLeng] = leng.map((v) => {
       if (v) {
-        return Object.keys(v).length;
+        return Object.keys(v).length
       } else {
-        return 0;
+        return 0
       }
-    });
+    })
     // Push data
     await Promise.all([
       Patch(depositAPi, { [depLeng]: data }),
@@ -231,72 +231,72 @@ const app = {
           title: `Đơn nạp ${formatMoney(data.money)} đang được xử lý`,
         },
       }),
-    ]);
+    ])
 
     notificationWindow(
       true,
       "Gửi yêu cầu thành công",
-      "Chờ Hb store xử lý",
+      "Chờ HB store xử lý",
       (isSuccess) => {
-        notificationWindow();
+        notificationWindow()
         if (isSuccess) {
-          this.goBack();
+          this.goBack()
         }
       },
       "Trang chủ"
-    );
+    )
 
-    this.submitBtn.classList.remove("active");
+    this.submitBtn.classList.remove("active")
   },
   goBack: function () {
-    processLoad.run(2);
-    sessionStorage.removeItem("desposit");
-    this.user = null;
+    processLoad.run(2)
+    sessionStorage.removeItem("desposit")
+    this.user = null
     setTimeout(() => {
-      processLoad.run(2);
-    }, 200);
+      processLoad.run(2)
+    }, 200)
     setTimeout(() => {
-      processLoad.run(2);
-      window.location.href = window.location.origin;
-    }, 600);
+      processLoad.run(2)
+      window.location.href = window.location.origin
+    }, 600)
   },
   atc: function () {
     //Go back
     $(".header__nav-go-back").onclick = () => {
-      this.goBack();
-    };
+      this.goBack()
+    }
   },
 
   start: async function () {
-    footer.start();
+    footer.start()
     paymentInfo(
       this.mbbankInfo.title,
       this.mbbankInfo.value,
       () => { },
       $(".content")
-    );
+    )
 
-    processLoad.run(2);
+    processLoad.run(2)
     setTimeout(() => {
-      processLoad.run(2);
-    }, 100);
+      processLoad.run(2)
+    }, 100)
     setTimeout(() => {
-      processLoad.run(2);
-    }, 399);
+      processLoad.run(2)
+    }, 399)
     if (!this.user) {
-      this.goBack();
-      return;
+      this.goBack()
+      return
     }
-    this.user = await Get(`${accountApi}/${this.user}`);
-    this.renderPi(this.mbbankInfo);
-    this.inputHandle();
-    this.moneyOptions();
-    iconShadow($$(".desposit__menthod-item-icon-box"));
-    $(".payment-info__submit").classList.add("disable");
+    this.user = await Get(`${accountApi}/${this.user}`)
+    this.renderPi(this.mbbankInfo)
+    this.inputHandle()
+    this.moneyOptions()
+    iconShadow($$(".desposit__menthod-item-icon-box"))
+    $(".payment-info__submit").classList.add("disable")
     select($$(".desposit__menthod-item"), (e) => {
-      this.handleData();
-    });
-    this.atc();
+      this.handleData()
+    })
+    this.atc()
   },
-};
-app.start();
+}
+app.start()
